@@ -1,22 +1,12 @@
-.. regulus documentation master file, created by
-   sphinx-quickstart on Sun Jan 18 17:58:00 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+本仕様書について
+================
 
-Welcome to regulus's documentation!
-===================================
+本仕様書は、外国為替証拠金取引(FX)における、通貨の価格変動の予測を容易にするために開発するシステムの仕様を記載したものである。
 
-Contents:
+目次
+====
 
-.. toctree::
-   :maxdepth: 2
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+-  `要求仕様 <http://localhost:8888/regulus_docs/requirement.html>`__
+-  `外部仕様 <http://localhost:8888/regulus_docs/external.html>`__
+-  `内部仕様 <http://localhost:8888/regulus_docs/internal.html>`__
 
