@@ -12,7 +12,11 @@
 通貨の価格変動を確認する
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
--  シーケンス図 |image0|
+シーケンス図
+            
+
+.. figure:: http://localhost:8888/regulus_docs/_images/sequence_graph.jpg
+   :alt: シーケンス図(通貨の価格変動を確認する)
 
 -  利用者がWebページにアクセスしてからグラフを確認するまでの流れ
 
@@ -27,7 +31,11 @@
 変動に関連する情報を確認する
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
--  シーケンス図 |image1|
+シーケンス図
+            
+
+.. figure:: http://localhost:8888/regulus_docs/_images/sequence_info.jpg
+   :alt: シーケンス図(変動に関連する情報を確認する)
 
 -  利用者がWebページにアクセスしてから関連情報を確認するまでの流れ
 
@@ -42,5 +50,54 @@
 構造
 ----
 
-.. |image0| image:: http://localhost:8888/regulus_docs/_images/sequence_graph.jpg
-.. |image1| image:: http://localhost:8888/regulus_docs/_images/sequence_info.jpg
+クラス図
+        
+
+.. figure:: http://localhost:8888/regulus_docs/_images/class.jpg
+   :alt: クラス図
+
+-  MVCモデルを利用する
+
+-  View
+
+   -  Webブラウザ
+   -  ユーザーが見れるように情報を表示するためのクラス
+
+-  Controller
+
+   -  通貨管理
+
+      -  FXサイトから取得した通貨情報を管理するためのクラス
+
+   -  情報管理
+
+      -  Twitterや日経から取得した情報を管理するためのクラス
+
+-  Model
+
+   -  通貨情報
+
+      -  FXサイトから取得した通貨情報
+      -  以下の情報を保持する
+
+         -  通貨の種類
+         -  通貨の価格
+         -  通貨を取得した日時
+
+   -  ツイート
+
+      -  Twitterから取得したツイート
+      -  以下の情報を保持する
+
+         -  本文
+         -  ツイートを取得した日時
+
+   -  記事
+
+      -  日経から取得した記事
+      -  以下の情報を保持する
+
+         -  本文
+         -  記事を取得した日時
+
+
