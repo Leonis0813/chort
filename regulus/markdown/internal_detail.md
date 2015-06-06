@@ -1,7 +1,7 @@
 # 内部詳細仕様
 - システムの詳細な振る舞いと構造を記載する
 	- [振る舞い](http://localhost:8888/regulus_docs/internal_detail.html#id2)
-	- [構造](http://localhost:8888/regulus_docs/internal_detail.html)
+	- [構造](http://localhost:8888/regulus_docs/internal_detail.html#id5)
 
 ## 振る舞い
 ####通貨の価格変動を確認する
@@ -36,3 +36,37 @@
 
 ##構造
 ######クラス図
+![](http://localhost:8888/regulus_docs/_images/class_detail.jpg "クラス図")
+
+- MVCモデルを利用する
+
+- View
+	- confirmation_view
+		- Webブラウザ上で表示する画面
+
+- Controller
+	- Confirmation_Controller
+		- confirmation_viewのコントローラ
+		- グラフや関連情報の更新を行う
+	- Currency_Controller
+		- Currencyのコントローラ
+		- http_clientを使って通貨情報の取得を行う
+	- Information_Controller
+		- Tweet, Articleのコントローラ
+		- http_clientを使って関連情報の取得を行う
+
+- Model
+	- Currency
+		- 通貨情報を表すクラス
+		- 種類，価格，日付を保持する
+	- Information
+		- 関連情報を表す抽象クラス
+		- 本文，日付を保持する
+	- Tweet
+		- ツイートを表すクラス
+	- Article
+		- 記事を表すクラス
+
+- lib
+	- http_client
+		- WebAPIを利用する時に使用する

@@ -4,7 +4,7 @@
 -  システムの詳細な振る舞いと構造を記載する
 
    -  `振る舞い <http://localhost:8888/regulus_docs/internal_detail.html#id2>`__
-   -  `構造 <http://localhost:8888/regulus_docs/internal_detail.html>`__
+   -  `構造 <http://localhost:8888/regulus_docs/internal_detail.html#id5>`__
 
 振る舞い
 --------
@@ -57,4 +57,59 @@
 
 クラス図
         
+
+.. figure:: http://localhost:8888/regulus_docs/_images/class_detail.jpg
+   :alt: クラス図
+
+-  MVCモデルを利用する
+
+-  View
+
+   -  confirmation\_view
+
+      -  Webブラウザ上で表示する画面
+
+-  Controller
+
+   -  Confirmation\_Controller
+
+      -  confirmation\_viewのコントローラ
+      -  グラフや関連情報の更新を行う
+
+   -  Currency\_Controller
+
+      -  Currencyのコントローラ
+      -  http\_clientを使って通貨情報の取得を行う
+
+   -  Information\_Controller
+
+      -  Tweet, Articleのコントローラ
+      -  http\_clientを使って関連情報の取得を行う
+
+-  Model
+
+   -  Currency
+
+      -  通貨情報を表すクラス
+      -  種類，価格，日付を保持する
+
+   -  Information
+
+      -  関連情報を表す抽象クラス
+      -  本文，日付を保持する
+
+   -  Tweet
+
+      -  ツイートを表すクラス
+
+   -  Article
+
+      -  記事を表すクラス
+
+-  lib
+
+   -  http\_client
+
+      -  WebAPIを利用する時に使用する
+
 
