@@ -8,5 +8,6 @@
 
 -  `要求仕様 <http://localhost:8888/regulus_docs/requirement.html>`__
 -  `外部仕様 <http://localhost:8888/regulus_docs/external.html>`__
--  `内部仕様 <http://localhost:8888/regulus_docs/internal.html>`__
+-  `内部機能仕様 <http://localhost:8888/regulus_docs/internal_functional.html>`__
+-  `内部詳細仕様 <http://localhost:8888/regulus_docs/internal_detail.html>`__
 

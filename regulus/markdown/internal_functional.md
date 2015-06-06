@@ -1,4 +1,4 @@
-# 内部仕様
+# 内部機能仕様
 - システムの振る舞いと構造を記載する
 	- [振る舞い](http://localhost:8888/regulus_docs/internal.html#id2)
 	- [構造](http://localhost:8888/regulus_docs/internal.html#id5)
