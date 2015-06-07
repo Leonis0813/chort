@@ -4,4 +4,6 @@
 # 目次
 - [要求仕様](http://localhost:8888/regulus_docs/requirement.html)
 - [外部仕様](http://localhost:8888/regulus_docs/external.html)
-- [内部仕様](http://localhost:8888/regulus_docs/internal.html)
+- [内部機能仕様](http://localhost:8888/regulus_docs/internal_functional.html)
+- [内部詳細仕様](http://localhost:8888/regulus_docs/internal_detail.html)
+- [DBスキーマ定義](http://localhost:8888/regulus_docs/db_schema.html)
