@@ -10,4 +10,5 @@
 -  `外部仕様 <http://localhost:8888/regulus_docs/external.html>`__
 -  `内部機能仕様 <http://localhost:8888/regulus_docs/internal_functional.html>`__
 -  `内部詳細仕様 <http://localhost:8888/regulus_docs/internal_detail.html>`__
+-  `DBスキーマ定義 <http://localhost:8888/regulus_docs/db_schema.html>`__
 
