@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# algieba documentation build configuration file, created by
-# sphinx-quickstart on Sun Jan 18 17:57:09 2015.
+# adhafera documentation build configuration file, created by
+# sphinx-quickstart on Wed Jul 15 22:17:21 2015.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -43,7 +43,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'algieba'
+project = u'adhafera'
 copyright = u'2015, Leonis'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -193,7 +193,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'algiebadoc'
+htmlhelp_basename = 'adhaferadoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -215,7 +215,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'algieba.tex', u'algieba Documentation',
+  ('index', 'adhafera.tex', u'adhafera Documentation',
    u'Leonis', 'manual'),
 ]
 
@@ -245,7 +245,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'algieba', u'algieba Documentation',
+    ('index', 'adhafera', u'adhafera Documentation',
      [u'Leonis'], 1)
 ]
 
@@ -259,8 +259,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'algieba', u'algieba Documentation',
-   u'Leonis', 'algieba', 'One line description of project.',
+  ('index', 'adhafera', u'adhafera Documentation',
+   u'Leonis', 'adhafera', 'One line description of project.',
    'Miscellaneous'),
 ]
 
