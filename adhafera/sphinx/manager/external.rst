@@ -12,7 +12,7 @@
 家計簿を登録する
 ^^^^^^^^^^^^^^^^
 
-.. image:: images/create.jpg
+.. image:: images/seq_create_ext.jpg
 
 1. ユーザがViewer, Registerで家計簿を登録すると，Managerにリクエストが送信される
 2. リクエストを受信すると，Managerは入力のチェックを行う
@@ -31,7 +31,7 @@
 家計簿を検索する
 ^^^^^^^^^^^^^^^^
 
-.. image:: images/read.jpg
+.. image:: images/seq_read_ext.jpg
 
 1. ユーザがViewerで家計簿を検索すると，Managerにリクエストが送信される
 2. リクエストを受信すると，Managerは入力のチェックを行う
@@ -50,7 +50,7 @@
 家計簿を更新する
 ^^^^^^^^^^^^^^^^
 
-.. image:: images/update.jpg
+.. image:: images/seq_update_ext.jpg
 
 1. ユーザがViewerで家計簿を更新すると，Managerにリクエストが送信される
 2. リクエストを受信すると，Managerは入力のチェックを行う
@@ -69,7 +69,7 @@
 家計簿を削除する
 ^^^^^^^^^^^^^^^^
 
-.. image:: images/delete.jpg
+.. image:: images/seq_delete_ext.jpg
 
 1. ユーザがViewerで家計簿を削除すると，Managerにリクエストが送信される
 2. リクエストを受信すると，Managerは入力のチェックを行う
@@ -88,3 +88,6 @@
 システム構成
 ------------
 
+.. image:: images/class_ext.jpg
+
+- 入力に従い家計簿を管理するコントローラと，管理される家計簿のみで構成される
