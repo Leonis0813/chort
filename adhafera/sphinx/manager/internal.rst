@@ -86,6 +86,7 @@
 .. image:: images/class_int.jpg
 
 - Account_Controller: リクエストを処理するコントローラ
+
   - create: 家計簿を登録するメソッド
   - read: 家計簿を検索するメソッド
   - update: 家計簿を更新するメソッド
@@ -93,6 +94,7 @@
   - check_request_body: リクエストのボディやクエリをチェックするメソッド
 
 - Account: expenseテーブル，incomeテーブルを操作するモデル
+
   - create: レコードを登録するメソッド
   - show: レコードを取得するメソッド
   - update: レコードを更新するメソッド
