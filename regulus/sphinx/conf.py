@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # regulus documentation build configuration file, created by
-# sphinx-quickstart on Sun Jan 18 17:58:00 2015.
+# sphinx-quickstart on Fri Jul 31 21:07:36 2015.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
