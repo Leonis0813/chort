@@ -1,10 +1,10 @@
-内部詳細仕様
+詳細仕様
 ============
 
 -  システムの詳細な振る舞いと構造を記載する
 
-   -  `振る舞い <http://localhost:8888/regulus_docs/internal_detail.html#id2>`__
-   -  `構造 <http://localhost:8888/regulus_docs/internal_detail.html#id5>`__
+   -  `振る舞い <http://localhost:8080/regulus_docs/internal.html#id2>`__
+   -  `構造 <http://localhost:8080/regulus_docs/internal.html#id5>`__
 
 振る舞い
 --------
@@ -15,7 +15,7 @@
 シーケンス図
             
 
-.. figure:: http://localhost:8888/regulus_docs/_images/sequence_graph_detail.jpg
+.. image:: images/seq_graph_int.jpg
    :alt: シーケンス図(通貨の価格変動を確認する)
 
 -  利用者がWebページにアクセスしてからグラフを確認するまでの流れ
@@ -35,7 +35,7 @@
 シーケンス図
             
 
-.. figure:: http://localhost:8888/regulus_docs/_images/sequence_info_detail.jpg
+.. image:: images/seq_info_int.jpg
    :alt: シーケンス図(変動に関連する情報を取得する)
 
 -  利用者がWebページにアクセスしてから関連情報を確認するまでの流れ
@@ -58,7 +58,7 @@
 クラス図
         
 
-.. figure:: http://localhost:8888/regulus_docs/_images/class_detail.jpg
+.. image:: images/class_int.jpg
    :alt: クラス図
 
 -  MVCモデルを利用する
@@ -111,5 +111,3 @@
    -  http\_client
 
       -  WebAPIを利用する時に使用する
-
-

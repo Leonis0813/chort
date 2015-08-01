@@ -23,7 +23,5 @@
 ユースケース図
 --------------
 
-.. figure:: http://localhost:8888/regulus_docs/_images/use_case.jpg
+.. image:: images/use_case.jpg
    :alt: ユースケース図
-
-
