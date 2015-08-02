@@ -127,3 +127,30 @@ Response ：
 	   Status Code： 400
 
 	   Body： エラーコード
+
+収支を見る
+----------
+
+HTTP Method： GET
+
+Path： /settlement
+
+Query：
+	- period
+
+	  - monthly, weekly, dailyのどれか
+
+Request Body： なし
+
+Response：
+	- 収支計算成功時
+
+	  Status Code： 200
+
+	  Body： 収支のリスト
+
+	- 収支計算失敗時
+
+	  Status Code： 400
+
+	  Body： エラーコード
