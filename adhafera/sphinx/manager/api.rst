@@ -131,22 +131,28 @@ Response：
 
 HTTP Method： DELETE
 
-Path：/[:table]/[:id]
+Path：/[:table]
 
-Request Body：なし
+Request Body：
+	- condition
+
+	  - date
+	  - content
+	  - category
+	  - price
 
 Response ：
-	 - 削除成功時
+	- 削除成功時
 
-	   Status Code： 204
+	  Status Code： 204
 
-	   Body： なし
+	  Body： なし
 
-	 - 削除失敗時
+	- 削除失敗時
 
-	   Status Code： 400
+	  Status Code： 400
 
-	   Body： エラーコード
+	  Body： エラーコード
 
 収支を見る
 ^^^^^^^^^^
