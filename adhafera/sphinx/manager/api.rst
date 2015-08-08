@@ -40,11 +40,12 @@ API
 
 HTTP Method： POST
 
-Path：/[:table]
+Path：/accounts
 
 Request Body：
-	- accounts
+	- account
 
+	  - type
 	  - date
 	  - content
 	  - category
@@ -68,9 +69,10 @@ Response：
 
 HTTP Method： GET
 
-Path：/[:table]
+Path：/accounts
 
 Query：
+	- type
 	- date
 	- content
 	- category
@@ -96,11 +98,12 @@ Response：
 
 HTTP Method： PUT
 
-Path：/[:table]
+Path：/accounts
 
 Request Body：
 	- condition
 
+	  - type
 	  - date
 	  - content
 	  - category
@@ -108,6 +111,7 @@ Request Body：
 
 	- with
 
+	  - type
 	  - date
 	  - content
 	  - category
@@ -131,11 +135,12 @@ Response：
 
 HTTP Method： DELETE
 
-Path：/[:table]
+Path：/accounts
 
 Request Body：
 	- condition
 
+	  - type
 	  - date
 	  - content
 	  - category
