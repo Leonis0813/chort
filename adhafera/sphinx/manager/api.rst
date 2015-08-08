@@ -47,7 +47,7 @@ Path：/accounts
 Request Body：
 	- account
 
-	  - type
+	  - account_type
 	  - date
 	  - content
 	  - category
@@ -74,7 +74,7 @@ HTTP Method： GET
 Path：/accounts
 
 Query：
-	- type
+	- account_type
 	- date
 	- content
 	- category
@@ -105,7 +105,7 @@ Path：/accounts
 Request Body：
 	- condition
 
-	  - type
+	  - account_type
 	  - date
 	  - content
 	  - category
@@ -113,7 +113,7 @@ Request Body：
 
 	- with
 
-	  - type
+	  - account_type
 	  - date
 	  - content
 	  - category
@@ -142,7 +142,7 @@ Path：/accounts
 Request Body：
 	- condition
 
-	  - type
+	  - account_type
 	  - date
 	  - content
 	  - category
@@ -171,7 +171,7 @@ Path： /settlement
 Query：
 	- period
 
-	  - monthly, weekly, dailyのどれか
+	  - yearly, monthly, dailyのどれか
 
 Request Body： なし
 
