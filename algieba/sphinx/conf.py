@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # algieba documentation build configuration file, created by
-# sphinx-quickstart on Sun Jan 18 17:57:09 2015.
+# sphinx-quickstart on Sat Aug  8 20:22:17 2015.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
