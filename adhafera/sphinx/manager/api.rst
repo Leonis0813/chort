@@ -7,17 +7,19 @@ API仕様
 入力項目
 ^^^^^^^^
 
-  +---------+--------------------+
-  |項目名   |フォーマット        |
-  +=========+====================+
-  |     date|yyyy-mm-dd          |
-  +---------+--------------------+
-  |  content|任意の英数字・日本語|
-  +---------+--------------------+
-  | category|任意の英数字・日本語|
-  +---------+--------------------+
-  |    price|0以上の整数         |
-  +---------+--------------------+
+  +---------+------------------------------+
+  |項目名   |フォーマット                  |
+  +=========+==============================+
+  |     type| "income" または "expense"    |
+  +---------+------------------------------+
+  |     date| yyyy-mm-dd                   |
+  +---------+------------------------------+
+  |  content| 任意の英数字・日本語         |
+  +---------+------------------------------+
+  | category| 任意の英数字・日本語         |
+  +---------+------------------------------+
+  |    price| 0以上の整数                  |
+  +---------+------------------------------+
 
 エラーコード
 ^^^^^^^^^^^^
@@ -40,11 +42,12 @@ API
 
 HTTP Method： POST
 
-Path：/[:table]
+Path：/accounts
 
 Request Body：
-	- accounts
+	- account
 
+	  - type
 	  - date
 	  - content
 	  - category
@@ -68,9 +71,10 @@ Response：
 
 HTTP Method： GET
 
-Path：/[:table]
+Path：/accounts
 
 Query：
+	- type
 	- date
 	- content
 	- category
@@ -96,11 +100,12 @@ Response：
 
 HTTP Method： PUT
 
-Path：/[:table]
+Path：/accounts
 
 Request Body：
 	- condition
 
+	  - type
 	  - date
 	  - content
 	  - category
@@ -108,6 +113,7 @@ Request Body：
 
 	- with
 
+	  - type
 	  - date
 	  - content
 	  - category
@@ -131,11 +137,12 @@ Response：
 
 HTTP Method： DELETE
 
-Path：/[:table]
+Path：/accounts
 
 Request Body：
 	- condition
 
+	  - type
 	  - date
 	  - content
 	  - category
