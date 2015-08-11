@@ -22,10 +22,8 @@
 
    1. アクセスを受けたConfirmation\_viewがConfirmation\_Controllerにアクセスの受信を通知する
    2. 受信したConfirmation\_Controllerが通貨取得を開始する
-   3. WebAPIを利用して外部から通貨情報を取得する
-   4. 取得した情報をパースする
-   5. Currencyオブジェクトを作成して返す
-   6. Currencyオブジェクトから必要な情報を取得してグラフを更新する
+   3. Currencyオブジェクトを取得して返す
+   4. ビューにグラフを表示する
 
 -  以降は3〜6を繰り返す
 
@@ -42,13 +40,9 @@
 
    1. アクセスを受けたConfirmation\_viewがConfirmation\_Controllerにアクセスの受信を通知する
    2. 受信したConfirmation\_Controllerが関連情報の取得を開始する
-   3. WebAPIを利用してTwitterからツイートを取得する
-   4. 取得したツイートをパースする
-   5. Tweetオブジェクトを作成して返す
-   6. WebAPIを利用して日経から記事を取得する
-   7. 取得した記事をパースする
-   8. Articleオブジェクトを作成して返す
-   9. ブラウザを更新する
+   3. Tweetオブジェクトを取得して返す
+   4. Articleオブジェクトを取得して返す
+   5. ビューに情報を表示する
 
 -  以降は3〜9を繰り返す
 
@@ -79,12 +73,12 @@
    -  Currency\_Controller
 
       -  Currencyのコントローラ
-      -  http\_clientを使って通貨情報の取得を行う
+      -  通貨情報の取得を行う
 
    -  Information\_Controller
 
       -  Tweet, Articleのコントローラ
-      -  http\_clientを使って関連情報の取得を行う
+      -  関連情報の取得を行う
 
 -  Model
 
@@ -105,9 +99,3 @@
    -  Article
 
       -  記事を表すクラス
-
--  lib
-
-   -  http\_client
-
-      -  WebAPIを利用する時に使用する
