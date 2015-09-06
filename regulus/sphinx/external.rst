@@ -3,8 +3,8 @@
 
 -  システムの振る舞いと構造を記載する
 
-   -  `振る舞い <http://localhost:8080/regulus_docs/external.html#id2>`__
-   -  `構造 <http://localhost:8080/regulus_docs/external.html#id5>`__
+   -  `振る舞い <http://localhost/regulus_docs/external.html#id2>`__
+   -  `構造 <http://localhost/regulus_docs/external.html#id5>`__
 
 振る舞い
 --------
@@ -20,7 +20,7 @@
 - 利用者がWebページにアクセスしてからグラフを確認するまでの流れ
 
    1. ブラウザにURLを入力してシステムにアクセス
-   2. システムがDBから通貨情報を取得する
+   2. システムがDBから通貨情報を取得
    3. 取得した通貨情報からグラフを作成
    4. 作成したグラフをブラウザに表示
 
@@ -65,13 +65,9 @@
 
 - Controller
 
-   - 通貨管理
+   - コントローラ
 
-      - FXサイトから取得した通貨情報を管理するためのクラス
-
-   - 情報管理
-
-      - Twitterや日経から取得した情報を管理するためのクラス
+      - 必要な通貨情報，ツイート，記事を取得してブラウザ送信するするためのクラス
 
 - Model
 
