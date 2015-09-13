@@ -9,36 +9,29 @@
 
 .. image:: images/seq_create_int.jpg
 
-1. Viewer, Registerからのリクエストを受信すると，Account_Controllerクラスのcreateメソッドが実行される
-2. check_request_bodyメソッドで入力のチェックを行う
-3. check_request_bodyの返り値に基づいて，以下の処理を実行する
+1. Viewer, Registerからのリクエストを受信すると，Accounts_Controllerクラスのcreateメソッドを実行する
+2. Accountクラスのcreateメソッドを実行して家計簿を登録する
 
-   - trueの場合
+   - trueの場合: Viewer, Registerにステータスコード201を送信する
 
-     3-1. Accountクラスのcreateメソッドを実行して家計簿を登録する
-
-     3-2. Viewer, Registerにステータスコード201を送信する
-
-   - falseの場合
-
-     3-1. Viewer, Registerにエラーコードとステータスコード400を送信する
+   - falseの場合: Viewer, Registerにエラーコードとステータスコード400を送信する
 
 家計簿を検索する
 ^^^^^^^^^^^^^^^^
 
 .. image:: images/seq_read_int.jpg
 
-1. Viewerからのリクエストを受信すると，Account_Controllerクラスのreadメソッドが実行される
-2. check_request_bodyメソッドで入力のチェックを行う
-3. check_request_bodyの返り値に基づいて，以下の処理を実行する
+1. Viewerからのリクエストを受信すると，Accounts_Controllerクラスのreadメソッドを実行する
+2. Accountクラスのshowメソッドをパラメータを引数にして実行する
+3. check_conditionを実行し，その結果に基づいてそれぞれ以下の処理を行う
 
-   - trueの場合
+   - 空配列の場合
 
-     3-1. Accountクラスのshowメソッドを実行して家計簿を取得する
+     3-1. whereメソッドを実行して家計簿を取得する
 
      3-2. Viewerに検索結果とステータスコード200を送信する
 
-   - falseの場合
+   - 空配列でない場合（不正なパラメータがある場合）
 
      3-1. Viewerにエラーコードとステータスコード400を送信する
 
@@ -47,17 +40,19 @@
 
 .. image:: images/seq_update_int.jpg
 
-1. Viewerからのリクエストを受信すると，Account_Controllerクラスのupdateメソッドが実行される
-2. check_request_bodyメソッドで入力のチェックを行う
-3. check_request_bodyの返り値に基づいて，以下の処理を実行する
+1. Viewerからのリクエストを受信すると，Accounts_Controllerクラスのupdateメソッドを実行する
+2. Accountクラスのupdateメソッドをパラメータを引数にして実行する
+3. check_conditionを実行し，その結果に基づいてそれぞれ以下の処理を行う
 
-   - trueの場合
+   - 空配列の場合
 
-     3-1. Accountクラスのupdateメソッドを実行して家計簿を更新する
+     3-1. whereメソッドを実行して家計簿を取得する
 
-     3-2. Viewerに更新結果とステータスコード200を送信する
+     3-2. 取得した家計簿それぞれに対して，updateメソッドを実行して家計簿を更新する
 
-   - falseの場合
+     3-3. Viewerに更新結果とステータスコード200を送信する
+
+   - 空配列でない場合（不正なパラメータがある場合）
 
      3-1. Viewerにエラーコードとステータスコード400を送信する
 
@@ -66,17 +61,19 @@
 
 .. image:: images/seq_delete_int.jpg
 
-1. Viewerからのリクエストを受信すると，Account_Controllerクラスのdeleteメソッドが実行される
-2. check_request_bodyメソッドで入力のチェックを行う
-3. check_request_bodyの返り値に基づいて，以下の処理を実行する
+1. Viewerからのリクエストを受信すると，Accounts_Controllerクラスのdeleteメソッドを実行する
+2. Accountクラスのdestroyメソッドをパラメータを引数にして実行する
+3. check_conditionを実行し，その結果に基づいてそれぞれ以下の処理を行う
 
-   - trueの場合
+   - 空配列の場合
 
-     3-1. Accountクラスのdestroyメソッドを実行して家計簿を削除する
+     3-1. whereメソッドを実行して家計簿を取得する
 
-     3-2. Viewerにステータスコード204を送信する
+     3-2. 取得した家計簿それぞれに対して，destoryメソッドを実行して家計簿を削除する
 
-   - falseの場合
+     3-3. Viewerにステータスコード204を送信する
+
+   - 空配列でない場合（不正なパラメータがある場合）
 
      3-1. Viewerにエラーコードとステータスコード400を送信する
 
@@ -85,17 +82,16 @@
 
 .. image:: images/seq_settle_int.jpg
 
-1. Viewerからのリクエストを受信すると，Account_Controllerクラスのsettleメソッドが実行される
-2. check_request_bodyメソッドで入力のチェックを行う
-3. check_request_bodyの返り値に基づいて，以下の処理を実行する
+1. Viewerからのリクエストを受信すると，Accounts_Controllerクラスのsettleメソッドが実行される
+2. intervalをチェックし，その結果に基づいてそれぞれ以下の処理を行う
 
-   - trueの場合
+   - daily or weekly, monthlyの場合
 
-     3-1. Accountクラスのsettleメソッドを実行して収支を計算する
+     3-1. intervalに従って収支を計算する
 
      3-2. Viewerに計算結果とステータスコード200を送信する
 
-   - falseの場合
+   - それ以外の場合
 
      3-1. Viewerにエラーコードとステータスコード400を送信する
 
@@ -104,19 +100,19 @@
 
 .. image:: images/class_int.jpg
 
-- Account_Controller: リクエストを処理するコントローラ
+- Accounts_Controller: リクエストを処理するコントローラ
 
   - create: 家計簿を登録するメソッド
   - read: 家計簿を検索するメソッド
   - update: 家計簿を更新するメソッド
   - delete: 家計簿を削除するメソッド
   - settle: 収支を計算するメソッド
-  - check_request_body: リクエストのボディやクエリをチェックするメソッド
 
-- Account: expenseテーブル，incomeテーブルを操作するモデル
+- Account: Accountsテーブルを操作するモデル
 
   - create: レコードを登録するメソッド
   - show: レコードを取得するメソッド
   - update: レコードを更新するメソッド
   - destroy: レコードを削除するメソッド
   - settle: 収支を計算するメソッド
+  - check_condition: 家計簿の検索条件をチェックするメソッド
