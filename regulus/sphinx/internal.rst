@@ -3,8 +3,8 @@
 
 - システムの詳細な振る舞いと構造を記載する
 
-   - `振る舞い <http://localhost:8080/regulus_docs/internal.html#id2>`__
-   - `構造 <http://localhost:8080/regulus_docs/internal.html#id5>`__
+   - `振る舞い <http://localhost/regulus_docs/internal.html#id2>`__
+   - `構造 <http://localhost/regulus_docs/internal.html#id5>`__
 
 振る舞い
 --------
@@ -13,7 +13,6 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 シーケンス図
-            
 
 .. image:: images/seq_graph_int.jpg
    :alt: シーケンス図(通貨の価格変動を確認する)
@@ -22,7 +21,7 @@
 
    1. アクセスを受けたConfirmation\_viewがConfirmation\_Controllerにアクセスの受信を通知する
    2. 受信したConfirmation\_Controllerが通貨取得を開始する
-   3. Currencyオブジェクトを取得して返す
+   3. Currencyオブジェクトの配列を取得して返す
    4. ビューにグラフを表示する
    5. 以降は定期的に通貨情報の取得を繰り返す
 
@@ -30,7 +29,6 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 シーケンス図
-            
 
 .. image:: images/seq_info_int.jpg
    :alt: シーケンス図(変動に関連する情報を取得する)
@@ -48,7 +46,6 @@
 ----
 
 クラス図
-        
 
 .. image:: images/class_int.jpg
    :alt: クラス図
