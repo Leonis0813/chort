@@ -11,10 +11,15 @@
 
 1. Viewer, Registerからのリクエストを受信すると，Accounts_Controllerクラスのcreateメソッドを実行する
 2. Accountクラスのcreateメソッドを実行して家計簿を登録する
+3. createメソッドの実行結果に基づいてそれぞれ以下の処理を行う
 
-   - trueの場合: Viewer, Registerにステータスコード201を送信する
+   - Accountクラスのインスタンスを取得した場合
 
-   - falseの場合: Viewer, Registerにエラーコードとステータスコード400を送信する
+     3-1. Viewer, Registerにステータスコード201を送信する
+
+   - 例外が発生した場合
+
+     3-1. Viewer, Registerにエラーコードとステータスコード400を送信する
 
 家計簿を検索する
 ^^^^^^^^^^^^^^^^
@@ -69,7 +74,7 @@
 
      3-1. whereメソッドを実行して家計簿を取得する
 
-     3-2. 取得した家計簿それぞれに対して，destoryメソッドを実行して家計簿を削除する
+     3-2. 取得した家計簿それぞれに対して，deleteメソッドを実行して家計簿を削除する
 
      3-3. Viewerにステータスコード204を送信する
 
@@ -83,9 +88,9 @@
 .. image:: images/seq_settle_int.jpg
 
 1. Viewerからのリクエストを受信すると，Accounts_Controllerクラスのsettleメソッドが実行される
-2. intervalをチェックし，その結果に基づいてそれぞれ以下の処理を行う
+2. パラメータ"interval"をチェックし，その結果に基づいてそれぞれ以下の処理を行う
 
-   - daily or weekly, monthlyの場合
+   - daily or monthly or yearlyの場合
 
      3-1. intervalに従って収支を計算する
 
@@ -110,7 +115,6 @@
 
 - Account: Accountsテーブルを操作するモデル
 
-  - create: レコードを登録するメソッド
   - show: レコードを取得するメソッド
   - update: レコードを更新するメソッド
   - destroy: レコードを削除するメソッド
