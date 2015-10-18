@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API仕様 &mdash; algieba 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="algieba 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Manager(家計簿データ管理モジュール)" href="index.html" />
+    <link rel="next" title="DBスキーマ定義書" href="database.html" />
+    <link rel="prev" title="内部設計仕様" href="internal.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="database.html" title="DBスキーマ定義書"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="internal.html" title="内部設計仕様"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">algieba 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Manager(家計簿データ管理モジュール)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api">
+<h1>API仕様<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>共通定義<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>入力項目<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">項目名</th>
+<th class="head">フォーマット</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>account_type</td>
+<td>&#8220;income&#8221; または &#8220;expense&#8221;</td>
+</tr>
+<tr class="row-odd"><td>date</td>
+<td>yyyy-mm-dd</td>
+</tr>
+<tr class="row-even"><td>content</td>
+<td>任意の英数字・日本語</td>
+</tr>
+<tr class="row-odd"><td>category</td>
+<td>任意の英数字・日本語</td>
+</tr>
+<tr class="row-even"><td>price</td>
+<td>0以上の整数</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h3>エラーコード<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="54%" />
+<col width="46%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">エラーコード</th>
+<th class="head">意味</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>absent_param_[項目名]</td>
+<td>入力必須の項目がない</td>
+</tr>
+<tr class="row-odd"><td>invalid_value_[項目名]</td>
+<td>入力項目の値が不正</td>
+</tr>
+<tr class="row-even"><td>invalid_param_[パラメータ名]</td>
+<td>不正なパラメータがある</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>API<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>家計簿を登録する<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>HTTP Method： POST</p>
+<p>Path：/accounts</p>
+<dl class="docutils">
+<dt>Request Body：</dt>
+<dd><ul class="first last simple">
+<li>account<ul>
+<li>account_type</li>
+<li>date</li>
+<li>content</li>
+<li>category</li>
+<li>price</li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt>Response：</dt>
+<dd><ul class="first last">
+<li><p class="first">登録成功時</p>
+<p>Status Code： 201</p>
+<p>Body： 登録した家計簿</p>
+</li>
+<li><p class="first">登録失敗時</p>
+<p>Status Code： 400</p>
+<p>Body： エラーコード</p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id6">
+<h3>家計簿を検索する<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>HTTP Method： GET</p>
+<p>Path：/accounts</p>
+<dl class="docutils">
+<dt>Query：</dt>
+<dd><ul class="first last simple">
+<li>account_type</li>
+<li>date</li>
+<li>content</li>
+<li>category</li>
+<li>price</li>
+</ul>
+</dd>
+</dl>
+<p>Request Body：なし</p>
+<dl class="docutils">
+<dt>Response：</dt>
+<dd><ul class="first last">
+<li><p class="first">検索成功時</p>
+<p>Status Code： 200</p>
+<p>Body： 取得した家計簿の配列</p>
+</li>
+<li><p class="first">検索失敗時</p>
+<p>Status Code： 400</p>
+<p>Body： エラーコード</p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id7">
+<h3>家計簿を更新する<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>HTTP Method： PUT</p>
+<p>Path：/accounts</p>
+<dl class="docutils">
+<dt>Request Body：</dt>
+<dd><ul class="first last simple">
+<li>condition<ul>
+<li>account_type</li>
+<li>date</li>
+<li>content</li>
+<li>category</li>
+<li>price</li>
+</ul>
+</li>
+<li>with<ul>
+<li>account_type</li>
+<li>date</li>
+<li>content</li>
+<li>category</li>
+<li>price</li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt>Response：</dt>
+<dd><ul class="first last">
+<li><p class="first">更新成功時</p>
+<p>Status Code： 200</p>
+<p>Body： 更新されたレコードの配列</p>
+</li>
+<li><p class="first">更新失敗時</p>
+<p>Status Code： 400</p>
+<p>Body： エラーコード</p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id8">
+<h3>家計簿を削除する<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>HTTP Method： DELETE</p>
+<p>Path：/accounts</p>
+<dl class="docutils">
+<dt>Request Body：</dt>
+<dd><ul class="first last simple">
+<li>condition<ul>
+<li>account_type</li>
+<li>date</li>
+<li>content</li>
+<li>category</li>
+<li>price</li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt>Response ：</dt>
+<dd><ul class="first last">
+<li><p class="first">削除成功時</p>
+<p>Status Code： 204</p>
+<p>Body： なし</p>
+</li>
+<li><p class="first">削除失敗時</p>
+<p>Status Code： 400</p>
+<p>Body： エラーコード</p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id9">
+<h3>収支を見る<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>HTTP Method： GET</p>
+<p>Path： /settlement</p>
+<dl class="docutils">
+<dt>Query：</dt>
+<dd><ul class="first last simple">
+<li>period<ul>
+<li>yearly, monthly, dailyのどれか</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<p>Request Body： なし</p>
+<dl class="docutils">
+<dt>Response：</dt>
+<dd><ul class="first last">
+<li><p class="first">収支計算成功時</p>
+<p>Status Code： 200</p>
+<p>Body： 収支のリスト</p>
+</li>
+<li><p class="first">収支計算失敗時</p>
+<p>Status Code： 400</p>
+<p>Body： エラーコード</p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API仕様</a><ul>
+<li><a class="reference internal" href="#id1">共通定義</a><ul>
+<li><a class="reference internal" href="#id2">入力項目</a></li>
+<li><a class="reference internal" href="#id3">エラーコード</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">API</a><ul>
+<li><a class="reference internal" href="#id5">家計簿を登録する</a></li>
+<li><a class="reference internal" href="#id6">家計簿を検索する</a></li>
+<li><a class="reference internal" href="#id7">家計簿を更新する</a></li>
+<li><a class="reference internal" href="#id8">家計簿を削除する</a></li>
+<li><a class="reference internal" href="#id9">収支を見る</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="internal.html"
+                        title="previous chapter">内部設計仕様</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="database.html"
+                        title="next chapter">DBスキーマ定義書</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manager/api.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="database.html" title="DBスキーマ定義書"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="internal.html" title="内部設計仕様"
+             >previous</a> |</li>
+        <li><a href="../index.html">algieba 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Manager(家計簿データ管理モジュール)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Leonis.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>
