@@ -9,10 +9,13 @@
 振る舞い
 --------
 
+  - `通貨の価格変動を確認する <http://localhost/regulus_docs/internal.html#id3>`__
+  - `変動に関連する情報を取得する <http://localhost/regulus_docs/internal.html#id4>`__
+
 通貨の価格変動を確認する
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-シーケンス図
+**シーケンス図**
 
 .. image:: images/seq_graph_int.jpg
    :alt: シーケンス図(通貨の価格変動を確認する)
@@ -28,7 +31,7 @@
 変動に関連する情報を取得する
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-シーケンス図
+**シーケンス図**
 
 .. image:: images/seq_info_int.jpg
    :alt: シーケンス図(変動に関連する情報を取得する)
@@ -45,7 +48,7 @@
 構造
 ----
 
-クラス図
+**クラス図**
 
 .. image:: images/class_int.jpg
    :alt: クラス図
