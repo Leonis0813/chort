@@ -49,6 +49,77 @@
             
   <div class="section" id="id1">
 <h1>詳細仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>システムの詳細な振る舞いと構造を記載する<ul>
+<li><a class="reference external" href="http://localhost/adhafera_docs/register/internal.html#id2">振る舞い</a></li>
+<li><a class="reference external" href="http://localhost/adhafera_docs/register/internal.html#id4">構造</a></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="id2">
+<h2>振る舞い<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://localhost/adhafera_docs/register/internal.html#id3">家計簿を登録する</a></li>
+</ul>
+<div class="section" id="id3">
+<h3>家計簿を登録する<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p><strong>シーケンス図</strong></p>
+<img alt="シーケンス図(家計簿を登録する)" src="../_images/seq_register_int.jpg" />
+<ul class="simple">
+<li>利用者が登録画面を開いてから家計簿を登録するまでの流れ<ol class="arabic">
+<li>利用者が家計簿情報を入力して登録ボタンを押すと，onClickメソッドが実行される</li>
+<li>registAccountメソッドを実行して受け取った家計簿情報を処理する</li>
+<li>checkEmptyメソッドで空欄のチェックを行う</li>
+<li>checkDateメソッドで日付のフォーマットのチェックを行う</li>
+<li>checkPriceメソッドで金額のチェックを行う</li>
+<li>入力情報に問題が無ければ，sendAccountメソッドで家計簿情報を送信する</li>
+<li>送信結果が返ると，noticeResultメソッドで結果を表示する</li>
+<li>showMessageメソッドで登録結果を利用者に通知する</li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>構造<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p><strong>クラス図</strong></p>
+<img alt="クラス図" src="../_images/class_int.jpg" />
+<ul class="simple">
+<li>MVCモデルを利用する</li>
+<li>Model<ul>
+<li>データベースに登録するため本モジュールにはモデルは存在しない</li>
+</ul>
+</li>
+<li>View<ul>
+<li>RegistrationView<ul>
+<li>家計簿情報を入力する画面を表すクラス</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Controller<ul>
+<li>ApplicationController<ul>
+<li>Viewからの情報を制御するコントローラ</li>
+</ul>
+</li>
+<li>MainActivity<ul>
+<li>画面の表示に関する処理を管理するコントローラ</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>InputChecker<ul>
+<li>正しく入力されているかをチェックするクラス</li>
+<li>全項目が入力されているかをチェックする</li>
+<li>日付，金額が正しく入力されているかをチェックする</li>
+</ul>
+</li>
+<li>HTTPClient<ul>
+<li>データベースサーバへ家計簿情報を送信するクラス</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 
 
@@ -57,6 +128,18 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">詳細仕様</a><ul>
+<li><a class="reference internal" href="#id2">振る舞い</a><ul>
+<li><a class="reference internal" href="#id3">家計簿を登録する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">構造</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="external.html"
                         title="previous chapter">機能仕様</a></p>
