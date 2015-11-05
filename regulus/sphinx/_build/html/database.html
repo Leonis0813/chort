@@ -87,7 +87,7 @@
 <td>◯</td>
 </tr>
 <tr class="row-odd"><td>interval</td>
-<td>INT</td>
+<td>VARCHAR</td>
 <td>足の種類</td>
 <td>◯</td>
 <td>◯</td>
@@ -133,24 +133,24 @@
 <blockquote>
 <div><ul class="simple">
 <li>ローソク足に関するデータが1つのレコードとして作成される</li>
-<li>足の種類（テーブルには分で換算された時間が登録される）<ul>
-<li>5分足(5)</li>
-<li>10分足(10)</li>
-<li>20分足(20)</li>
-<li>30分足(30)</li>
-<li>1時間足(60)</li>
-<li>2時間足(120)</li>
-<li>3時間足(180)</li>
-<li>4時間足(240)</li>
-<li>6時間足(360)</li>
-<li>12時間足(720)</li>
-<li>1日足(1440)</li>
-<li>1週間足(10080)</li>
-<li>1ヶ月足(1440 * 日数)</li>
-<li>2ヶ月足(1440 * 日数)</li>
-<li>3ヶ月足(1440 * 日数)</li>
-<li>6ヶ月足(1440 * 日数)</li>
-<li>1年足(1440 * 日数)</li>
+<li>足の種類（テーブルに登録されている文字列）<ul>
+<li>5分足(5minute)</li>
+<li>10分足(10minute)</li>
+<li>20分足(20minute)</li>
+<li>30分足(30minute)</li>
+<li>1時間足(1hour)</li>
+<li>2時間足(2hour)</li>
+<li>3時間足(3hour)</li>
+<li>4時間足(4hour)</li>
+<li>6時間足(6hour)</li>
+<li>12時間足(12hour)</li>
+<li>1日足(1day)</li>
+<li>1週間足(1week)</li>
+<li>1ヶ月足(1month)</li>
+<li>2ヶ月足(2month)</li>
+<li>3ヶ月足(3month)</li>
+<li>6ヶ月足(6month)</li>
+<li>1年足(1year)</li>
 </ul>
 </li>
 <li>生データは外部スクリプトを使って取得する</li>
