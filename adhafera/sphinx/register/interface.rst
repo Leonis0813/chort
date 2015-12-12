@@ -7,6 +7,7 @@
 ----------
 
 - `登録画面 <http://localhost/adhafera_docs/register/interface.html#id3>`__
+- `登録失敗時 <http://localhost/adhafera_docs/register/interface.html#id4>`__
 
 登録画面
 ^^^^^^^^
@@ -18,8 +19,14 @@
 
 - 画面上部に家計簿情報を入力するテキストボックスが表示される
 
-- 日付入力部分はタッチすることでカレンダーを表示できる
-
 - 家計簿情報を全て入力して登録ボタンを押すと家計簿が登録される
 
 - 入力をキャンセルしたい場合は取消ボタンを押す
+
+登録失敗時
+^^^^^^^^^^
+
+.. image:: images/interface_failure.jpg
+   :alt: 登録失敗時
+
+- 入力が不正な項目にはテキストボックスの右に赤いマークが表示される
