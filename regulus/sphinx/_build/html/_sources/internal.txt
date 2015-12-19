@@ -88,15 +88,61 @@
   - Currency
 
     - 通貨情報を表すクラス
-    - 通貨ペア，レート，日時を保持する
+    - 以下の情報を保持する
+
+      - from_date: 集計対象データの範囲（開始時刻）
+      - to_date: 集計対象データの範囲（終了時刻）
+      - pair: 為替のペペアコード（例：USDJPY）
+      - interval: 集計対象期間
+
+	- 以下のいずれかが保持されている
+
+	  - 5-min
+	  - 10-min
+	  - 20-min
+	  - 30-min
+	  - 1-hour
+	  - 2-hour
+	  - 3-hour
+	  - 6-hour
+	  - 12-hour
+	  - 1-day
+	  - 1-week
+	  - 1-month
+	  - 2-month
+	  - 3-month
+	  - 6-month
+	  - 1-year
+
+      - open: 始値
+      - close: 終値
+      - high: 高値
+      - low: 安値
+      - created_at: 通貨情報が作成された日時
+      - updated_at: 通貨情報が更新された日時
 
   - Tweet
 
     - ツイートを表すクラス
+    - 以下の情報を保持する
+
+      - tweet_id: ツイートのID
+      - user_name: ツイートのユーザー名
+      - profile_image_url: アカウントのプロフィール画像のURL
+      - full_text: ツイート本文
+      - tweeted_at: ツイート日時
+      - created_at: ツイート情報が作成された日時
 
   - Article
 
     - 記事を表すクラス
+    - 以下の情報を保持する
+
+      - published: 記事が発行された日時
+      - title: 記事のタイトル
+      - summary: 記事の要約
+      - url: 記事へのURL
+      - created_at: 記事情報が作成された日時
 
   - **データベースには外部スクリプトにより定期的にレコードが追加される**
 
