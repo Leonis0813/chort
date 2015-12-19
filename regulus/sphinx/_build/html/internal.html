@@ -137,15 +137,65 @@
 <li>Model<ul>
 <li>Currency<ul>
 <li>通貨情報を表すクラス</li>
-<li>通貨ペア，レート，日時を保持する</li>
+<li>以下の情報を保持する<ul>
+<li>from_date: 集計対象データの範囲（開始時刻）</li>
+<li>to_date: 集計対象データの範囲（終了時刻）</li>
+<li>pair: 為替のペペアコード（例：USDJPY）</li>
+<li>interval: 集計対象期間<ul>
+<li>以下のいずれかが保持されている<ul>
+<li>5-min</li>
+<li>10-min</li>
+<li>20-min</li>
+<li>30-min</li>
+<li>1-hour</li>
+<li>2-hour</li>
+<li>3-hour</li>
+<li>6-hour</li>
+<li>12-hour</li>
+<li>1-day</li>
+<li>1-week</li>
+<li>1-month</li>
+<li>2-month</li>
+<li>3-month</li>
+<li>6-month</li>
+<li>1-year</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>open: 始値</li>
+<li>close: 終値</li>
+<li>high: 高値</li>
+<li>low: 安値</li>
+<li>created_at: 通貨情報が作成された日時</li>
+<li>updated_at: 通貨情報が更新された日時</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Tweet<ul>
 <li>ツイートを表すクラス</li>
+<li>以下の情報を保持する<ul>
+<li>tweet_id: ツイートのID</li>
+<li>user_name: ツイートのユーザー名</li>
+<li>profile_image_url: アカウントのプロフィール画像のURL</li>
+<li>full_text: ツイート本文</li>
+<li>tweeted_at: ツイート日時</li>
+<li>created_at: ツイート情報が作成された日時</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Article<ul>
 <li>記事を表すクラス</li>
+<li>以下の情報を保持する<ul>
+<li>published: 記事が発行された日時</li>
+<li>title: 記事のタイトル</li>
+<li>summary: 記事の要約</li>
+<li>url: 記事へのURL</li>
+<li>created_at: 記事情報が作成された日時</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><strong>データベースには外部スクリプトにより定期的にレコードが追加される</strong><ul>
