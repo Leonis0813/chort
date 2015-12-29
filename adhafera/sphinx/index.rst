@@ -11,8 +11,10 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   viewer/index
-   register/index
+   requirement
+   interface
+   external
+   internal
 
 Indices and tables
 ==================
