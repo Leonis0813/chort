@@ -45,7 +45,7 @@ HTTP Method： POST
 Path：/accounts
 
 Request Body：
-	- account
+	- accounts
 
 	  - account_type
 	  - date

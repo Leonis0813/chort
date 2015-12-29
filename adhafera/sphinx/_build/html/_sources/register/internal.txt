@@ -52,10 +52,6 @@
 
 - Controller
 
-  - ApplicationController
-
-    - Viewからの情報を制御するコントローラ
-
   - MainActivity
 
     - 画面の表示に関する処理を管理するコントローラ
