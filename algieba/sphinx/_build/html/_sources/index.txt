@@ -11,7 +11,11 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   manager/index
+   construction
+   external
+   internal
+   api
+   database
 
 Indices and tables
 ==================
