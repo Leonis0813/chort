@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    requirement
+   interface
    external
 
 Indices and tables

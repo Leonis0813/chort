@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="zosma 1.0.0 documentation" href="index.html" />
-    <link rel="prev" title="要求定義" href="requirement.html" /> 
+    <link rel="prev" title="ユーザインターフェース" href="interface.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -34,7 +34,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="requirement.html" title="要求定義"
+          <a href="interface.html" title="ユーザインターフェース"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">zosma 1.0.0 documentation</a> &raquo;</li> 
       </ul>
@@ -81,13 +81,22 @@
 <img alt="クラス図" src="_images/class_ext.jpg" />
 <ul class="simple">
 <li>MVCモデルを利用する</li>
-<li>Model</li>
+<li>Model<ul>
+<li>データベースに登録されている情報を表示するだけのモジュールであるためModelは存在しない</li>
+</ul>
+</li>
 <li>View<ul>
-<li>検索画面</li>
+<li>検索画面<ul>
+<li>検索条件を入力したり，検索結果を表示する画面</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Controller<ul>
-<li>画面管理</li>
+<li>画面管理<ul>
+<li>画面の表示に関する処理を管理するコントローラ</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -113,8 +122,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="requirement.html"
-                        title="previous chapter">要求定義</a></p>
+  <p class="topless"><a href="interface.html"
+                        title="previous chapter">ユーザインターフェース</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -146,7 +155,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="requirement.html" title="要求定義"
+          <a href="interface.html" title="ユーザインターフェース"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">zosma 1.0.0 documentation</a> &raquo;</li> 
       </ul>
