@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>機能仕様 &mdash; zosma 1.0.0 documentation</title>
+    <title>詳細仕様 &mdash; zosma 1.0.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,8 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="zosma 1.0.0 documentation" href="index.html" />
-    <link rel="next" title="詳細仕様" href="internal.html" />
-    <link rel="prev" title="ユーザインターフェース" href="interface.html" /> 
+    <link rel="prev" title="機能仕様" href="external.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,10 +34,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="internal.html" title="詳細仕様"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="interface.html" title="ユーザインターフェース"
+          <a href="external.html" title="機能仕様"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">zosma 1.0.0 documentation</a> &raquo;</li> 
       </ul>
@@ -50,30 +46,32 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>機能仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>詳細仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li>本モジュールの振る舞いと構造を記載する<ul>
-<li><a class="reference external" href="http://localhost/zosma_docs/external.html#id2">振る舞い</a></li>
-<li><a class="reference external" href="http://localhost/zosma_docs/external.html#id4">構造</a></li>
+<li>システムの詳細な振る舞いと構造を記載する<ul>
+<li><a class="reference external" href="http://localhost/zosma_docs/register/internal.html#id2">振る舞い</a></li>
+<li><a class="reference external" href="http://localhost/zosma_docs/register/internal.html#id4">構造</a></li>
 </ul>
 </li>
 </ul>
 <div class="section" id="id2">
 <h2>振る舞い<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference external" href="http://localhost/zosma_docs/external.html#id3">家計簿を検索する</a></li>
+<li><a class="reference external" href="http://localhost/zosma_docs/register/internal.html#id3">家計簿を検索する</a></li>
 </ul>
 <div class="section" id="id3">
 <h3>家計簿を検索する<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p><strong>シーケンス図</strong></p>
-<img alt="シーケンス図(家計簿を検索する)" src="_images/seq_index_ext.jpg" />
+<img alt="シーケンス図(家計簿を検索する)" src="_images/seq_index_int.jpg" />
 <ul class="simple">
-<li>利用者が検索条件を入力して家計簿情報を参照するまでの流れ<ol class="arabic">
-<li>利用者が検索条件を入力して検索ボタンを押す</li>
-<li>入力された検索条件のチェックを行う</li>
-<li>不正な入力があればエラーを通知する</li>
-<li>入力に問題が無ければサーバにリクエストを送信して家計簿を取得する</li>
-<li>取得した家計簿情報を画面に表示する</li>
+<li>利用者が検索画面を開いてから家計簿を表示するまでの流れ<ol class="arabic">
+<li>利用者が検索条件を入力して登録ボタンを押すと，actionPerformedメソッドが実行される</li>
+<li>入力された条件を引数にして，searchAccountsメソッドが実行される</li>
+<li>checkDateメソッドで日付のフォーマットのチェックを行う</li>
+<li>checkProceメソッドで金額のチェックを行う</li>
+<li>不正な条件があればMessageFieldにエラーを通知し，検索条件入力欄にチェックを付ける</li>
+<li>入力された条件に問題が無ければ，getAccountsメソッドを実行してリクエストを送信する</li>
+<li>取得した家計簿をテーブルに表示する</li>
 </ol>
 </li>
 </ul>
@@ -82,7 +80,7 @@
 <div class="section" id="id4">
 <h2>構造<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p><strong>クラス図</strong></p>
-<img alt="クラス図" src="_images/class_ext.jpg" />
+<img alt="クラス図" src="_images/class_int.jpg" />
 <ul class="simple">
 <li>MVCモデルを利用する</li>
 <li>Model<ul>
@@ -90,17 +88,37 @@
 </ul>
 </li>
 <li>View<ul>
-<li>検索画面<ul>
-<li>検索条件を入力したり，検索結果を表示する画面</li>
+<li>AccountTable<ul>
+<li>取得した家計簿を表示するテーブル</li>
+</ul>
+</li>
+<li>SerachForm<ul>
+<li>検索条件を入力するテキストフィールド</li>
+</ul>
+</li>
+<li>MessageField<ul>
+<li>エラー等を表示するテキストフィールド</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Controller<ul>
-<li>画面管理<ul>
-<li>画面の表示に関する処理を管理するコントローラ</li>
+<li>ApplicationController<ul>
+<li>アプリ全体を管理するコントローラー</li>
 </ul>
 </li>
+<li>ViewController<ul>
+<li>ビューの各コンポーネントを管理するコントローラー</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>InputChecker<ul>
+<li>入力された条件のフォーマットが正しいかどうかをチェックするクラス</li>
+</ul>
+</li>
+<li>HTTPClient<ul>
+<li>DBサーバにリクエストを送信するクラス</li>
 </ul>
 </li>
 </ul>
@@ -115,7 +133,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">機能仕様</a><ul>
+<li><a class="reference internal" href="#">詳細仕様</a><ul>
 <li><a class="reference internal" href="#id2">振る舞い</a><ul>
 <li><a class="reference internal" href="#id3">家計簿を検索する</a></li>
 </ul>
@@ -126,15 +144,12 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="interface.html"
-                        title="previous chapter">ユーザインターフェース</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="internal.html"
-                        title="next chapter">詳細仕様</a></p>
+  <p class="topless"><a href="external.html"
+                        title="previous chapter">機能仕様</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/external.txt"
+      <li><a href="_sources/internal.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -162,10 +177,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="internal.html" title="詳細仕様"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="interface.html" title="ユーザインターフェース"
+          <a href="external.html" title="機能仕様"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">zosma 1.0.0 documentation</a> &raquo;</li> 
       </ul>

@@ -14,6 +14,7 @@ Contents:
    requirement
    interface
    external
+   internal
 
 Indices and tables
 ==================
