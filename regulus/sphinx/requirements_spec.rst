@@ -1,11 +1,11 @@
-システム概要
-============
+要求仕様
+========
 
 本システムは以下の３つの機能を提供する
 
-- `為替レートの表示 <http://localhost/regulus_docs/requirement.html#id2>`__
-- `ツイートの表示 <http://localhost/regulus_docs/requirement.html#id3>`__
-- `記事の表示 <http://localhost/regulus_docs/requirement.html#id4>`__
+- `為替レートの表示 <http://localhost/regulus_docs/requirements_spec.html#id2>`__
+- `ツイートの表示 <http://localhost/regulus_docs/requirements_spec.html#id3>`__
+- `記事の表示 <http://localhost/regulus_docs/requirements_spec.html#id4>`__
 
 **ユースケース図**
 
