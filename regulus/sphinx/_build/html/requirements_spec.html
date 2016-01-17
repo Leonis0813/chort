@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ユーザインターフェース &mdash; regulus 1.1.0 documentation</title>
+    <title>システム概要 &mdash; regulus 1.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,7 +23,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="regulus 1.1.0 documentation" href="index.html" /> 
+    <link rel="top" title="regulus 1.1.0 documentation" href="index.html" />
+    <link rel="next" title="詳細仕様" href="design_spec.html" />
+    <link rel="prev" title="Welcome to regulus’s documentation!" href="index.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,6 +34,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="design_spec.html" title="詳細仕様"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to regulus’s documentation!"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">regulus 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -42,33 +50,35 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>ユーザインターフェース<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>システム概要<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>本システムは以下の３つの機能を提供する</p>
 <ul class="simple">
-<li>外部インターフェースであるブラウザでの表示について記載する</li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirement.html#id2">為替レートの表示</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirement.html#id3">ツイートの表示</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirement.html#id4">記事の表示</a></li>
 </ul>
+<p><strong>ユースケース図</strong></p>
+<img alt="ユースケース図" src="_images/use_case.jpg" />
 <div class="section" id="id2">
-<h2>ブラウザ画面<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<img alt="ブラウザ画面" src="images/interface.jpg" />
+<h2>為替レートの表示<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>為替レートの変化を表したローソク足グラフをブラウザ上に表示する</li>
+<li>為替のペアはUSDJPYで固定されている</li>
+<li>グラフは定期的に更新される</li>
+</ul>
 </div>
 <div class="section" id="id3">
-<h2>機能<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>ツイートの表示<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>ブラウザの左側に３種類の通貨のグラフが表示される<ul>
-<li>表示される通貨の種類は固定</li>
-<li>定期的にグラフが更新される</li>
+<li>Twitterから取得したツイートをブラウザ上に表示する</li>
+<li>ツイートは定期的に更新される</li>
 </ul>
-</li>
-<li>ブラウザの右上にTwitterから取得したツイートが表示される<ul>
-<li>スクロールさせることで古いツイートも閲覧可能</li>
-<li>閲覧できるツイートの数は固定</li>
-</ul>
-</li>
-<li>ブラウザの右下に日経から取得した情報が表示される<ul>
-<li>スクロールさせることで古い情報も閲覧可能</li>
-<li>閲覧できる情報の数は固定</li>
-</ul>
-</li>
-<li>ブラウザ全体をスクロールさせることはできない</li>
+</div>
+<div class="section" id="id4">
+<h2>記事の表示<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>日本経済新聞(日経)のRSSから取得した記事をブラウザ上に表示する</li>
+<li>記事は定期的に表示される</li>
 </ul>
 </div>
 </div>
@@ -81,17 +91,24 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">ユーザインターフェース</a><ul>
-<li><a class="reference internal" href="#id2">ブラウザ画面</a></li>
-<li><a class="reference internal" href="#id3">機能</a></li>
+<li><a class="reference internal" href="#">システム概要</a><ul>
+<li><a class="reference internal" href="#id2">為替レートの表示</a></li>
+<li><a class="reference internal" href="#id3">ツイートの表示</a></li>
+<li><a class="reference internal" href="#id4">記事の表示</a></li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to regulus&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="design_spec.html"
+                        title="next chapter">詳細仕様</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/interface.txt"
+      <li><a href="_sources/requirements_spec.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -118,6 +135,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="design_spec.html" title="詳細仕様"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to regulus’s documentation!"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">regulus 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
