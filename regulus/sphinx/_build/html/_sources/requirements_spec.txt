@@ -7,7 +7,7 @@
 - `ツイートの表示 <http://localhost/regulus_docs/requirements_spec.html#id3>`__
 - `記事の表示 <http://localhost/regulus_docs/requirements_spec.html#id4>`__
 
-**ユースケース図**
+*ユースケース図*
 
 .. image:: images/use_case.jpg
    :alt: ユースケース図

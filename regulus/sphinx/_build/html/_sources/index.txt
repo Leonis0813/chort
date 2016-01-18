@@ -14,7 +14,6 @@ Contents:
    requirements_spec
    functional_spec
    design_spec
-   resources
 
 Indices and tables
 ==================
