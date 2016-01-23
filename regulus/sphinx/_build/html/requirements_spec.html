@@ -54,8 +54,8 @@
 <p>本システムは以下の３つの機能を提供する</p>
 <ul class="simple">
 <li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id2">為替レートの表示</a></li>
-<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id3">ツイートの表示</a></li>
-<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id4">記事の表示</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id4">ツイートの表示</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id6">記事の表示</a></li>
 </ul>
 <p><em>ユースケース図</em></p>
 <img alt="ユースケース図" src="_images/use_case.jpg" />
@@ -63,23 +63,39 @@
 <h2>為替レートの表示<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>為替レートの変化を表したローソク足グラフをブラウザ上に表示する</li>
-<li>為替のペアはUSDJPYで固定されている</li>
+<li>為替のペアはドル円で固定されている</li>
 <li>グラフは定期的に更新される</li>
 </ul>
+<p><em>ユースケースシナリオ</em></p>
+<ol class="arabic simple">
+<li>利用者はブラウザからシステムにアクセスする</li>
+<li>システムは為替レートの変化を表すグラフを表示する</li>
+</ol>
 </div>
 <div class="section" id="id3">
 <h2>ツイートの表示<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Twitterから取得したツイートをブラウザ上に表示する</li>
+<li>表示されるツイートは「為替」を条件として検索した結果である</li>
 <li>ツイートは定期的に更新される</li>
 </ul>
+<p><em>ユースケースシナリオ</em></p>
+<ol class="arabic simple">
+<li>利用者はブラウザからシステムにアクセスする</li>
+<li>システムはツイートを表示する</li>
+</ol>
 </div>
 <div class="section" id="id4">
 <h2>記事の表示<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>日本経済新聞(日経)のRSSから取得した記事をブラウザ上に表示する</li>
-<li>記事は定期的に表示される</li>
+<li>記事は定期的に更新される</li>
 </ul>
+<p><em>ユースケースシナリオ</em></p>
+<ol class="arabic simple">
+<li>利用者はブラウザからシステムにアクセスする</li>
+<li>システムは記事を表示する</li>
+</ol>
 </div>
 </div>
 

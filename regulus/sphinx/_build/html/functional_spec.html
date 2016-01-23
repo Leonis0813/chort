@@ -51,92 +51,77 @@
             
   <div class="section" id="id1">
 <h1>機能仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>機能仕様では以下を定義する</p>
 <ul class="simple">
-<li>システムの振る舞いと構造を記載する</li>
+<li><a class="reference external" href="http://localhost/regulus_docs/functional_spec.html#id2">ユーザーインターフェース</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/functional_spec.html#id7">データ構造</a></li>
 </ul>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference external" href="http://localhost/regulus_docs/external.html#id2">振る舞い</a></li>
-<li><a class="reference external" href="http://localhost/regulus_docs/external.html#id5">構造</a></li>
-</ul>
-</div></blockquote>
 <div class="section" id="id2">
-<h2>振る舞い<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>通貨の価格変動を確認する<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>シーケンス図</p>
-<img alt="シーケンス図(通貨の価格変動を確認する)" src="images/seq_graph_ext.jpg" />
+<h2>ユーザーインターフェース<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>利用者はブラウザを操作してレート・ツイート・記事を確認する</p>
 <ul class="simple">
-<li>利用者がWebページにアクセスしてからグラフを確認するまでの流れ<ol class="arabic">
-<li>ブラウザにURLを入力してシステムにアクセス</li>
-<li>Webページを表示</li>
-<li>通貨情報を取得してグラフを作成</li>
-<li>作成したグラフをブラウザに表示</li>
-</ol>
-</li>
-<li>システムは常にDBから通貨情報を取得してグラフを更新する</li>
-<li>通貨情報は30秒間隔でFXサイトから収集され、DBに登録される</li>
-<li>グラフは10秒間隔で更新される</li>
+<li>画面にはレート，ツイート，記事のどれかが表示されている</li>
+<li>ブラウザ全体はスクロールしない</li>
+</ul>
+<div class="section" id="id3">
+<h3>画面遷移図<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="画面遷移図" src="_images/ui_transition.jpg" />
+<ul class="simple">
+<li>タブを押すことで表示するものを切り替える</li>
+<li>表示されているタブは白黒反転する</li>
 </ul>
 </div>
 <div class="section" id="id4">
-<h3>変動に関連する情報を確認する<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>シーケンス図</p>
-<img alt="シーケンス図(変動に関連する情報を確認する)" src="images/seq_info_ext.jpg" />
-<ul class="simple">
-<li>利用者がWebページにアクセスしてから関連情報を確認するまでの流れ<ol class="arabic">
-<li>ブラウザにURLを入力してシステムにアクセス</li>
-<li>Webページを表示</li>
-<li>システムがDBからツイートを取得</li>
-<li>システムがDBから日経記事を取得</li>
-<li>取得した情報をブラウザに表示</li>
-</ol>
-</li>
-<li>システムは常にDBからツイート、日経記事を取得する</li>
-<li>関連情報はTwitter, 日経から収集され、DBに登録される</li>
-<li>ツイートは1秒間隔で更新される</li>
-<li>日経記事は10分間隔で更新される</li>
-</ul>
+<h3>レート表示画面<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
+<img alt="レート表示画面" src="_images/ui_rates.jpg" />
+<ul class="simple">
+<li>ドル円を5分足ローソク足グラフで表示する</li>
+<li>グラフは定期的に更新される</li>
+</ul>
 </div>
 <div class="section" id="id5">
-<h2>構造<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>クラス図</p>
-<img alt="クラス図" src="_images/class_ext.jpg" />
+<h3>ツイート表示画面<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="ツイート表示画面" src="_images/ui_tweets.jpg" />
 <ul class="simple">
-<li>MVCモデルを利用する</li>
-<li>View<ul>
-<li>Webブラウザ</li>
-<li>ユーザーが見れるように情報を表示するためのクラス</li>
+<li>最新100件を表示する</li>
+<li>新しいツイートほど画面上部に表示される</li>
+<li>スクロールすることで古いツイートを見ることができる</li>
 </ul>
-</li>
-<li>Controller<ul>
-<li>ブラウザ管理<ul>
-<li>通貨情報や関連情報を表示するWebページを管理するクラス</li>
+</div>
+<div class="section" id="id6">
+<h3>記事表示画面<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="記事表示画面" src="_images/ui_articles.jpg" />
+<ul class="simple">
+<li>最新100件を表示する</li>
+<li>新しい記事ほど画面上部に表示される</li>
+<li>スクロールすることで古い記事を見ることができる</li>
 </ul>
-</li>
-<li>通貨管理<ul>
-<li>通貨情報を取得してブラウザに表示されている通貨情報を更新するクラス</li>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>データ構造<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>本システムでは以下のデータを扱う</p>
+<ul class="simple">
+<li><a class="reference external" href="http://localhost/regulus_docs/functional_spec.html#id8">為替レート</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/functional_spec.html#id9">ツイート</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/functional_spec.html#id10">記事</a></li>
 </ul>
-</li>
-<li>ツイート管理<ul>
-<li>ツイートを取得してブラウザに表示されているツイートを更新するクラス</li>
-</ul>
-</li>
-<li>記事管理<ul>
-<li>記事を取得してブラウザに表示されている記事を更新するクラス</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Model<ul>
-<li>通貨情報<ul>
-<li>FXサイトから取得した為替情報の集計結果</li>
-<li>以下の情報を保持する<ul>
-<li>集計対象データの範囲<ul>
-<li>開始時間と終了時間で表現されている</li>
-</ul>
-</li>
+<div class="section" id="id8">
+<h3>為替レート<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>為替レートは以下の要素で構成される</p>
+<ul class="simple">
 <li>通貨の種類</li>
 <li>集計対象期間</li>
 <li>始値</li>
@@ -144,12 +129,11 @@
 <li>高値</li>
 <li>安値</li>
 </ul>
-</li>
-</ul>
-</li>
-<li>ツイート<ul>
-<li>Twitterから取得したツイート</li>
-<li>以下の情報を保持する<ul>
+</div>
+<div class="section" id="id9">
+<h3>ツイート<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>ツイートは以下の要素で構成される</p>
+<ul class="simple">
 <li>ツイートID</li>
 <li>ユーザーID</li>
 <li>プロフィール画像のURL</li>
@@ -157,55 +141,18 @@
 <li>ツイート日時</li>
 <li>ツイートを取得した日時</li>
 </ul>
-</li>
-</ul>
-</li>
-<li>記事<ul>
-<li>日経から取得した記事</li>
-<li>以下の情報を保持する<ul>
+</div>
+<div class="section" id="id10">
+<h3>記事<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>記事は以下の要素で構成される</p>
+<ul class="simple">
 <li>記事が発行された日時</li>
 <li>タイトル</li>
 <li>要約</li>
 <li>記事へのURL</li>
 <li>記事を取得した日時</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 </div>
-</div>
-<div class="section" id="id6">
-<h1>ユーザインターフェース<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li>外部インターフェースであるブラウザでの表示について記載する</li>
-</ul>
-<div class="section" id="id7">
-<h2>ブラウザ画面<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
-<img alt="ブラウザ画面" src="images/interface.jpg" />
-</div>
-<div class="section" id="id8">
-<h2>機能<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>ブラウザの左側に３種類の通貨のグラフが表示される<ul>
-<li>表示される通貨の種類は固定</li>
-<li>定期的にグラフが更新される</li>
-</ul>
-</li>
-<li>ブラウザの右上にTwitterから取得したツイートが表示される<ul>
-<li>スクロールさせることで古いツイートも閲覧可能</li>
-<li>閲覧できるツイートの数は固定</li>
-</ul>
-</li>
-<li>ブラウザの右下に日経から取得した情報が表示される<ul>
-<li>スクロールさせることで古い情報も閲覧可能</li>
-<li>閲覧できる情報の数は固定</li>
-</ul>
-</li>
-<li>ブラウザ全体をスクロールさせることはできない</li>
-</ul>
 </div>
 </div>
 
@@ -218,17 +165,19 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">機能仕様</a><ul>
-<li><a class="reference internal" href="#id2">振る舞い</a><ul>
-<li><a class="reference internal" href="#id3">通貨の価格変動を確認する</a></li>
-<li><a class="reference internal" href="#id4">変動に関連する情報を確認する</a></li>
+<li><a class="reference internal" href="#id2">ユーザーインターフェース</a><ul>
+<li><a class="reference internal" href="#id3">画面遷移図</a></li>
+<li><a class="reference internal" href="#id4">レート表示画面</a></li>
+<li><a class="reference internal" href="#id5">ツイート表示画面</a></li>
+<li><a class="reference internal" href="#id6">記事表示画面</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">構造</a></li>
+<li><a class="reference internal" href="#id7">データ構造</a><ul>
+<li><a class="reference internal" href="#id8">為替レート</a></li>
+<li><a class="reference internal" href="#id9">ツイート</a></li>
+<li><a class="reference internal" href="#id10">記事</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6">ユーザインターフェース</a><ul>
-<li><a class="reference internal" href="#id7">ブラウザ画面</a></li>
-<li><a class="reference internal" href="#id8">機能</a></li>
 </ul>
 </li>
 </ul>
