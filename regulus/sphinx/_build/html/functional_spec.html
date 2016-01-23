@@ -120,38 +120,106 @@
 </ul>
 <div class="section" id="id8">
 <h3>為替レート<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<p>為替レートは以下の要素で構成される</p>
 <ul class="simple">
-<li>通貨の種類</li>
-<li>集計対象期間</li>
-<li>始値</li>
-<li>終値</li>
-<li>高値</li>
-<li>安値</li>
+<li>ある時点での為替レートの情報を表す</li>
+<li>ローソク足グラフを使って為替レートの変動を表す</li>
+<li>為替レートはYahoo Query Language(YQL)を利用して取得する</li>
 </ul>
-</div>
 <div class="section" id="id9">
-<h3>ツイート<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-<p>ツイートは以下の要素で構成される</p>
-<ul class="simple">
-<li>ツイートID</li>
-<li>ユーザーID</li>
-<li>プロフィール画像のURL</li>
-<li>本文</li>
-<li>ツイート日時</li>
-<li>ツイートを取得した日時</li>
-</ul>
+<h4>構成要素<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">要素</th>
+<th class="head">意味</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ペア</td>
+<td>為替レートのペア（例：ドル円，ユーロ円）</td>
+</tr>
+<tr class="row-odd"><td>期間</td>
+<td>1本のローソク足が表す期間（例：5分間，1時間など）</td>
+</tr>
+<tr class="row-even"><td>レート</td>
+<td>為替レートの値</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section" id="id10">
-<h3>記事<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<p>記事は以下の要素で構成される</p>
+<h3>ツイート<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>記事が発行された日時</li>
-<li>タイトル</li>
-<li>要約</li>
-<li>記事へのURL</li>
-<li>記事を取得した日時</li>
+<li>為替に関連するツイートを表す</li>
+<li>ツイートやそれに関連する情報はTwitterのAPIを利用して取得する</li>
 </ul>
+<div class="section" id="id11">
+<h4>構成要素<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">要素</th>
+<th class="head">意味</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ユーザーID</td>
+<td>ツイートしたユーザーのID</td>
+</tr>
+<tr class="row-odd"><td>プロフィール画像</td>
+<td>ツイートしたユーザーのプロフィール画像</td>
+</tr>
+<tr class="row-even"><td>本文</td>
+<td>ツイート本文</td>
+</tr>
+<tr class="row-odd"><td>ツイート日時</td>
+<td>ツイートした日時</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>記事<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>為替に関連する記事を表す</li>
+<li>記事やそれに関連する情報は取得したRSSから抽出する</li>
+</ul>
+<div class="section" id="id13">
+<h4>構成要素<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">要素</th>
+<th class="head">意味</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>発行日時</td>
+<td>記事が発行された日時</td>
+</tr>
+<tr class="row-odd"><td>タイトル</td>
+<td>記事のタイトル</td>
+</tr>
+<tr class="row-even"><td>要約</td>
+<td>記事の要約文</td>
+</tr>
+<tr class="row-odd"><td>URL</td>
+<td>記事が掲載されているRSSへのURL</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -173,9 +241,18 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#id7">データ構造</a><ul>
-<li><a class="reference internal" href="#id8">為替レート</a></li>
-<li><a class="reference internal" href="#id9">ツイート</a></li>
-<li><a class="reference internal" href="#id10">記事</a></li>
+<li><a class="reference internal" href="#id8">為替レート</a><ul>
+<li><a class="reference internal" href="#id9">構成要素</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10">ツイート</a><ul>
+<li><a class="reference internal" href="#id11">構成要素</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id12">記事</a><ul>
+<li><a class="reference internal" href="#id13">構成要素</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
