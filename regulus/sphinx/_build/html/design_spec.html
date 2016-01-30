@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>詳細仕様 &mdash; regulus 1.1.0 documentation</title>
+    <title>設計仕様 &mdash; regulus 1.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -46,76 +46,103 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>詳細仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>設計仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>設計仕様では以下を定義する</p>
 <ul class="simple">
-<li>システムの詳細な振る舞いと構造を記載する<ul>
-<li><a class="reference external" href="http://localhost/regulus_docs/internal.html#id2">振る舞い</a></li>
-<li><a class="reference external" href="http://localhost/regulus_docs/internal.html#id5">構造</a></li>
-</ul>
-</li>
+<li><a class="reference external" href="http://localhost/regulus_docs/design_spec.html#id2">モジュール構成</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/design_spec.html#id3">処理手順</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/design_spec.html#id7">データベース構成</a></li>
 </ul>
 <div class="section" id="id2">
-<h2>振る舞い<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference external" href="http://localhost/regulus_docs/internal.html#id3">通貨の価格変動を確認する</a></li>
-<li><a class="reference external" href="http://localhost/regulus_docs/internal.html#id4">変動に関連する情報を取得する</a></li>
-</ul>
-</div></blockquote>
-<div class="section" id="id3">
-<h3>通貨の価格変動を確認する<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p><strong>シーケンス図</strong></p>
-<img alt="シーケンス図(通貨の価格変動を確認する)" src="images/seq_graph_int.jpg" />
+<h2>モジュール構成<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>MVCモデルを利用する</p>
+<p><em>クラス図</em></p>
+<img alt="クラス図" src="_images/class.jpg" />
 <ul class="simple">
-<li>利用者がWebページにアクセスしてからグラフを確認するまでの流れ<ol class="arabic">
-<li>アクセスを受けたConfirmation_viewがConfirmation_Controllerにアクセスの受信を通知する</li>
-<li>受信したConfirmation_Controllerがビューを表示する（この時点では何も表示されない）</li>
-<li>Currencies_ControllerがCurrencyオブジェクトの配列を取得して返す</li>
-<li>ビューにグラフを表示する</li>
-<li>以降は定期的に通貨情報の取得を繰り返す</li>
-</ol>
+<li>Model<ul>
+<li>Rate<ul>
+<li>為替レートを表すクラス</li>
+<li>以下の情報を保持する<ul>
+<li>from_date: 集計対象データの範囲（開始時刻）</li>
+<li>to_date: 集計対象データの範囲（終了時刻）</li>
+<li>pair: 為替のペアコード（例：USDJPY）</li>
+<li>interval: 集計対象期間<ul>
+<li>以下のいずれかが保持されている<ul>
+<li>5-min</li>
+<li>10-min</li>
+<li>20-min</li>
+<li>30-min</li>
+<li>1-hour</li>
+<li>2-hour</li>
+<li>3-hour</li>
+<li>4-hour</li>
+<li>6-hour</li>
+<li>12-hour</li>
+<li>1-day</li>
+<li>1-week</li>
+<li>1-month</li>
+</ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id4">
-<h3>変動に関連する情報を取得する<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p><strong>シーケンス図</strong></p>
-<img alt="シーケンス図(変動に関連する情報を取得する)" src="images/seq_info_int.jpg" />
-<ul class="simple">
-<li>利用者がWebページにアクセスしてから関連情報を確認するまでの流れ<ol class="arabic">
-<li>アクセスを受けたConfirmation_viewがConfirmation_Controllerにアクセスの受信を通知する</li>
-<li>受信したConfirmation_Controllerがビューを表示する（この時点では何も表示されない）</li>
-<li>Tweets_ControllerがTweetオブジェクトを取得して返す</li>
-<li>Articles_ControllerがArticleオブジェクトを取得して返す</li>
-<li>ビューに情報を表示する</li>
-<li>以降は定期的にツイートと記事の取得を繰り返す</li>
-</ol>
+</li>
+<li>open: 始値</li>
+<li>close: 終値</li>
+<li>high: 高値</li>
+<li>low: 安値</li>
+</ul>
 </li>
 </ul>
+</li>
+<li>Tweet<ul>
+<li>ツイートを表すクラス</li>
+<li>以下の情報を保持する<ul>
+<li>tweet_id: ツイートのID</li>
+<li>user_name: ツイートのユーザー名</li>
+<li>profile_image_url: アカウントのプロフィール画像のURL</li>
+<li>full_text: ツイート本文</li>
+<li>tweeted_at: ツイート日時</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Article<ul>
+<li>記事を表すクラス</li>
+<li>以下の情報を保持する<ul>
+<li>published: 記事が発行された日時</li>
+<li>title: 記事のタイトル</li>
+<li>summary: 記事の要約</li>
+<li>url: 記事へのURL</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>データベースには <a class="reference external" href="http://localhost/regulus_docs/design_spec.html#id8">外部スクリプト</a> により定期的にレコードが追加される<ul>
+<li>レート，ツイート・記事の情報を取得するスクリプトが定期的に実行されてMySQLに登録される</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="id5">
-<h2>構造<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p><strong>クラス図</strong></p>
-<img alt="クラス図" src="_images/class_int.jpg" />
 <ul class="simple">
-<li>MVCモデルを利用する</li>
 <li>View<ul>
-<li>confirmation_view<ul>
+<li>Confirmation_View<ul>
 <li>Webブラウザ上で表示する画面</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Controller<ul>
-<li>Confirmation_Controller<ul>
-<li>confirmation_viewのコントローラ</li>
-<li>グラフや関連情報の更新を行う</li>
 </ul>
-</li>
-<li>Currencies_Controller<ul>
-<li>Currencyクラスのコントローラ</li>
-<li>Currencyオブジェクトを取得し，ビューに表示する</li>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul class="simple">
+<li>Controller<ul>
+<li>Rates_Controller<ul>
+<li>Rateクラスのコントローラ</li>
+<li>Rateオブジェクトを取得し，ビューに表示する</li>
 </ul>
 </li>
 <li>Tweets_Controller<ul>
@@ -130,84 +157,61 @@
 </li>
 </ul>
 </li>
-<li>Model<ul>
-<li>Currency<ul>
-<li>通貨情報を表すクラス</li>
-<li>以下の情報を保持する<ul>
-<li>from_date: 集計対象データの範囲（開始時刻）</li>
-<li>to_date: 集計対象データの範囲（終了時刻）</li>
-<li>pair: 為替のペペアコード（例：USDJPY）</li>
-<li>interval: 集計対象期間<ul>
-<li>以下のいずれかが保持されている<ul>
-<li>5-min</li>
-<li>10-min</li>
-<li>20-min</li>
-<li>30-min</li>
-<li>1-hour</li>
-<li>2-hour</li>
-<li>3-hour</li>
-<li>6-hour</li>
-<li>12-hour</li>
-<li>1-day</li>
-<li>1-week</li>
-<li>1-month</li>
-<li>2-month</li>
-<li>3-month</li>
-<li>6-month</li>
-<li>1-year</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>open: 始値</li>
-<li>close: 終値</li>
-<li>high: 高値</li>
-<li>low: 安値</li>
-<li>created_at: 通貨情報が作成された日時</li>
-<li>updated_at: 通貨情報が更新された日時</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Tweet<ul>
-<li>ツイートを表すクラス</li>
-<li>以下の情報を保持する<ul>
-<li>tweet_id: ツイートのID</li>
-<li>user_name: ツイートのユーザー名</li>
-<li>profile_image_url: アカウントのプロフィール画像のURL</li>
-<li>full_text: ツイート本文</li>
-<li>tweeted_at: ツイート日時</li>
-<li>created_at: ツイート情報が作成された日時</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Article<ul>
-<li>記事を表すクラス</li>
-<li>以下の情報を保持する<ul>
-<li>published: 記事が発行された日時</li>
-<li>title: 記事のタイトル</li>
-<li>summary: 記事の要約</li>
-<li>url: 記事へのURL</li>
-<li>created_at: 記事情報が作成された日時</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>データベースには外部スクリプトにより定期的にレコードが追加される</strong><ul>
-<li><strong>通貨，ツイート・日経の情報を取得するスクリプトが定期的に実行されてMySQLに登録される</strong></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 </div>
-</div>
-<div class="section" id="db">
-<h1>DBスキーマ定義<a class="headerlink" href="#db" title="Permalink to this headline">¶</a></h1>
-<p><strong>通貨情報を登録するCurrenciesテーブル，ツイートを登録するTweetsテーブル，記事を登録するArticlesテーブルを定義する</strong></p>
+<div class="section" id="id3">
+<h2>処理手順<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Currenciesテーブル</li>
+<li><a class="reference external" href="http://localhost/regulus_docs/design_spec.html#id4">レートを確認する</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/design_spec.html#id5">ツイートを取得する</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/design_spec.html#id6">記事を取得する</a></li>
+</ul>
+<div class="section" id="id4">
+<h3>レートを確認する<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p><em>シーケンス図</em></p>
+<img alt="シーケンス図(レートを確認する)" src="_images/seq_rates.jpg" />
+<p>利用者がWebページにアクセスしてからレートを確認するまでの流れ</p>
+<ol class="arabic simple">
+<li>利用者がhttps://&lt;ホスト名&gt;/ratesにアクセスする</li>
+<li>Rates_Controller#showを実行する</li>
+<li>Rates::get_ratesを実行する
+- 引数にはペアコードと足の種類（5分など）を指定する</li>
+<li>取得したレートをグラフ化して表示する</li>
+<li>以降は10秒ごとにRates_Controller#updateを実行してグラフを更新する</li>
+</ol>
+</div>
+<div class="section" id="id5">
+<h3>ツイートを確認する<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><em>シーケンス図</em></p>
+<img alt="シーケンス図(ツイートを確認する)" src="_images/seq_tweets.jpg" />
+<p>利用者がWebページにアクセスしてからツイートを確認するまでの流れ</p>
+<ol class="arabic simple">
+<li>利用者がhttp://&lt;ホスト名&gt;/tweetsにアクセスする</li>
+<li>Tweets_Controller#showを実行する</li>
+<li>Tweets::get_tweetsを実行し，最新100件のツイート情報を取得する</li>
+<li>取得したツイートを表示する</li>
+<li>以降は1秒ごとにTweets_Controller#updateを実行してツイートを更新する</li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h3>記事を確認する<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p><em>シーケンス図</em></p>
+<img alt="シーケンス図(記事を確認する)" src="_images/seq_articles.jpg" />
+<p>利用者がWebページにアクセスしてから記事を確認するまでの流れ</p>
+<ol class="arabic simple">
+<li>利用者がhttp://&lt;ホスト名&gt;/articlesにアクセスする</li>
+<li>Articles_Controller#showを実行する</li>
+<li>Articles::get_articlesを実行し，最新100件の記事情報を取得する</li>
+<li>取得した記事を表示する</li>
+<li>以降は60秒後とにArticles_Controller#updateを実行して記事を更新する</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>データベース構成<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>レート情報を登録するRatesテーブル，ツイートを登録するTweetsテーブル，記事を登録するArticlesテーブルを定義する</p>
+<ul class="simple">
+<li>Ratesテーブル</li>
 </ul>
 <table border="1" class="docutils">
 <colgroup>
@@ -305,10 +309,6 @@
 <li>1日足(1-day)</li>
 <li>1週間足(1-week)</li>
 <li>1ヶ月足(1-month)</li>
-<li>2ヶ月足(2-month)</li>
-<li>3ヶ月足(3-month)</li>
-<li>6ヶ月足(6-month)</li>
-<li>1年足(1-year)</li>
 </ul>
 </li>
 <li>生データは外部スクリプトを使って取得する</li>
@@ -426,6 +426,96 @@
 </tbody>
 </table>
 </div>
+<div class="section" id="id8">
+<h2>外部スクリプト<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>レート，ツイート，記事の取得，バックアップなどの管理は外部スクリプトで定期的に実行する</p>
+<ul class="simple">
+<li>取得した情報はアプリが管理するデータベースではなく，専用のデータベースに登録される</li>
+<li>アプリは専用データベースからコピーしたものを使用する</li>
+</ul>
+<div class="section" id="id9">
+<h3>スクリプト一覧<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p><em>レート用スクリプト</em></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">スクリプト名</th>
+<th class="head">処理内容</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>rates.import.rb</td>
+<td>YQLを利用してレート情報を取得&amp;DBに登録する</td>
+</tr>
+<tr class="row-odd"><td>rates.copy.rb</td>
+<td>開発環境のテーブルを本番環境にコピーする</td>
+</tr>
+<tr class="row-even"><td>rates.aggregate.rb</td>
+<td>レート情報を集約してローソク足データを作成する</td>
+</tr>
+<tr class="row-odd"><td>rates.aggregate.sql</td>
+<td>集約するためのSQLクエリ</td>
+</tr>
+<tr class="row-even"><td>rates.dump.rb</td>
+<td>レート情報をバックアップする</td>
+</tr>
+<tr class="row-odd"><td>rates.delete.rb</td>
+<td>古いレート情報を削除する</td>
+</tr>
+</tbody>
+</table>
+<p><em>ツイート用スクリプト</em></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">スクリプト名</th>
+<th class="head">処理内容</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>tweets.import.rb</td>
+<td>Twitter APIを利用してツイート情報を取得&amp;DBに登録する</td>
+</tr>
+<tr class="row-odd"><td>tweets.copy.rb</td>
+<td>登録したツイート情報を開発環境と本番環境にコピーする</td>
+</tr>
+<tr class="row-even"><td>tweets.dump.rb</td>
+<td>ツイート情報をバックアップする</td>
+</tr>
+<tr class="row-odd"><td>tweets.delete.rb</td>
+<td>古いツイート情報を削除する</td>
+</tr>
+</tbody>
+</table>
+<p><em>記事用スクリプト</em></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">スクリプト名</th>
+<th class="head">処理内容</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>articless.import.rb</td>
+<td>RSSから記事情報を抽出&amp;DBに登録する</td>
+</tr>
+<tr class="row-odd"><td>articless.copy.rb</td>
+<td>登録した記事情報を開発環境と本番環境にコピーする</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
 
           </div>
@@ -435,16 +525,21 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">詳細仕様</a><ul>
-<li><a class="reference internal" href="#id2">振る舞い</a><ul>
-<li><a class="reference internal" href="#id3">通貨の価格変動を確認する</a></li>
-<li><a class="reference internal" href="#id4">変動に関連する情報を取得する</a></li>
+<li><a class="reference internal" href="#">設計仕様</a><ul>
+<li><a class="reference internal" href="#id2">モジュール構成</a></li>
+<li><a class="reference internal" href="#id3">処理手順</a><ul>
+<li><a class="reference internal" href="#id4">レートを確認する</a></li>
+<li><a class="reference internal" href="#id5">ツイートを確認する</a></li>
+<li><a class="reference internal" href="#id6">記事を確認する</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">構造</a></li>
+<li><a class="reference internal" href="#id7">データベース構成</a></li>
+<li><a class="reference internal" href="#id8">外部スクリプト</a><ul>
+<li><a class="reference internal" href="#id9">スクリプト一覧</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#db">DBスキーマ定義</a></li>
+</ul>
+</li>
 </ul>
 
   <h4>Previous topic</h4>
