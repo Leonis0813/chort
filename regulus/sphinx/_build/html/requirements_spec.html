@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>要求定義 &mdash; regulus 1.0.2 documentation</title>
+    <title>要求仕様 &mdash; regulus 1.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.2',
+        VERSION:     '1.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,8 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="regulus 1.0.2 documentation" href="index.html" />
-    <link rel="next" title="ユーザインターフェース" href="interface.html" />
+    <link rel="top" title="regulus 1.1.0 documentation" href="index.html" />
+    <link rel="next" title="機能仕様" href="functional_spec.html" />
     <link rel="prev" title="Welcome to regulus’s documentation!" href="index.html" /> 
   </head>
   <body role="document">
@@ -35,12 +35,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="interface.html" title="ユーザインターフェース"
+          <a href="functional_spec.html" title="機能仕様"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to regulus’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">regulus 1.0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">regulus 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -50,33 +50,52 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>要求定義<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>要求仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>本システムは以下の３つの機能を提供する</p>
 <ul class="simple">
-<li>システムは以下の２つを行う<ul>
-<li>通貨の価格変動の表示</li>
-<li>価格変動に関連する情報の表示</li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id2">為替レートの表示</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id4">ツイートの表示</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id6">記事の表示</a></li>
 </ul>
-</li>
-</ul>
+<p><em>ユースケース図</em></p>
+<img alt="ユースケース図" src="_images/use_case.jpg" />
 <div class="section" id="id2">
-<h2>通貨の価格変動の表示<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>為替レートの表示<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>通貨の価格の変化を表した折れ線グラフをブラウザ上に表示する</li>
-<li>複数の通貨の価格変動を同時に表示する</li>
-<li>利用者はブラウザに表示されているグラフを見て価格変動を確認する</li>
+<li>為替レートの変化を表したローソク足グラフをブラウザ上に表示する</li>
+<li>為替のペアはドル円で固定されている</li>
+<li>グラフは定期的に更新される</li>
 </ul>
+<p><em>ユースケースシナリオ</em></p>
+<ol class="arabic simple">
+<li>利用者はブラウザからシステムにアクセスする</li>
+<li>システムは為替レートの変化を表すグラフを表示する</li>
+</ol>
 </div>
 <div class="section" id="id3">
-<h2>価格変動に関する情報の表示<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>ツイートの表示<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>通貨の価格変動に影響を与える可能性のある情報をブラウザ上に表示する</li>
-<li>本システムは関連情報をTwitterと日本経済新聞から取得する</li>
-<li>利用者はブラウザを見て価格変動に関連する情報を確認する</li>
+<li>Twitterから取得したツイートをブラウザ上に表示する</li>
+<li>表示されるツイートは「為替」を条件として検索した結果である</li>
+<li>ツイートは定期的に更新される</li>
 </ul>
+<p><em>ユースケースシナリオ</em></p>
+<ol class="arabic simple">
+<li>利用者はブラウザからシステムにアクセスする</li>
+<li>システムはツイートを表示する</li>
+</ol>
 </div>
 <div class="section" id="id4">
-<h2>ユースケース図<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<img alt="ユースケース図" src="_images/use_case.jpg" />
+<h2>記事の表示<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>日本経済新聞(日経)のRSSから取得した記事をブラウザ上に表示する</li>
+<li>記事は定期的に更新される</li>
+</ul>
+<p><em>ユースケースシナリオ</em></p>
+<ol class="arabic simple">
+<li>利用者はブラウザからシステムにアクセスする</li>
+<li>システムは記事を表示する</li>
+</ol>
 </div>
 </div>
 
@@ -88,10 +107,10 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">要求定義</a><ul>
-<li><a class="reference internal" href="#id2">通貨の価格変動の表示</a></li>
-<li><a class="reference internal" href="#id3">価格変動に関する情報の表示</a></li>
-<li><a class="reference internal" href="#id4">ユースケース図</a></li>
+<li><a class="reference internal" href="#">要求仕様</a><ul>
+<li><a class="reference internal" href="#id2">為替レートの表示</a></li>
+<li><a class="reference internal" href="#id3">ツイートの表示</a></li>
+<li><a class="reference internal" href="#id4">記事の表示</a></li>
 </ul>
 </li>
 </ul>
@@ -100,12 +119,12 @@
   <p class="topless"><a href="index.html"
                         title="previous chapter">Welcome to regulus&#8217;s documentation!</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="interface.html"
-                        title="next chapter">ユーザインターフェース</a></p>
+  <p class="topless"><a href="functional_spec.html"
+                        title="next chapter">機能仕様</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/requirement.txt"
+      <li><a href="_sources/requirements_spec.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -133,12 +152,12 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="interface.html" title="ユーザインターフェース"
+          <a href="functional_spec.html" title="機能仕様"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to regulus’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">regulus 1.0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">regulus 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
