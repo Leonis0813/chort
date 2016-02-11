@@ -84,6 +84,9 @@
 </tr>
 </tbody>
 </table>
+<ul class="simple">
+<li><em>項目の値が空ハッシュや空配列の場合はその項目はないものとして見なす</em></li>
+</ul>
 </div></blockquote>
 </div>
 <div class="section" id="id3">
@@ -91,8 +94,8 @@
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
-<col width="54%" />
-<col width="46%" />
+<col width="50%" />
+<col width="50%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">エラーコード</th>
@@ -103,11 +106,8 @@
 <tr class="row-even"><td>absent_param_[項目名]</td>
 <td>入力必須の項目がない</td>
 </tr>
-<tr class="row-odd"><td>invalid_value_[項目名]</td>
-<td>入力項目の値が不正</td>
-</tr>
-<tr class="row-even"><td>invalid_param_[パラメータ名]</td>
-<td>不正なパラメータがある</td>
+<tr class="row-odd"><td>invalid_param_[項目名]</td>
+<td>不正値のパラメータがある</td>
 </tr>
 </tbody>
 </table>
@@ -123,12 +123,15 @@
 <dl class="docutils">
 <dt>Request Body：</dt>
 <dd><ul class="first last simple">
+<li>必須<ul>
 <li>accounts<ul>
 <li>account_type</li>
 <li>date</li>
 <li>content</li>
 <li>category</li>
 <li>price</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -151,17 +154,17 @@
 <h3>家計簿を検索する<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>HTTP Method： GET</p>
 <p>Path：/accounts</p>
-<dl class="docutils">
-<dt>Query：</dt>
-<dd><ul class="first last simple">
+<p>Query：</p>
+<blockquote>
+<div><p>クエリがない場合は全ての家計簿を取得する</p>
+<ul class="simple">
 <li>account_type</li>
 <li>date</li>
 <li>content</li>
 <li>category</li>
 <li>price</li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 <p>Request Body：なし</p>
 <dl class="docutils">
 <dt>Response：</dt>
@@ -185,6 +188,18 @@
 <dl class="docutils">
 <dt>Request Body：</dt>
 <dd><ul class="first last simple">
+<li>必須<ul>
+<li>with<ul>
+<li>account_type</li>
+<li>date</li>
+<li>content</li>
+<li>category</li>
+<li>price</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>オプション（指定がなければ全ての家計簿が更新される）<ul>
 <li>condition<ul>
 <li>account_type</li>
 <li>date</li>
@@ -193,12 +208,6 @@
 <li>price</li>
 </ul>
 </li>
-<li>with<ul>
-<li>account_type</li>
-<li>date</li>
-<li>content</li>
-<li>category</li>
-<li>price</li>
 </ul>
 </li>
 </ul>
@@ -221,9 +230,10 @@
 <h3>家計簿を削除する<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>HTTP Method： DELETE</p>
 <p>Path：/accounts</p>
-<dl class="docutils">
-<dt>Request Body：</dt>
-<dd><ul class="first last simple">
+<p>Request Body：</p>
+<blockquote>
+<div><p>指定がない場合は全ての家計簿を削除する</p>
+<ul class="simple">
 <li>condition<ul>
 <li>account_type</li>
 <li>date</li>
@@ -233,7 +243,8 @@
 </ul>
 </li>
 </ul>
-</dd>
+</div></blockquote>
+<dl class="docutils">
 <dt>Response ：</dt>
 <dd><ul class="first last">
 <li><p class="first">削除成功時</p>
@@ -252,16 +263,18 @@
 <h3>収支を見る<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>HTTP Method： GET</p>
 <p>Path： /settlement</p>
-<dl class="docutils">
-<dt>Query：</dt>
-<dd><ul class="first last simple">
-<li>period<ul>
+<p>Query：</p>
+<blockquote>
+<div><ul class="simple">
+<li>必須<ul>
+<li>interval<ul>
 <li>yearly, monthly, dailyのどれか</li>
 </ul>
 </li>
 </ul>
-</dd>
-</dl>
+</li>
+</ul>
+</div></blockquote>
 <p>Request Body： なし</p>
 <dl class="docutils">
 <dt>Response：</dt>
