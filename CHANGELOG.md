@@ -1,6 +1,9 @@
 chort
 =====
 
+- 1.1.1:
+  - [Zosma] remove input error check
+
 - 1.1.0:
   - [Regulus] update version to 1.1.0
   - [Zosma] create doc
