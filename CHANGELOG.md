@@ -1,6 +1,13 @@
 chort
 =====
 
+- 1.1.1:
+  - [Zosma] update version to 1.0.1
+
+- 1.1.0:
+  - [Regulus] update version to 1.1.0
+  - [Zosma] create doc
+
 - 1.0.2:
   - [Adhafera] create doc
 

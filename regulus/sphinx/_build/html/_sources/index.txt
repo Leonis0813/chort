@@ -9,13 +9,11 @@ Welcome to regulus's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   requirement
-   interface
-   external
-   internal
-   database
+   requirements_spec
+   functional_spec
+   design_spec
 
 Indices and tables
 ==================

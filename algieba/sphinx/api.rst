@@ -21,18 +21,18 @@ API仕様
   |        price| 0以上の整数                  |
   +-------------+------------------------------+
 
+  - *項目の値が空ハッシュや空配列の場合はその項目はないものとして見なす*
+
 エラーコード
 ^^^^^^^^^^^^
 
-  +----------------------------+------------------------+
-  |エラーコード                |意味                    |
-  +============================+========================+
-  |absent_param_[項目名]       |入力必須の項目がない    |
-  +----------------------------+------------------------+
-  |invalid_value_[項目名]      |入力項目の値が不正      |
-  +----------------------------+------------------------+
-  |invalid_param_[パラメータ名]|不正なパラメータがある  |
-  +----------------------------+------------------------+
+  +----------------------------+----------------------------+
+  |エラーコード                |意味                        |
+  +============================+============================+
+  |absent_param_[項目名]       |入力必須の項目がない        |
+  +----------------------------+----------------------------+
+  |invalid_param_[項目名]      |不正値のパラメータがある    |
+  +----------------------------+----------------------------+
 
 API
 ----
@@ -45,26 +45,28 @@ HTTP Method： POST
 Path：/accounts
 
 Request Body：
-	- accounts
+  - 必須
 
-	  - account_type
-	  - date
-	  - content
-	  - category
-	  - price
+    - accounts
+
+      - account_type
+      - date
+      - content
+      - category
+      - price
 
 Response：
-	- 登録成功時
+  - 登録成功時
 
-	  Status Code： 201
+    Status Code： 201
 
-	  Body： 登録した家計簿
+    Body： 登録した家計簿
 
-	- 登録失敗時
+  - 登録失敗時
 
-	  Status Code： 400
+    Status Code： 400
 
-	  Body： エラーコード
+    Body： エラーコード
 
 家計簿を検索する
 ^^^^^^^^^^^^^^^^
@@ -74,26 +76,29 @@ HTTP Method： GET
 Path：/accounts
 
 Query：
-	- account_type
-	- date
-	- content
-	- category
-	- price
+
+  クエリがない場合は全ての家計簿を取得する
+
+  - account_type
+  - date
+  - content
+  - category
+  - price
 
 Request Body：なし
 
 Response：
-	- 検索成功時
+  - 検索成功時
 
-	  Status Code： 200
+    Status Code： 200
 	  
-	  Body： 取得した家計簿の配列
+    Body： 取得した家計簿の配列
 
-	- 検索失敗時
+  - 検索失敗時
 
-	  Status Code： 400
+    Status Code： 400
 
-	  Body： エラーコード
+    Body： エラーコード
 
 家計簿を更新する
 ^^^^^^^^^^^^^^^^
@@ -103,34 +108,38 @@ HTTP Method： PUT
 Path：/accounts
 
 Request Body：
-	- condition
+  - 必須
 
-	  - account_type
-	  - date
-	  - content
-	  - category
-	  - price
+    - with
 
-	- with
+      - account_type
+      - date
+      - content
+      - category
+      - price
 
-	  - account_type
-	  - date
-	  - content
-	  - category
-	  - price
+  - オプション（指定がなければ全ての家計簿が更新される）
+
+    - condition
+
+      - account_type
+      - date
+      - content
+      - category
+      - price
 
 Response：
-	- 更新成功時
+  - 更新成功時
 
-	  Status Code： 200
+    Status Code： 200
 
-	  Body： 更新されたレコードの配列
+    Body： 更新されたレコードの配列
 
-	- 更新失敗時
+  - 更新失敗時
 
-	  Status Code： 400
+    Status Code： 400
 
-	  Body： エラーコード
+    Body： エラーコード
 
 家計簿を削除する
 ^^^^^^^^^^^^^^^^
@@ -140,26 +149,29 @@ HTTP Method： DELETE
 Path：/accounts
 
 Request Body：
-	- condition
 
-	  - account_type
-	  - date
-	  - content
-	  - category
-	  - price
+  指定がない場合は全ての家計簿を削除する
+
+  - condition
+
+    - account_type
+    - date
+    - content
+    - category
+    - price
 
 Response ：
-	- 削除成功時
+  - 削除成功時
 
-	  Status Code： 204
+    Status Code： 204
 
-	  Body： なし
+    Body： なし
 
-	- 削除失敗時
+  - 削除失敗時
 
-	  Status Code： 400
+    Status Code： 400
 
-	  Body： エラーコード
+    Body： エラーコード
 
 収支を見る
 ^^^^^^^^^^
@@ -169,21 +181,24 @@ HTTP Method： GET
 Path： /settlement
 
 Query：
-	- period
 
-	  - yearly, monthly, dailyのどれか
+  - 必須
+
+    - interval
+
+      - yearly, monthly, dailyのどれか
 
 Request Body： なし
 
 Response：
-	- 収支計算成功時
+  - 収支計算成功時
 
-	  Status Code： 200
+    Status Code： 200
 
-	  Body： 収支のリスト
+    Body： 収支のリスト
 
-	- 収支計算失敗時
+  - 収支計算失敗時
 
-	  Status Code： 400
+    Status Code： 400
 
-	  Body： エラーコード
+    Body： エラーコード
