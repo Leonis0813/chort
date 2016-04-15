@@ -30,6 +30,10 @@ MVCモデルを利用する
 
 - View
 
+  - Account_View: 家計簿の登録や表示を行うビュー
+
+    - 利用者がhttp://<ホスト名>/accountsにアクセスすることで表示される
+
 - Controller
 
   - Accounts_Controller: リクエストを処理するコントローラ
