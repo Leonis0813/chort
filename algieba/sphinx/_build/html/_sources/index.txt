@@ -9,13 +9,11 @@ Welcome to algieba's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   construction
-   external
-   internal
-   api
-   database
+   requirements_spec
+   functional_spec
+   design_spec
 
 Indices and tables
 ==================
@@ -23,4 +21,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
