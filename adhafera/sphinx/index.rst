@@ -9,12 +9,11 @@ Welcome to adhafera's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   requirement
-   interface
-   external
-   internal
+   requirements_spec
+   functional_spec
+   design_spec
 
 Indices and tables
 ==================
