@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>機能仕様 &mdash; adhafera 1.0.0 documentation</title>
+    <title>設計仕様 &mdash; adhafera 1.0.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,7 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="adhafera 1.0.0 documentation" href="index.html" /> 
+    <link rel="top" title="adhafera 1.0.0 documentation" href="index.html" />
+    <link rel="prev" title="機能仕様" href="functional_spec.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,6 +33,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="functional_spec.html" title="機能仕様"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">adhafera 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -42,47 +46,16 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>機能仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>設計仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>設計仕様では以下を定義する</p>
 <ul class="simple">
-<li>本モジュールの振る舞いと構造を記載する<ul>
-<li><a class="reference external" href="http://localhost/adhafera_docs/register/external.html#id2">振る舞い</a></li>
-<li><a class="reference external" href="http://localhost/adhafera_docs/register/external.html#id4">構造</a></li>
-</ul>
-</li>
+<li><a class="reference external" href="http://localhost/adhafera_docs/design_spec.html#id2">モジュール構成</a></li>
+<li><a class="reference external" href="http://localhost/adhafera_docs/design_spec.html#id3">処理手順</a></li>
 </ul>
 <div class="section" id="id2">
-<h2>振る舞い<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><a class="reference external" href="http://localhost/adhafera_docs/register/external.html#id3">家計簿を登録する</a></li>
-</ul>
-<div class="section" id="id3">
-<h3>家計簿を登録する<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p><strong>シーケンス図</strong></p>
-<img alt="シーケンス図(家計簿を登録する)" src="_images/seq_register_ext.jpg" />
-<ul class="simple">
-<li>利用者が登録画面を開いてから家計簿を登録するまでの流れ<ol class="arabic">
-<li>家計簿情報を入力して登録ボタンを押す</li>
-<li>画面管理モジュールが情報を受け取る</li>
-<li>入力情報が十分かをチェックする</li>
-<li>日付情報のフォーマットが正しいかをチェックする<ul>
-<li>日付は&#8217;yyyy-mm-dd&#8217;のフォーマットのみ受け付ける</li>
-</ul>
-</li>
-<li>金額が正しいかをチェックする<ul>
-<li>金額は正の整数のみ受け付ける</li>
-</ul>
-</li>
-<li>入力情報をデータベースのあるサーバに送信する</li>
-<li>送信した結果を登録画面に表示する</li>
-</ol>
-</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id4">
-<h2>構造<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p><strong>クラス図</strong></p>
-<img alt="クラス図" src="_images/class_ext.jpg" />
+<h2>モジュール構成<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><em>クラス図</em></p>
+<img alt="クラス図" src="_images/class.jpg" />
 <ul class="simple">
 <li>MVCモデルを利用する</li>
 <li>Model<ul>
@@ -90,20 +63,50 @@
 </ul>
 </li>
 <li>View<ul>
-<li>登録画面<ul>
-<li>家計簿情報の入力を受け付ける</li>
+<li>RegistrationView<ul>
+<li>家計簿情報を入力する画面を表すクラス</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Controller<ul>
-<li>画面管理<ul>
+<li>MainActivity<ul>
 <li>画面の表示に関する処理を管理するコントローラ</li>
 </ul>
 </li>
 </ul>
 </li>
+<li>InputChecker<ul>
+<li>正しく入力されているかをチェックするクラス</li>
+<li>全項目が入力されているかをチェックする</li>
+<li>日付，金額が正しく入力されているかをチェックする</li>
 </ul>
+</li>
+<li>HTTPClient<ul>
+<li>データベースサーバへ家計簿情報を送信するクラス</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>処理手順<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://localhost/adhafera_docs/design_spec.html#id4">家計簿を登録する</a></li>
+</ul>
+<div class="section" id="id4">
+<h3>家計簿を登録する<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<img alt="シーケンス図(家計簿を登録する)" src="_images/seq_register.jpg" />
+<ol class="arabic simple">
+<li>利用者が家計簿情報を入力して登録ボタンを押すと，onClickメソッドが実行される</li>
+<li>registAccountメソッドを実行して受け取った家計簿情報を処理する</li>
+<li>checkEmptyメソッドで空欄のチェックを行う</li>
+<li>checkDateメソッドで日付のフォーマットのチェックを行う</li>
+<li>checkPriceメソッドで金額のチェックを行う</li>
+<li>入力情報に問題が無ければ，sendAccountメソッドで家計簿情報を送信する</li>
+<li>送信結果が返ると，noticeResultメソッドで結果を表示する</li>
+<li>showMessageメソッドで登録結果を利用者に通知する</li>
+</ol>
+</div>
 </div>
 </div>
 
@@ -115,20 +118,23 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">機能仕様</a><ul>
-<li><a class="reference internal" href="#id2">振る舞い</a><ul>
-<li><a class="reference internal" href="#id3">家計簿を登録する</a></li>
+<li><a class="reference internal" href="#">設計仕様</a><ul>
+<li><a class="reference internal" href="#id2">モジュール構成</a></li>
+<li><a class="reference internal" href="#id3">処理手順</a><ul>
+<li><a class="reference internal" href="#id4">家計簿を登録する</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">構造</a></li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="functional_spec.html"
+                        title="previous chapter">機能仕様</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/external.txt"
+      <li><a href="_sources/design_spec.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -155,6 +161,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="functional_spec.html" title="機能仕様"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">adhafera 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
