@@ -438,8 +438,8 @@
 <p><em>レート用スクリプト</em></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="29%" />
-<col width="71%" />
+<col width="24%" />
+<col width="76%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">スクリプト名</th>
@@ -448,21 +448,18 @@
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>rates.import.rb</td>
-<td>YQLを利用してレート情報を取得&amp;DBに登録する</td>
+<td>info.finance.yahoo.co.jpからレート情報を取得&amp;DBに登録する</td>
 </tr>
-<tr class="row-odd"><td>rates.copy.rb</td>
-<td>開発環境のテーブルを本番環境にコピーする</td>
-</tr>
-<tr class="row-even"><td>rates.aggregate.rb</td>
+<tr class="row-odd"><td>rates.aggregate.rb</td>
 <td>レート情報を集約してローソク足データを作成する</td>
 </tr>
-<tr class="row-odd"><td>rates.aggregate.sql</td>
+<tr class="row-even"><td>rates.aggregate.sql</td>
 <td>集約するためのSQLクエリ</td>
 </tr>
-<tr class="row-even"><td>rates.dump.rb</td>
+<tr class="row-odd"><td>rates.dump.rb</td>
 <td>レート情報をバックアップする</td>
 </tr>
-<tr class="row-odd"><td>rates.delete.rb</td>
+<tr class="row-even"><td>rates.delete.rb</td>
 <td>古いレート情報を削除する</td>
 </tr>
 </tbody>
@@ -470,8 +467,8 @@
 <p><em>ツイート用スクリプト</em></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="25%" />
-<col width="75%" />
+<col width="24%" />
+<col width="76%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">スクリプト名</th>
@@ -482,13 +479,10 @@
 <tr class="row-even"><td>tweets.import.rb</td>
 <td>Twitter APIを利用してツイート情報を取得&amp;DBに登録する</td>
 </tr>
-<tr class="row-odd"><td>tweets.copy.rb</td>
-<td>登録したツイート情報を開発環境と本番環境にコピーする</td>
-</tr>
-<tr class="row-even"><td>tweets.dump.rb</td>
+<tr class="row-odd"><td>tweets.dump.rb</td>
 <td>ツイート情報をバックアップする</td>
 </tr>
-<tr class="row-odd"><td>tweets.delete.rb</td>
+<tr class="row-even"><td>tweets.delete.rb</td>
 <td>古いツイート情報を削除する</td>
 </tr>
 </tbody>
@@ -507,9 +501,6 @@
 <tbody valign="top">
 <tr class="row-even"><td>articless.import.rb</td>
 <td>RSSから記事情報を抽出&amp;DBに登録する</td>
-</tr>
-<tr class="row-odd"><td>articless.copy.rb</td>
-<td>登録した記事情報を開発環境と本番環境にコピーする</td>
 </tr>
 </tbody>
 </table>
