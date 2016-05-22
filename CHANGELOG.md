@@ -3,6 +3,7 @@ chort
 
 - 1.3.0:
   - [Regulus] update version to 1.2.0
+  - [Zosma] update version to 1.0.2
 
 - 1.2.0:
   - [Algieba] update version to 1.1.0
