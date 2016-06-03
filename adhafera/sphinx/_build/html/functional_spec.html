@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ユーザインターフェース &mdash; adhafera 1.0.0 documentation</title>
+    <title>機能仕様 &mdash; adhafera 1.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.0',
+        VERSION:     '1.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,9 +23,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="adhafera 1.0.0 documentation" href="index.html" />
-    <link rel="next" title="機能仕様" href="external.html" />
-    <link rel="prev" title="要求定義" href="requirement.html" /> 
+    <link rel="top" title="adhafera 1.0.1 documentation" href="index.html" />
+    <link rel="next" title="設計仕様" href="design_spec.html" />
+    <link rel="prev" title="要求仕様" href="requirements_spec.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,12 +35,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="external.html" title="機能仕様"
+          <a href="design_spec.html" title="設計仕様"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="requirement.html" title="要求定義"
+          <a href="requirements_spec.html" title="要求仕様"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">adhafera 1.0.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">adhafera 1.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -50,20 +50,28 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>ユーザインターフェース<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>機能仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>機能仕様では以下を定義する</p>
 <ul class="simple">
-<li>外部インターフェースであるアプリ画面での表示について記載する</li>
+<li><a class="reference external" href="http://localhost/adhafera_docs/functional_spec.html#id2">ユーザーインターフェース</a></li>
+<li><a class="reference external" href="http://localhost/adhafera_docs/functional_spec.html#id5">データ構造</a></li>
 </ul>
 <div class="section" id="id2">
-<h2>アプリ画面<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>ユーザーインターフェース<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>利用者はアプリを操作して家計簿情報を入力する</p>
 <ul class="simple">
-<li><a class="reference external" href="http://localhost/adhafera_docs/register/interface.html#id3">登録画面</a></li>
-<li><a class="reference external" href="http://localhost/adhafera_docs/register/interface.html#id4">登録失敗時</a></li>
+<li>画面には以下が表示されている<ul>
+<li>日付，内容，カテゴリ，金額の入力欄</li>
+<li>登録，取消ボタン</li>
+</ul>
+</li>
 </ul>
 <div class="section" id="id3">
 <h3>登録画面<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <img alt="登録画面" src="_images/interface.jpg" />
-<p><strong>機能</strong></p>
 <ul class="simple">
 <li>画面上部に家計簿情報を入力するテキストボックスが表示される</li>
 <li>家計簿情報を全て入力して登録ボタンを押すと家計簿が登録される</li>
@@ -72,10 +80,54 @@
 </div>
 <div class="section" id="id4">
 <h3>登録失敗時<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <img alt="登録失敗時" src="_images/interface_failure.jpg" />
 <ul class="simple">
 <li>入力が不正な項目にはテキストボックスの右に赤いマークが表示される</li>
 </ul>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>データ構造<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>本モジュールでは以下のデータを扱う</p>
+<ul class="simple">
+<li><a class="reference external" href="http://localhost/adhafera_docs/functional_spec.html#id6">家計簿</a></li>
+</ul>
+<div class="section" id="id6">
+<h3>家計簿<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>買い物などで発生した所持金の増減を表す</li>
+</ul>
+<div class="section" id="id7">
+<h4>構成要素<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">要素</th>
+<th class="head">意味</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>日付</td>
+<td>所持金の増減があった日時</td>
+</tr>
+<tr class="row-odd"><td>内容</td>
+<td>所持金の増減があった理由など</td>
+</tr>
+<tr class="row-even"><td>カテゴリ</td>
+<td>費目（例：食費，水道光熱費）</td>
+</tr>
+<tr class="row-odd"><td>金額</td>
+<td>所持金の増減量</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -88,10 +140,17 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">ユーザインターフェース</a><ul>
-<li><a class="reference internal" href="#id2">アプリ画面</a><ul>
+<li><a class="reference internal" href="#">機能仕様</a><ul>
+<li><a class="reference internal" href="#id2">ユーザーインターフェース</a><ul>
 <li><a class="reference internal" href="#id3">登録画面</a></li>
 <li><a class="reference internal" href="#id4">登録失敗時</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">データ構造</a><ul>
+<li><a class="reference internal" href="#id6">家計簿</a><ul>
+<li><a class="reference internal" href="#id7">構成要素</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -99,15 +158,15 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="requirement.html"
-                        title="previous chapter">要求定義</a></p>
+  <p class="topless"><a href="requirements_spec.html"
+                        title="previous chapter">要求仕様</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="external.html"
-                        title="next chapter">機能仕様</a></p>
+  <p class="topless"><a href="design_spec.html"
+                        title="next chapter">設計仕様</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/interface.txt"
+      <li><a href="_sources/functional_spec.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -135,12 +194,12 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="external.html" title="機能仕様"
+          <a href="design_spec.html" title="設計仕様"
              >next</a> |</li>
         <li class="right" >
-          <a href="requirement.html" title="要求定義"
+          <a href="requirements_spec.html" title="要求仕様"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">adhafera 1.0.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">adhafera 1.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
