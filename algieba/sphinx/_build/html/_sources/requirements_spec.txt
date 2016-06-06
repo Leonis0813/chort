@@ -7,7 +7,7 @@
 - `家計簿を取得する <http://localhost/algieba_docs/requirements_spec.html#id3>`__
 - `家計簿を更新する <http://localhost/algieba_docs/requirements_spec.html#id4>`__
 - `家計簿を削除する <http://localhost/algieba_docs/requirements_spec.html#id5>`__
-- `収支を計算する <http://localhost/algieba_docs/requirements_spec.html#id6>`__
+- `収支を見る <http://localhost/algieba_docs/requirements_spec.html#id6>`__
 
 *ユースケース図*
 
@@ -54,8 +54,8 @@
 1. 利用者は検索条件を含んだHTTPリクエストを送信する
 2. システムは受信したリクエストから検索条件を取得して，条件を満たす家計簿を削除する
 
-収支を計算する
---------------
+収支を見る
+----------
 
 - 登録されている家計簿から収支を計算する
 
