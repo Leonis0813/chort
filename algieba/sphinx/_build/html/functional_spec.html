@@ -54,52 +54,50 @@
 <p>機能仕様では以下を定義する</p>
 <ul class="simple">
 <li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id2">データ構造</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id5">ユーザーインターフェース</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id4">ユーザーインターフェース</a></li>
 <li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#web-api">Web API</a></li>
 </ul>
 <div class="section" id="id2">
 <h2>データ構造<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>本システムでは以下のデータを扱う</p>
+<p>本システムでは以下のリソースを扱う</p>
 <ul class="simple">
 <li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id3">家計簿</a></li>
 </ul>
 <div class="section" id="id3">
 <h3>家計簿<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>買い物などで発生した所持金の増減を表す</li>
-</ul>
-<div class="section" id="id4">
-<h4>構成要素<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p>買い物などで発生した所持金の増減を表す</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="23%" />
 <col width="77%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">要素</th>
+<tr class="row-odd"><th class="head">入力項目</th>
 <th class="head">意味</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>日付</td>
+<tr class="row-even"><td>種類</td>
+<td>&#8220;収入&#8221;もしくは&#8221;支出&#8221;</td>
+</tr>
+<tr class="row-odd"><td>日付</td>
 <td>所持金の増減があった日時</td>
 </tr>
-<tr class="row-odd"><td>内容</td>
+<tr class="row-even"><td>内容</td>
 <td>所持金の増減があった理由など</td>
 </tr>
-<tr class="row-even"><td>カテゴリ</td>
+<tr class="row-odd"><td>カテゴリ</td>
 <td>費目（例：食費，水道光熱費）</td>
 </tr>
-<tr class="row-odd"><td>金額</td>
+<tr class="row-even"><td>金額</td>
 <td>所持金の増減量</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-</div>
-<div class="section" id="id5">
-<h2>ユーザーインターフェース<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>ユーザーインターフェース<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>利用者はブラウザから家計簿の登録や検索を行うことができる</p>
 <ul class="simple">
 <li>画面の上部に登録用の入力フォームが表示される</li>
@@ -109,18 +107,18 @@
 </div>
 <div class="section" id="web-api">
 <h2>Web API<a class="headerlink" href="#web-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>共通定義<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="id6">
-<h3>共通定義<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id7">
-<h4>入力項目<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<h4>家計簿リソース<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
-<col width="30%" />
-<col width="70%" />
+<col width="32%" />
+<col width="68%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">項目名</th>
+<tr class="row-odd"><th class="head">属性</th>
 <th class="head">フォーマット</th>
 </tr>
 </thead>
@@ -147,8 +145,8 @@
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id8">
-<h4>エラーコード<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id7">
+<h4>エラーコード<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -176,14 +174,14 @@
 <h3>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h3>
 <p>以下のAPIを定義する</p>
 <ul class="simple">
-<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id9">家計簿を登録する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id10">家計簿を検索する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id11">家計簿を更新する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id12">家計簿を削除する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id13">収支を見る</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id8">家計簿を登録する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id9">家計簿を検索する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id10">家計簿を更新する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id11">家計簿を削除する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id12">収支を見る</a></li>
 </ul>
-<div class="section" id="id9">
-<h4>家計簿を登録する<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id8">
+<h4>家計簿を登録する<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <p>HTTP Method： POST</p>
 <p>Path：/accounts</p>
 <dl class="docutils">
@@ -210,14 +208,14 @@
 </li>
 <li><p class="first">登録失敗時</p>
 <p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id8">エラーコード</a></p>
+<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
 </li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="id10">
-<h4>家計簿を検索する<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id9">
+<h4>家計簿を検索する<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <p>HTTP Method： GET</p>
 <p>Path：/accounts</p>
 <p>Query：</p>
@@ -241,14 +239,14 @@
 </li>
 <li><p class="first">検索失敗時</p>
 <p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id8">エラーコード</a></p>
+<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
 </li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="id11">
-<h4>家計簿を更新する<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h4>家計簿を更新する<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <p>HTTP Method： PUT</p>
 <p>Path：/accounts</p>
 <dl class="docutils">
@@ -286,14 +284,14 @@
 </li>
 <li><p class="first">更新失敗時</p>
 <p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id8">エラーコード</a></p>
+<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
 </li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="id12">
-<h4>家計簿を削除する<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id11">
+<h4>家計簿を削除する<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
 <p>HTTP Method： DELETE</p>
 <p>Path：/accounts</p>
 <p>Request Body：</p>
@@ -319,14 +317,14 @@
 </li>
 <li><p class="first">削除失敗時</p>
 <p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id8">エラーコード</a></p>
+<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
 </li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="id13">
-<h4>収支を見る<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h4>収支を見る<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <p>HTTP Method： GET</p>
 <p>Path： /settlement</p>
 <p>Query：</p>
@@ -351,7 +349,7 @@
 </li>
 <li><p class="first">収支計算失敗時</p>
 <p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id8">エラーコード</a></p>
+<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
 </li>
 </ul>
 </dd>
@@ -371,25 +369,22 @@
   <ul>
 <li><a class="reference internal" href="#">機能仕様</a><ul>
 <li><a class="reference internal" href="#id2">データ構造</a><ul>
-<li><a class="reference internal" href="#id3">家計簿</a><ul>
-<li><a class="reference internal" href="#id4">構成要素</a></li>
+<li><a class="reference internal" href="#id3">家計簿</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id5">ユーザーインターフェース</a></li>
+<li><a class="reference internal" href="#id4">ユーザーインターフェース</a></li>
 <li><a class="reference internal" href="#web-api">Web API</a><ul>
-<li><a class="reference internal" href="#id6">共通定義</a><ul>
-<li><a class="reference internal" href="#id7">入力項目</a></li>
-<li><a class="reference internal" href="#id8">エラーコード</a></li>
+<li><a class="reference internal" href="#id5">共通定義</a><ul>
+<li><a class="reference internal" href="#id6">家計簿リソース</a></li>
+<li><a class="reference internal" href="#id7">エラーコード</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#api">API</a><ul>
-<li><a class="reference internal" href="#id9">家計簿を登録する</a></li>
-<li><a class="reference internal" href="#id10">家計簿を検索する</a></li>
-<li><a class="reference internal" href="#id11">家計簿を更新する</a></li>
-<li><a class="reference internal" href="#id12">家計簿を削除する</a></li>
-<li><a class="reference internal" href="#id13">収支を見る</a></li>
+<li><a class="reference internal" href="#id8">家計簿を登録する</a></li>
+<li><a class="reference internal" href="#id9">家計簿を検索する</a></li>
+<li><a class="reference internal" href="#id10">家計簿を更新する</a></li>
+<li><a class="reference internal" href="#id11">家計簿を削除する</a></li>
+<li><a class="reference internal" href="#id12">収支を見る</a></li>
 </ul>
 </li>
 </ul>
