@@ -50,7 +50,7 @@
 <p>設計仕様では以下を定義する</p>
 <ul class="simple">
 <li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id2">モジュール構成</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id3">処理手順</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id3">シーケンス</a></li>
 <li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id9">データベース構成</a></li>
 </ul>
 <div class="section" id="id2">
@@ -72,18 +72,25 @@
 </li>
 <li>View<ul>
 <li>Account_View: 家計簿の登録や表示を行うビュー<ul>
-<li>利用者がhttp://&lt;ホスト名&gt;/accountsにアクセスすることで表示される</li>
+<li>利用者がhttp://&lt;ホスト名&gt;(:80)/にアクセスすることで表示される</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Controller<ul>
 <li>Accounts_Controller: リクエストを処理するコントローラ<ul>
+<li>register: ブラウザに登録画面を表示するメソッド</li>
 <li>create: 家計簿を登録するメソッド</li>
 <li>read: 家計簿を検索するメソッド</li>
 <li>update: 家計簿を更新するメソッド</li>
 <li>delete: 家計簿を削除するメソッド</li>
 <li>settle: 収支を計算するメソッド</li>
+<li>account_attributes: Accountの属性名の配列を返すメソッド</li>
+<li>permitted_params_update: 更新時に指定可能なパラメーター名の配列を返すメソッド</li>
+<li>permitted_values_settle: 収支計算時に指定可能な期間の配列を返すメソッド</li>
+<li>check_absent_params_for_create: 作成時に必須パラメーターが存在しているかをチェックするメソッド</li>
+<li>check_absent_params_for_update: 更新時に必須パラメーターが存在しているかをチェックするメソッド</li>
+<li>check_absent_params_for_settle: 収支計算時に必須パラメーターが存在しているかをチェックするメソッド</li>
 </ul>
 </li>
 </ul>
@@ -91,10 +98,10 @@
 </ul>
 </div>
 <div class="section" id="id3">
-<h2>処理手順<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>シーケンス<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id4">家計簿を登録する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id5">家計簿を取得する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id5">家計簿を検索する</a></li>
 <li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id6">家計簿を更新する</a></li>
 <li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id7">家計簿を削除する</a></li>
 <li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id8">収支を見る</a></li>
@@ -103,17 +110,23 @@
 <h3>家計簿を登録する<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/seq_create.jpg" src="_images/seq_create.jpg" />
 <ol class="arabic">
-<li><p class="first">Viewer, Registerからのリクエストを受信すると，Accounts_Controllerクラスのcreateメソッドを実行する</p>
+<li><p class="first">リクエストを受けると，Accounts_Controllerクラスのcreateメソッドを実行する</p>
 </li>
-<li><p class="first">Accountクラスのcreateメソッドを実行して家計簿を登録する</p>
-</li>
-<li><p class="first">createメソッドの実行結果に基づいてそれぞれ以下の処理を行う</p>
+<li><p class="first">check_absent_params_for_createメソッドで必須パラメーターをチェックする</p>
 <ul>
-<li><p class="first">Accountクラスのインスタンスを取得した場合</p>
-<p>3-1. Viewer, Registerにステータスコード201を送信する</p>
+<li><p class="first">必須パラメーターがない場合</p>
+<p>3-1. BadRequestを発生させてエラーコードとステータスコード400を返す</p>
 </li>
-<li><p class="first">例外が発生した場合</p>
-<p>3-1. Viewer, Registerにエラーコードとステータスコード400を送信する</p>
+<li><p class="first">必須パラメーターがある場合</p>
+<p>3-2. Accountクラスのcreateメソッドを実行してAccountオブジェクトを作成，DBに保存する</p>
+<ul>
+<li><p class="first">保存に成功した場合</p>
+<p>4-1. ステータスコード201を返す</p>
+</li>
+<li><p class="first">登録に失敗した場合</p>
+<p>4-2. ActiveRecord::RecordInvalidを発生させて，エラーコードとステータスコード400を返す</p>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -123,18 +136,18 @@
 <h3>家計簿を検索する<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/seq_read.jpg" src="_images/seq_read.jpg" />
 <ol class="arabic">
-<li><p class="first">Viewerからのリクエストを受信すると，Accounts_Controllerクラスのreadメソッドを実行する</p>
+<li><p class="first">リクエストを受けると，Accounts_Controllerクラスのreadメソッドを実行する</p>
 </li>
 <li><p class="first">Accountクラスのshowメソッドをパラメータを引数にして実行する</p>
 </li>
-<li><p class="first">check_conditionを実行し，その結果に基づいてそれぞれ以下の処理を行う</p>
+<li><p class="first">check_conditionを実行して不正な値がないかチェックする</p>
 <ul>
-<li><p class="first">空配列の場合</p>
-<p>3-1. whereメソッドを実行して家計簿を取得する</p>
-<p>3-2. Viewerに検索結果とステータスコード200を送信する</p>
+<li><p class="first">不正な値がある場合</p>
+<p>4-1. ActiveRecord::RecordInvalidを発生させて，エラーコードとステータスコード400を返す</p>
 </li>
-<li><p class="first">空配列でない場合（不正なパラメータがある場合）</p>
-<p>3-1. Viewerにエラーコードとステータスコード400を送信する</p>
+<li><p class="first">不正な値がない場合</p>
+<p>4-1. whereメソッドを実行してAccountオブジェクトの配列を取得する</p>
+<p>4-2. 取得したAccountオブジェクトの配列とステータスコード200を返す</p>
 </li>
 </ul>
 </li>
@@ -144,19 +157,34 @@
 <h3>家計簿を更新する<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/seq_update.jpg" src="_images/seq_update.jpg" />
 <ol class="arabic">
-<li><p class="first">Viewerからのリクエストを受信すると，Accounts_Controllerクラスのupdateメソッドを実行する</p>
+<li><p class="first">リクエストを受けると，Accounts_Controllerクラスのupdateメソッドを実行する</p>
 </li>
-<li><p class="first">Accountクラスのupdateメソッドをパラメータを引数にして実行する</p>
-</li>
-<li><p class="first">check_conditionを実行し，その結果に基づいてそれぞれ以下の処理を行う</p>
+<li><p class="first">check_absent_params_for_createメソッドで必須パラメーターをチェックする</p>
 <ul>
-<li><p class="first">空配列の場合</p>
-<p>3-1. whereメソッドを実行して家計簿を取得する</p>
-<p>3-2. 取得した家計簿それぞれに対して，updateメソッドを実行して家計簿を更新する</p>
-<p>3-3. Viewerに更新結果とステータスコード200を送信する</p>
+<li><p class="first">必須パラメーターがない場合</p>
+<p>3-1. BadRequestを発生させて, エラーコードとステータスコード400を返す</p>
 </li>
-<li><p class="first">空配列でない場合（不正なパラメータがある場合）</p>
-<p>3-1. Viewerにエラーコードとステータスコード400を送信する</p>
+<li><p class="first">必須パラメーターがある場合</p>
+<p>3-1. Accountクラスのupdateメソッドをパラメータを引数にして実行する</p>
+<p>3-2. conditionを引数にしてcheck_conditionを実行して不正な値がないかチェックする</p>
+<ul>
+<li><p class="first">不正な値がある場合</p>
+<p>4-1. ActiveRecord::RecordInvalidを発生させて，エラーコードとステータスコード400を返す</p>
+</li>
+<li><p class="first">不正な値がない場合</p>
+<p>4-1. withを引数にしてcheck_conditionを実行して不正な値がないかチェックする</p>
+<ul>
+<li><p class="first">不正な値がある場合</p>
+<p>5-1. ActiveRecord::RecordInvalidを発生させて，エラーコードとステータスコード400を返す</p>
+</li>
+<li><p class="first">不正な値がない場合</p>
+<p>5-1. whereメソッドを実行してAccountオブジェクトの配列を取得する</p>
+<p>5-2. 取得したAccountオブジェクトの配列それぞれに対して，updateメソッドを実行してAccountオブジェクトを更新する</p>
+<p>5-3. 更新されたAccountオブジェクトとステータスコード200を返す</p>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -166,19 +194,19 @@
 <h3>家計簿を削除する<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/seq_delete.jpg" src="_images/seq_delete.jpg" />
 <ol class="arabic">
-<li><p class="first">Viewerからのリクエストを受信すると，Accounts_Controllerクラスのdeleteメソッドを実行する</p>
+<li><p class="first">リクエストを受けると，Accounts_Controllerクラスのdeleteメソッドを実行する</p>
 </li>
 <li><p class="first">Accountクラスのdestroyメソッドをパラメータを引数にして実行する</p>
 </li>
-<li><p class="first">check_conditionを実行し，その結果に基づいてそれぞれ以下の処理を行う</p>
+<li><p class="first">check_conditionを実行して不正な値がないかチェックする</p>
 <ul>
-<li><p class="first">空配列の場合</p>
-<p>3-1. whereメソッドを実行して家計簿を取得する</p>
-<p>3-2. 取得した家計簿それぞれに対して，deleteメソッドを実行して家計簿を削除する</p>
-<p>3-3. Viewerにステータスコード204を送信する</p>
+<li><p class="first">不正な値がある場合</p>
+<p>4-1. ActiveRecord::RecordInvalidを発生させて，エラーコードとステータスコード400を返す</p>
 </li>
-<li><p class="first">空配列でない場合（不正なパラメータがある場合）</p>
-<p>3-1. Viewerにエラーコードとステータスコード400を送信する</p>
+<li><p class="first">不正な値がない場合</p>
+<p>4-1. whereメソッドを実行してAccountオブジェクトの配列を取得する</p>
+<p>4-2. 取得したAccountオブジェクトそれぞれに対して，deleteメソッドを実行する</p>
+<p>4-3. ステータスコード204を返す</p>
 </li>
 </ul>
 </li>
@@ -188,16 +216,25 @@
 <h3>収支を見る<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/seq_settle.jpg" src="_images/seq_settle.jpg" />
 <ol class="arabic">
-<li><p class="first">Viewerからのリクエストを受信すると，Accounts_Controllerクラスのsettleメソッドが実行される</p>
+<li><p class="first">リクエストを受けると，Accounts_Controllerクラスのsettleメソッドを実行する</p>
 </li>
-<li><p class="first">パラメータ&#8221;interval&#8221;をチェックし，その結果に基づいてそれぞれ以下の処理を行う</p>
+<li><p class="first">check_absent_params_for_settleメソッドで必須パラメーターをチェックする</p>
+<ul>
+<li><p class="first">必須パラメーターがない場合</p>
+<p>3-1. BadRequestを発生させて，エラーコードとステータスコード400を返す</p>
+</li>
+<li><p class="first">必須パラメーターがある場合</p>
+<p>3-1. Accountクラスのsettleメソッドをパラメータを引数にして実行する</p>
+<p>3-2. パラメーター&#8221;interval&#8221;をチェックし，その結果に基づいてそれぞれ以下の処理を行う</p>
 <ul>
 <li><p class="first">daily or monthly or yearlyの場合</p>
-<p>3-1. intervalに従って収支を計算する</p>
-<p>3-2. Viewerに計算結果とステータスコード200を送信する</p>
+<p>4-1. intervalに従って収支を計算する</p>
+<p>4-2. 計算結果とステータスコード200を返す</p>
 </li>
 <li><p class="first">それ以外の場合</p>
-<p>3-1. Viewerにエラーコードとステータスコード400を送信する</p>
+<p>4-1. Exceptionを発生させて，エラーコードとステータスコード400を返す</p>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -206,17 +243,14 @@
 </div>
 <div class="section" id="id9">
 <h2>データベース構成<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<p>家計簿情報を登録するAccountテーブルを定義する</p>
-<ul class="simple">
-<li>Accountテーブル</li>
-</ul>
+<p>家計簿を登録するAccountテーブルを定義する</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="21%" />
-<col width="14%" />
-<col width="33%" />
-<col width="14%" />
-<col width="17%" />
+<col width="19%" />
+<col width="12%" />
+<col width="42%" />
+<col width="12%" />
+<col width="15%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">カラム</th>
@@ -227,33 +261,51 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>account_type</td>
+<tr class="row-even"><td>id</td>
+<td>INTEGER</td>
+<td>家計簿のID</td>
+<td>◯</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>account_type</td>
 <td>STRING</td>
 <td>収入/支出を表すフラグ</td>
 <td>&nbsp;</td>
 <td>◯</td>
 </tr>
-<tr class="row-odd"><td>date</td>
+<tr class="row-even"><td>date</td>
 <td>DATE</td>
 <td>収入/支出があった日</td>
 <td>&nbsp;</td>
 <td>◯</td>
 </tr>
-<tr class="row-even"><td>content</td>
+<tr class="row-odd"><td>content</td>
 <td>STRING</td>
 <td>収入/支出の内容</td>
 <td>&nbsp;</td>
 <td>◯</td>
 </tr>
-<tr class="row-odd"><td>category</td>
+<tr class="row-even"><td>category</td>
 <td>STRING</td>
 <td>収入/支出のカテゴリ</td>
 <td>&nbsp;</td>
 <td>◯</td>
 </tr>
-<tr class="row-even"><td>price</td>
+<tr class="row-odd"><td>price</td>
 <td>INTEGER</td>
 <td>収入/支出の金額</td>
+<td>&nbsp;</td>
+<td>◯</td>
+</tr>
+<tr class="row-even"><td>created_at</td>
+<td>DATETIME</td>
+<td>家計簿が登録された日時</td>
+<td>&nbsp;</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>updated_at</td>
+<td>DATETIME</td>
+<td>家計簿が登録or更新された日時</td>
 <td>&nbsp;</td>
 <td>◯</td>
 </tr>
@@ -272,7 +324,7 @@
   <ul>
 <li><a class="reference internal" href="#">設計仕様</a><ul>
 <li><a class="reference internal" href="#id2">モジュール構成</a></li>
-<li><a class="reference internal" href="#id3">処理手順</a><ul>
+<li><a class="reference internal" href="#id3">シーケンス</a><ul>
 <li><a class="reference internal" href="#id4">家計簿を登録する</a></li>
 <li><a class="reference internal" href="#id5">家計簿を検索する</a></li>
 <li><a class="reference internal" href="#id6">家計簿を更新する</a></li>

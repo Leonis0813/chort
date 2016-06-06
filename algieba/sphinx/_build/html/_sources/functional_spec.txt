@@ -10,7 +10,7 @@
 データ構造
 ----------
 
-本システムでは以下のリソースを扱う
+本システムでは以下のデータを扱う
 
 - `家計簿 <http://localhost/algieba_docs/functional_spec.html#id3>`__
 
