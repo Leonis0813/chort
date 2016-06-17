@@ -87,10 +87,11 @@ API
 以下のAPIを定義する
 
 - `家計簿を登録する <http://localhost/algieba_docs/functional_spec.html#id8>`__
-- `家計簿を検索する <http://localhost/algieba_docs/functional_spec.html#id9>`__
-- `家計簿を更新する <http://localhost/algieba_docs/functional_spec.html#id10>`__
-- `家計簿を削除する <http://localhost/algieba_docs/functional_spec.html#id11>`__
-- `収支を見る <http://localhost/algieba_docs/functional_spec.html#id12>`__
+- `家計簿を取得する <http://localhost/algieba_docs/functional_spec.html#id9>`__
+- `家計簿を検索する <http://localhost/algieba_docs/functional_spec.html#id10>`__
+- `家計簿を更新する <http://localhost/algieba_docs/functional_spec.html#id11>`__
+- `家計簿を削除する <http://localhost/algieba_docs/functional_spec.html#id12>`__
+- `収支を見る <http://localhost/algieba_docs/functional_spec.html#id13>`__
 
 家計簿を登録する
 """"""""""""""""
@@ -99,23 +100,28 @@ HTTP Method： POST
 
 Path：/accounts
 
-Request Body：
+Request：
+
+  Body：
+
   - 必須
 
     - accounts
 
-      - account_type
-      - date
-      - content
-      - category
-      - price
+      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
+
+        - account_type
+        - date
+        - content
+        - category
+        - price
 
 Response：
   - 登録成功時
 
     Status Code： 201
 
-    Body： 登録した家計簿
+    Body： 登録した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
   - 登録失敗時
 

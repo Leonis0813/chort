@@ -175,20 +175,23 @@
 <p>以下のAPIを定義する</p>
 <ul class="simple">
 <li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id8">家計簿を登録する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id9">家計簿を検索する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id10">家計簿を更新する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id11">家計簿を削除する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id12">収支を見る</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id9">家計簿を取得する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id10">家計簿を検索する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id11">家計簿を更新する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id12">家計簿を削除する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id13">収支を見る</a></li>
 </ul>
 <div class="section" id="id8">
 <h4>家計簿を登録する<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <p>HTTP Method： POST</p>
 <p>Path：/accounts</p>
-<dl class="docutils">
-<dt>Request Body：</dt>
-<dd><ul class="first last simple">
+<p>Request：</p>
+<blockquote>
+<div><p>Body：</p>
+<ul class="simple">
 <li>必須<ul>
 <li>accounts<ul>
+<li><a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">家計簿リソース</a><ul>
 <li>account_type</li>
 <li>date</li>
 <li>content</li>
@@ -199,12 +202,15 @@
 </ul>
 </li>
 </ul>
-</dd>
+</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
 <dt>Response：</dt>
 <dd><ul class="first last">
 <li><p class="first">登録成功時</p>
 <p>Status Code： 201</p>
-<p>Body： 登録した家計簿</p>
+<p>Body： 登録した <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">家計簿リソース</a></p>
 </li>
 <li><p class="first">登録失敗時</p>
 <p>Status Code： 400</p>
