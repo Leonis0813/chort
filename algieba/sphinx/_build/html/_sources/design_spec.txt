@@ -21,9 +21,7 @@ MVCモデルを利用する
 
   - Account: Accountsテーブルを操作するモデル
 
-    - show: レコードを取得するメソッド
-    - update: レコードを更新するメソッド
-    - destroy: レコードを削除するメソッド
+    - index: レコードを検索するメソッド
     - settle: 収支を計算するメソッド
     - check_condition: 家計簿の検索条件をチェックするメソッド
 
@@ -37,17 +35,17 @@ MVCモデルを利用する
 
   - Accounts_Controller: リクエストを処理するコントローラ
 
-    - register: ブラウザに登録画面を表示するメソッド
+    - manage: ブラウザに登録画面を表示するメソッド
     - create: 家計簿を登録するメソッド
-    - read: 家計簿を検索するメソッド
+    - read: 家計簿を取得するメソッド
+    - index: 家計簿を検索するメソッド
     - update: 家計簿を更新するメソッド
     - delete: 家計簿を削除するメソッド
     - settle: 収支を計算するメソッド
     - account_attributes: Accountの属性名の配列を返すメソッド
-    - permitted_params_update: 更新時に指定可能なパラメーター名の配列を返すメソッド
-    - permitted_values_settle: 収支計算時に指定可能な期間の配列を返すメソッド
+    - permitted_params_index: 検索時に指定可能なパラメーター名の配列を返すメソッド
+    - permitted_params_settle: 収支計算時に指定可能なパラメーター名の配列を返すメソッド
     - check_absent_params_for_create: 作成時に必須パラメーターが存在しているかをチェックするメソッド
-    - check_absent_params_for_update: 更新時に必須パラメーターが存在しているかをチェックするメソッド
     - check_absent_params_for_settle: 収支計算時に必須パラメーターが存在しているかをチェックするメソッド
 
 シーケンス

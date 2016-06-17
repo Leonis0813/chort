@@ -61,9 +61,7 @@
 <ul class="simple">
 <li>Model<ul>
 <li>Account: Accountsテーブルを操作するモデル<ul>
-<li>show: レコードを取得するメソッド</li>
-<li>update: レコードを更新するメソッド</li>
-<li>destroy: レコードを削除するメソッド</li>
+<li>index: レコードを検索するメソッド</li>
 <li>settle: 収支を計算するメソッド</li>
 <li>check_condition: 家計簿の検索条件をチェックするメソッド</li>
 </ul>
@@ -79,17 +77,17 @@
 </li>
 <li>Controller<ul>
 <li>Accounts_Controller: リクエストを処理するコントローラ<ul>
-<li>register: ブラウザに登録画面を表示するメソッド</li>
+<li>manage: ブラウザに登録画面を表示するメソッド</li>
 <li>create: 家計簿を登録するメソッド</li>
-<li>read: 家計簿を検索するメソッド</li>
+<li>read: 家計簿を取得するメソッド</li>
+<li>index: 家計簿を検索するメソッド</li>
 <li>update: 家計簿を更新するメソッド</li>
 <li>delete: 家計簿を削除するメソッド</li>
 <li>settle: 収支を計算するメソッド</li>
 <li>account_attributes: Accountの属性名の配列を返すメソッド</li>
-<li>permitted_params_update: 更新時に指定可能なパラメーター名の配列を返すメソッド</li>
-<li>permitted_values_settle: 収支計算時に指定可能な期間の配列を返すメソッド</li>
+<li>permitted_params_index: 検索時に指定可能なパラメーター名の配列を返すメソッド</li>
+<li>permitted_params_settle: 収支計算時に指定可能なパラメーター名の配列を返すメソッド</li>
 <li>check_absent_params_for_create: 作成時に必須パラメーターが存在しているかをチェックするメソッド</li>
-<li>check_absent_params_for_update: 更新時に必須パラメーターが存在しているかをチェックするメソッド</li>
 <li>check_absent_params_for_settle: 収支計算時に必須パラメーターが存在しているかをチェックするメソッド</li>
 </ul>
 </li>
