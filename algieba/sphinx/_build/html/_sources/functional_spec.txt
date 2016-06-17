@@ -73,13 +73,13 @@ Web API
 エラーコード
 """"""""""""
 
-  +-----------------------------+-----------------------------+
-  | エラーコード                | 意味                        |
-  +=============================+=============================+
-  | absent_param_[項目名]       | 入力必須の項目がない        |
-  +-----------------------------+-----------------------------+
-  | invalid_param_[項目名]      | 不正値のパラメータがある    |
-  +-----------------------------+-----------------------------+
+  +-----------------------------+---------------------+-----------------------------+
+  | エラーコード                | ステータスコード    | 意味                        |
+  +=============================+=====================+=============================+
+  | absent_param_[属性]         | 400                 | 入力必須の項目がない        |
+  +-----------------------------+---------------------+-----------------------------+
+  | invalid_param_[属性]        | 400                 | 不正値のパラメータがある    |
+  +-----------------------------+---------------------+-----------------------------+
 
 API
 ^^^^
@@ -117,17 +117,9 @@ Request:
         - price
 
 Response:
-  - 登録成功時
+  Status Code: 201
 
-    Status Code: 201
-
-    Body: 登録した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
-
-  - 登録失敗時
-
-    Status Code: 400
-
-    Body: `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
+  Body: 登録した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
 家計簿を取得する
 """"""""""""""""
@@ -141,15 +133,9 @@ Request:
     - id: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ のID
 
 Response:
-  - 取得成功時
+  Status Code: 200
 
-    Status Code: 200
-
-    Body: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
-
-  - 取得失敗時
-
-    Status Code: 404
+  Body: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
 家計簿を検索する
 """"""""""""""""
@@ -170,17 +156,9 @@ Request:
       - price
 
 Response:
-  - 検索成功時
+  Status Code: 200
 
-    Status Code: 200
-	  
-    Body: 取得した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ の配列
-
-  - 検索失敗時
-
-    Status Code: 400
-
-    Body: `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
+  Body: 取得した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ の配列
 
 家計簿を更新する
 """"""""""""""""
@@ -203,17 +181,9 @@ Request:
       - price
 
 Response:
-  - 更新成功時
+  Status Code: 200
 
-    Status Code: 200
-
-    Body: 更新した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
-
-  - 更新失敗時
-
-    Status Code: 400
-
-    Body: `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
+  Body: 更新した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
 家計簿を削除する
 """"""""""""""""
@@ -227,13 +197,7 @@ Request:
     - id: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ のID
 
 Response:
-  - 削除成功時
-
-    Status Code: 204
-
-  - 削除失敗時
-
-    Status Code: 404
+  Status Code: 204
 
 収支を見る
 """"""""""

@@ -150,19 +150,23 @@
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col width="37%" />
+<col width="27%" />
+<col width="37%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">エラーコード</th>
+<th class="head">ステータスコード</th>
 <th class="head">意味</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>absent_param_[項目名]</td>
+<tr class="row-even"><td>absent_param_[属性]</td>
+<td>400</td>
 <td>入力必須の項目がない</td>
 </tr>
-<tr class="row-odd"><td>invalid_param_[項目名]</td>
+<tr class="row-odd"><td>invalid_param_[属性]</td>
+<td>400</td>
 <td>不正値のパラメータがある</td>
 </tr>
 </tbody>
@@ -207,16 +211,8 @@
 </div></blockquote>
 <dl class="docutils">
 <dt>Response:</dt>
-<dd><ul class="first last">
-<li><p class="first">登録成功時</p>
-<p>Status Code: 201</p>
-<p>Body: 登録した <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a></p>
-</li>
-<li><p class="first">登録失敗時</p>
-<p>Status Code: 400</p>
-<p>Body: <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
-</li>
-</ul>
+<dd><p class="first">Status Code: 201</p>
+<p class="last">Body: 登録した <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a></p>
 </dd>
 </dl>
 </div>
@@ -235,15 +231,8 @@
 </dl>
 </dd>
 <dt>Response:</dt>
-<dd><ul class="first last">
-<li><p class="first">取得成功時</p>
-<p>Status Code: 200</p>
-<p>Body: <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a></p>
-</li>
-<li><p class="first">取得失敗時</p>
-<p>Status Code: 404</p>
-</li>
-</ul>
+<dd><p class="first">Status Code: 200</p>
+<p class="last">Body: <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a></p>
 </dd>
 </dl>
 </div>
@@ -268,16 +257,8 @@
 </dl>
 </dd>
 <dt>Response:</dt>
-<dd><ul class="first last">
-<li><p class="first">検索成功時</p>
-<p>Status Code: 200</p>
-<p>Body: 取得した <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a> の配列</p>
-</li>
-<li><p class="first">検索失敗時</p>
-<p>Status Code: 400</p>
-<p>Body: <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
-</li>
-</ul>
+<dd><p class="first">Status Code: 200</p>
+<p class="last">Body: 取得した <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a> の配列</p>
 </dd>
 </dl>
 </div>
@@ -308,16 +289,8 @@
 </dl>
 </dd>
 <dt>Response:</dt>
-<dd><ul class="first last">
-<li><p class="first">更新成功時</p>
-<p>Status Code: 200</p>
-<p>Body: 更新した <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a></p>
-</li>
-<li><p class="first">更新失敗時</p>
-<p>Status Code: 400</p>
-<p>Body: <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
-</li>
-</ul>
+<dd><p class="first">Status Code: 200</p>
+<p class="last">Body: 更新した <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a></p>
 </dd>
 </dl>
 </div>
@@ -336,15 +309,7 @@
 </dl>
 </dd>
 <dt>Response:</dt>
-<dd><ul class="first last">
-<li><p class="first">削除成功時</p>
-<p>Status Code: 204</p>
-</li>
-<li><p class="first">削除失敗時</p>
-<p>Status Code: 404</p>
-</li>
-</ul>
-</dd>
+<dd>Status Code: 204</dd>
 </dl>
 </div>
 <div class="section" id="id13">
