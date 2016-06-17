@@ -150,11 +150,14 @@ Request:
 
     - オプション
 
-      - account_type
-      - date
-      - content
-      - category
-      - price
+      - account_type: income, expenseのどちらか
+      - date_before: 指定された日付以前の家計簿を検索する
+      - date_after: 指定された日付以降の家計簿を検索する
+      - content_equal: 完全一致の家計簿を検索する
+      - content_include: 部分一致の家計簿を検索する
+      - category: カテゴリ
+      - price_upper: 指定された金額以上の家計簿を検索する
+      - price_lower: 指定された金額以下の家計簿を検索する
 
 Response:
   Status Code: 200
