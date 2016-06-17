@@ -96,13 +96,13 @@ API
 家計簿を登録する
 """"""""""""""""
 
-HTTP Method： POST
+HTTP Method: POST
 
-Path：/accounts
+Path: /accounts
 
-Request：
+Request:
 
-  Body：
+  Body:
 
   - 必須
 
@@ -116,16 +116,16 @@ Request：
         - category
         - price
 
-Response：
+Response:
   - 登録成功時
 
-    Status Code： 201
+    Status Code: 201
 
-    Body： 登録した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
+    Body: 登録した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
   - 登録失敗時
 
-    Status Code： 400
+    Status Code: 400
 
     Body: `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
 
@@ -185,24 +185,13 @@ Response:
 家計簿を更新する
 """"""""""""""""
 
-HTTP Method： PUT
+HTTP Method: PUT
 
-Path：/accounts
+Path: /accounts/<id>
 
-Request Body：
-  - 必須
-
-    - with
-
-      - account_type
-      - date
-      - content
-      - category
-      - price
-
-  - オプション（指定がなければ全ての家計簿が更新される）
-
-    - condition
+Request:
+  Body:
+    - オプション
 
       - account_type
       - date
@@ -210,18 +199,18 @@ Request Body：
       - category
       - price
 
-Response：
+Response:
   - 更新成功時
 
-    Status Code： 200
+    Status Code: 200
 
-    Body： 更新されたレコードの配列
+    Body: 更新した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
   - 更新失敗時
 
-    Status Code： 400
+    Status Code: 400
 
-    Body： `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
+    Body: `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
 
 家計簿を削除する
 """"""""""""""""

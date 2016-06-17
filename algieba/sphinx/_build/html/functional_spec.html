@@ -183,11 +183,11 @@
 </ul>
 <div class="section" id="id8">
 <h4>家計簿を登録する<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
-<p>HTTP Method： POST</p>
-<p>Path：/accounts</p>
-<p>Request：</p>
+<p>HTTP Method: POST</p>
+<p>Path: /accounts</p>
+<p>Request:</p>
 <blockquote>
-<div><p>Body：</p>
+<div><p>Body:</p>
 <ul class="simple">
 <li>必須<ul>
 <li>accounts<ul>
@@ -206,14 +206,14 @@
 </ul>
 </div></blockquote>
 <dl class="docutils">
-<dt>Response：</dt>
+<dt>Response:</dt>
 <dd><ul class="first last">
 <li><p class="first">登録成功時</p>
-<p>Status Code： 201</p>
-<p>Body： 登録した <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a></p>
+<p>Status Code: 201</p>
+<p>Body: 登録した <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a></p>
 </li>
 <li><p class="first">登録失敗時</p>
-<p>Status Code： 400</p>
+<p>Status Code: 400</p>
 <p>Body: <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
 </li>
 </ul>
@@ -283,44 +283,34 @@
 </div>
 <div class="section" id="id11">
 <h4>家計簿を更新する<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
-<p>HTTP Method： PUT</p>
-<p>Path：/accounts</p>
+<p>HTTP Method: PUT</p>
+<p>Path: /accounts/&lt;id&gt;</p>
 <dl class="docutils">
-<dt>Request Body：</dt>
+<dt>Request:</dt>
+<dd><dl class="first last docutils">
+<dt>Body:</dt>
 <dd><ul class="first last simple">
-<li>必須<ul>
-<li>with<ul>
+<li>オプション<ul>
 <li>account_type</li>
 <li>date</li>
 <li>content</li>
 <li>category</li>
 <li>price</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>オプション（指定がなければ全ての家計簿が更新される）<ul>
-<li>condition<ul>
-<li>account_type</li>
-<li>date</li>
-<li>content</li>
-<li>category</li>
-<li>price</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
 </dd>
-<dt>Response：</dt>
+</dl>
+</dd>
+<dt>Response:</dt>
 <dd><ul class="first last">
 <li><p class="first">更新成功時</p>
-<p>Status Code： 200</p>
-<p>Body： 更新されたレコードの配列</p>
+<p>Status Code: 200</p>
+<p>Body: 更新した <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a></p>
 </li>
 <li><p class="first">更新失敗時</p>
-<p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
+<p>Status Code: 400</p>
+<p>Body: <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
 </li>
 </ul>
 </dd>
