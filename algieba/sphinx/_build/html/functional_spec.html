@@ -246,12 +246,14 @@
 <dt>Query:</dt>
 <dd><p class="first"><em>クエリがない場合は全ての家計簿を取得する</em></p>
 <ul class="last simple">
-<li>オプション
-- account_type
-- date
-- content
-- category
-- price</li>
+<li>オプション<ul>
+<li>account_type</li>
+<li>date</li>
+<li>content</li>
+<li>category</li>
+<li>price</li>
+</ul>
+</li>
 </ul>
 </dd>
 </dl>
@@ -314,11 +316,13 @@
 </div>
 <div class="section" id="id13">
 <h4>収支を見る<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
-<p>HTTP Method： GET</p>
-<p>Path： /settlement</p>
-<p>Query：</p>
-<blockquote>
-<div><ul class="simple">
+<p>HTTP Method: GET</p>
+<p>Path: /settlement</p>
+<dl class="docutils">
+<dt>Request:</dt>
+<dd><dl class="first last docutils">
+<dt>Query:</dt>
+<dd><ul class="first last simple">
 <li>必須<ul>
 <li>interval<ul>
 <li>yearly, monthly, dailyのどれか</li>
@@ -327,20 +331,12 @@
 </ul>
 </li>
 </ul>
-</div></blockquote>
-<p>Request Body： なし</p>
-<dl class="docutils">
-<dt>Response：</dt>
-<dd><ul class="first last">
-<li><p class="first">収支計算成功時</p>
-<p>Status Code： 200</p>
-<p>Body： 収支のリスト</p>
-</li>
-<li><p class="first">収支計算失敗時</p>
-<p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
-</li>
-</ul>
+</dd>
+</dl>
+</dd>
+<dt>Response:</dt>
+<dd><p class="first">Status Code: 200</p>
+<p class="last">Body: 収支のリスト</p>
 </dd>
 </dl>
 </div>

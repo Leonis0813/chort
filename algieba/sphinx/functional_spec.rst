@@ -149,6 +149,7 @@ Request:
     *クエリがない場合は全ての家計簿を取得する*
 
     - オプション
+
       - account_type
       - date
       - content
@@ -202,29 +203,19 @@ Response:
 収支を見る
 """"""""""
 
-HTTP Method： GET
+HTTP Method: GET
 
-Path： /settlement
+Path: /settlement
 
-Query：
+Request:
+  Query:
+    - 必須
 
-  - 必須
+      - interval
 
-    - interval
+        - yearly, monthly, dailyのどれか
 
-      - yearly, monthly, dailyのどれか
+Response:
+  Status Code: 200
 
-Request Body： なし
-
-Response：
-  - 収支計算成功時
-
-    Status Code： 200
-
-    Body： 収支のリスト
-
-  - 収支計算失敗時
-
-    Status Code： 400
-
-    Body： `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
+  Body: 収支のリスト
