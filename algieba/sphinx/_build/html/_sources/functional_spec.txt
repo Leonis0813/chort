@@ -190,6 +190,9 @@ HTTP Method: PUT
 Path: /accounts/<id>
 
 Request:
+  Path Parameter:
+    - id: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ のID
+
   Body:
     - オプション
 
@@ -215,34 +218,22 @@ Response:
 家計簿を削除する
 """"""""""""""""
 
-HTTP Method： DELETE
+HTTP Method: DELETE
 
-Path：/accounts
+Path: /accounts/<id>
 
-Request Body：
+Request:
+  Path Parameter:
+    - id: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ のID
 
-  指定がない場合は全ての家計簿を削除する
-
-  - condition
-
-    - account_type
-    - date
-    - content
-    - category
-    - price
-
-Response ：
+Response:
   - 削除成功時
 
-    Status Code： 204
-
-    Body： なし
+    Status Code: 204
 
   - 削除失敗時
 
-    Status Code： 400
-
-    Body： `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
+    Status Code: 404
 
 収支を見る
 """"""""""

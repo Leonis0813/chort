@@ -288,6 +288,11 @@
 <dl class="docutils">
 <dt>Request:</dt>
 <dd><dl class="first last docutils">
+<dt>Path Parameter:</dt>
+<dd><ul class="first last simple">
+<li>id: <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a> のID</li>
+</ul>
+</dd>
 <dt>Body:</dt>
 <dd><ul class="first last simple">
 <li>オプション<ul>
@@ -318,32 +323,25 @@
 </div>
 <div class="section" id="id12">
 <h4>家計簿を削除する<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
-<p>HTTP Method： DELETE</p>
-<p>Path：/accounts</p>
-<p>Request Body：</p>
-<blockquote>
-<div><p>指定がない場合は全ての家計簿を削除する</p>
-<ul class="simple">
-<li>condition<ul>
-<li>account_type</li>
-<li>date</li>
-<li>content</li>
-<li>category</li>
-<li>price</li>
-</ul>
-</li>
-</ul>
-</div></blockquote>
+<p>HTTP Method: DELETE</p>
+<p>Path: /accounts/&lt;id&gt;</p>
 <dl class="docutils">
-<dt>Response ：</dt>
+<dt>Request:</dt>
+<dd><dl class="first last docutils">
+<dt>Path Parameter:</dt>
+<dd><ul class="first last simple">
+<li>id: <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id6">家計簿リソース</a> のID</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Response:</dt>
 <dd><ul class="first last">
 <li><p class="first">削除成功時</p>
-<p>Status Code： 204</p>
-<p>Body： なし</p>
+<p>Status Code: 204</p>
 </li>
 <li><p class="first">削除失敗時</p>
-<p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/functional_spec.html#id7">エラーコード</a></p>
+<p>Status Code: 404</p>
 </li>
 </ul>
 </dd>
