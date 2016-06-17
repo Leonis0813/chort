@@ -91,7 +91,7 @@ API
 - `家計簿を検索する <http://localhost/algieba_docs/functional_spec.html#id10>`__
 - `家計簿を更新する <http://localhost/algieba_docs/functional_spec.html#id11>`__
 - `家計簿を削除する <http://localhost/algieba_docs/functional_spec.html#id12>`__
-- `収支を見る <http://localhost/algieba_docs/functional_spec.html#id13>`__
+- `収支を計算する <http://localhost/algieba_docs/functional_spec.html#id13>`__
 
 家計簿を登録する
 """"""""""""""""
@@ -200,8 +200,8 @@ Request:
 Response:
   Status Code: 204
 
-収支を見る
-""""""""""
+収支を計算する
+""""""""""""""
 
 HTTP Method: GET
 
