@@ -5,7 +5,7 @@
 
 - `モジュール構成 <http://localhost/algieba_docs/design_spec.html#id2>`__
 - `シーケンス <http://localhost/algieba_docs/design_spec.html#id3>`__
-- `データベース構成 <http://localhost/algieba_docs/design_spec.html#id9>`__
+- `データベース構成 <http://localhost/algieba_docs/design_spec.html#id10>`__
 
 モジュール構成
 --------------
