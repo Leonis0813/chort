@@ -47,10 +47,7 @@ MVCモデルを利用する
     - delete: 家計簿を削除するメソッド
     - settle: 収支を計算するメソッド
     - account_attributes: Accountの属性名の配列を返すメソッド
-    - permitted_params_index: 検索時に指定可能なパラメーター名の配列を返すメソッド
-    - permitted_params_settle: 収支計算時に指定可能なパラメーター名の配列を返すメソッド
     - check_absent_params_for_create: 作成時に必須パラメーターが存在しているかをチェックするメソッド
-    - check_absent_params_for_settle: 収支計算時に必須パラメーターが存在しているかをチェックするメソッド
 
 シーケンス
 ----------
@@ -145,27 +142,18 @@ MVCモデルを利用する
 .. image:: images/seq_settle.jpg
 
 1. リクエストを受けると，Accounts_Controllerクラスのsettleメソッドを実行する
-2. check_absent_params_for_settleメソッドで必須パラメーターをチェックする
+2. Accountクラスのsettleメソッドを実行して収支を計算する
+3. パラメーター"interval"をチェックし，その結果に基づいてそれぞれ以下の処理を行う
 
-   - 必須パラメーターがない場合
+   - daily or monthly or yearlyの場合
 
-     3-1. BadRequestを発生させて，ステータスコード400とエラーコードを返す
+     4-1. intervalに従って収支を計算する
 
-   - 必須パラメーターがある場合
+     4-2. ステータスコード200と計算結果を返す
 
-     3-1. Accountクラスのsettleメソッドをパラメータを引数にして実行する
+   - それ以外の場合
 
-     3-2. パラメーター"interval"をチェックし，その結果に基づいてそれぞれ以下の処理を行う
-
-     - daily or monthly or yearlyの場合
-
-       4-1. intervalに従って収支を計算する
-
-       4-2. ステータスコード200と計算結果を返す
-
-     - それ以外の場合
-
-       4-1. Exceptionを発生させて，ステータスコード400とエラーコードと返す
+     4-1. Exceptionを発生させて，ステータスコード400とエラーコードと返す
 
 データベース構成
 ----------------

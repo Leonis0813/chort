@@ -89,10 +89,7 @@
 <li>delete: 家計簿を削除するメソッド</li>
 <li>settle: 収支を計算するメソッド</li>
 <li>account_attributes: Accountの属性名の配列を返すメソッド</li>
-<li>permitted_params_index: 検索時に指定可能なパラメーター名の配列を返すメソッド</li>
-<li>permitted_params_settle: 収支計算時に指定可能なパラメーター名の配列を返すメソッド</li>
 <li>check_absent_params_for_create: 作成時に必須パラメーターが存在しているかをチェックするメソッド</li>
-<li>check_absent_params_for_settle: 収支計算時に必須パラメーターが存在しているかをチェックするメソッド</li>
 </ul>
 </li>
 </ul>
@@ -198,14 +195,9 @@
 <ol class="arabic">
 <li><p class="first">リクエストを受けると，Accounts_Controllerクラスのsettleメソッドを実行する</p>
 </li>
-<li><p class="first">check_absent_params_for_settleメソッドで必須パラメーターをチェックする</p>
-<ul>
-<li><p class="first">必須パラメーターがない場合</p>
-<p>3-1. BadRequestを発生させて，ステータスコード400とエラーコードを返す</p>
+<li><p class="first">Accountクラスのsettleメソッドを実行して収支を計算する</p>
 </li>
-<li><p class="first">必須パラメーターがある場合</p>
-<p>3-1. Accountクラスのsettleメソッドをパラメータを引数にして実行する</p>
-<p>3-2. パラメーター&#8221;interval&#8221;をチェックし，その結果に基づいてそれぞれ以下の処理を行う</p>
+<li><p class="first">パラメーター&#8221;interval&#8221;をチェックし，その結果に基づいてそれぞれ以下の処理を行う</p>
 <ul>
 <li><p class="first">daily or monthly or yearlyの場合</p>
 <p>4-1. intervalに従って収支を計算する</p>
@@ -213,8 +205,6 @@
 </li>
 <li><p class="first">それ以外の場合</p>
 <p>4-1. Exceptionを発生させて，ステータスコード400とエラーコードと返す</p>
-</li>
-</ul>
 </li>
 </ul>
 </li>
