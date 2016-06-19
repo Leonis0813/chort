@@ -73,13 +73,13 @@ Web API
 エラーコード
 """"""""""""
 
-  +-----------------------------+-----------------------------+
-  | エラーコード                | 意味                        |
-  +=============================+=============================+
-  | absent_param_[項目名]       | 入力必須の項目がない        |
-  +-----------------------------+-----------------------------+
-  | invalid_param_[項目名]      | 不正値のパラメータがある    |
-  +-----------------------------+-----------------------------+
+  +-----------------------------+---------------------+-----------------------------+
+  | エラーコード                | ステータスコード    | 意味                        |
+  +=============================+=====================+=============================+
+  | absent_param_[属性]         | 400                 | 入力必須の項目がない        |
+  +-----------------------------+---------------------+-----------------------------+
+  | invalid_param_[属性]        | 400                 | 不正値のパラメータがある    |
+  +-----------------------------+---------------------+-----------------------------+
 
 API
 ^^^^
@@ -87,95 +87,96 @@ API
 以下のAPIを定義する
 
 - `家計簿を登録する <http://localhost/algieba_docs/functional_spec.html#id8>`__
-- `家計簿を検索する <http://localhost/algieba_docs/functional_spec.html#id9>`__
-- `家計簿を更新する <http://localhost/algieba_docs/functional_spec.html#id10>`__
-- `家計簿を削除する <http://localhost/algieba_docs/functional_spec.html#id11>`__
-- `収支を見る <http://localhost/algieba_docs/functional_spec.html#id12>`__
+- `家計簿を取得する <http://localhost/algieba_docs/functional_spec.html#id9>`__
+- `家計簿を検索する <http://localhost/algieba_docs/functional_spec.html#id10>`__
+- `家計簿を更新する <http://localhost/algieba_docs/functional_spec.html#id11>`__
+- `家計簿を削除する <http://localhost/algieba_docs/functional_spec.html#id12>`__
+- `収支を計算する <http://localhost/algieba_docs/functional_spec.html#id13>`__
 
 家計簿を登録する
 """"""""""""""""
 
-HTTP Method： POST
+HTTP Method: POST
 
-Path：/accounts
+Path: /accounts
 
-Request Body：
+Request:
+
+  Body:
+
   - 必須
 
     - accounts
 
-      - account_type
-      - date
-      - content
-      - category
-      - price
+      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
-Response：
-  - 登録成功時
+        - account_type
+        - date
+        - content
+        - category
+        - price
 
-    Status Code： 201
+Response:
+  Status Code: 201
 
-    Body： 登録した家計簿
+  Body: 登録した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
-  - 登録失敗時
+家計簿を取得する
+""""""""""""""""
 
-    Status Code： 400
+HTTP Method: GET
 
-    Body： `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
+Path: /accounts/[id]
+
+Request:
+  Path Parameter:
+    - id: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ のID
+
+Response:
+  Status Code: 200
+
+  Body: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
 家計簿を検索する
 """"""""""""""""
 
-HTTP Method： GET
+HTTP Method: GET
 
-Path：/accounts
+Path: /accounts
 
-Query：
+Request:
+  Query:
+    *クエリがない場合は全ての家計簿を取得する*
 
-  クエリがない場合は全ての家計簿を取得する
+    - オプション
 
-  - account_type
-  - date
-  - content
-  - category
-  - price
+      - account_type: income, expenseのどちらか
+      - date_before: 指定された日付以前の家計簿を検索する
+      - date_after: 指定された日付以降の家計簿を検索する
+      - content_equal: 完全一致の家計簿を検索する
+      - content_include: 部分一致の家計簿を検索する
+      - category: カテゴリ
+      - price_upper: 指定された金額以上の家計簿を検索する
+      - price_lower: 指定された金額以下の家計簿を検索する
 
-Request Body：なし
+Response:
+  Status Code: 200
 
-Response：
-  - 検索成功時
-
-    Status Code： 200
-	  
-    Body： 取得した家計簿の配列
-
-  - 検索失敗時
-
-    Status Code： 400
-
-    Body： `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
+  Body: 取得した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ の配列
 
 家計簿を更新する
 """"""""""""""""
 
-HTTP Method： PUT
+HTTP Method: PUT
 
-Path：/accounts
+Path: /accounts/<id>
 
-Request Body：
-  - 必須
+Request:
+  Path Parameter:
+    - id: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ のID
 
-    - with
-
-      - account_type
-      - date
-      - content
-      - category
-      - price
-
-  - オプション（指定がなければ全ての家計簿が更新される）
-
-    - condition
+  Body:
+    - オプション
 
       - account_type
       - date
@@ -183,77 +184,41 @@ Request Body：
       - category
       - price
 
-Response：
-  - 更新成功時
+Response:
+  Status Code: 200
 
-    Status Code： 200
-
-    Body： 更新されたレコードの配列
-
-  - 更新失敗時
-
-    Status Code： 400
-
-    Body： `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
+  Body: 更新した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
 家計簿を削除する
 """"""""""""""""
 
-HTTP Method： DELETE
+HTTP Method: DELETE
 
-Path：/accounts
+Path: /accounts/<id>
 
-Request Body：
+Request:
+  Path Parameter:
+    - id: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ のID
 
-  指定がない場合は全ての家計簿を削除する
+Response:
+  Status Code: 204
 
-  - condition
+収支を計算する
+""""""""""""""
 
-    - account_type
-    - date
-    - content
-    - category
-    - price
+HTTP Method: GET
 
-Response ：
-  - 削除成功時
+Path: /settlement
 
-    Status Code： 204
+Request:
+  Query:
+    - 必須
 
-    Body： なし
+      - interval
 
-  - 削除失敗時
+        - yearly, monthly, dailyのどれか
 
-    Status Code： 400
+Response:
+  Status Code: 200
 
-    Body： `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
-
-収支を見る
-""""""""""
-
-HTTP Method： GET
-
-Path： /settlement
-
-Query：
-
-  - 必須
-
-    - interval
-
-      - yearly, monthly, dailyのどれか
-
-Request Body： なし
-
-Response：
-  - 収支計算成功時
-
-    Status Code： 200
-
-    Body： 収支のリスト
-
-  - 収支計算失敗時
-
-    Status Code： 400
-
-    Body： `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__
+  Body: 収支のリスト
