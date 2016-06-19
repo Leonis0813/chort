@@ -1,6 +1,9 @@
 chort
 =====
 
+- 2.0.0:
+  - [Algieba] update version to 2.0.0
+
 - 1.3.2:
   - [Zosma] update version to 1.0.3
 
