@@ -5,9 +5,10 @@
 
 - `家計簿を登録する <http://localhost/algieba_docs/requirements_spec.html#id2>`__
 - `家計簿を取得する <http://localhost/algieba_docs/requirements_spec.html#id3>`__
-- `家計簿を更新する <http://localhost/algieba_docs/requirements_spec.html#id4>`__
-- `家計簿を削除する <http://localhost/algieba_docs/requirements_spec.html#id5>`__
-- `収支を計算する <http://localhost/algieba_docs/requirements_spec.html#id6>`__
+- `家計簿を検索する <http://localhost/algieba_docs/requirements_spec.html#id4>`__
+- `家計簿を更新する <http://localhost/algieba_docs/requirements_spec.html#id5>`__
+- `家計簿を削除する <http://localhost/algieba_docs/requirements_spec.html#id6>`__
+- `収支を計算する <http://localhost/algieba_docs/requirements_spec.html#id7>`__
 
 *ユースケース図*
 
@@ -25,6 +26,16 @@
 2. システムは受信したリクエストから情報を取得して家計簿を作成する
 
 家計簿を取得する
+----------------
+
+- 指定された家計簿を取得する
+
+*ユースケースシナリオ*
+
+1. 利用者は検索条件を含んだHTTPリクエストを送信する
+2. システムは受信したリクエストに対応する家計簿を取得する
+
+家計簿を検索する
 ----------------
 
 - 入力された検索条件を満たす家計簿を取得する

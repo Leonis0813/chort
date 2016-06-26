@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>要求仕様 &mdash; algieba 1.1.0 documentation</title>
+    <title>要求仕様 &mdash; algieba 2.0.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.1.0',
+        VERSION:     '2.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="algieba 1.1.0 documentation" href="index.html" />
+    <link rel="top" title="algieba 2.0.0 documentation" href="index.html" />
     <link rel="next" title="機能仕様" href="functional_spec.html" />
     <link rel="prev" title="Welcome to algieba’s documentation!" href="index.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to algieba’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">algieba 1.1.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">algieba 2.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,9 +55,10 @@
 <ul class="simple">
 <li><a class="reference external" href="http://localhost/algieba_docs/requirements_spec.html#id2">家計簿を登録する</a></li>
 <li><a class="reference external" href="http://localhost/algieba_docs/requirements_spec.html#id3">家計簿を取得する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/requirements_spec.html#id4">家計簿を更新する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/requirements_spec.html#id5">家計簿を削除する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/requirements_spec.html#id6">収支を計算する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/requirements_spec.html#id4">家計簿を検索する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/requirements_spec.html#id5">家計簿を更新する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/requirements_spec.html#id6">家計簿を削除する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/requirements_spec.html#id7">収支を計算する</a></li>
 </ul>
 <p><em>ユースケース図</em></p>
 <img alt="ユースケース図" src="_images/use_case.jpg" />
@@ -75,6 +76,17 @@
 <div class="section" id="id3">
 <h2>家計簿を取得する<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li>指定された家計簿を取得する</li>
+</ul>
+<p><em>ユースケースシナリオ</em></p>
+<ol class="arabic simple">
+<li>利用者は検索条件を含んだHTTPリクエストを送信する</li>
+<li>システムは受信したリクエストに対応する家計簿を取得する</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2>家計簿を検索する<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
 <li>入力された検索条件を満たす家計簿を取得する</li>
 </ul>
 <p><em>ユースケースシナリオ</em></p>
@@ -83,8 +95,8 @@
 <li>システムは受信したリクエストから検索条件を取得して，条件を満たす家計簿を取得する</li>
 </ol>
 </div>
-<div class="section" id="id4">
-<h2>家計簿を更新する<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>家計簿を更新する<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>入力された検索条件を満たす家計簿に対して，指定された情報で更新を行う</li>
 </ul>
@@ -94,8 +106,8 @@
 <li>システムは受験したリクエストから検索条件と更新情報を取得して更新を行う</li>
 </ol>
 </div>
-<div class="section" id="id5">
-<h2>家計簿を削除する<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>家計簿を削除する<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>入力された検索条件を満たす家計簿を削除する</li>
 </ul>
@@ -105,8 +117,8 @@
 <li>システムは受信したリクエストから検索条件を取得して，条件を満たす家計簿を削除する</li>
 </ol>
 </div>
-<div class="section" id="id6">
-<h2>収支を計算する<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>収支を計算する<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>登録されている家計簿から収支を計算する</li>
 </ul>
@@ -129,9 +141,10 @@
 <li><a class="reference internal" href="#">要求仕様</a><ul>
 <li><a class="reference internal" href="#id2">家計簿を登録する</a></li>
 <li><a class="reference internal" href="#id3">家計簿を取得する</a></li>
-<li><a class="reference internal" href="#id4">家計簿を更新する</a></li>
-<li><a class="reference internal" href="#id5">家計簿を削除する</a></li>
-<li><a class="reference internal" href="#id6">収支を計算する</a></li>
+<li><a class="reference internal" href="#id4">家計簿を検索する</a></li>
+<li><a class="reference internal" href="#id5">家計簿を更新する</a></li>
+<li><a class="reference internal" href="#id6">家計簿を削除する</a></li>
+<li><a class="reference internal" href="#id7">収支を計算する</a></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +191,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to algieba’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">algieba 1.1.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">algieba 2.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

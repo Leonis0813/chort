@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>設計仕様 &mdash; algieba 1.1.0 documentation</title>
+    <title>設計仕様 &mdash; algieba 2.0.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.1.0',
+        VERSION:     '2.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="algieba 1.1.0 documentation" href="index.html" />
+    <link rel="top" title="algieba 2.0.0 documentation" href="index.html" />
     <link rel="prev" title="機能仕様" href="functional_spec.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="functional_spec.html" title="機能仕様"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">algieba 1.1.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">algieba 2.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -50,9 +50,8 @@
 <p>設計仕様では以下を定義する</p>
 <ul class="simple">
 <li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id2">モジュール構成</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id3">処理手順</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id9">データベース構成</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#web-api">Web API</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id3">シーケンス</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id10">データベース構成</a></li>
 </ul>
 <div class="section" id="id2">
 <h2>モジュール構成<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -62,29 +61,35 @@
 <ul class="simple">
 <li>Model<ul>
 <li>Account: Accountsテーブルを操作するモデル<ul>
-<li>show: レコードを取得するメソッド</li>
-<li>update: レコードを更新するメソッド</li>
-<li>destroy: レコードを削除するメソッド</li>
+<li>create: レコードを作成するメソッド</li>
+<li>find: レコードを取得するメソッド</li>
+<li>index: レコードを検索するメソッド</li>
 <li>settle: 収支を計算するメソッド</li>
 <li>check_condition: 家計簿の検索条件をチェックするメソッド</li>
+<li>update_attributes: 属性を更新するメソッド</li>
+<li>delete: レコードを削除するメソッド</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>View<ul>
 <li>Account_View: 家計簿の登録や表示を行うビュー<ul>
-<li>利用者がhttp://&lt;ホスト名&gt;/accountsにアクセスすることで表示される</li>
+<li>利用者がhttp://&lt;ホスト名&gt;(:80)/にアクセスすることで表示される</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Controller<ul>
 <li>Accounts_Controller: リクエストを処理するコントローラ<ul>
+<li>manage: ブラウザに登録画面を表示するメソッド</li>
 <li>create: 家計簿を登録するメソッド</li>
-<li>read: 家計簿を検索するメソッド</li>
+<li>read: 家計簿を取得するメソッド</li>
+<li>index: 家計簿を検索するメソッド</li>
 <li>update: 家計簿を更新するメソッド</li>
 <li>delete: 家計簿を削除するメソッド</li>
 <li>settle: 収支を計算するメソッド</li>
+<li>account_attributes: Accountの属性名の配列を返すメソッド</li>
+<li>check_absent_params_for_create: 作成時に必須パラメーターが存在しているかをチェックするメソッド</li>
 </ul>
 </li>
 </ul>
@@ -92,132 +97,130 @@
 </ul>
 </div>
 <div class="section" id="id3">
-<h2>処理手順<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>シーケンス<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id4">家計簿を登録する</a></li>
 <li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id5">家計簿を取得する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id6">家計簿を更新する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id7">家計簿を削除する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id8">収支を見る</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id6">家計簿を検索する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id7">家計簿を更新する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id8">家計簿を削除する</a></li>
+<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id9">収支を計算する</a></li>
 </ul>
 <div class="section" id="id4">
 <h3>家計簿を登録する<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/seq_create.jpg" src="_images/seq_create.jpg" />
 <ol class="arabic">
-<li><p class="first">Viewer, Registerからのリクエストを受信すると，Accounts_Controllerクラスのcreateメソッドを実行する</p>
+<li><p class="first">リクエストを受けると，Accounts_Controllerクラスのcreateメソッドを実行する</p>
 </li>
-<li><p class="first">Accountクラスのcreateメソッドを実行して家計簿を登録する</p>
-</li>
-<li><p class="first">createメソッドの実行結果に基づいてそれぞれ以下の処理を行う</p>
+<li><p class="first">check_absent_params_for_createメソッドで必須パラメーターをチェックする</p>
 <ul>
-<li><p class="first">Accountクラスのインスタンスを取得した場合</p>
-<p>3-1. Viewer, Registerにステータスコード201を送信する</p>
+<li><p class="first">必須パラメーターがない場合</p>
+<p>3-1. BadRequestを発生させてステータスコード400とエラーコードを返す</p>
 </li>
-<li><p class="first">例外が発生した場合</p>
-<p>3-1. Viewer, Registerにエラーコードとステータスコード400を送信する</p>
+<li><p class="first">必須パラメーターがある場合</p>
+<p>3-2. Accountクラスのcreateメソッドを実行してAccountオブジェクトを作成，DBに保存する</p>
+<ul>
+<li><p class="first">登録に成功した場合</p>
+<p>4-1. ステータスコード201と登録したAccountオブジェクトを返す</p>
+</li>
+<li><p class="first">登録に失敗した場合</p>
+<p>4-2. ActiveRecord::RecordInvalidを発生させて，ステータスコード400とエラーコードを返す</p>
+</li>
+</ul>
 </li>
 </ul>
 </li>
 </ol>
 </div>
 <div class="section" id="id5">
-<h3>家計簿を検索する<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3>家計簿を取得する<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/seq_read.jpg" src="_images/seq_read.jpg" />
-<ol class="arabic">
-<li><p class="first">Viewerからのリクエストを受信すると，Accounts_Controllerクラスのreadメソッドを実行する</p>
-</li>
-<li><p class="first">Accountクラスのshowメソッドをパラメータを引数にして実行する</p>
-</li>
-<li><p class="first">check_conditionを実行し，その結果に基づいてそれぞれ以下の処理を行う</p>
-<ul>
-<li><p class="first">空配列の場合</p>
-<p>3-1. whereメソッドを実行して家計簿を取得する</p>
-<p>3-2. Viewerに検索結果とステータスコード200を送信する</p>
-</li>
-<li><p class="first">空配列でない場合（不正なパラメータがある場合）</p>
-<p>3-1. Viewerにエラーコードとステータスコード400を送信する</p>
-</li>
-</ul>
-</li>
+<ol class="arabic simple">
+<li>リクエストを受けると，Accounts_Controllerクラスのreadメソッドを実行する</li>
+<li>findメソッドでAccountオブジェクトを取得する</li>
+<li>ステータスコード200と取得したAccountオブジェクトを返す</li>
 </ol>
 </div>
 <div class="section" id="id6">
-<h3>家計簿を更新する<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<img alt="_images/seq_update.jpg" src="_images/seq_update.jpg" />
+<h3>家計簿を検索する<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/seq_index.jpg" src="_images/seq_index.jpg" />
 <ol class="arabic">
-<li><p class="first">Viewerからのリクエストを受信すると，Accounts_Controllerクラスのupdateメソッドを実行する</p>
+<li><p class="first">リクエストを受けると，Accounts_Controllerクラスのindexメソッドを実行する</p>
 </li>
-<li><p class="first">Accountクラスのupdateメソッドをパラメータを引数にして実行する</p>
+<li><p class="first">Accountクラスのindexメソッドをパラメータを引数にして実行する</p>
 </li>
-<li><p class="first">check_conditionを実行し，その結果に基づいてそれぞれ以下の処理を行う</p>
+<li><p class="first">check_conditionを実行して不正な値がないかチェックする</p>
 <ul>
-<li><p class="first">空配列の場合</p>
-<p>3-1. whereメソッドを実行して家計簿を取得する</p>
-<p>3-2. 取得した家計簿それぞれに対して，updateメソッドを実行して家計簿を更新する</p>
-<p>3-3. Viewerに更新結果とステータスコード200を送信する</p>
+<li><p class="first">不正な値がある場合</p>
+<p>4-1. ActiveRecord::RecordInvalidを発生させて，ステータスコード400とエラーコードを返す</p>
 </li>
-<li><p class="first">空配列でない場合（不正なパラメータがある場合）</p>
-<p>3-1. Viewerにエラーコードとステータスコード400を送信する</p>
+<li><p class="first">不正な値がない場合</p>
+<p>4-1. whereメソッドを実行してAccountオブジェクトの配列を取得する</p>
+<p>4-2. ステータスコード200と取得したAccountオブジェクトの配列を返す</p>
 </li>
 </ul>
 </li>
 </ol>
 </div>
 <div class="section" id="id7">
-<h3>家計簿を削除する<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<img alt="_images/seq_delete.jpg" src="_images/seq_delete.jpg" />
-<ol class="arabic">
-<li><p class="first">Viewerからのリクエストを受信すると，Accounts_Controllerクラスのdeleteメソッドを実行する</p>
+<h3>家計簿を更新する<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/seq_update.jpg" src="_images/seq_update.jpg" />
+<ol class="arabic simple">
+<li>リクエストを受けると，Accounts_Controllerクラスのupdateメソッドを実行する</li>
+<li>update_attributesメソッドでAccountオブジェクトを更新する<ul>
+<li>不正な値がある場合<ol class="arabic" start="3">
+<li>ActiveRecord::RecordInvalidを発生させて，ステータスコード400とエラーコードを返す</li>
+</ol>
 </li>
-<li><p class="first">Accountクラスのdestroyメソッドをパラメータを引数にして実行する</p>
-</li>
-<li><p class="first">check_conditionを実行し，その結果に基づいてそれぞれ以下の処理を行う</p>
-<ul>
-<li><p class="first">空配列の場合</p>
-<p>3-1. whereメソッドを実行して家計簿を取得する</p>
-<p>3-2. 取得した家計簿それぞれに対して，deleteメソッドを実行して家計簿を削除する</p>
-<p>3-3. Viewerにステータスコード204を送信する</p>
-</li>
-<li><p class="first">空配列でない場合（不正なパラメータがある場合）</p>
-<p>3-1. Viewerにエラーコードとステータスコード400を送信する</p>
+<li>不正な値がない場合<ol class="arabic" start="3">
+<li>ステータスコード200と更新したAccountオブジェクトを返す</li>
+</ol>
 </li>
 </ul>
 </li>
 </ol>
 </div>
 <div class="section" id="id8">
-<h3>収支を見る<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3>家計簿を削除する<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/seq_delete.jpg" src="_images/seq_delete.jpg" />
+<ol class="arabic simple">
+<li>リクエストを受けると，Accounts_Controllerクラスのdeleteメソッドを実行する</li>
+<li>Accountクラスのdeleteメソッドを実行して削除する</li>
+<li>ステータスコード204を返す</li>
+</ol>
+</div>
+<div class="section" id="id9">
+<h3>収支を計算する<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/seq_settle.jpg" src="_images/seq_settle.jpg" />
 <ol class="arabic">
-<li><p class="first">Viewerからのリクエストを受信すると，Accounts_Controllerクラスのsettleメソッドが実行される</p>
+<li><p class="first">リクエストを受けると，Accounts_Controllerクラスのsettleメソッドを実行する</p>
 </li>
-<li><p class="first">パラメータ&#8221;interval&#8221;をチェックし，その結果に基づいてそれぞれ以下の処理を行う</p>
+<li><p class="first">Accountクラスのsettleメソッドを実行して収支を計算する</p>
+</li>
+<li><p class="first">パラメーター&#8221;interval&#8221;をチェックし，その結果に基づいてそれぞれ以下の処理を行う</p>
 <ul>
 <li><p class="first">daily or monthly or yearlyの場合</p>
-<p>3-1. intervalに従って収支を計算する</p>
-<p>3-2. Viewerに計算結果とステータスコード200を送信する</p>
+<p>4-1. intervalに従って収支を計算する</p>
+<p>4-2. ステータスコード200と計算結果を返す</p>
 </li>
 <li><p class="first">それ以外の場合</p>
-<p>3-1. Viewerにエラーコードとステータスコード400を送信する</p>
+<p>4-1. ArgumentErrorを発生させて，ステータスコード400とエラーコードと返す</p>
 </li>
 </ul>
 </li>
 </ol>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>データベース構成<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<p>家計簿情報を登録するAccountテーブルを定義する</p>
-<ul class="simple">
-<li>Accountテーブル</li>
-</ul>
+<div class="section" id="id10">
+<h2>データベース構成<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>家計簿を登録するAccountテーブルを定義する</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="21%" />
-<col width="14%" />
-<col width="33%" />
-<col width="14%" />
-<col width="17%" />
+<col width="19%" />
+<col width="12%" />
+<col width="42%" />
+<col width="12%" />
+<col width="15%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">カラム</th>
@@ -228,290 +231,56 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>account_type</td>
+<tr class="row-even"><td>id</td>
+<td>INTEGER</td>
+<td>家計簿のID</td>
+<td>◯</td>
+<td>◯</td>
+</tr>
+<tr class="row-odd"><td>account_type</td>
 <td>STRING</td>
 <td>収入/支出を表すフラグ</td>
 <td>&nbsp;</td>
 <td>◯</td>
 </tr>
-<tr class="row-odd"><td>date</td>
+<tr class="row-even"><td>date</td>
 <td>DATE</td>
 <td>収入/支出があった日</td>
 <td>&nbsp;</td>
 <td>◯</td>
 </tr>
-<tr class="row-even"><td>content</td>
+<tr class="row-odd"><td>content</td>
 <td>STRING</td>
 <td>収入/支出の内容</td>
 <td>&nbsp;</td>
 <td>◯</td>
 </tr>
-<tr class="row-odd"><td>category</td>
+<tr class="row-even"><td>category</td>
 <td>STRING</td>
 <td>収入/支出のカテゴリ</td>
 <td>&nbsp;</td>
 <td>◯</td>
 </tr>
-<tr class="row-even"><td>price</td>
+<tr class="row-odd"><td>price</td>
 <td>INTEGER</td>
 <td>収入/支出の金額</td>
 <td>&nbsp;</td>
 <td>◯</td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="web-api">
-<h2>Web API<a class="headerlink" href="#web-api" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id10">
-<h3>共通定義<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id11">
-<h4>入力項目<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="30%" />
-<col width="70%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">項目名</th>
-<th class="head">フォーマット</th>
+<tr class="row-even"><td>created_at</td>
+<td>DATETIME</td>
+<td>家計簿が登録された日時</td>
+<td>&nbsp;</td>
+<td>◯</td>
 </tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>account_type</td>
-<td>&#8220;income&#8221; または &#8220;expense&#8221;</td>
-</tr>
-<tr class="row-odd"><td>date</td>
-<td>yyyy-mm-dd</td>
-</tr>
-<tr class="row-even"><td>content</td>
-<td>任意の英数字・日本語</td>
-</tr>
-<tr class="row-odd"><td>category</td>
-<td>任意の英数字・日本語</td>
-</tr>
-<tr class="row-even"><td>price</td>
-<td>0以上の整数</td>
+<tr class="row-odd"><td>updated_at</td>
+<td>DATETIME</td>
+<td>家計簿が登録or更新された日時</td>
+<td>&nbsp;</td>
+<td>◯</td>
 </tr>
 </tbody>
 </table>
-<ul class="simple">
-<li><em>項目の値が空ハッシュや空配列の場合はその項目はないものとして見なす</em></li>
-</ul>
-</div></blockquote>
-</div>
-<div class="section" id="id12">
-<h4>エラーコード<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="50%" />
-<col width="50%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">エラーコード</th>
-<th class="head">意味</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>absent_param_[項目名]</td>
-<td>入力必須の項目がない</td>
-</tr>
-<tr class="row-odd"><td>invalid_param_[項目名]</td>
-<td>不正値のパラメータがある</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-</div>
-</div>
-<div class="section" id="api">
-<h3>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h3>
-<p>以下のAPIを定義する</p>
-<ul class="simple">
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id13">家計簿を登録する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id14">家計簿を検索する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id15">家計簿を更新する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id16">家計簿を削除する</a></li>
-<li><a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id17">収支を見る</a></li>
-</ul>
-<div class="section" id="id13">
-<h4>家計簿を登録する<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
-<p>HTTP Method： POST</p>
-<p>Path：/accounts</p>
-<dl class="docutils">
-<dt>Request Body：</dt>
-<dd><ul class="first last simple">
-<li>必須<ul>
-<li>accounts<ul>
-<li>account_type</li>
-<li>date</li>
-<li>content</li>
-<li>category</li>
-<li>price</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</dd>
-<dt>Response：</dt>
-<dd><ul class="first last">
-<li><p class="first">登録成功時</p>
-<p>Status Code： 201</p>
-<p>Body： 登録した家計簿</p>
-</li>
-<li><p class="first">登録失敗時</p>
-<p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id12">エラーコード</a></p>
-</li>
-</ul>
-</dd>
-</dl>
-</div>
-<div class="section" id="id14">
-<h4>家計簿を検索する<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
-<p>HTTP Method： GET</p>
-<p>Path：/accounts</p>
-<p>Query：</p>
-<blockquote>
-<div><p>クエリがない場合は全ての家計簿を取得する</p>
-<ul class="simple">
-<li>account_type</li>
-<li>date</li>
-<li>content</li>
-<li>category</li>
-<li>price</li>
-</ul>
-</div></blockquote>
-<p>Request Body：なし</p>
-<dl class="docutils">
-<dt>Response：</dt>
-<dd><ul class="first last">
-<li><p class="first">検索成功時</p>
-<p>Status Code： 200</p>
-<p>Body： 取得した家計簿の配列</p>
-</li>
-<li><p class="first">検索失敗時</p>
-<p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id12">エラーコード</a></p>
-</li>
-</ul>
-</dd>
-</dl>
-</div>
-<div class="section" id="id15">
-<h4>家計簿を更新する<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
-<p>HTTP Method： PUT</p>
-<p>Path：/accounts</p>
-<dl class="docutils">
-<dt>Request Body：</dt>
-<dd><ul class="first last simple">
-<li>必須<ul>
-<li>with<ul>
-<li>account_type</li>
-<li>date</li>
-<li>content</li>
-<li>category</li>
-<li>price</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>オプション（指定がなければ全ての家計簿が更新される）<ul>
-<li>condition<ul>
-<li>account_type</li>
-<li>date</li>
-<li>content</li>
-<li>category</li>
-<li>price</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</dd>
-<dt>Response：</dt>
-<dd><ul class="first last">
-<li><p class="first">更新成功時</p>
-<p>Status Code： 200</p>
-<p>Body： 更新されたレコードの配列</p>
-</li>
-<li><p class="first">更新失敗時</p>
-<p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id12">エラーコード</a></p>
-</li>
-</ul>
-</dd>
-</dl>
-</div>
-<div class="section" id="id16">
-<h4>家計簿を削除する<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
-<p>HTTP Method： DELETE</p>
-<p>Path：/accounts</p>
-<p>Request Body：</p>
-<blockquote>
-<div><p>指定がない場合は全ての家計簿を削除する</p>
-<ul class="simple">
-<li>condition<ul>
-<li>account_type</li>
-<li>date</li>
-<li>content</li>
-<li>category</li>
-<li>price</li>
-</ul>
-</li>
-</ul>
-</div></blockquote>
-<dl class="docutils">
-<dt>Response ：</dt>
-<dd><ul class="first last">
-<li><p class="first">削除成功時</p>
-<p>Status Code： 204</p>
-<p>Body： なし</p>
-</li>
-<li><p class="first">削除失敗時</p>
-<p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id12">エラーコード</a></p>
-</li>
-</ul>
-</dd>
-</dl>
-</div>
-<div class="section" id="id17">
-<h4>収支を見る<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
-<p>HTTP Method： GET</p>
-<p>Path： /settlement</p>
-<p>Query：</p>
-<blockquote>
-<div><ul class="simple">
-<li>必須<ul>
-<li>interval<ul>
-<li>yearly, monthly, dailyのどれか</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div></blockquote>
-<p>Request Body： なし</p>
-<dl class="docutils">
-<dt>Response：</dt>
-<dd><ul class="first last">
-<li><p class="first">収支計算成功時</p>
-<p>Status Code： 200</p>
-<p>Body： 収支のリスト</p>
-</li>
-<li><p class="first">収支計算失敗時</p>
-<p>Status Code： 400</p>
-<p>Body： <a class="reference external" href="http://localhost/algieba_docs/design_spec.html#id12">エラーコード</a></p>
-</li>
-</ul>
-</dd>
-</dl>
-</div>
-</div>
 </div>
 </div>
 
@@ -525,31 +294,16 @@
   <ul>
 <li><a class="reference internal" href="#">設計仕様</a><ul>
 <li><a class="reference internal" href="#id2">モジュール構成</a></li>
-<li><a class="reference internal" href="#id3">処理手順</a><ul>
+<li><a class="reference internal" href="#id3">シーケンス</a><ul>
 <li><a class="reference internal" href="#id4">家計簿を登録する</a></li>
-<li><a class="reference internal" href="#id5">家計簿を検索する</a></li>
-<li><a class="reference internal" href="#id6">家計簿を更新する</a></li>
-<li><a class="reference internal" href="#id7">家計簿を削除する</a></li>
-<li><a class="reference internal" href="#id8">収支を見る</a></li>
+<li><a class="reference internal" href="#id5">家計簿を取得する</a></li>
+<li><a class="reference internal" href="#id6">家計簿を検索する</a></li>
+<li><a class="reference internal" href="#id7">家計簿を更新する</a></li>
+<li><a class="reference internal" href="#id8">家計簿を削除する</a></li>
+<li><a class="reference internal" href="#id9">収支を計算する</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9">データベース構成</a></li>
-<li><a class="reference internal" href="#web-api">Web API</a><ul>
-<li><a class="reference internal" href="#id10">共通定義</a><ul>
-<li><a class="reference internal" href="#id11">入力項目</a></li>
-<li><a class="reference internal" href="#id12">エラーコード</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#api">API</a><ul>
-<li><a class="reference internal" href="#id13">家計簿を登録する</a></li>
-<li><a class="reference internal" href="#id14">家計簿を検索する</a></li>
-<li><a class="reference internal" href="#id15">家計簿を更新する</a></li>
-<li><a class="reference internal" href="#id16">家計簿を削除する</a></li>
-<li><a class="reference internal" href="#id17">収支を見る</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id10">データベース構成</a></li>
 </ul>
 </li>
 </ul>
@@ -590,7 +344,7 @@
         <li class="right" >
           <a href="functional_spec.html" title="機能仕様"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">algieba 1.1.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">algieba 2.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
