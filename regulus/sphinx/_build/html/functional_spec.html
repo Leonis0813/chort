@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>機能仕様 &mdash; regulus 1.1.0 documentation</title>
+    <title>機能仕様 &mdash; regulus 1.3.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.1.0',
+        VERSION:     '1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="regulus 1.1.0 documentation" href="index.html" />
+    <link rel="top" title="regulus 1.3.0 documentation" href="index.html" />
     <link rel="next" title="設計仕様" href="design_spec.html" />
     <link rel="prev" title="要求仕様" href="requirements_spec.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="requirements_spec.html" title="要求仕様"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">regulus 1.1.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">regulus 1.3.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -61,7 +61,6 @@
 <p>利用者はブラウザを操作してレート・ツイート・記事を確認する</p>
 <ul class="simple">
 <li>画面にはレート，ツイート，記事のどれかが表示されている</li>
-<li>ブラウザ全体はスクロールしない</li>
 </ul>
 <div class="section" id="id3">
 <h3>画面遷移図<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
@@ -81,8 +80,13 @@
 </div>
 <img alt="レート表示画面" src="_images/ui_rates.jpg" />
 <ul class="simple">
-<li>ドル円を5分足ローソク足グラフで表示する</li>
+<li>指定されたペア・期間のローソク足グラフと移動平均線を表示する<ul>
+<li>利用者は画面上部のプルダウンからペアと期間を選択する</li>
+<li>移動平均線は直近75本分のレート情報から計算される</li>
+</ul>
+</li>
 <li>グラフは定期的に更新される</li>
+<li>マウスをローソク足に近づけると，始値，終値，高値，安値の情報が表示される</li>
 </ul>
 </div>
 <div class="section" id="id5">
@@ -301,7 +305,7 @@
         <li class="right" >
           <a href="requirements_spec.html" title="要求仕様"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">regulus 1.1.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">regulus 1.3.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
