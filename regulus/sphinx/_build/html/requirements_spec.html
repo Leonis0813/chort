@@ -51,28 +51,44 @@
             
   <div class="section" id="id1">
 <h1>要求仕様<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>本システムは以下の３つの機能を提供する</p>
+<p>本システムは以下の４つの機能を提供する</p>
 <ul class="simple">
-<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id2">為替レートの表示</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id2">レートの予測</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id3">レートの表示</a></li>
 <li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id4">ツイートの表示</a></li>
-<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id6">記事の表示</a></li>
+<li><a class="reference external" href="http://localhost/regulus_docs/requirements_spec.html#id5">記事の表示</a></li>
 </ul>
 <p><em>ユースケース図</em></p>
 <img alt="ユースケース図" src="_images/use_case.jpg" />
 <div class="section" id="id2">
-<h2>為替レートの表示<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>レートの予測<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>為替レートの変化を表したローソク足グラフをブラウザ上に表示する</li>
-<li>グラフは定期的に更新される</li>
+<li>過去のレートの動きから未来のレートを予測する</li>
+<li>予測したレート情報をグラフとして表示する</li>
 </ul>
 <p><em>ユースケースシナリオ</em></p>
 <ol class="arabic simple">
 <li>利用者はブラウザからシステムにアクセスする</li>
-<li>システムは為替レートの変化を表すグラフを表示する</li>
+<li>システムはレートを予測した結果を折れ線グラフとして表示する</li>
 </ol>
 </div>
 <div class="section" id="id3">
-<h2>ツイートの表示<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>レートの表示<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>レートの変化を表したローソク足グラフをブラウザ上に表示する<ul>
+<li>移動平均線も同じグラフ上に表示する</li>
+</ul>
+</li>
+<li>ローソク足グラフと移動平均線は定期的に更新される</li>
+</ul>
+<p><em>ユースケースシナリオ</em></p>
+<ol class="arabic simple">
+<li>利用者はブラウザからシステムにアクセスする</li>
+<li>システムはレートの変化を表すグラフを表示する</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2>ツイートの表示<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Twitterから取得したツイートをブラウザ上に表示する</li>
 <li>表示されるツイートは「為替」を条件として検索した結果である</li>
@@ -84,8 +100,8 @@
 <li>システムはツイートを表示する</li>
 </ol>
 </div>
-<div class="section" id="id4">
-<h2>記事の表示<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>記事の表示<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>日本経済新聞(日経)のRSSから取得した記事をブラウザ上に表示する</li>
 <li>記事は定期的に更新される</li>
@@ -107,9 +123,10 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">要求仕様</a><ul>
-<li><a class="reference internal" href="#id2">為替レートの表示</a></li>
-<li><a class="reference internal" href="#id3">ツイートの表示</a></li>
-<li><a class="reference internal" href="#id4">記事の表示</a></li>
+<li><a class="reference internal" href="#id2">レートの予測</a></li>
+<li><a class="reference internal" href="#id3">レートの表示</a></li>
+<li><a class="reference internal" href="#id4">ツイートの表示</a></li>
+<li><a class="reference internal" href="#id5">記事の表示</a></li>
 </ul>
 </li>
 </ul>
