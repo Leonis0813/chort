@@ -1,6 +1,9 @@
 chort
 =====
 
+- 3.0.0:
+  - [Adhafera] update version to 2.0.0
+
 - 2.3.0:
   - [Adhafera] update version to 1.1.0
 
