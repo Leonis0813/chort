@@ -11,10 +11,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   requirement
-   interface
-   external
-   internal
+   requirements_spec
+   functional_spec
+   design_spec
 
 Indices and tables
 ==================
@@ -22,4 +21,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
