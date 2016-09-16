@@ -1,42 +1,17 @@
 詳細仕様
 ========
 
-- システムの詳細な振る舞いと構造を記載する
+設計仕様では以下を定義する
 
-  - `振る舞い <http://localhost/zosma_docs/register/internal.html#id2>`__
-  - `構造 <http://localhost/zosma_docs/register/internal.html#id4>`__
+  - `モジュール構成 <http://localhost/zosma_docs/design_spec.html#id2>`__
+  - `処理手順 <http://localhost/zosma_docs/design_spec.html#id3>`__
 
-振る舞い
---------
-
-- `家計簿を検索する <http://localhost/zosma_docs/register/internal.html#id3>`__
-
-家計簿を検索する
-^^^^^^^^^^^^^^^^
-
-**シーケンス図**
-
-.. image:: images/seq_index_int.jpg
-   :alt: シーケンス図(家計簿を検索する)
-
-- 利用者が検索画面を開いてから家計簿を表示するまでの流れ
-
-  1. 利用者が検索条件を入力して登録ボタンを押すと，actionPerformedメソッドが実行される
-  2. 入力された条件を引数にして，searchAccountsメソッドが実行される
-  3. checkDateメソッドで日付のフォーマットのチェックを行う
-  4. checkPriceメソッドで金額のチェックを行う
-  5. 不正な条件があればMessageFieldにエラーを通知する文字列をセットする
-  6. さらに，SearchForm内の不正な入力があった項目に対応するラベルにチェックマークをセットする
-  7. 入力された条件に問題が無ければ，getAccountsメソッドを実行してリクエストを送信する
-  8. 取得した家計簿をテーブルに表示する
-  9. 取得した家計簿の数をMessageFieldに表示する
-
-構造
-----
+モジュール構成
+--------------
 
 **クラス図**
 
-.. image:: images/class_int.jpg
+.. image:: images/class.jpg
    :alt: クラス図
 
 - MVCモデルを利用する
@@ -76,3 +51,28 @@
 - HTTPClient
 
   - DBサーバにリクエストを送信するクラス
+
+処理手順
+--------
+
+- `家計簿を検索する <http://localhost/zosma_docs/design_spec.html#id4>`__
+
+家計簿を検索する
+^^^^^^^^^^^^^^^^
+
+**シーケンス図**
+
+.. image:: images/seq_index.jpg
+   :alt: シーケンス図(家計簿を検索する)
+
+- 利用者が検索画面を開いてから家計簿を表示するまでの流れ
+
+  1. 利用者が検索条件を入力して登録ボタンを押すと，actionPerformedメソッドが実行される
+  2. 入力された条件を引数にして，searchAccountsメソッドが実行される
+  3. checkDateメソッドで日付のフォーマットのチェックを行う
+  4. checkPriceメソッドで金額のチェックを行う
+  5. 不正な条件があればMessageFieldにエラーを通知する文字列をセットする
+  6. さらに，SearchForm内の不正な入力があった項目に対応するラベルにチェックマークをセットする
+  7. 入力された条件に問題が無ければ，getAccountsメソッドを実行してリクエストを送信する
+  8. 取得した家計簿をテーブルに表示する
+  9. 取得した家計簿の数をMessageFieldに表示する
