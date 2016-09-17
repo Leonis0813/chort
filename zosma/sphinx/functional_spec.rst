@@ -16,6 +16,7 @@
 
 .. image:: images/interface.jpg
    :alt: 表示画面
+   :align: center
 
 **機能**
 
