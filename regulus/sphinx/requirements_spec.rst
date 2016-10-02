@@ -1,27 +1,41 @@
 要求仕様
 ========
 
-本システムは以下の３つの機能を提供する
+本システムは以下の４つの機能を提供する
 
-- `為替レートの表示 <http://localhost/regulus_docs/requirements_spec.html#id2>`__
+- `レートの予測 <http://localhost/regulus_docs/requirements_spec.html#id2>`__
+- `レートの表示 <http://localhost/regulus_docs/requirements_spec.html#id3>`__
 - `ツイートの表示 <http://localhost/regulus_docs/requirements_spec.html#id4>`__
-- `記事の表示 <http://localhost/regulus_docs/requirements_spec.html#id6>`__
+- `記事の表示 <http://localhost/regulus_docs/requirements_spec.html#id5>`__
 
 *ユースケース図*
 
 .. image:: images/use_case.jpg
    :alt: ユースケース図
 
-為替レートの表示
-----------------
-
-- 為替レートの変化を表したローソク足グラフをブラウザ上に表示する
-- グラフは定期的に更新される
+レートの予測
+------------
+- 過去のレートの動きから未来のレートを予測する
+- 予測したレート情報をグラフとして表示する
 
 *ユースケースシナリオ*
 
 1. 利用者はブラウザからシステムにアクセスする
-2. システムは為替レートの変化を表すグラフを表示する
+2. システムはレートを予測した結果を折れ線グラフとして表示する
+
+レートの表示
+------------
+
+- レートの変化を表したローソク足グラフをブラウザ上に表示する
+
+  - 移動平均線も同じグラフ上に表示する
+
+- ローソク足グラフと移動平均線は定期的に更新される
+
+*ユースケースシナリオ*
+
+1. 利用者はブラウザからシステムにアクセスする
+2. システムはレートの変化を表すグラフを表示する
 
 ツイートの表示
 --------------
