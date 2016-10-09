@@ -28,7 +28,7 @@ import os
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinxcontrib.plantuml']
+extensions = ['sphinxcontrib.plantuml', 'sphinxcontrib.httpdomain']
 plantuml = ['java', '-jar', '../../lib/plantuml.jar']
 
 # Add any paths that contain templates here, relative to this directory.
