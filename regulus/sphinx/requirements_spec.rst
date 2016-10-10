@@ -10,8 +10,24 @@
 
 *ユースケース図*
 
-.. image:: images/use_case.jpg
-   :alt: ユースケース図
+.. uml::
+
+   left to right direction
+   skinparam packageStyle rect
+   actor 利用者
+   entity レート
+   entity ツイート
+   entity 記事
+   rectangle "FX Estimation Helper System" {
+     利用者 -right- (レートを予測する)
+     利用者 -right- (レートを確認する)
+     (レートを確認する) <-right- (移動平均線を確認する) : extends
+     (レートを確認する) -right- レート
+     利用者 -right- (ツイートを確認する)
+     (ツイートを確認する) -right- ツイート
+     利用者 -right- (記事を確認する)
+     (記事を確認する) -right- 記事
+   }
 
 レートの予測
 ------------
