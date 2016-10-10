@@ -14,8 +14,68 @@ MVCモデルを利用する
 
 *クラス図*
 
-.. image:: images/class.jpg
-   :alt: クラス図
+.. uml::
+
+   class Rates_View <<Boundary>>
+   class Tweets_View <<Boundary>>
+   class Articles_View <<Boundary>>
+
+   class RatesController {
+     + show() : void
+     + update() : void
+   }
+
+   class TweetsController {
+     + show() : void
+     + update() : void
+   }
+
+   class ArticlesController {
+     + show() : void
+     + update() : void
+   }
+
+   class Rate {
+     - from_date : Date
+     - to_date : Date
+     - pair : String
+     - interval : String
+     - open : Float
+     - close : Float
+     - high : Float
+     - low : Float
+     + {static} get_rates(pair : String, interval : Fixnum) : Array<Rate>
+     + {static} get_moving_average(pair : String, interval : Fixnum) : Array<Float>
+   }
+
+   class Tweet {
+     - user_id : String
+     - user_name : String
+     - profile_image_url : String
+     - full_text : String
+     - tweeted_at : Date
+     + {static} get_tweets() : Array<Tweet>
+   }
+
+   class Article {
+     - published : Date
+     - title : String
+     - summary : String
+     - url : String
+     + {static} get_articles() : Array<Article>
+   }
+
+   Rates_View -[hidden]- Tweets_View
+   Tweets_View -[hidden]- Articles_View
+
+   Rates_View "1" <-right-> "1" RatesController
+   RatesController "1" -right-> "0..*" Rate
+
+   Tweets_View "1" <-right-> "1" TweetsController
+   TweetsController "1" -right-> "0..*" Tweet
+
+   Articles_View "1" <-right-> "1" ArticlesController
+   ArticlesController "1" -right-> "0..*" Article
 
 - Model
 
@@ -87,17 +147,17 @@ MVCモデルを利用する
 
 - Controller
 
-  - Rates\_Controller
+  - RatesController
 
     - Rateクラスのコントローラ
     - Rateオブジェクトを取得し，ビューに表示する
 
-  - Tweets\_Controller
+  - TweetsController
 
     - Tweetクラスのコントローラ
     - Tweetオブジェクトを取得し，ビューに表示する
 
-  - Articles\_Controller
+  - ArticlesController
 
     - Articleクラスのコントローラ
     - Articleオブジェクトを取得し，ビューに表示する
@@ -115,8 +175,43 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. image:: images/seq_rates.jpg
-   :alt: シーケンス図(レートを確認する)
+.. uml::
+
+   autonumber
+
+   actor 利用者
+   boundary Rates_View
+   control RatesController
+   entity Rate
+   利用者 -> Rates_View : /rates
+   Rates_View -> RatesController : show
+   RatesController -> Rate : get_rates
+
+   autonumber stop
+   Rate --> RatesController
+
+   autonumber resume
+   RatesController -> Rate : get_moving_average
+   
+   autonumber stop
+   Rate --> RatesController
+   RatesController --> Rates_View
+
+   autonumber resume
+   loop true
+     Rates_View -> RatesController : update
+     RatesController -> Rate : get_rates
+
+     autonumber stop
+     Rate --> RatesController
+
+     autonumber resume
+     RatesController -> Rate : get_moving_average
+
+     autonumber stop
+     Rate --> RatesController
+     RatesController --> Rates_View
+   end
 
 利用者がWebページにアクセスしてからレートを確認するまでの流れ
 
@@ -134,8 +229,31 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. image:: images/seq_tweets.jpg
-   :alt: シーケンス図(ツイートを確認する)
+.. uml::
+
+   autonumber
+
+   actor 利用者
+   boundary Tweets_View
+   control TweetsController
+   entity Tweet
+   利用者 -> Tweets_View : /tweets
+   Tweets_View -> TweetsController : show
+   TweetsController -> Tweet : get_tweets
+
+   autonumber stop
+   Tweet --> TweetsController
+   TweetsController --> Tweets_View
+
+   autonumber resume
+   loop true
+     Tweets_View -> TweetsController : update
+     TweetsController -> Tweet : get_tweets
+
+     autonumber stop
+     Tweet --> TweetsController
+     TweetsController --> Tweets_View
+   end
 
 利用者がWebページにアクセスしてからツイートを確認するまでの流れ
 
@@ -150,8 +268,31 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. image:: images/seq_articles.jpg
-   :alt: シーケンス図(記事を確認する)
+.. uml::
+
+   autonumber
+
+   actor 利用者
+   boundary Articles_View
+   control ArticlesController
+   entity Article
+   利用者 -> Articles_View : /articles
+   Articles_View -> ArticlesController : show
+   ArticlesController -> Article : get_articles
+
+   autonumber stop
+   Article --> ArticlesController
+   ArticlesController --> Articles_View
+
+   autonumber resume
+   loop true
+     Articles_View -> ArticlesController : update
+     ArticlesController -> Article : get_articles
+
+     autonumber stop
+     Article --> ArticlesController
+     ArticlesController --> Articles_View
+   end
 
 利用者がWebページにアクセスしてから記事を確認するまでの流れ
 
