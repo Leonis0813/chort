@@ -1,7 +1,7 @@
 要求仕様
 ========
 
-本システムは以下の５つの機能をWebAPIとして提供する
+本システムは以下の６つの機能をWebAPIとして提供する
 
 - `家計簿を登録する <http://localhost/algieba_docs/requirements_spec.html#id2>`__
 - `家計簿を取得する <http://localhost/algieba_docs/requirements_spec.html#id3>`__
@@ -12,8 +12,43 @@
 
 *ユースケース図*
 
-.. image:: images/use_case.jpg
-   :alt: ユースケース図
+.. uml::
+
+   left to right direction
+   skinparam packageStyle rect
+   actor 利用者
+   entity 家計簿
+
+   rectangle Register {
+     boundary 登録画面
+     control 登録コントローラー
+     利用者 -- 登録画面
+     登録画面 -- 登録コントローラー
+   }
+
+   rectangle Viewer {
+     boundary 検索画面
+     control 検索コントローラー
+     利用者 -- 検索画面
+     検索画面 -- 検索コントローラー
+   }
+
+   boundary Webブラウザ
+   利用者 -- Webブラウザ
+
+   rectangle 家計簿管理システム {
+     登録コントローラー -- (家計簿を登録する)
+     Webブラウザ -- (家計簿を登録する)
+     (家計簿を登録する) -- 家計簿
+     Webブラウザ -- (家計簿を取得する)
+     (家計簿を取得する) -- 家計簿
+     検索コントローラー -- (家計簿を検索する)
+     (家計簿を検索する) -- 家計簿
+     (家計簿を更新する) -- 家計簿
+     (家計簿を削除する) -- 家計簿
+     登録コントローラー -- (収支を計算する)
+     (収支を計算する) -- 家計簿
+   }
 
 家計簿を登録する
 ----------------

@@ -14,8 +14,46 @@ MVCモデルを利用する
 
 *クラス図*
 
-.. image:: images/class.jpg
-   :alt: クラス図
+.. uml::
+
+   class Account_View <<Boundary>>
+
+   class AccountsController {
+     + manage() : void
+     + create(request_parameters : Hash) : void
+     + read(id : String) : void
+     + index(query_parameters : Hash) : void
+     + update(id : String, request_parameters : Hash) : void
+     + delete(id : String) : void
+     + settle(interval : String) : void
+     - account_params() : Array
+     - index_params() : Array
+   }
+
+   class Account {
+     + settle(interval : String) : Hash<String, Fixnum>
+   }
+
+   class Query {
+     - account_type : String
+     - date_before : String
+     - date_after : String
+     - content_equal : String
+     - content_include : String
+     - category : String
+     - price_upper : int
+     - price_lower : int
+     + date_valid?() : void
+   }
+
+   class Settlement {
+     - interval : String
+   }
+
+   Account_View -right- AccountsController
+   AccountsController "1" -- "0..*" Account
+   AccountsController -- Query
+   AccountsController -- Settlement
 
 - Model
 
@@ -37,7 +75,7 @@ MVCモデルを利用する
 
 - Controller
 
-  - Accounts_Controller: リクエストを処理するコントローラ
+  - AccountsController: リクエストを処理するコントローラ
 
     - manage: ブラウザに管理画面を表示するメソッド
     - create: 家計簿を登録するメソッド
@@ -62,9 +100,21 @@ MVCモデルを利用する
 家計簿を登録する
 ^^^^^^^^^^^^^^^^
 
-.. image:: images/seq_create.jpg
+*シーケンス図*
 
-1. リクエストを受けると，Accounts_Controllerクラスのcreateメソッドを実行する
+.. uml::
+
+   autonumber
+
+   actor 利用者
+   利用者 -> AccountsController : create
+   AccountsController -> Account : create
+
+   autonumber stop
+   Account --> AccountsController
+   AccountsController --> 利用者
+
+1. リクエストを受けると，AccountsControllerクラスのcreateメソッドを実行する
 2. 必須パラメーターをチェックする
 
    - 必須パラメーターがない場合
@@ -86,18 +136,42 @@ MVCモデルを利用する
 家計簿を取得する
 ^^^^^^^^^^^^^^^^
 
-.. image:: images/seq_read.jpg
+*シーケンス図*
 
-1. リクエストを受けると，Accounts_Controllerクラスのreadメソッドを実行する
+.. uml::
+
+   autonumber
+
+   actor 利用者
+   利用者 -> AccountsController : read
+   AccountsController -> Account : find
+
+   autonumber stop
+   Account --> AccountsController
+   AccountsController --> 利用者
+
+1. リクエストを受けると，AccountsControllerクラスのreadメソッドを実行する
 2. findメソッドでAccountオブジェクトを取得する
 3. ステータスコード200と取得したAccountオブジェクトを返す
 
 家計簿を検索する
 ^^^^^^^^^^^^^^^^
 
-.. image:: images/seq_index.jpg
+*シーケンス図*
 
-1. リクエストを受けると，Accounts_Controllerクラスのindexメソッドを実行する
+.. uml::
+
+   autonumber
+
+   actor 利用者
+   利用者 -> AccountsController : index
+   AccountsController -> Account : where
+
+   autonumber stop
+   Account --> AccountsController
+   AccountsController --> 利用者
+
+1. リクエストを受けると，AccountsControllerクラスのindexメソッドを実行する
 2. パラメーターからQueryクラスのオブジェクトを作成する
 3. valid?メソッドを実行して不正な値がないかチェックする
 
@@ -114,9 +188,21 @@ MVCモデルを利用する
 家計簿を更新する
 ^^^^^^^^^^^^^^^^
 
-.. image:: images/seq_update.jpg
+*シーケンス図*
 
-1. リクエストを受けると，Accounts_Controllerクラスのupdateメソッドを実行する
+.. uml::
+
+   autonumber
+
+   actor 利用者
+   利用者 -> AccountsController : update
+   AccountsController -> Account : update_attributes
+
+   autonumber stop
+   Account --> AccountsController
+   AccountsController --> 利用者
+
+1. リクエストを受けると，AccountsControllerクラスのupdateメソッドを実行する
 2. update_attributesメソッドでAccountオブジェクトを更新する
 
    - 不正な値がある場合
@@ -130,18 +216,42 @@ MVCモデルを利用する
 家計簿を削除する
 ^^^^^^^^^^^^^^^^
 
-.. image:: images/seq_delete.jpg
+*シーケンス図*
 
-1. リクエストを受けると，Accounts_Controllerクラスのdeleteメソッドを実行する
+.. uml::
+
+   autonumber
+
+   actor 利用者
+   利用者 -> AccountsController : delete
+   AccountsController -> Account : delete
+
+   autonumber stop
+   Account --> AccountsController
+   AccountsController --> 利用者
+
+1. リクエストを受けると，AccountsControllerクラスのdeleteメソッドを実行する
 2. Accountクラスのdeleteメソッドを実行して削除する
 3. ステータスコード204を返す
 
 収支を計算する
 ^^^^^^^^^^^^^^
 
-.. image:: images/seq_settle.jpg
+*シーケンス図*
 
-1. リクエストを受けると，Accounts_Controllerクラスのsettleメソッドを実行する
+.. uml::
+
+   autonumber
+
+   actor 利用者
+   利用者 -> AccountsController : settle
+   AccountsController -> Account : settle
+
+   autonumber stop
+   Account --> AccountsController
+   AccountsController --> 利用者
+
+1. リクエストを受けると，AccountsControllerクラスのsettleメソッドを実行する
 2. Accountクラスのsettleメソッドを実行して収支を計算する
 3. パラメーター"interval"をチェックし，その結果に基づいてそれぞれ以下の処理を行う
 

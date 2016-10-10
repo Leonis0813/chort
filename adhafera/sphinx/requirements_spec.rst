@@ -8,8 +8,15 @@
 
 *ユースケース図*
 
-.. image:: images/use_case.jpg
-   :alt: ユースケース図
+.. uml::
+
+   left to right direction
+   skinparam packageStyle rect
+   actor 利用者
+   rectangle 家計簿管理システム {
+     利用者 -- (家計簿を登録する)
+     利用者 -- (今月の収支を確認する)
+   }
 
 家計簿の登録
 ------------
