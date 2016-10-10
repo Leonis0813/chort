@@ -88,128 +88,282 @@ API
 家計簿を登録する
 """"""""""""""""
 
-HTTP Method: POST
+.. http:post:: /accounts
 
-Path: /accounts
+   :jsonparam string account_type: ``income`` または ``expense``
+   :jsonparam string date: 所持金の増減があった日時
+   :jsonparam string content: 所持金の増減があった理由など
+   :jsonparam string category: 費目（例：食費，水道光熱費）
+   :jsonparam int price: 所持金の増減量
 
-Request:
-  Body:
-
-  - 必須
-
-    - accounts
-
+   :response JSONObject:
       - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
+        - id
         - account_type
         - date
         - content
         - category
         - price
+        - created_at
+        - updated_at
 
-Response:
-  Status Code: 201
+   :status 201:
+      - 家計簿の登録に成功
+      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ を返す
+   :status 400:
+      - 家計簿の登録に失敗
+      - `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__ を返す
 
-  Body: 登録した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
+   **リクエスト例**
+
+   .. sourcecode:: http
+
+      POST /accounts HTTP/1.1
+      Content-Type: application/json
+
+      {
+        "account_type": "income",
+        "date": "1000-01-01",
+        "content": "給料",
+        "category": "給料",
+        "price": 200000
+      }
+
+   **レスポンス例**
+
+   .. sourcecode:: http
+
+      HTTP/1.1 201 Created
+      Content-Type: application/json
+
+      {
+        "id": 1,
+        "account_type": "income",
+        "date": "1000-01-01",
+        "content": "給料",
+        "category": "給料",
+        "price": 200000,
+        "created_at": "1000-01-01 00:00:00",
+        "updated_at": "1000-01-01 00:00:00"
+      }
 
 家計簿を取得する
 """"""""""""""""
 
-HTTP Method: GET
+.. http:get:: /accounts/[id]
 
-Path: /accounts/[id]
+   :response JSONObject:
+      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
-Request:
-  Path Parameter:
-    - id: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ のID
+        - id
+        - account_type
+        - date
+        - content
+        - category
+        - price
+        - created_at
+        - updated_at
 
-Response:
-  Status Code: 200
+   :status 200:
+      - 家計簿の取得に成功
+      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ を返す
+   :status 404:
+      - 家計簿の取得に失敗
+      - 存在しないIDを指定
 
-  Body: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
+   **リクエスト例**
+
+   .. sourcecode:: http
+
+      GET /accounts/1 HTTP/1.1
+
+   **レスポンス例**
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+      {
+        "id": 1,
+        "account_type": "income",
+        "date": "1000-01-01",
+        "content": "給料",
+        "category": "給料",
+        "price": 200000,
+        "created_at": "1000-01-01 00:00:00",
+        "updated_at": "1000-01-01 00:00:00"
+      }
 
 家計簿を検索する
 """"""""""""""""
 
-HTTP Method: GET
+.. http:get:: /accounts
 
-Path: /accounts
+   :query account_type: ``income`` または ``expense``
+   :query date_before: 指定された日付以前の家計簿を検索する
+   :query date_after: 指定された日付以降の家計簿を検索する
+   :query content_equal: 内容が完全に一致する家計簿を検索する
+   :query content_include: 内容が部分的に一致する家計簿を検索する
+   :query category: カテゴリが一致する家計簿を検索する
+   :query price_upper: 指定された金額以上の家計簿を検索する
+   :query price_lower: 指定された金額以下の家計簿を検索する
 
-Request:
-  Query:
-    *クエリがない場合は全ての家計簿を取得する*
+   :responseArray JSONObject:
+      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
-    - オプション
+        - id
+        - account_type
+        - date
+        - content
+        - category
+        - price
+        - created_at
+        - updated_at
 
-      - account_type: income, expenseのどちらか
-      - date_before: 指定された日付以前の家計簿を検索する
-      - date_after: 指定された日付以降の家計簿を検索する
-      - content_equal: 完全一致の家計簿を検索する
-      - content_include: 部分一致の家計簿を検索する
-      - category: カテゴリ
-      - price_upper: 指定された金額以上の家計簿を検索する
-      - price_lower: 指定された金額以下の家計簿を検索する
+   :status 200:
+      - 家計簿の検索に成功
+      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ の配列を返す
+   :status 400:
+      - 家計簿の検索に失敗
+      - `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__ を返す
 
-Response:
-  Status Code: 200
+   **リクエスト例**
 
-  Body: 取得した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ の配列
+   .. sourcecode:: http
+
+      GET /accounts?account_type=income HTTP/1.1
+
+   **レスポンス例**
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+      [
+        {
+          "id": 1,
+          "account_type": "income",
+          "date": "1000-01-01",
+          "content": "給料",
+          "category": "給料",
+          "price": 200000,
+          "created_at": "1000-01-01 00:00:00",
+          "updated_at": "1000-01-01 00:00:00"
+        }
+      ]
 
 家計簿を更新する
 """"""""""""""""
 
-HTTP Method: PUT
+.. http:put:: /accounts/[id]
 
-Path: /accounts/<id>
+   :request JSONObject:
+      - 更新する `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ の属性と更新値
 
-Request:
-  Path Parameter:
-    - id: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ のID
+   :response JSONObject:
+      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 
-  Body:
-    - オプション
+        - id
+        - account_type
+        - date
+        - content
+        - category
+        - price
+        - created_at
+        - updated_at
 
-      - account_type
-      - date
-      - content
-      - category
-      - price
+   :status 201:
+      - 家計簿の更新に成功
+      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ を返す
+   :status 400:
+      - 家計簿の更新に失敗
+      - `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__ を返す
+   :status 404:
+      - 家計簿の更新に失敗
+      - 存在しないIDを指定
 
-Response:
-  Status Code: 200
+   **リクエスト例**
 
-  Body: 更新した `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
+   .. sourcecode:: http
+
+      PUT /accounts/1 HTTP/1.1
+      Content-Type: application/json
+
+      {
+        "date": "1000-01-02"
+      }
+
+   **レスポンス例**
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+      {
+        "id": 1,
+        "account_type": "income",
+        "date": "1000-01-02",
+        "content": "給料",
+        "category": "給料",
+        "price": 200000,
+        "created_at": "1000-01-01 00:00:00",
+        "updated_at": "1000-01-01 00:00:00"
+      }
 
 家計簿を削除する
 """"""""""""""""
 
-HTTP Method: DELETE
+.. http:delete:: /accounts/[id]
 
-Path: /accounts/<id>
+   :status 204:
+      - 家計簿の削除に成功
+   :status 404:
+      - 家計簿の削除に失敗
 
-Request:
-  Path Parameter:
-    - id: `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ のID
+   **リクエスト例**
 
-Response:
-  Status Code: 204
+   .. sourcecode:: http
+
+      DELETE /accounts/1 HTTP/1.1
+
+   **レスポンス例**
+
+   .. sourcecode:: http
+
+      HTTP/1.1 204 No Content
 
 収支を計算する
 """"""""""""""
 
-HTTP Method: GET
+.. http:get:: /settlement
 
-Path: /settlement
+   :query interval:
+      - 集計間隔
+      - ``yearly``, ``monthly``, ``daily`` のいずれかを指定
 
-Request:
-  Query:
-    - 必須
+   :status 200:
+      - 収支の計算に成功
+   :status 400:
+      - 収支の計算に失敗
+      - `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__ を返す
 
-      - interval
+   **リクエスト例**
 
-        - yearly, monthly, dailyのどれか
+   .. sourcecode:: http
 
-Response:
-  Status Code: 200
+      GET /settlement?interval=monthly HTTP/1.1
 
-  Body: 収支のリスト
+   **レスポンス例**
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+      {
+        "1000-01": 200000
+      }

@@ -1,7 +1,7 @@
 要求仕様
 ========
 
-本システムは以下の５つの機能をWebAPIとして提供する
+本システムは以下の６つの機能をWebAPIとして提供する
 
 - `家計簿を登録する <http://localhost/algieba_docs/requirements_spec.html#id2>`__
 - `家計簿を取得する <http://localhost/algieba_docs/requirements_spec.html#id3>`__
