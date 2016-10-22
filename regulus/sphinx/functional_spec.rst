@@ -34,8 +34,8 @@
 
 - 指定されたペア・期間のローソク足グラフと移動平均線を表示する
 
+  - 過去と未来のレート情報が表示される
   - 利用者は画面上部のプルダウンからペアと期間を選択する
-
   - 移動平均線は直近75本分のレート情報から計算される
 
 - グラフは定期的に更新される
@@ -72,15 +72,34 @@
 本システムでは以下のデータを扱う
 
 - `為替レート <http://localhost/regulus_docs/functional_spec.html#id8>`__
-- `ツイート <http://localhost/regulus_docs/functional_spec.html#id9>`__
-- `記事 <http://localhost/regulus_docs/functional_spec.html#id10>`__
+- `為替レート（予測） <http://localhost/regulus_docs/functional_spec.html#id10>`__
+- `ツイート <http://localhost/regulus_docs/functional_spec.html#id12>`__
+- `記事 <http://localhost/regulus_docs/functional_spec.html#id14>`__
 
 為替レート
 ^^^^^^^^^^
 
 - ある時点での為替レートの情報を表す
 - ローソク足グラフを使って為替レートの変動を表す
-- 為替レートはYahoo Query Language(YQL)を利用して取得する
+- 為替レートはYahooから取得する
+
+構成要素
+""""""""
+
+.. csv-table::
+   :header: "要素", "意味"
+   :widths: 10, 90
+
+   "ペア", "為替レートのペア（例：ドル円，ユーロ円）"
+   "期間", "1本のローソク足が表す期間（例：5分間，1時間など）"
+   "レート", "為替レートの値"
+
+為替レート（予測）
+^^^^^^^^^^^^^^^^^^
+
+- 未来の為替レートの予測結果を表す
+- ローソク足グラフを使って為替レートの変動を表す
+- 為替レートはツールを利用して予測される
 
 構成要素
 """"""""
