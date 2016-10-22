@@ -45,8 +45,13 @@ MVCモデルを利用する
      - high : Float
      - low : Float
      + {static} get_rates(pair : String, interval : Fixnum) : Array<Rate>
+   }
+
+   class ActualRate {
      + {static} get_moving_average(pair : String, interval : Fixnum) : Array<Float>
    }
+
+   class PredictedRate
 
    class Tweet {
      - user_id : String
@@ -70,6 +75,8 @@ MVCモデルを利用する
 
    Rates_View "1" <-right-> "1" RatesController
    RatesController "1" -right-> "0..*" Rate
+   Rate <|-right- ActualRate
+   Rate <|-right- PredictedRate
 
    Tweets_View "1" <-right-> "1" TweetsController
    TweetsController "1" -right-> "0..*" Tweet
@@ -89,28 +96,33 @@ MVCモデルを利用する
       - pair: 為替のペアコード（例：USDJPY）
       - interval: 集計対象期間
 
-	- 以下のいずれかが保持されている
+        - 以下のいずれかが保持されている
 
-	  - 5-min
-	  - 10-min
-	  - 20-min
-	  - 30-min
-	  - 1-hour
-	  - 2-hour
-	  - 3-hour
+          - 5-min
+          - 10-min
+          - 20-min
+          - 30-min
+          - 1-hour
+          - 2-hour
+          - 3-hour
           - 4-hour
-	  - 6-hour
-	  - 12-hour
-	  - 1-day
-	  - 1-week
-	  - 1-month
+          - 6-hour
+          - 12-hour
+          - 1-day
+          - 1-week
+          - 1-month
 
       - open: 始値
       - close: 終値
       - high: 高値
       - low: 安値
 
-  - Tweet
+    - ActualRate, PredictedRateがRateを継承している
+
+      - ActualRate: レートの実測値を表すクラス
+      - PredictedRate: レートの予測値を表すクラス
+
+    - Tweet
 
     - ツイートを表すクラス
     - 以下の情報を保持する
@@ -182,19 +194,26 @@ MVCモデルを利用する
    actor 利用者
    boundary Rates_View
    control RatesController
-   entity Rate
+   entity ActualRate
+   entity PredictedRate
    利用者 -> Rates_View : /rates
    Rates_View -> RatesController : show
-   RatesController -> Rate : get_rates
+   RatesController -> ActualRate : get_rates
 
    autonumber stop
-   Rate --> RatesController
+   ActualRate --> RatesController
 
    autonumber resume
-   RatesController -> Rate : get_moving_average
-   
+   RatesController -> ActualRate : get_moving_average
+
    autonumber stop
-   Rate --> RatesController
+   ActualRate --> RatesController
+
+   autonumber resume
+   RatesController -> PredictedRate : get_rates
+
+   autonumber stop
+   PredictedRate --> RatesController
    RatesController --> Rates_View
 
    autonumber resume
@@ -210,19 +229,26 @@ MVCモデルを利用する
 
      autonumber stop
      Rate --> RatesController
+
+     autonumber resume
+     RatesController -> PredictedRate : get_rates
+
+     autonumber stop
+     PredictedRate --> RatesController
      RatesController --> Rates_View
    end
 
 利用者がWebページにアクセスしてからレートを確認するまでの流れ
 
 1. 利用者がhttps://<ホスト名>/ratesにアクセスする
-2. Rates_Controller#showを実行する
-3. Rates::get_ratesを実行する
+2. RatesController#showを実行する
+3. ActualRate::get_ratesを実行する
    - 引数にはペアコードと足の種類（5分など）を指定する
-4. Rates::get_moving_averageを実行する
+4. ActualRate::get_moving_averageを実行する
    - 引数にはペアコードと足の種類（5分など）を指定する
-5. 取得したレートをグラフ化して表示する
-6. 以降は10秒ごとにRates_Controller#updateを実行してグラフを更新する
+5. PredictedRate::get_ratesを実行する
+6. 取得したレートをグラフ化して表示する
+7. 以降は10秒ごとにRatesController#updateを実行してグラフを更新する
 
 ツイートを確認する
 ^^^^^^^^^^^^^^^^^^
