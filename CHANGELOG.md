@@ -1,6 +1,9 @@
 chort
 =====
 
+- 4.0.0:
+  - [Regulus] update version to 2.0.0
+
 - 3.1.1:
   - [Zosma] update version to 1.1.0
 
