@@ -5,7 +5,7 @@
 
 - `モジュール構成 <http://localhost/algieba_docs/design_spec.html#id2>`__
 - `シーケンス <http://localhost/algieba_docs/design_spec.html#id3>`__
-- `データベース構成 <http://localhost/algieba_docs/design_spec.html#id10>`__
+- `データベース構成 <http://localhost/algieba_docs/design_spec.html#id11>`__
 
 モジュール構成
 --------------
@@ -81,9 +81,9 @@ MVCモデルを利用する
 
 - Model
 
-  - User: Usersテーブルを操作するモデル
-  - Client: Clientsテーブルを操作するモデル
-  - Account: Accountsテーブルを操作するモデル
+  - User: usersテーブルを操作するモデル
+  - Client: clientsテーブルを操作するモデル
+  - Account: accountsテーブルを操作するモデル
 
     - settle: 収支を計算するメソッド
 
@@ -151,12 +151,14 @@ MVCモデルを利用する
    User --> LoginController
    LoginController --> Login_View
 
-   autonumber resume
-   Login_View -> AccountController
-   AccountController -> Account_View
+   alt ログイン成功
+     autonumber resume
+     Login_View -> AccountController : manage
+     AccountController -> Account_View
 
-   autonumber stop
-   Account_View --> 利用者
+     autonumber stop
+     Account_View --> 利用者
+   end
 
 1. 利用者がブラウザから本アプリにアクセスする
 2. 利用者がユーザーIDとパスワードを入力してログインする
@@ -338,9 +340,9 @@ MVCモデルを利用する
 
 データベースは下記のテーブルで構成される
 
-- `users <http://localhost/algieba_docs/design_spec.html#id2>`__
-- `clients <http://localhost/algieba_docs/design_spec.html#id2>`__
-- `accounts <http://localhost/algieba_docs/design_spec.html#id2>`__
+- `users <http://localhost/algieba_docs/design_spec.html#id12>`__
+- `clients <http://localhost/algieba_docs/design_spec.html#id13>`__
+- `accounts <http://localhost/algieba_docs/design_spec.html#id14>`__
 
 users テーブル
 ^^^^^^^^^^^^^^
