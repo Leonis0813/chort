@@ -4,7 +4,7 @@
 機能仕様では以下を定義する
 
 - `データ構造 <http://localhost/algieba_docs/functional_spec.html#id2>`__
-- `ユーザーインターフェース <http://localhost/algieba_docs/functional_spec.html#id4>`__
+- `ユーザーインターフェース <http://localhost/algieba_docs/functional_spec.html#id6>`__
 - `Web API <http://localhost/algieba_docs/functional_spec.html#web-api>`__
 
 データ構造
@@ -12,7 +12,32 @@
 
 本システムでは以下のデータを扱う
 
-- `家計簿 <http://localhost/algieba_docs/functional_spec.html#id3>`__
+- `ユーザー <http://localhost/algieba_docs/functional_spec.html#id3>`__
+- `アプリ <http://localhost/algieba_docs/functional_spec.html#id4>`__
+- `家計簿 <http://localhost/algieba_docs/functional_spec.html#id5>`__
+
+ユーザー
+^^^^^^^^
+
+本アプリの利用者を表す
+
+.. csv-table::
+   :header: "属性名", "意味", "備考"
+   :widths:
+
+   "ユーザーID", "ユーザーを識別する文字列", "任意の半角英数字を使用可能"
+   "パスワード", "ユーザー認証を行うための鍵", "任意の半角英数字を使用可能"
+
+アプリ
+^^^^^^
+
+本アプリを利用するアプリを表す
+
+.. csv-table::
+   :header: "属性名", "意味", "備考"
+
+   "アプリID", "アプリを識別する文字列", "本アプリによって発行される"
+   "アプリキー", "アプリが持つ秘密鍵", "本アプリによって発行される"
 
 家計簿
 ^^^^^^
@@ -34,8 +59,21 @@
 
 利用者はブラウザから家計簿の登録や確認を行うことができる
 
-.. image:: images/interface.jpg
-   :alt: ブラウザ画面
+認証画面
+^^^^^^^^
+
+.. image:: images/login.jpg
+   :alt: 認証画面
+
+- 画面中央部に入力フォームが表示される
+- ユーザーID, パスワードを入力して、ログインボタンを押すと認証が行われる
+- 認証に成功すると管理画面に遷移する
+
+管理画面
+^^^^^^^^
+
+.. image:: images/management.jpg
+   :alt: 管理画面
 
 - 画面の上部に登録用の入力フォームが表示される
 - 入力フォームの下には表形式で家計簿の一覧が表示される
