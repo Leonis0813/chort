@@ -340,9 +340,9 @@ MVCモデルを利用する
 
 データベースは下記のテーブルで構成される
 
-- `users <http://localhost/algieba_docs/design_spec.html#id12>`__
-- `clients <http://localhost/algieba_docs/design_spec.html#id13>`__
-- `accounts <http://localhost/algieba_docs/design_spec.html#id14>`__
+- `users <http://localhost/algieba_docs/design_spec.html#users>`__
+- `clients <http://localhost/algieba_docs/design_spec.html#clients>`__
+- `accounts <http://localhost/algieba_docs/design_spec.html#accounts>`__
 
 users テーブル
 ^^^^^^^^^^^^^^
