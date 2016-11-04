@@ -16,7 +16,13 @@ MVCモデルを利用する
 
 .. uml::
 
+   class Login_View <<Boundary>>
    class Account_View <<Boundary>>
+
+   class LoginController {
+     + authenticate_user() ; void
+     + authenticate_client() : void
+   }
 
    class AccountsController {
      + manage() : void
@@ -30,7 +36,22 @@ MVCモデルを利用する
      - index_params() : Array
    }
 
+   class User {
+     + user_id : String
+     + password : String
+   }
+
+   class Client {
+     + application_id : String
+     + application_key : String
+   }
+
    class Account {
+     + account_type : String
+     + date : Date
+     + content : String
+     + category : String
+     + price : Fixnum
      + settle(interval : String) : Hash<String, Fixnum>
    }
 
@@ -50,6 +71,9 @@ MVCモデルを利用する
      - interval : String
    }
 
+   Login_View -right- LoginController
+   LoginController -- User
+   LoginController -- Client
    Account_View -right- AccountsController
    AccountsController "1" -- "0..*" Account
    AccountsController -- Query
@@ -57,6 +81,8 @@ MVCモデルを利用する
 
 - Model
 
+  - User: Usersテーブルを操作するモデル
+  - Client: Clientsテーブルを操作するモデル
   - Account: Accountsテーブルを操作するモデル
 
     - settle: 収支を計算するメソッド
@@ -69,13 +95,22 @@ MVCモデルを利用する
 
 - View
 
+  - Login_View: 認証を行うビュー
+
+    - 利用者が未認証時に表示される
+
   - Account_View: 家計簿の登録や表示を行うビュー
 
-    - 利用者がhttp://<ホスト名>(:80)/にアクセスすることで表示される
+    - 認証された利用者が家計簿の登録・参照を行う
 
 - Controller
 
-  - AccountsController: リクエストを処理するコントローラ
+  - LoginController: 認証処理を行うコントローラー
+
+    - authenticate_user: ユーザー認証を行うメソッド
+    - authenticate_client: アプリ認証を行うメソッド
+
+  - AccountsController: 家計簿を処理するコントローラ
 
     - manage: ブラウザに管理画面を表示するメソッド
     - create: 家計簿を登録するメソッド
@@ -90,12 +125,45 @@ MVCモデルを利用する
 シーケンス
 ----------
 
-- `家計簿を登録する <http://localhost/algieba_docs/design_spec.html#id4>`__
-- `家計簿を取得する <http://localhost/algieba_docs/design_spec.html#id5>`__
-- `家計簿を検索する <http://localhost/algieba_docs/design_spec.html#id6>`__
-- `家計簿を更新する <http://localhost/algieba_docs/design_spec.html#id7>`__
-- `家計簿を削除する <http://localhost/algieba_docs/design_spec.html#id8>`__
-- `収支を計算する <http://localhost/algieba_docs/design_spec.html#id9>`__
+- `ログインする <http://localhost/algieba_docs/design_spec.html#id4>`__
+- `家計簿を登録する <http://localhost/algieba_docs/design_spec.html#id5>`__
+- `家計簿を取得する <http://localhost/algieba_docs/design_spec.html#id6>`__
+- `家計簿を検索する <http://localhost/algieba_docs/design_spec.html#id7>`__
+- `家計簿を更新する <http://localhost/algieba_docs/design_spec.html#id8>`__
+- `家計簿を削除する <http://localhost/algieba_docs/design_spec.html#id9>`__
+- `収支を計算する <http://localhost/algieba_docs/design_spec.html#id10>`__
+
+ログインする
+^^^^^^^^^^^^
+
+*シーケンス図*
+
+.. uml::
+
+   autonumber
+
+   actor 利用者
+   利用者 -> Login_View
+   Login_View -> LoginController : authenticate_user
+   LoginController -> User : find
+
+   autonumber stop
+   User --> LoginController
+   LoginController --> Login_View
+
+   autonumber resume
+   Login_View -> AccountController
+   AccountController -> Account_View
+
+   autonumber stop
+   Account_View --> 利用者
+
+1. 利用者がブラウザから本アプリにアクセスする
+2. 利用者がユーザーIDとパスワードを入力してログインする
+3. LoginControllerがユーザーIDとパスワードが一致するUserオブジェクトを検索する
+4. 一致するユーザーが存在しなければLogin_Viewを表示して2へ戻る
+5. 一致するユーザーが存在すればAccountController#manageを実行する
+6. AccountControllerがAccountを取得してAccount_Viewを表示する
 
 家計簿を登録する
 ^^^^^^^^^^^^^^^^
@@ -268,7 +336,44 @@ MVCモデルを利用する
 データベース構成
 ----------------
 
-家計簿を登録するAccountテーブルを定義する
+データベースは下記のテーブルで構成される
+
+- `users <http://localhost/algieba_docs/design_spec.html#id2>`__
+- `clients <http://localhost/algieba_docs/design_spec.html#id2>`__
+- `accounts <http://localhost/algieba_docs/design_spec.html#id2>`__
+
+users テーブル
+^^^^^^^^^^^^^^
+
+ユーザーを登録するusersテーブルを定義する
+
+.. csv-table::
+   :header: "カラム", "型", "内容", "主キー", "NOT NULL"
+
+   "id", "INTEGER", "userオブジェクトのID", "◯", "◯"
+   "user_id", "STRING", "ユーザーが登録したID",,
+   "password", "STRING", "パスワード",,
+   "created_at", "DATETIME", "ユーザー情報を作成した日時",,
+   "updated_at", "DATETIME", "ユーザー情報を更新した日時",,
+
+clients テーブル
+^^^^^^^^^^^^^^^^
+
+アプリを登録するclientsテーブルを定義する
+
+.. csv-table::
+   :header: "カラム", "型", "内容", "主キー", "NOT NULL"
+
+   "id", "INTEGER", "clientオブジェクトのID", "◯", "◯"
+   "application_id", "STRING", "クライアントアプリのID",,
+   "application_key", "STRING", "クライアントアプリのキー",,
+   "created_at", "DATETIME", "アプリ情報を作成した日時",,
+   "updated_at", "DATETIME", "アプリ情報を更新した日時",,
+
+accounts テーブル
+^^^^^^^^^^^^^^^^^
+
+家計簿を登録するaccountsテーブルを定義する
 
 .. csv-table::
    :header: "カラム", "型", "内容", "主キー", "NOT NULL"
