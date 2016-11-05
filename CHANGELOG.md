@@ -1,6 +1,9 @@
 chort
 =====
 
+- 4.1.0:
+  - [Algieba] update version to 2.2.0
+
 - 4.0.0:
   - [Regulus] update version to 2.0.0
 
