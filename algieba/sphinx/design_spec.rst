@@ -350,13 +350,13 @@ users テーブル
 ユーザーを登録するusersテーブルを定義する
 
 .. csv-table::
-   :header: "カラム", "型", "内容", "主キー", "NOT NULL"
+   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
 
    "id", "INTEGER", "userオブジェクトのID", "◯", "◯"
-   "user_id", "STRING", "ユーザーが登録したID",,
-   "password", "STRING", "パスワード",,
-   "created_at", "DATETIME", "ユーザー情報を作成した日時",,
-   "updated_at", "DATETIME", "ユーザー情報を更新した日時",,
+   "user_id", "STRING", "ユーザーが登録したID",, "◯"
+   "password", "STRING", "パスワード",, "◯"
+   "created_at", "DATETIME", "ユーザー情報が登録された日時",, "◯"
+   "updated_at", "DATETIME", "ユーザー情報が登録 or 更新された日時",, "◯"
 
 clients テーブル
 ^^^^^^^^^^^^^^^^
@@ -364,13 +364,13 @@ clients テーブル
 アプリを登録するclientsテーブルを定義する
 
 .. csv-table::
-   :header: "カラム", "型", "内容", "主キー", "NOT NULL"
+   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
 
    "id", "INTEGER", "clientオブジェクトのID", "◯", "◯"
-   "application_id", "STRING", "クライアントアプリのID",,
-   "application_key", "STRING", "クライアントアプリのキー",,
-   "created_at", "DATETIME", "アプリ情報を作成した日時",,
-   "updated_at", "DATETIME", "アプリ情報を更新した日時",,
+   "application_id", "STRING", "クライアントアプリのID",, "◯"
+   "application_key", "STRING", "クライアントアプリのキー",, "◯"
+   "created_at", "DATETIME", "アプリ情報が登録された日時",, "◯"
+   "updated_at", "DATETIME", "アプリ情報が登録 or 更新された日時",, "◯"
 
 accounts テーブル
 ^^^^^^^^^^^^^^^^^
@@ -378,13 +378,13 @@ accounts テーブル
 家計簿を登録するaccountsテーブルを定義する
 
 .. csv-table::
-   :header: "カラム", "型", "内容", "主キー", "NOT NULL"
+   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
 
-   "id", "INTEGER", "家計簿のID", "◯", "◯"
+   "id", "INTEGER", "accountオブジェクトのID", "◯", "◯"
    "account_type", "STRING", "収入/支出を表すフラグ",, "◯"
    "date", "DATE", "収入/支出があった日",, "◯"
    "content", "STRING", "収入/支出の内容",, "◯"
    "category", "STRING", "収入/支出のカテゴリ",, "◯"
    "price", "INTEGER", "収入/支出の金額",, "◯"
    "created_at", "DATETIME", "家計簿が登録された日時",, "◯"
-   "updated_at", "DATETIME", "家計簿が登録or更新された日時",, "◯"
+   "updated_at", "DATETIME", "家計簿が登録 or 更新された日時",, "◯"
