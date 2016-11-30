@@ -3,12 +3,12 @@
 
 本システムは以下の６つの機能をWebAPIとして提供する
 
-- `家計簿を登録する <http://localhost/algieba_docs/requirements_spec.html#id2>`__
-- `家計簿を取得する <http://localhost/algieba_docs/requirements_spec.html#id3>`__
-- `家計簿を検索する <http://localhost/algieba_docs/requirements_spec.html#id4>`__
-- `家計簿を更新する <http://localhost/algieba_docs/requirements_spec.html#id5>`__
-- `家計簿を削除する <http://localhost/algieba_docs/requirements_spec.html#id6>`__
-- `収支を計算する <http://localhost/algieba_docs/requirements_spec.html#id7>`__
+- :ref:`create-account`
+- :ref:`read-account`
+- :ref:`index-account`
+- :ref:`update-account`
+- :ref:`delete-account`
+- :ref:`settle`
 
 *ユースケース図*
 
@@ -50,6 +50,8 @@
      (収支を計算する) -- 家計簿
    }
 
+.. _create-account:
+
 家計簿を登録する
 ----------------
 
@@ -59,6 +61,8 @@
 
 1. 利用者は家計簿を作成するための情報を含んだHTTPリクエストを送信する
 2. システムは受信したリクエストから情報を取得して家計簿を作成する
+
+.. _read-account:
 
 家計簿を取得する
 ----------------
@@ -70,6 +74,8 @@
 1. 利用者は検索条件を含んだHTTPリクエストを送信する
 2. システムは受信したリクエストに対応する家計簿を取得する
 
+.. _index-account:
+
 家計簿を検索する
 ----------------
 
@@ -79,6 +85,8 @@
 
 1. 利用者は検索条件を含んだHTTPリクエストを送信する
 2. システムは受信したリクエストから検索条件を取得して，条件を満たす家計簿を取得する
+
+.. _update-account:
 
 家計簿を更新する
 ----------------
@@ -90,6 +98,8 @@
 1. 利用者は検索条件と更新情報を含んだHTTPリクエストを送信する
 2. システムは受験したリクエストから検索条件と更新情報を取得して更新を行う
 
+.. _delete-account:
+
 家計簿を削除する
 ----------------
 
@@ -99,6 +109,8 @@
 
 1. 利用者は検索条件を含んだHTTPリクエストを送信する
 2. システムは受信したリクエストから検索条件を取得して，条件を満たす家計簿を削除する
+
+.. _settle:
 
 収支を計算する
 --------------
