@@ -3,9 +3,11 @@
 
 設計仕様では以下を定義する
 
-- `モジュール構成 <http://localhost/algieba_docs/design_spec.html#id2>`__
-- `シーケンス <http://localhost/algieba_docs/design_spec.html#id3>`__
-- `データベース構成 <http://localhost/algieba_docs/design_spec.html#id11>`__
+- :ref:`module`
+- :ref:`sequence`
+- :ref:`schema`
+
+.. _module:
 
 モジュール構成
 --------------
@@ -122,16 +124,20 @@ MVCモデルを利用する
     - account_params: Accountの属性名の配列を返すメソッド
     - index_params: Queryの属性名の配列を返すメソッド
 
+.. _sequence:
+
 シーケンス
 ----------
 
-- `ログインする <http://localhost/algieba_docs/design_spec.html#id4>`__
-- `家計簿を登録する <http://localhost/algieba_docs/design_spec.html#id5>`__
-- `家計簿を取得する <http://localhost/algieba_docs/design_spec.html#id6>`__
-- `家計簿を検索する <http://localhost/algieba_docs/design_spec.html#id7>`__
-- `家計簿を更新する <http://localhost/algieba_docs/design_spec.html#id8>`__
-- `家計簿を削除する <http://localhost/algieba_docs/design_spec.html#id9>`__
-- `収支を計算する <http://localhost/algieba_docs/design_spec.html#id10>`__
+- :ref:`sequence-login`
+- :ref:`sequence-create`
+- :ref:`sequence-read`
+- :ref:`sequence-index`
+- :ref:`sequence-update`
+- :ref:`sequence-delete`
+- :ref:`sequence-settle`
+
+.. _sequence-login:
 
 ログインする
 ^^^^^^^^^^^^
@@ -166,6 +172,8 @@ MVCモデルを利用する
 4. 一致するユーザーが存在しなければLogin_Viewを表示して2へ戻る
 5. 一致するユーザーが存在すればAccountController#manageを実行する
 6. AccountControllerがAccountを取得してAccount_Viewを表示する
+
+.. _sequence-create:
 
 家計簿を登録する
 ^^^^^^^^^^^^^^^^
@@ -203,6 +211,8 @@ MVCモデルを利用する
 
        4-2. BadRequestを発生させて，ステータスコード400とエラーコードを返す
 
+.. _sequence-read:
+
 家計簿を取得する
 ^^^^^^^^^^^^^^^^
 
@@ -223,6 +233,8 @@ MVCモデルを利用する
 1. リクエストを受けると，AccountsControllerクラスのreadメソッドを実行する
 2. findメソッドでAccountオブジェクトを取得する
 3. ステータスコード200と取得したAccountオブジェクトを返す
+
+.. _sequence-index:
 
 家計簿を検索する
 ^^^^^^^^^^^^^^^^
@@ -255,6 +267,8 @@ MVCモデルを利用する
 
      4-2. ステータスコード200と取得したAccountオブジェクトの配列を返す
 
+.. _sequence-update:
+
 家計簿を更新する
 ^^^^^^^^^^^^^^^^
 
@@ -283,6 +297,8 @@ MVCモデルを利用する
 
      3. ステータスコード200と更新したAccountオブジェクトを返す
 
+.. _sequence-delete:
+
 家計簿を削除する
 ^^^^^^^^^^^^^^^^
 
@@ -303,6 +319,8 @@ MVCモデルを利用する
 1. リクエストを受けると，AccountsControllerクラスのdeleteメソッドを実行する
 2. Accountクラスのdeleteメソッドを実行して削除する
 3. ステータスコード204を返す
+
+.. _sequence-settle:
 
 収支を計算する
 ^^^^^^^^^^^^^^
@@ -335,14 +353,18 @@ MVCモデルを利用する
 
      4-1. BadRequestを発生させて，ステータスコード400とエラーコードと返す
 
+.. _schema:
+
 データベース構成
 ----------------
 
 データベースは下記のテーブルで構成される
 
-- `users <http://localhost/algieba_docs/design_spec.html#users>`__
-- `clients <http://localhost/algieba_docs/design_spec.html#clients>`__
-- `accounts <http://localhost/algieba_docs/design_spec.html#accounts>`__
+- :ref:`schema-users`
+- :ref:`schema-clients`
+- :ref:`schema-accounts`
+
+.. _schema-users:
 
 users テーブル
 ^^^^^^^^^^^^^^
@@ -358,6 +380,8 @@ users テーブル
    "created_at", "DATETIME", "ユーザー情報が登録された日時",, "◯"
    "updated_at", "DATETIME", "ユーザー情報が登録 or 更新された日時",, "◯"
 
+.. _schema-clients:
+
 clients テーブル
 ^^^^^^^^^^^^^^^^
 
@@ -371,6 +395,8 @@ clients テーブル
    "application_key", "STRING", "クライアントアプリのキー",, "◯"
    "created_at", "DATETIME", "アプリ情報が登録された日時",, "◯"
    "updated_at", "DATETIME", "アプリ情報が登録 or 更新された日時",, "◯"
+
+.. _schema-accounts:
 
 accounts テーブル
 ^^^^^^^^^^^^^^^^^
