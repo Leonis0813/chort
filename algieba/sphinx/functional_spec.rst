@@ -3,18 +3,22 @@
 
 機能仕様では以下を定義する
 
-- `データ構造 <http://localhost/algieba_docs/functional_spec.html#id2>`__
-- `ユーザーインターフェース <http://localhost/algieba_docs/functional_spec.html#id6>`__
-- `Web API <http://localhost/algieba_docs/functional_spec.html#web-api>`__
+- :ref:`data-structure`
+- :ref:`user-interface`
+- :ref:`web-api`
+
+.. _data-structure:
 
 データ構造
 ----------
 
 本システムでは以下のデータを扱う
 
-- `ユーザー <http://localhost/algieba_docs/functional_spec.html#id3>`__
-- `アプリ <http://localhost/algieba_docs/functional_spec.html#id4>`__
-- `家計簿 <http://localhost/algieba_docs/functional_spec.html#id5>`__
+- :ref:`data-structure-user`
+- :ref:`data-structure-application`
+- :ref:`data-structure-account`
+
+.. _data-structure-user:
 
 ユーザー
 ^^^^^^^^
@@ -28,6 +32,8 @@
    "ユーザーID", "ユーザーを識別する文字列", "任意の半角英数字を使用可能"
    "パスワード", "ユーザー認証を行うための鍵", "任意の半角英数字を使用可能"
 
+.. _data-structure-application:
+
 アプリ
 ^^^^^^
 
@@ -39,6 +45,8 @@
 
    "アプリID", "アプリを識別する文字列", "本アプリによって発行される"
    "アプリキー", "アプリが持つ秘密鍵", "本アプリによって発行される"
+
+.. _data-structure-account:
 
 家計簿
 ^^^^^^
@@ -54,6 +62,8 @@
    "内容", "所持金の増減があった理由など"
    "カテゴリ", "費目（例：食費，水道光熱費）"
    "金額", "所持金の増減量"
+
+.. _user-interface:
 
 ユーザーインターフェース
 ------------------------
@@ -82,11 +92,15 @@
 - 1ページ50件の家計簿が表示される
 - 登録成功時，画面遷移なしで表に登録した家計簿が表示される
 
+.. _web-api:
+
 Web API
 -------
 
 共通定義
 ^^^^^^^^
+
+.. _web-api-common-resource:
 
 家計簿リソース
 """"""""""""""
@@ -103,6 +117,8 @@ Web API
 
 - *項目の値が空ハッシュや空配列の場合はその項目はないものとして見なす*
 
+.. _web-api-common-error-code:
+
 エラーコード
 """"""""""""
 
@@ -117,12 +133,14 @@ API
 
 以下のAPIを定義する
 
-- `家計簿を登録する <http://localhost/algieba_docs/functional_spec.html#id8>`__
-- `家計簿を取得する <http://localhost/algieba_docs/functional_spec.html#id9>`__
-- `家計簿を検索する <http://localhost/algieba_docs/functional_spec.html#id10>`__
-- `家計簿を更新する <http://localhost/algieba_docs/functional_spec.html#id11>`__
-- `家計簿を削除する <http://localhost/algieba_docs/functional_spec.html#id12>`__
-- `収支を計算する <http://localhost/algieba_docs/functional_spec.html#id13>`__
+- :ref:`web-api-api-create`
+- :ref:`web-api-api-read`
+- :ref:`web-api-api-index`
+- :ref:`web-api-api-update`
+- :ref:`web-api-api-delete`
+- :ref:`web-api-api-settle`
+
+.. _web-api-api-create:
 
 家計簿を登録する
 """"""""""""""""
@@ -136,7 +154,7 @@ API
    :jsonparam int price: 所持金の増減量
 
    :response JSONObject:
-      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
+      - :ref:`web-api-common-resource`
 
         - id
         - account_type
@@ -149,10 +167,10 @@ API
 
    :status 201:
       - 家計簿の登録に成功
-      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ を返す
+      - :ref:`web-api-common-resource` を返す
    :status 400:
       - 家計簿の登録に失敗
-      - `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__ を返す
+      - :ref:`web-api-common-error-code` を返す
 
    **リクエスト例**
 
@@ -187,13 +205,15 @@ API
         "updated_at": "1000-01-01 00:00:00"
       }
 
+.. _web-api-api-read:
+
 家計簿を取得する
 """"""""""""""""
 
 .. http:get:: /accounts/[id]
 
    :response JSONObject:
-      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
+      - :ref:`web-api-common-resource`
 
         - id
         - account_type
@@ -206,7 +226,7 @@ API
 
    :status 200:
       - 家計簿の取得に成功
-      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ を返す
+      - :ref:`web-api-common-resource` を返す
    :status 404:
       - 家計簿の取得に失敗
       - 存在しないIDを指定
@@ -235,6 +255,8 @@ API
         "updated_at": "1000-01-01 00:00:00"
       }
 
+.. _web-api-api-index:
+
 家計簿を検索する
 """"""""""""""""
 
@@ -250,7 +272,7 @@ API
    :query price_lower: 指定された金額以下の家計簿を検索する
 
    :responseArray JSONObject:
-      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
+      - :ref:`web-api-common-resource`
 
         - id
         - account_type
@@ -263,10 +285,10 @@ API
 
    :status 200:
       - 家計簿の検索に成功
-      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ の配列を返す
+      - :ref:`web-api-common-resource` の配列を返す
    :status 400:
       - 家計簿の検索に失敗
-      - `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__ を返す
+      - :ref:`web-api-common-error-code` を返す
 
    **リクエスト例**
 
@@ -294,16 +316,18 @@ API
         }
       ]
 
+.. _web-api-api-update:
+
 家計簿を更新する
 """"""""""""""""
 
 .. http:put:: /accounts/[id]
 
    :request JSONObject:
-      - 更新する `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ の属性と更新値
+      - 更新する :ref:`web-api-common-resource` の属性と更新値
 
    :response JSONObject:
-      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__
+      - :ref:`web-api-common-resource`
 
         - id
         - account_type
@@ -316,10 +340,10 @@ API
 
    :status 201:
       - 家計簿の更新に成功
-      - `家計簿リソース <http://localhost/algieba_docs/functional_spec.html#id6>`__ を返す
+      - :ref:`web-api-common-resource` を返す
    :status 400:
       - 家計簿の更新に失敗
-      - `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__ を返す
+      - :ref:`web-api-common-error-code` を返す
    :status 404:
       - 家計簿の更新に失敗
       - 存在しないIDを指定
@@ -353,6 +377,8 @@ API
         "updated_at": "1000-01-01 00:00:00"
       }
 
+.. _web-api-api-delete:
+
 家計簿を削除する
 """"""""""""""""
 
@@ -375,6 +401,8 @@ API
 
       HTTP/1.1 204 No Content
 
+.. _web-api-api-settle:
+
 収支を計算する
 """"""""""""""
 
@@ -388,7 +416,7 @@ API
       - 収支の計算に成功
    :status 400:
       - 収支の計算に失敗
-      - `エラーコード <http://localhost/algieba_docs/functional_spec.html#id7>`__ を返す
+      - :ref:`web-api-common-error-code` を返す
 
    **リクエスト例**
 
