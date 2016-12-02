@@ -3,72 +3,74 @@
 
 機能仕様では以下を定義する
 
-- :ref:`data-structure`
-- :ref:`user-interface`
-- :ref:`web-api`
+- :ref:`ext-resource`
+- :ref:`ext-ui`
+- :ref:`ext-api`
 
-.. _data-structure:
+.. _ext-resource:
 
-データ構造
-----------
+リソース
+--------
 
-本システムでは以下のデータを扱う
+本システムでは以下のリソースを扱う
 
-- :ref:`data-structure-user`
-- :ref:`data-structure-application`
-- :ref:`data-structure-account`
+- :ref:`ext-resource-user`
+- :ref:`ext-resource-application`
+- :ref:`ext-resource-payment`
 
-.. _data-structure-user:
+.. _ext-resource-user:
 
-ユーザー
-^^^^^^^^
+ユーザーリソース
+^^^^^^^^^^^^^^^^
 
 本アプリの利用者を表す
 
 .. csv-table::
-   :header: "属性名", "意味", "備考"
-   :widths: 10, 30, 30
+   :header: "属性名", "型", "意味", "フォーマット", "備考"
+   :widths: 10, 10, 20, 20, 40
 
-   "ユーザーID", "ユーザーを識別する文字列", "任意の半角英数字を使用可能"
-   "パスワード", "ユーザー認証を行うための鍵", "任意の半角英数字を使用可能"
+   "ユーザーID", "文字列(string)", "ユーザーを識別する文字列", "半角英数字",
+   "パスワード", "文字列(string)", "ユーザー認証を行うための鍵", "半角英数字",
 
-.. _data-structure-application:
+.. _ext-resource-application:
 
-アプリ
-^^^^^^
+アプリリソース
+^^^^^^^^^^^^^^
 
 本アプリを利用するアプリを表す
 
 .. csv-table::
-   :header: "属性名", "意味", "備考"
-   :widths: 10, 30, 30
+   :header: "属性名", "型", "意味", "フォーマット", "備考"
+   :widths: 10, 10, 20, 20, 40
 
-   "アプリID", "アプリを識別する文字列", "本アプリによって発行される"
-   "アプリキー", "アプリが持つ秘密鍵", "本アプリによって発行される"
+   "アプリID", "文字列(string)", "アプリを識別する文字列", "- 16文字
+   - 半角英数字", "本アプリによって発行される"
+   "アプリキー", "文字列(string)", "アプリが持つ秘密鍵", "- 16文字
+   - 半角英数字", "本アプリによって発行される"
 
-.. _data-structure-account:
+.. _ext-resource-payment:
 
-家計簿
-^^^^^^
+収支リソース
+^^^^^^^^^^^^
 
-買い物などで発生した所持金の増減を表す
+所持金の増減を表す
 
 .. csv-table::
-   :header: "入力項目", "意味"
-   :widths: 10, 30
+   :header: "入力項目", "型", "意味", "フォーマット", "備考"
+   :widths: 10, 10, 20, 20, 40
 
-   "種類", "'収入'もしくは'支出'"
-   "日付", "所持金の増減があった日時"
-   "内容", "所持金の増減があった理由など"
-   "カテゴリ", "費目（例：食費，水道光熱費）"
-   "金額", "所持金の増減量"
+   "種類", "文字列(string)", "収入, 支出を表す文字列", "``income`` または ``expense``",
+   "日付", "文字列(string)", "所持金の増減があった日時", "yyyy-mm-dd",
+   "内容", "文字列(string)", "所持金の増減があった理由など", "任意の文字列",
+   "カテゴリ", "文字列(string)", "費目（例：食費，水道光熱費）", "任意の文字列",
+   "金額", "自然数(integer)", "所持金の増減量", "半角数字",
 
-.. _user-interface:
+.. _ext-ui:
 
 ユーザーインターフェース
 ------------------------
 
-利用者はブラウザから家計簿の登録や確認を行うことができる
+利用者はブラウザから収支の登録や確認を行うことができる
 
 認証画面
 ^^^^^^^^
@@ -87,37 +89,29 @@
    :alt: 管理画面
 
 - 画面の上部に登録用の入力フォームが表示される
-- 入力フォームの下には表形式で家計簿の一覧が表示される
-- 最新の家計簿から順番に表示される
-- 1ページ50件の家計簿が表示される
-- 登録成功時，画面遷移なしで表に登録した家計簿が表示される
+- 入力フォームの下には表形式で収支の一覧が表示される
+- 最新の収支から順番に表示される
+- 1ページ50件の収支が表示される
+- 登録成功時，画面遷移なしで表に登録した収支が表示される
 
-.. _web-api:
+.. _ext-api:
 
 Web API
 -------
 
+以下のAPIを定義する
+
+- :ref:`ext-api-create`
+- :ref:`ext-api-read`
+- :ref:`ext-api-index`
+- :ref:`ext-api-update`
+- :ref:`ext-api-delete`
+- :ref:`ext-api-settle`
+
 共通定義
 ^^^^^^^^
 
-.. _web-api-common-resource:
-
-家計簿リソース
-""""""""""""""
-
-.. csv-table::
-   :header: "属性", "フォーマット"
-   :widths: 10, 30
-
-   "account_type", "'income' または 'expense'"
-   "date", "yyyy-mm-dd, yyyy/mm/dd, dd-mm-yyyy, dd/mm/yyyy, yyyymmdd"
-   "content", "任意の英数字・日本語"
-   "category", "任意の英数字・日本語"
-   "price", "0以上の整数"
-
-- *項目の値が空ハッシュや空配列の場合はその項目はないものとして見なす*
-
-.. _web-api-common-error-code:
+.. _ext-api-common-error:
 
 エラーコード
 """"""""""""
@@ -128,36 +122,24 @@ Web API
    "absent_param_[属性]", "400", "入力必須の項目がない"
    "invalid_param_[属性]", "400", "不正値のパラメータがある"
 
-API
-^^^^
+.. _ext-api-create:
 
-以下のAPIを定義する
+収支を登録する
+^^^^^^^^^^^^^^
 
-- :ref:`web-api-api-create`
-- :ref:`web-api-api-read`
-- :ref:`web-api-api-index`
-- :ref:`web-api-api-update`
-- :ref:`web-api-api-delete`
-- :ref:`web-api-api-settle`
+.. http:post:: /payments
 
-.. _web-api-api-create:
-
-家計簿を登録する
-""""""""""""""""
-
-.. http:post:: /accounts
-
-   :jsonparam string account_type: ``income`` または ``expense``
+   :jsonparam string payment_type: ``income`` または ``expense``
    :jsonparam string date: 所持金の増減があった日時
    :jsonparam string content: 所持金の増減があった理由など
    :jsonparam string category: 費目（例：食費，水道光熱費）
    :jsonparam int price: 所持金の増減量
 
    :response JSONObject:
-      - :ref:`web-api-common-resource`
+      - :ref:`ext-resource-payment`
 
         - id
-        - account_type
+        - payment_type
         - date
         - content
         - category
@@ -166,21 +148,21 @@ API
         - updated_at
 
    :status 201:
-      - 家計簿の登録に成功
-      - :ref:`web-api-common-resource` を返す
+      - 収支の登録に成功
+      - :ref:`ext-resource-payment` を返す
    :status 400:
-      - 家計簿の登録に失敗
-      - :ref:`web-api-common-error-code` を返す
+      - 収支の登録に失敗
+      - :ref:`ext-api-common-error` を返す
 
    **リクエスト例**
 
    .. sourcecode:: http
 
-      POST /accounts HTTP/1.1
+      POST /payments HTTP/1.1
       Content-Type: application/json
 
       {
-        "account_type": "income",
+        "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
         "category": "給料",
@@ -196,7 +178,7 @@ API
 
       {
         "id": 1,
-        "account_type": "income",
+        "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
         "category": "給料",
@@ -205,18 +187,18 @@ API
         "updated_at": "1000-01-01 00:00:00"
       }
 
-.. _web-api-api-read:
+.. _ext-api-read:
 
-家計簿を取得する
-""""""""""""""""
+収支を取得する
+^^^^^^^^^^^^^^
 
-.. http:get:: /accounts/[id]
+.. http:get:: /payments/[id]
 
    :response JSONObject:
-      - :ref:`web-api-common-resource`
+      - :ref:`ext-resource-payment`
 
         - id
-        - account_type
+        - payment_type
         - date
         - content
         - category
@@ -225,17 +207,17 @@ API
         - updated_at
 
    :status 200:
-      - 家計簿の取得に成功
-      - :ref:`web-api-common-resource` を返す
+      - 収支の取得に成功
+      - :ref:`ext-resource-payment` を返す
    :status 404:
-      - 家計簿の取得に失敗
+      - 収支の取得に失敗
       - 存在しないIDを指定
 
    **リクエスト例**
 
    .. sourcecode:: http
 
-      GET /accounts/1 HTTP/1.1
+      GET /payments/1 HTTP/1.1
 
    **レスポンス例**
 
@@ -246,7 +228,7 @@ API
 
       {
         "id": 1,
-        "account_type": "income",
+        "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
         "category": "給料",
@@ -255,27 +237,27 @@ API
         "updated_at": "1000-01-01 00:00:00"
       }
 
-.. _web-api-api-index:
+.. _ext-api-index:
 
-家計簿を検索する
-""""""""""""""""
+収支を検索する
+^^^^^^^^^^^^^^
 
-.. http:get:: /accounts
+.. http:get:: /payments
 
-   :query account_type: ``income`` または ``expense``
-   :query date_before: 指定された日付以前の家計簿を検索する
-   :query date_after: 指定された日付以降の家計簿を検索する
-   :query content_equal: 内容が完全に一致する家計簿を検索する
-   :query content_include: 内容が部分的に一致する家計簿を検索する
-   :query category: カテゴリが一致する家計簿を検索する
-   :query price_upper: 指定された金額以上の家計簿を検索する
-   :query price_lower: 指定された金額以下の家計簿を検索する
+   :query payment_type: ``income`` または ``expense``
+   :query date_before: 指定された日付以前の収支を検索する
+   :query date_after: 指定された日付以降の収支を検索する
+   :query content_equal: 内容が完全に一致する収支を検索する
+   :query content_include: 内容が部分的に一致する収支を検索する
+   :query category: カテゴリが一致する収支を検索する
+   :query price_upper: 指定された金額以上の収支を検索する
+   :query price_lower: 指定された金額以下の収支を検索する
 
    :responseArray JSONObject:
-      - :ref:`web-api-common-resource`
+      - :ref:`ext-resource-payment`
 
         - id
-        - account_type
+        - payment_type
         - date
         - content
         - category
@@ -284,17 +266,17 @@ API
         - updated_at
 
    :status 200:
-      - 家計簿の検索に成功
-      - :ref:`web-api-common-resource` の配列を返す
+      - 収支の検索に成功
+      - :ref:`ext-resource-payment` の配列を返す
    :status 400:
-      - 家計簿の検索に失敗
-      - :ref:`web-api-common-error-code` を返す
+      - 収支の検索に失敗
+      - :ref:`ext-api-common-error` を返す
 
    **リクエスト例**
 
    .. sourcecode:: http
 
-      GET /accounts?account_type=income HTTP/1.1
+      GET /payments?payment_type=income HTTP/1.1
 
    **レスポンス例**
 
@@ -306,7 +288,7 @@ API
       [
         {
           "id": 1,
-          "account_type": "income",
+          "payment_type": "income",
           "date": "1000-01-01",
           "content": "給料",
           "category": "給料",
@@ -316,21 +298,21 @@ API
         }
       ]
 
-.. _web-api-api-update:
+.. _ext-api-update:
 
-家計簿を更新する
-""""""""""""""""
+収支を更新する
+""""""""""""""
 
-.. http:put:: /accounts/[id]
+.. http:put:: /payments/[id]
 
    :request JSONObject:
-      - 更新する :ref:`web-api-common-resource` の属性と更新値
+      - 更新する :ref:`ext-resource-payment` の属性と更新値
 
    :response JSONObject:
-      - :ref:`web-api-common-resource`
+      - :ref:`ext-resource-payment`
 
         - id
-        - account_type
+        - payment_type
         - date
         - content
         - category
@@ -339,20 +321,20 @@ API
         - updated_at
 
    :status 201:
-      - 家計簿の更新に成功
-      - :ref:`web-api-common-resource` を返す
+      - 収支の更新に成功
+      - :ref:`ext-resource-payment` を返す
    :status 400:
-      - 家計簿の更新に失敗
-      - :ref:`web-api-common-error-code` を返す
+      - 収支の更新に失敗
+      - :ref:`ext-api-common-error` を返す
    :status 404:
-      - 家計簿の更新に失敗
+      - 収支の更新に失敗
       - 存在しないIDを指定
 
    **リクエスト例**
 
    .. sourcecode:: http
 
-      PUT /accounts/1 HTTP/1.1
+      PUT /payments/1 HTTP/1.1
       Content-Type: application/json
 
       {
@@ -368,7 +350,7 @@ API
 
       {
         "id": 1,
-        "account_type": "income",
+        "payment_type": "income",
         "date": "1000-01-02",
         "content": "給料",
         "category": "給料",
@@ -377,23 +359,23 @@ API
         "updated_at": "1000-01-01 00:00:00"
       }
 
-.. _web-api-api-delete:
+.. _ext-api-delete:
 
-家計簿を削除する
-""""""""""""""""
+収支を削除する
+""""""""""""""
 
-.. http:delete:: /accounts/[id]
+.. http:delete:: /payments/[id]
 
    :status 204:
-      - 家計簿の削除に成功
+      - 収支の削除に成功
    :status 404:
-      - 家計簿の削除に失敗
+      - 収支の削除に失敗
 
    **リクエスト例**
 
    .. sourcecode:: http
 
-      DELETE /accounts/1 HTTP/1.1
+      DELETE /payments/1 HTTP/1.1
 
    **レスポンス例**
 
@@ -401,7 +383,7 @@ API
 
       HTTP/1.1 204 No Content
 
-.. _web-api-api-settle:
+.. _ext-api-settle:
 
 収支を計算する
 """"""""""""""
@@ -416,7 +398,7 @@ API
       - 収支の計算に成功
    :status 400:
       - 収支の計算に失敗
-      - :ref:`web-api-common-error-code` を返す
+      - :ref:`ext-api-common-error` を返す
 
    **リクエスト例**
 
