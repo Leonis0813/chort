@@ -3,7 +3,7 @@
 
 本モジュールは以下の１つの機能を提供する
 
-- `家計簿の検索 <http://localhost/zosma_docs/requirements_spec.html#id2>`__
+- :ref:`req-index`
 
 *ユースケース図*
 
@@ -12,12 +12,14 @@
    left to right direction
    skinparam packageStyle rect
    actor 利用者
-   rectangle 家計簿管理システム {
-     利用者 -- (家計簿を検索する)
+   rectangle 収支管理システム {
+     利用者 -- (収支を検索する)
    }
 
-家計簿の検索
-------------
+.. _req-index:
 
-- 検索条件を入力すると条件を満たす家計簿をサーバから取得する
-- サーバから取得した家計簿情報を画面に表示する
+収支の検索
+----------
+
+- 検索条件を入力すると条件を満たす収支をサーバから取得する
+- サーバから取得した収支情報を画面に表示する
