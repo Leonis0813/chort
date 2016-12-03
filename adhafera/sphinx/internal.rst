@@ -3,8 +3,10 @@
 
 設計仕様では以下を定義する
 
-- `モジュール構成 <http://localhost/adhafera_docs/design_spec.html#id2>`__
-- `処理手順 <http://localhost/adhafera_docs/design_spec.html#id3>`__
+- :ref:`int-class`
+- :ref:`int-sequence`
+
+.. _int-class:
 
 モジュール構成
 --------------
@@ -17,7 +19,7 @@
    class MainActivity {
      + {static} INPUT_SIZE : int = 5
      - {static} LOADER_ID : int = 0
-     + registAccount(inputs : String[]) : void
+     + registPayment(inputs : String[]) : void
      + noticeError(errorMessage : String, ids : ArrayList) : void
      + settle() : void
    }
@@ -93,17 +95,19 @@
 
   - データベースサーバへアクセスし，以下を行うクラス
 
-    - 家計簿情報の登録
+    - 収支情報の登録
     - 収支の取得
+
+.. _int-sequence:
 
 処理手順
 --------
 
-- `家計簿を登録する <http://localhost/adhafera_docs/design_spec.html#id4>`__
+- `収支を登録する <http://localhost/adhafera_docs/design_spec.html#id4>`__
 - `今月の収支を確認する <http://localhost/adhafera_docs/design_spec.html#id5>`__
 
-家計簿を登録する
-^^^^^^^^^^^^^^^^
+収支を登録する
+^^^^^^^^^^^^^^
 
 .. uml::
 
@@ -111,7 +115,7 @@
 
    actor 利用者
    利用者 -> RegistrationView : onClick
-   RegistrationView -> MainActivity : registAccount
+   RegistrationView -> MainActivity : registPayment
    MainActivity -> InputChecker : checkEmpty
 
    autonumber stop
@@ -187,12 +191,12 @@
    autonumber stop
    RegistrationView --> 利用者
 
-1. 利用者が家計簿情報を入力して登録ボタンを押すと，onClickメソッドが実行される
-2. registAccountメソッドを実行して受け取った家計簿情報を処理する
+1. 利用者が収支情報を入力して登録ボタンを押すと，onClickメソッドが実行される
+2. registPaymentメソッドを実行して受け取った収支情報を処理する
 3. checkEmptyメソッドで空欄のチェックを行う
 4. checkDateメソッドで日付のフォーマットのチェックを行う
 5. checkPriceメソッドで金額のチェックを行う
-6. 入力情報に問題が無ければ，sendAccountメソッドで家計簿情報を送信する
+6. 入力情報に問題が無ければ，sendPaymentメソッドで収支情報を送信する
 7. 送信結果が返ると，noticeResultメソッドで結果を表示する
 8. showMessageメソッドで登録結果を利用者に通知する
 9. 入力欄を空にする
