@@ -3,8 +3,10 @@
 
 設計仕様では以下を定義する
 
-  - `モジュール構成 <http://localhost/zosma_docs/design_spec.html#id2>`__
-  - `処理手順 <http://localhost/zosma_docs/design_spec.html#id3>`__
+- :ref:`int-class`
+- :ref:`int-sequence`
+
+.. _int-class:
 
 モジュール構成
 --------------
@@ -14,7 +16,7 @@
 .. uml::
 
    class ApplicationController {
-     + searchAccounts(conditions : String[]) : void
+     + searchPayments(conditions : String[]) : void
    }
 
    class ViewController {
@@ -28,10 +30,10 @@
      + resetMessageField() : void
      + noticeInputError(ids : ArrayList) : void
      + resetTables() : void
-     + showAccounts(accountList : ArrayList) : void
+     + showPayments(paymentList : ArrayList) : void
    }
 
-   abstract class AccountTable {
+   abstract class PaymentTable {
      - tableModel : DefaultTableModel
      - sorter : TableRowSorter
      + {static} columnNames : String[]
@@ -41,8 +43,8 @@
      + {static} CONTENT : int = 1
      + {static} CATEGORY : int = 2
      + {static} PRICE : int = 3
-     + {static} ACCOUNT_TYPE : int = 4
-     + addAccount(account : String[]) : void
+     + {static} PAYMENT_TYPE : int = 4
+     + addPayment(payment : String[]) : void
    }
 
    class IncomeTable
@@ -74,7 +76,7 @@
      - content : JTextField
      - contentType : JComboBox
      + getContent() : String
-     + getContentKey() : String	 
+     + getContentKey() : String
    }
 
    class CategoryForm {
@@ -105,17 +107,17 @@
      - path : String
      - query : String
      - response : ArrayList
-     + getAccounts(condition : HashMap) : ArrayList
+     + getPayments(condition : HashMap) : ArrayList
    }
 
    ApplicationController "1" -left-> "1" InputChecker
    ApplicationController "1" -right-> "1" HTTPClient
    ApplicationController "1" -down-> "1" ViewController
-   ViewController "1" -left-> "2" AccountTable
+   ViewController "1" -left-> "2" PaymentTable
    ViewController "1" -down-> "1" SearchForm
    ViewController "1" -right-> "1" MessageField
-   AccountTable <|-- IncomeTable
-   AccountTable <|-- ExpenseTable
+   PaymentTable <|-- IncomeTable
+   PaymentTable <|-- ExpenseTable
    SearchForm "1" *-- "1" DateForm
    SearchForm "1" *-- "1" ContentForm
    SearchForm "1" *-- "1" CategoryForm
@@ -129,9 +131,9 @@
 
   - View
 
-    - AccountTable
+    - PaymentTable
 
-      - 取得した家計簿を表示するテーブル
+      - 取得した収支を表示するテーブル
 
     - SerachForm
 
@@ -140,26 +142,26 @@
         - DateForm
 
           - 日付に関する条件を入力するフォーム
-          - dateBefore: 指定した日付以前の家計簿を検索する
-          - dateAfter: 指定した日付以降の家計簿を検索する
+          - dateBefore: 指定した日付以前の収支を検索する
+          - dateAfter: 指定した日付以降の収支を検索する
           - dateBefore, dateAfterとも指定した日付は検索対象に含まれる
 
         - ContentForm
 
           - 内容に関する条件を入力するフォーム
-          - content: 指定した内容の家計簿を検索する
+          - content: 指定した内容の収支を検索する
           - contentType: 全文一致か部分一致かを指定する
 
         - CategoryForm
 
           - カテゴリに関する条件を入力するフォーム
-          - category: 指定したカテゴリに一致する家計簿を検索する
+          - category: 指定したカテゴリに一致する収支を検索する
 
         - PriceForm
 
           - 金額に関する条件を入力するフォーム
-          - priceUpper: 指定した金額以上の家計簿を検索する
-          - priceLower: 指定した金額以下の家計簿を検索する
+          - priceUpper: 指定した金額以上の収支を検索する
+          - priceLower: 指定した金額以下の収支を検索する
           - priceUpper, priceLowerとも指定した金額は検索対象に含まれる
 
     - MessageField
@@ -184,13 +186,17 @@
 
     - DBサーバにリクエストを送信するクラス
 
+.. _int-sequence:
+
 処理手順
 --------
 
-- `家計簿を検索する <http://localhost/zosma_docs/design_spec.html#id4>`__
+- :ref:`int-sequence-index`
 
-家計簿を検索する
-^^^^^^^^^^^^^^^^
+.. _int-sequence-index:
+
+収支を検索する
+^^^^^^^^^^^^^^
 
 *シーケンス図*
 
@@ -200,7 +206,7 @@
 
    actor 利用者
    利用者 -> SearchForm : actionPerformed
-   SearchForm -> ApplicationController : searchAccounts
+   SearchForm -> ApplicationController : searchPayments
    ApplicationController -> InputChecker : checkDate
 
    autonumber stop
@@ -241,7 +247,7 @@
    ViewController --> ApplicationController
 
    autonumber resume
-   ApplicationController -> HTTPClient : getAccounts
+   ApplicationController -> HTTPClient : getPayments
 
    autonumber stop
    HTTPClient --> ApplicationController
@@ -253,11 +259,11 @@
    ViewController --> ApplicationController
 
    autonumber resume
-   ApplicationController -> ViewController : showAccounts
-   ViewController -> AccountTable : addAccount
+   ApplicationController -> ViewController : showPayments
+   ViewController -> PaymentTable : addPayment
 
    autonumber stop
-   AccountTable --> ViewController
+   PaymentTable --> ViewController
 
    autonumber resume
    ViewController -> MessageField : showMessage
@@ -268,16 +274,16 @@
    ApplicationController --> SearchForm
    SearchForm --> 利用者
 
-- 利用者が検索画面を開いてから家計簿を表示するまでの流れ
+- 利用者が検索画面を開いてから収支を表示するまでの流れ
 
   1. 利用者が検索条件を入力して登録ボタンを押すと，actionPerformedメソッドが実行される
-  2. 入力された条件を引数にして，searchAccountsメソッドが実行される
+  2. 入力された条件を引数にして，searchPaymentsメソッドが実行される
   3. checkDateメソッドでDateFormのdateBeforeに格納されている値のフォーマットのチェックを行う
   4. checkDateメソッドでDateFormのdateAfterに格納されている値のフォーマットのチェックを行う
   5. checkPriceメソッドでPriceFormのpriceUpperに格納されている値のチェックを行う
   6. checkPriceメソッドでPriceFormのpriceLowerに格納されている値のチェックを行う
   7. 不正な条件があればMessageFieldにエラーを通知する文字列をセットする
   8. さらに，SearchForm内の不正な入力があった項目に対応するラベルにチェックマークをセットする
-  9. 入力された条件に問題が無ければ，getAccountsメソッドを実行してリクエストを送信する
-  10. 取得した家計簿をテーブルに表示する
-  11. 取得した家計簿の数をMessageFieldに表示する
+  9. 入力された条件に問題が無ければ，getPaymentsメソッドを実行してリクエストを送信する
+  10. 取得した収支をテーブルに表示する
+  11. 取得した収支の数をMessageFieldに表示する
