@@ -11,9 +11,9 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
-   requirements_spec
-   functional_spec
-   design_spec
+   requirements
+   external
+   internal
 
 Indices and tables
 ==================
