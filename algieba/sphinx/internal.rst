@@ -3,9 +3,11 @@
 
 設計仕様では以下を定義する
 
-- `モジュール構成 <http://localhost/algieba_docs/design_spec.html#id2>`__
-- `シーケンス <http://localhost/algieba_docs/design_spec.html#id3>`__
-- `データベース構成 <http://localhost/algieba_docs/design_spec.html#id11>`__
+- :ref:`int-class`
+- :ref:`int-sequence`
+- :ref:`int-schema`
+
+.. _int-class:
 
 モジュール構成
 --------------
@@ -17,14 +19,14 @@ MVCモデルを利用する
 .. uml::
 
    class Login_View <<Boundary>>
-   class Account_View <<Boundary>>
+   class Payment_View <<Boundary>>
 
    class LoginController {
      + authenticate_user() ; void
      + authenticate_client() : void
    }
 
-   class AccountsController {
+   class PaymentsController {
      + manage() : void
      + create(request_parameters : Hash) : void
      + read(id : String) : void
@@ -32,7 +34,7 @@ MVCモデルを利用する
      + update(id : String, request_parameters : Hash) : void
      + delete(id : String) : void
      + settle(interval : String) : void
-     - account_params() : Array
+     - payment_params() : Array
      - index_params() : Array
    }
 
@@ -46,8 +48,8 @@ MVCモデルを利用する
      + application_key : String
    }
 
-   class Account {
-     + account_type : String
+   class Payment {
+     + payment_type : String
      + date : Date
      + content : String
      + category : String
@@ -56,7 +58,7 @@ MVCモデルを利用する
    }
 
    class Query {
-     - account_type : String
+     - payment_type : String
      - date_before : String
      - date_after : String
      - content_equal : String
@@ -74,20 +76,20 @@ MVCモデルを利用する
    Login_View -right- LoginController
    LoginController -- User
    LoginController -- Client
-   Account_View -right- AccountsController
-   AccountsController "1" -- "0..*" Account
-   AccountsController -- Query
-   AccountsController -- Settlement
+   Payment_View -right- PaymentsController
+   PaymentsController "1" -- "0..*" Payment
+   PaymentsController -- Query
+   PaymentsController -- Settlement
 
 - Model
 
   - User: usersテーブルを操作するモデル
   - Client: clientsテーブルを操作するモデル
-  - Account: accountsテーブルを操作するモデル
+  - Payment: paymentsテーブルを操作するモデル
 
     - settle: 収支を計算するメソッド
 
-  - Query: 家計簿検索時のクエリを管理するモデル
+  - Query: 収支検索時のクエリを管理するモデル
 
     - date_valid?: 日付を検証するためのメソッド
 
@@ -99,9 +101,9 @@ MVCモデルを利用する
 
     - 利用者が未認証時に表示される
 
-  - Account_View: 家計簿の登録や表示を行うビュー
+  - Payment_View: 収支の登録や表示を行うビュー
 
-    - 認証された利用者が家計簿の登録・参照を行う
+    - 認証された利用者が収支の登録・参照を行う
 
 - Controller
 
@@ -110,28 +112,32 @@ MVCモデルを利用する
     - authenticate_user: ユーザー認証を行うメソッド
     - authenticate_client: アプリ認証を行うメソッド
 
-  - AccountsController: 家計簿を処理するコントローラ
+  - PaymentsController: 収支を処理するコントローラ
 
     - manage: ブラウザに管理画面を表示するメソッド
-    - create: 家計簿を登録するメソッド
-    - read: 家計簿を取得するメソッド
-    - index: 家計簿を検索するメソッド
-    - update: 家計簿を更新するメソッド
-    - delete: 家計簿を削除するメソッド
+    - create: 収支を登録するメソッド
+    - read: 収支を取得するメソッド
+    - index: 収支を検索するメソッド
+    - update: 収支を更新するメソッド
+    - delete: 収支を削除するメソッド
     - settle: 収支を計算するメソッド
-    - account_params: Accountの属性名の配列を返すメソッド
+    - payment_params: Paymentの属性名の配列を返すメソッド
     - index_params: Queryの属性名の配列を返すメソッド
+
+.. _int-sequence:
 
 シーケンス
 ----------
 
-- `ログインする <http://localhost/algieba_docs/design_spec.html#id4>`__
-- `家計簿を登録する <http://localhost/algieba_docs/design_spec.html#id5>`__
-- `家計簿を取得する <http://localhost/algieba_docs/design_spec.html#id6>`__
-- `家計簿を検索する <http://localhost/algieba_docs/design_spec.html#id7>`__
-- `家計簿を更新する <http://localhost/algieba_docs/design_spec.html#id8>`__
-- `家計簿を削除する <http://localhost/algieba_docs/design_spec.html#id9>`__
-- `収支を計算する <http://localhost/algieba_docs/design_spec.html#id10>`__
+- :ref:`int-sequence-login`
+- :ref:`int-sequence-create`
+- :ref:`int-sequence-read`
+- :ref:`int-sequence-index`
+- :ref:`int-sequence-update`
+- :ref:`int-sequence-delete`
+- :ref:`int-sequence-settle`
+
+.. _int-sequence-login:
 
 ログインする
 ^^^^^^^^^^^^
@@ -153,22 +159,24 @@ MVCモデルを利用する
 
    alt ログイン成功
      autonumber resume
-     Login_View -> AccountController : manage
-     AccountController -> Account_View
+     Login_View -> PaymentController : manage
+     PaymentController -> Payment_View
 
      autonumber stop
-     Account_View --> 利用者
+     Payment_View --> 利用者
    end
 
 1. 利用者がブラウザから本アプリにアクセスする
 2. 利用者がユーザーIDとパスワードを入力してログインする
 3. LoginControllerがユーザーIDとパスワードが一致するUserオブジェクトを検索する
 4. 一致するユーザーが存在しなければLogin_Viewを表示して2へ戻る
-5. 一致するユーザーが存在すればAccountController#manageを実行する
-6. AccountControllerがAccountを取得してAccount_Viewを表示する
+5. 一致するユーザーが存在すればPaymentController#manageを実行する
+6. PaymentControllerがPaymentを取得してPayment_Viewを表示する
 
-家計簿を登録する
-^^^^^^^^^^^^^^^^
+.. _int-sequence-create:
+
+収支を登録する
+^^^^^^^^^^^^^^
 
 *シーケンス図*
 
@@ -177,14 +185,14 @@ MVCモデルを利用する
    autonumber
 
    actor 利用者
-   利用者 -> AccountsController : create
-   AccountsController -> Account : create
+   利用者 -> PaymentsController : create
+   PaymentsController -> Payment : create
 
    autonumber stop
-   Account --> AccountsController
-   AccountsController --> 利用者
+   Payment --> PaymentsController
+   PaymentsController --> 利用者
 
-1. リクエストを受けると，AccountsControllerクラスのcreateメソッドを実行する
+1. リクエストを受けると，PaymentsControllerクラスのcreateメソッドを実行する
 2. 必須パラメーターをチェックする
 
    - 必須パラメーターがない場合
@@ -193,18 +201,20 @@ MVCモデルを利用する
 
    - 必須パラメーターがある場合
 
-     3-2. Accountクラスのcreateメソッドを実行してAccountオブジェクトを作成，DBに保存する
+     3-2. Paymentクラスのcreateメソッドを実行してPaymentオブジェクトを作成，DBに保存する
 
      - 登録に成功した場合
 
-       4-1. ステータスコード201と登録したAccountオブジェクトを返す
+       4-1. ステータスコード201と登録したPaymentオブジェクトを返す
 
      - 登録に失敗した場合
 
        4-2. BadRequestを発生させて，ステータスコード400とエラーコードを返す
 
-家計簿を取得する
-^^^^^^^^^^^^^^^^
+.. _int-sequence-read:
+
+収支を取得する
+^^^^^^^^^^^^^^
 
 *シーケンス図*
 
@@ -213,19 +223,21 @@ MVCモデルを利用する
    autonumber
 
    actor 利用者
-   利用者 -> AccountsController : read
-   AccountsController -> Account : find
+   利用者 -> PaymentsController : read
+   PaymentsController -> Payment : find
 
    autonumber stop
-   Account --> AccountsController
-   AccountsController --> 利用者
+   Payment --> PaymentsController
+   PaymentsController --> 利用者
 
-1. リクエストを受けると，AccountsControllerクラスのreadメソッドを実行する
-2. findメソッドでAccountオブジェクトを取得する
-3. ステータスコード200と取得したAccountオブジェクトを返す
+1. リクエストを受けると，PaymentsControllerクラスのreadメソッドを実行する
+2. findメソッドでPaymentオブジェクトを取得する
+3. ステータスコード200と取得したPaymentオブジェクトを返す
 
-家計簿を検索する
-^^^^^^^^^^^^^^^^
+.. _int-sequence-index:
+
+収支を検索する
+^^^^^^^^^^^^^^
 
 *シーケンス図*
 
@@ -234,14 +246,14 @@ MVCモデルを利用する
    autonumber
 
    actor 利用者
-   利用者 -> AccountsController : index
-   AccountsController -> Account : where
+   利用者 -> PaymentsController : index
+   PaymentsController -> Payment : where
 
    autonumber stop
-   Account --> AccountsController
-   AccountsController --> 利用者
+   Payment --> PaymentsController
+   PaymentsController --> 利用者
 
-1. リクエストを受けると，AccountsControllerクラスのindexメソッドを実行する
+1. リクエストを受けると，PaymentsControllerクラスのindexメソッドを実行する
 2. パラメーターからQueryクラスのオブジェクトを作成する
 3. valid?メソッドを実行して不正な値がないかチェックする
 
@@ -251,12 +263,14 @@ MVCモデルを利用する
 
    - 不正な値がない場合
 
-     4-1. whereメソッドを実行してAccountオブジェクトの配列を取得する
+     4-1. whereメソッドを実行してPaymentオブジェクトの配列を取得する
 
-     4-2. ステータスコード200と取得したAccountオブジェクトの配列を返す
+     4-2. ステータスコード200と取得したPaymentオブジェクトの配列を返す
 
-家計簿を更新する
-^^^^^^^^^^^^^^^^
+.. _int-sequence-update:
+
+収支を更新する
+^^^^^^^^^^^^^^
 
 *シーケンス図*
 
@@ -265,15 +279,15 @@ MVCモデルを利用する
    autonumber
 
    actor 利用者
-   利用者 -> AccountsController : update
-   AccountsController -> Account : update_attributes
+   利用者 -> PaymentsController : update
+   PaymentsController -> Payment : update_attributes
 
    autonumber stop
-   Account --> AccountsController
-   AccountsController --> 利用者
+   Payment --> PaymentsController
+   PaymentsController --> 利用者
 
-1. リクエストを受けると，AccountsControllerクラスのupdateメソッドを実行する
-2. update_attributesメソッドでAccountオブジェクトを更新する
+1. リクエストを受けると，PaymentsControllerクラスのupdateメソッドを実行する
+2. update_attributesメソッドでPaymentオブジェクトを更新する
 
    - 不正な値がある場合
 
@@ -281,10 +295,12 @@ MVCモデルを利用する
 
    - 不正な値がない場合
 
-     3. ステータスコード200と更新したAccountオブジェクトを返す
+     3. ステータスコード200と更新したPaymentオブジェクトを返す
 
-家計簿を削除する
-^^^^^^^^^^^^^^^^
+.. _int-sequence-delete:
+
+収支を削除する
+^^^^^^^^^^^^^^
 
 *シーケンス図*
 
@@ -293,16 +309,18 @@ MVCモデルを利用する
    autonumber
 
    actor 利用者
-   利用者 -> AccountsController : delete
-   AccountsController -> Account : delete
+   利用者 -> PaymentsController : delete
+   PaymentsController -> Payment : delete
 
    autonumber stop
-   Account --> AccountsController
-   AccountsController --> 利用者
+   Payment --> PaymentsController
+   PaymentsController --> 利用者
 
-1. リクエストを受けると，AccountsControllerクラスのdeleteメソッドを実行する
-2. Accountクラスのdeleteメソッドを実行して削除する
+1. リクエストを受けると，PaymentsControllerクラスのdeleteメソッドを実行する
+2. Paymentクラスのdeleteメソッドを実行して削除する
 3. ステータスコード204を返す
+
+.. _int-sequence-settle:
 
 収支を計算する
 ^^^^^^^^^^^^^^
@@ -314,15 +332,15 @@ MVCモデルを利用する
    autonumber
 
    actor 利用者
-   利用者 -> AccountsController : settle
-   AccountsController -> Account : settle
+   利用者 -> PaymentsController : settle
+   PaymentsController -> Payment : settle
 
    autonumber stop
-   Account --> AccountsController
-   AccountsController --> 利用者
+   Payment --> PaymentsController
+   PaymentsController --> 利用者
 
-1. リクエストを受けると，AccountsControllerクラスのsettleメソッドを実行する
-2. Accountクラスのsettleメソッドを実行して収支を計算する
+1. リクエストを受けると，PaymentsControllerクラスのsettleメソッドを実行する
+2. Paymentクラスのsettleメソッドを実行して収支を計算する
 3. パラメーター"interval"をチェックし，その結果に基づいてそれぞれ以下の処理を行う
 
    - daily or monthly or yearlyの場合
@@ -335,14 +353,18 @@ MVCモデルを利用する
 
      4-1. BadRequestを発生させて，ステータスコード400とエラーコードと返す
 
+.. _int-schema:
+
 データベース構成
 ----------------
 
 データベースは下記のテーブルで構成される
 
-- `users <http://localhost/algieba_docs/design_spec.html#users>`__
-- `clients <http://localhost/algieba_docs/design_spec.html#clients>`__
-- `accounts <http://localhost/algieba_docs/design_spec.html#accounts>`__
+- :ref:`int-schema-users`
+- :ref:`int-schema-clients`
+- :ref:`int-schema-payments`
+
+.. _int-schema-users:
 
 users テーブル
 ^^^^^^^^^^^^^^
@@ -358,6 +380,8 @@ users テーブル
    "created_at", "DATETIME", "ユーザー情報が登録された日時",, "◯"
    "updated_at", "DATETIME", "ユーザー情報が登録 or 更新された日時",, "◯"
 
+.. _int-schema-clients:
+
 clients テーブル
 ^^^^^^^^^^^^^^^^
 
@@ -372,19 +396,21 @@ clients テーブル
    "created_at", "DATETIME", "アプリ情報が登録された日時",, "◯"
    "updated_at", "DATETIME", "アプリ情報が登録 or 更新された日時",, "◯"
 
-accounts テーブル
+.. _int-schema-payments:
+
+payments テーブル
 ^^^^^^^^^^^^^^^^^
 
-家計簿を登録するaccountsテーブルを定義する
+収支を登録するpaymentsテーブルを定義する
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
 
-   "id", "INTEGER", "accountオブジェクトのID", "◯", "◯"
-   "account_type", "STRING", "収入/支出を表すフラグ",, "◯"
+   "id", "INTEGER", "paymentオブジェクトのID", "◯", "◯"
+   "payment_type", "STRING", "収入/支出を表すフラグ",, "◯"
    "date", "DATE", "収入/支出があった日",, "◯"
    "content", "STRING", "収入/支出の内容",, "◯"
    "category", "STRING", "収入/支出のカテゴリ",, "◯"
    "price", "INTEGER", "収入/支出の金額",, "◯"
-   "created_at", "DATETIME", "家計簿が登録された日時",, "◯"
-   "updated_at", "DATETIME", "家計簿が登録 or 更新された日時",, "◯"
+   "created_at", "DATETIME", "収支が登録された日時",, "◯"
+   "updated_at", "DATETIME", "収支が登録 or 更新された日時",, "◯"
