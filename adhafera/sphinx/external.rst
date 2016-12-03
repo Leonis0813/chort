@@ -15,7 +15,7 @@
 
 - :ref:`ext-resource-payment`
 
-.. _ext-resource-payment
+.. _ext-resource-payment:
 
 収支
 ^^^^
