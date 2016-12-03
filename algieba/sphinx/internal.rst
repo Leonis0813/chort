@@ -89,7 +89,7 @@ MVCモデルを利用する
 
     - settle: 収支を計算するメソッド
 
-  - Query: 家計簿検索時のクエリを管理するモデル
+  - Query: 収支検索時のクエリを管理するモデル
 
     - date_valid?: 日付を検証するためのメソッド
 
@@ -101,9 +101,9 @@ MVCモデルを利用する
 
     - 利用者が未認証時に表示される
 
-  - Payment_View: 家計簿の登録や表示を行うビュー
+  - Payment_View: 収支の登録や表示を行うビュー
 
-    - 認証された利用者が家計簿の登録・参照を行う
+    - 認証された利用者が収支の登録・参照を行う
 
 - Controller
 
@@ -112,14 +112,14 @@ MVCモデルを利用する
     - authenticate_user: ユーザー認証を行うメソッド
     - authenticate_client: アプリ認証を行うメソッド
 
-  - PaymentsController: 家計簿を処理するコントローラ
+  - PaymentsController: 収支を処理するコントローラ
 
     - manage: ブラウザに管理画面を表示するメソッド
-    - create: 家計簿を登録するメソッド
-    - read: 家計簿を取得するメソッド
-    - index: 家計簿を検索するメソッド
-    - update: 家計簿を更新するメソッド
-    - delete: 家計簿を削除するメソッド
+    - create: 収支を登録するメソッド
+    - read: 収支を取得するメソッド
+    - index: 収支を検索するメソッド
+    - update: 収支を更新するメソッド
+    - delete: 収支を削除するメソッド
     - settle: 収支を計算するメソッド
     - payment_params: Paymentの属性名の配列を返すメソッド
     - index_params: Queryの属性名の配列を返すメソッド
