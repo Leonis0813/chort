@@ -6,10 +6,12 @@
 Welcome to PaymentManager's documentation!
 ==========================================
 
-Contents:
+本書では収支情報管理サービスの仕様を記載する
+
+本サービスは下記のモジュール・アプリで構成される:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    algieba/index
    adhafera/index
