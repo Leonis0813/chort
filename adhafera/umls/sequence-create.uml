@@ -1,0 +1,80 @@
+autonumber
+
+actor 利用者
+利用者 -> RegistrationView : onClick
+RegistrationView -> MainActivity : registPayment
+MainActivity -> InputChecker : checkEmpty
+
+autonumber stop
+InputChecker --> MainActivity
+
+alt 空欄がある
+  MainActivity -> RegistrationView : showMessage
+  RegistrationView --> MainActivity
+  MainActivity -> RegistrationView : showWrongInput
+  RegistrationView --> 利用者
+end
+
+autonumber resume
+MainActivity -> InputChecker : checkDate
+
+autonumber stop
+InputChecker --> MainActivity
+
+alt 空欄がある
+  MainActivity -> RegistrationView : showMessage
+  RegistrationView --> MainActivity
+  MainActivity -> RegistrationView : showWrongInput
+  RegistrationView --> 利用者
+end
+
+autonumber resume
+MainActivity -> InputChecker : checkPrice
+
+autonumber stop
+InputChecker --> MainActivity
+
+alt 空欄がある
+  MainActivity -> RegistrationView : showMessage
+  RegistrationView --> MainActivity
+  MainActivity -> RegistrationView : showWrongInput
+  RegistrationView --> 利用者
+end
+
+autonumber resume
+MainActivity -> HTTPClient : sendRequest
+
+autonumber stop
+HTTPClient --> MainActivity
+
+autonumber resume
+MainActivity -> RegistrationView : showMessage
+
+autonumber stop
+RegistrationView --> MainActivity
+
+autonumber resume
+MainActivity -> RegistrationView : resetField
+
+autonumber stop
+RegistrationView --> MainActivity
+
+autonumber resume
+MainActivity -> RegistrationView : setToday
+
+autonumber stop
+RegistrationView --> MainActivity
+
+autonumber resume
+MainActivity -> MainActivity : settle
+MainActivity -> HTTPClient : sendRequest
+
+autonumber stop
+HTTPClient --> MainActivity
+
+autonumber resume
+MainActivity -> RegistrationView : showSettlement
+
+autonumber stop
+
+RegistrationView --> 利用者
