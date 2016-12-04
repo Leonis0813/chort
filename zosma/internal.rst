@@ -3,10 +3,10 @@
 
 設計仕様では以下を定義する
 
-- :ref:`int-class`
-- :ref:`int-sequence`
+- :ref:`zos-int-class`
+- :ref:`zos-int-sequence`
 
-.. _int-class:
+.. _zos-int-class:
 
 モジュール構成
 --------------
@@ -186,14 +186,14 @@
 
     - DBサーバにリクエストを送信するクラス
 
-.. _int-sequence:
+.. _zos-int-sequence:
 
 処理手順
 --------
 
-- :ref:`int-sequence-index`
+- :ref:`zos-int-sequence-index`
 
-.. _int-sequence-index:
+.. _zos-int-sequence-index:
 
 収支を検索する
 ^^^^^^^^^^^^^^
