@@ -3,11 +3,11 @@
 
 設計仕様では以下を定義する
 
-- :ref:`int-class`
-- :ref:`int-sequence`
-- :ref:`int-schema`
+- :ref:`alg-int-class`
+- :ref:`alg-int-sequence`
+- :ref:`alg-int-schema`
 
-.. _int-class:
+.. _alg-int-class:
 
 モジュール構成
 --------------
@@ -124,20 +124,20 @@ MVCモデルを利用する
     - payment_params: Paymentの属性名の配列を返すメソッド
     - index_params: Queryの属性名の配列を返すメソッド
 
-.. _int-sequence:
+.. _alg-int-sequence:
 
 シーケンス
 ----------
 
-- :ref:`int-sequence-login`
-- :ref:`int-sequence-create`
-- :ref:`int-sequence-read`
-- :ref:`int-sequence-index`
-- :ref:`int-sequence-update`
-- :ref:`int-sequence-delete`
-- :ref:`int-sequence-settle`
+- :ref:`alg-int-sequence-login`
+- :ref:`alg-int-sequence-create`
+- :ref:`alg-int-sequence-read`
+- :ref:`alg-int-sequence-index`
+- :ref:`alg-int-sequence-update`
+- :ref:`alg-int-sequence-delete`
+- :ref:`alg-int-sequence-settle`
 
-.. _int-sequence-login:
+.. _alg-int-sequence-login:
 
 ログインする
 ^^^^^^^^^^^^
@@ -173,7 +173,7 @@ MVCモデルを利用する
 5. 一致するユーザーが存在すればPaymentController#manageを実行する
 6. PaymentControllerがPaymentを取得してPayment_Viewを表示する
 
-.. _int-sequence-create:
+.. _alg-int-sequence-create:
 
 収支を登録する
 ^^^^^^^^^^^^^^
@@ -211,7 +211,7 @@ MVCモデルを利用する
 
        4-2. BadRequestを発生させて，ステータスコード400とエラーコードを返す
 
-.. _int-sequence-read:
+.. _alg-int-sequence-read:
 
 収支を取得する
 ^^^^^^^^^^^^^^
@@ -234,7 +234,7 @@ MVCモデルを利用する
 2. findメソッドでPaymentオブジェクトを取得する
 3. ステータスコード200と取得したPaymentオブジェクトを返す
 
-.. _int-sequence-index:
+.. _alg-int-sequence-index:
 
 収支を検索する
 ^^^^^^^^^^^^^^
@@ -267,7 +267,7 @@ MVCモデルを利用する
 
      4-2. ステータスコード200と取得したPaymentオブジェクトの配列を返す
 
-.. _int-sequence-update:
+.. _alg-int-sequence-update:
 
 収支を更新する
 ^^^^^^^^^^^^^^
@@ -297,7 +297,7 @@ MVCモデルを利用する
 
      3. ステータスコード200と更新したPaymentオブジェクトを返す
 
-.. _int-sequence-delete:
+.. _alg-int-sequence-delete:
 
 収支を削除する
 ^^^^^^^^^^^^^^
@@ -320,7 +320,7 @@ MVCモデルを利用する
 2. Paymentクラスのdeleteメソッドを実行して削除する
 3. ステータスコード204を返す
 
-.. _int-sequence-settle:
+.. _alg-int-sequence-settle:
 
 収支を計算する
 ^^^^^^^^^^^^^^
@@ -353,18 +353,18 @@ MVCモデルを利用する
 
      4-1. BadRequestを発生させて，ステータスコード400とエラーコードと返す
 
-.. _int-schema:
+.. _alg-int-schema:
 
 データベース構成
 ----------------
 
 データベースは下記のテーブルで構成される
 
-- :ref:`int-schema-users`
-- :ref:`int-schema-clients`
-- :ref:`int-schema-payments`
+- :ref:`alg-int-schema-users`
+- :ref:`alg-int-schema-clients`
+- :ref:`alg-int-schema-payments`
 
-.. _int-schema-users:
+.. _alg-int-schema-users:
 
 users テーブル
 ^^^^^^^^^^^^^^
@@ -380,7 +380,7 @@ users テーブル
    "created_at", "DATETIME", "ユーザー情報が登録された日時",, "◯"
    "updated_at", "DATETIME", "ユーザー情報が登録 or 更新された日時",, "◯"
 
-.. _int-schema-clients:
+.. _alg-int-schema-clients:
 
 clients テーブル
 ^^^^^^^^^^^^^^^^
@@ -396,7 +396,7 @@ clients テーブル
    "created_at", "DATETIME", "アプリ情報が登録された日時",, "◯"
    "updated_at", "DATETIME", "アプリ情報が登録 or 更新された日時",, "◯"
 
-.. _int-schema-payments:
+.. _alg-int-schema-payments:
 
 payments テーブル
 ^^^^^^^^^^^^^^^^^
