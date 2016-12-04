@@ -92,7 +92,7 @@
 
 *シーケンス図*
 
-.. uml:: umls/sequece-index.uml
+.. uml:: umls/sequence-index.uml
 
 - 利用者が検索画面を開いてから収支を表示するまでの流れ
 
