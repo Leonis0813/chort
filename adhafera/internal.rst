@@ -3,10 +3,10 @@
 
 設計仕様では以下を定義する
 
-- :ref:`int-class`
-- :ref:`int-sequence`
+- :ref:`adh-int-class`
+- :ref:`adh-int-sequence`
 
-.. _int-class:
+.. _adh-int-class:
 
 モジュール構成
 --------------
@@ -98,7 +98,7 @@
     - 収支情報の登録
     - 収支の取得
 
-.. _int-sequence:
+.. _adh-int-sequence:
 
 処理手順
 --------
