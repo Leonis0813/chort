@@ -1,0 +1,62 @@
+class Login_View <<Boundary>>
+class Payment_View <<Boundary>>
+
+class LoginController {
+  + authenticate_user() ; void
+  + authenticate_client() : void
+}
+
+class PaymentsController {
+  + manage() : void
+  + create(request_parameters : Hash) : void
+  + read(id : String) : void
+  + index(query_parameters : Hash) : void
+  + update(id : String, request_parameters : Hash) : void
+  + delete(id : String) : void
+  + settle(interval : String) : void
+  - payment_params() : Array
+  - index_params() : Array
+}
+
+class User {
+  + user_id : String
+  + password : String
+}
+
+class Client {
+  + application_id : String
+  + application_key : String
+}
+
+class Payment {
+  + payment_type : String
+  + date : Date
+  + content : String
+  + category : String
+  + price : Fixnum
+  + settle(interval : String) : Hash<String, Fixnum>
+}
+
+class Query {
+  - payment_type : String
+  - date_before : String
+  - date_after : String
+  - content_equal : String
+  - content_include : String
+  - category : String
+  - price_upper : int
+  - price_lower : int
+  + date_valid?() : void
+}
+
+class Settlement {
+  - interval : String
+}
+
+Login_View -right- LoginController
+LoginController -- User
+LoginController -- Client
+Payment_View -right- PaymentsController
+PaymentsController "1" -- "0..*" Payment
+PaymentsController -- Query
+PaymentsController -- Settlement

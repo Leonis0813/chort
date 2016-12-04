@@ -16,70 +16,7 @@ MVCモデルを利用する
 
 *クラス図*
 
-.. uml::
-
-   class Login_View <<Boundary>>
-   class Payment_View <<Boundary>>
-
-   class LoginController {
-     + authenticate_user() ; void
-     + authenticate_client() : void
-   }
-
-   class PaymentsController {
-     + manage() : void
-     + create(request_parameters : Hash) : void
-     + read(id : String) : void
-     + index(query_parameters : Hash) : void
-     + update(id : String, request_parameters : Hash) : void
-     + delete(id : String) : void
-     + settle(interval : String) : void
-     - payment_params() : Array
-     - index_params() : Array
-   }
-
-   class User {
-     + user_id : String
-     + password : String
-   }
-
-   class Client {
-     + application_id : String
-     + application_key : String
-   }
-
-   class Payment {
-     + payment_type : String
-     + date : Date
-     + content : String
-     + category : String
-     + price : Fixnum
-     + settle(interval : String) : Hash<String, Fixnum>
-   }
-
-   class Query {
-     - payment_type : String
-     - date_before : String
-     - date_after : String
-     - content_equal : String
-     - content_include : String
-     - category : String
-     - price_upper : int
-     - price_lower : int
-     + date_valid?() : void
-   }
-
-   class Settlement {
-     - interval : String
-   }
-
-   Login_View -right- LoginController
-   LoginController -- User
-   LoginController -- Client
-   Payment_View -right- PaymentsController
-   PaymentsController "1" -- "0..*" Payment
-   PaymentsController -- Query
-   PaymentsController -- Settlement
+.. uml:: umls/class.uml
 
 - Model
 
@@ -144,27 +81,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml::
-
-   autonumber
-
-   actor 利用者
-   利用者 -> Login_View
-   Login_View -> LoginController : authenticate_user
-   LoginController -> User : find
-
-   autonumber stop
-   User --> LoginController
-   LoginController --> Login_View
-
-   alt ログイン成功
-     autonumber resume
-     Login_View -> PaymentController : manage
-     PaymentController -> Payment_View
-
-     autonumber stop
-     Payment_View --> 利用者
-   end
+.. uml:: umls/sequence-login.uml
 
 1. 利用者がブラウザから本アプリにアクセスする
 2. 利用者がユーザーIDとパスワードを入力してログインする
@@ -180,17 +97,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml::
-
-   autonumber
-
-   actor 利用者
-   利用者 -> PaymentsController : create
-   PaymentsController -> Payment : create
-
-   autonumber stop
-   Payment --> PaymentsController
-   PaymentsController --> 利用者
+.. uml:: umls/sequence-create.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのcreateメソッドを実行する
 2. 必須パラメーターをチェックする
@@ -218,17 +125,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml::
-
-   autonumber
-
-   actor 利用者
-   利用者 -> PaymentsController : read
-   PaymentsController -> Payment : find
-
-   autonumber stop
-   Payment --> PaymentsController
-   PaymentsController --> 利用者
+.. uml:: umls/sequence-read.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのreadメソッドを実行する
 2. findメソッドでPaymentオブジェクトを取得する
@@ -241,17 +138,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml::
-
-   autonumber
-
-   actor 利用者
-   利用者 -> PaymentsController : index
-   PaymentsController -> Payment : where
-
-   autonumber stop
-   Payment --> PaymentsController
-   PaymentsController --> 利用者
+.. uml:: umls/sequence-index.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのindexメソッドを実行する
 2. パラメーターからQueryクラスのオブジェクトを作成する
@@ -274,17 +161,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml::
-
-   autonumber
-
-   actor 利用者
-   利用者 -> PaymentsController : update
-   PaymentsController -> Payment : update_attributes
-
-   autonumber stop
-   Payment --> PaymentsController
-   PaymentsController --> 利用者
+.. uml:: umls/sequence-update.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのupdateメソッドを実行する
 2. update_attributesメソッドでPaymentオブジェクトを更新する
@@ -304,17 +181,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml::
-
-   autonumber
-
-   actor 利用者
-   利用者 -> PaymentsController : delete
-   PaymentsController -> Payment : delete
-
-   autonumber stop
-   Payment --> PaymentsController
-   PaymentsController --> 利用者
+.. uml:: umls/sequence-delete.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのdeleteメソッドを実行する
 2. Paymentクラスのdeleteメソッドを実行して削除する
@@ -327,17 +194,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml::
-
-   autonumber
-
-   actor 利用者
-   利用者 -> PaymentsController : settle
-   PaymentsController -> Payment : settle
-
-   autonumber stop
-   Payment --> PaymentsController
-   PaymentsController --> 利用者
+.. uml:: umls/sequence-settle.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのsettleメソッドを実行する
 2. Paymentクラスのsettleメソッドを実行して収支を計算する
