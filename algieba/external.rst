@@ -3,22 +3,22 @@
 
 機能仕様では以下を定義する
 
-- :ref:`ext-resource`
-- :ref:`ext-ui`
-- :ref:`ext-api`
+- :ref:`alg-ext-resource`
+- :ref:`alg-ext-ui`
+- :ref:`alg-ext-api`
 
-.. _ext-resource:
+.. _alg-ext-resource:
 
 リソース
 --------
 
 本システムでは以下のリソースを扱う
 
-- :ref:`ext-resource-user`
-- :ref:`ext-resource-application`
-- :ref:`ext-resource-payment`
+- :ref:`alg-ext-resource-user`
+- :ref:`alg-ext-resource-application`
+- :ref:`alg-ext-resource-payment`
 
-.. _ext-resource-user:
+.. _alg-ext-resource-user:
 
 ユーザーリソース
 ^^^^^^^^^^^^^^^^
@@ -32,7 +32,7 @@
    "ユーザーID", "文字列(string)", "ユーザーを識別する文字列", "半角英数字",
    "パスワード", "文字列(string)", "ユーザー認証を行うための鍵", "半角英数字",
 
-.. _ext-resource-application:
+.. _alg-ext-resource-application:
 
 アプリリソース
 ^^^^^^^^^^^^^^
@@ -48,7 +48,7 @@
    "アプリキー", "文字列(string)", "アプリが持つ秘密鍵", "- 16文字
    - 半角英数字", "本アプリによって発行される"
 
-.. _ext-resource-payment:
+.. _alg-ext-resource-payment:
 
 収支リソース
 ^^^^^^^^^^^^
@@ -65,7 +65,7 @@
    "カテゴリ", "文字列(string)", "費目（例：食費，水道光熱費）", "任意の文字列",
    "金額", "自然数(integer)", "所持金の増減量", "半角数字",
 
-.. _ext-ui:
+.. _alg-ext-ui:
 
 ユーザーインターフェース
 ------------------------
@@ -94,24 +94,24 @@
 - 1ページ50件の収支が表示される
 - 登録成功時，画面遷移なしで表に登録した収支が表示される
 
-.. _ext-api:
+.. _alg-ext-api:
 
 Web API
 -------
 
 以下のAPIを定義する
 
-- :ref:`ext-api-create`
-- :ref:`ext-api-read`
-- :ref:`ext-api-index`
-- :ref:`ext-api-update`
-- :ref:`ext-api-delete`
-- :ref:`ext-api-settle`
+- :ref:`alg-ext-api-create`
+- :ref:`alg-ext-api-read`
+- :ref:`alg-ext-api-index`
+- :ref:`alg-ext-api-update`
+- :ref:`alg-ext-api-delete`
+- :ref:`alg-ext-api-settle`
 
 共通定義
 ^^^^^^^^
 
-.. _ext-api-common-error:
+.. _alg-ext-api-common-error:
 
 エラーコード
 """"""""""""
@@ -122,7 +122,7 @@ Web API
    "absent_param_[属性]", "400", "入力必須の項目がない"
    "invalid_param_[属性]", "400", "不正値のパラメータがある"
 
-.. _ext-api-create:
+.. _alg-ext-api-create:
 
 収支を登録する
 ^^^^^^^^^^^^^^
@@ -136,7 +136,7 @@ Web API
    :jsonparam int price: 所持金の増減量
 
    :response JSONObject:
-      - :ref:`ext-resource-payment`
+      - :ref:`alg-ext-resource-payment`
 
         - id
         - payment_type
@@ -149,10 +149,10 @@ Web API
 
    :status 201:
       - 収支の登録に成功
-      - :ref:`ext-resource-payment` を返す
+      - :ref:`alg-ext-resource-payment` を返す
    :status 400:
       - 収支の登録に失敗
-      - :ref:`ext-api-common-error` を返す
+      - :ref:`alg-ext-api-common-error` を返す
 
    **リクエスト例**
 
@@ -187,7 +187,7 @@ Web API
         "updated_at": "1000-01-01 00:00:00"
       }
 
-.. _ext-api-read:
+.. _alg-ext-api-read:
 
 収支を取得する
 ^^^^^^^^^^^^^^
@@ -195,7 +195,7 @@ Web API
 .. http:get:: /payments/[id]
 
    :response JSONObject:
-      - :ref:`ext-resource-payment`
+      - :ref:`alg-ext-resource-payment`
 
         - id
         - payment_type
@@ -208,7 +208,7 @@ Web API
 
    :status 200:
       - 収支の取得に成功
-      - :ref:`ext-resource-payment` を返す
+      - :ref:`alg-ext-resource-payment` を返す
    :status 404:
       - 収支の取得に失敗
       - 存在しないIDを指定
@@ -237,7 +237,7 @@ Web API
         "updated_at": "1000-01-01 00:00:00"
       }
 
-.. _ext-api-index:
+.. _alg-ext-api-index:
 
 収支を検索する
 ^^^^^^^^^^^^^^
@@ -254,7 +254,7 @@ Web API
    :query price_lower: 指定された金額以下の収支を検索する
 
    :responseArray JSONObject:
-      - :ref:`ext-resource-payment`
+      - :ref:`alg-ext-resource-payment`
 
         - id
         - payment_type
@@ -267,10 +267,10 @@ Web API
 
    :status 200:
       - 収支の検索に成功
-      - :ref:`ext-resource-payment` の配列を返す
+      - :ref:`alg-ext-resource-payment` の配列を返す
    :status 400:
       - 収支の検索に失敗
-      - :ref:`ext-api-common-error` を返す
+      - :ref:`alg-ext-api-common-error` を返す
 
    **リクエスト例**
 
@@ -298,7 +298,7 @@ Web API
         }
       ]
 
-.. _ext-api-update:
+.. _alg-ext-api-update:
 
 収支を更新する
 """"""""""""""
@@ -306,10 +306,10 @@ Web API
 .. http:put:: /payments/[id]
 
    :request JSONObject:
-      - 更新する :ref:`ext-resource-payment` の属性と更新値
+      - 更新する :ref:`alg-ext-resource-payment` の属性と更新値
 
    :response JSONObject:
-      - :ref:`ext-resource-payment`
+      - :ref:`alg-ext-resource-payment`
 
         - id
         - payment_type
@@ -322,10 +322,10 @@ Web API
 
    :status 201:
       - 収支の更新に成功
-      - :ref:`ext-resource-payment` を返す
+      - :ref:`alg-ext-resource-payment` を返す
    :status 400:
       - 収支の更新に失敗
-      - :ref:`ext-api-common-error` を返す
+      - :ref:`alg-ext-api-common-error` を返す
    :status 404:
       - 収支の更新に失敗
       - 存在しないIDを指定
@@ -359,7 +359,7 @@ Web API
         "updated_at": "1000-01-01 00:00:00"
       }
 
-.. _ext-api-delete:
+.. _alg-ext-api-delete:
 
 収支を削除する
 """"""""""""""
@@ -383,7 +383,7 @@ Web API
 
       HTTP/1.1 204 No Content
 
-.. _ext-api-settle:
+.. _alg-ext-api-settle:
 
 収支を計算する
 """"""""""""""
@@ -398,7 +398,7 @@ Web API
       - 収支の計算に成功
    :status 400:
       - 収支の計算に失敗
-      - :ref:`ext-api-common-error` を返す
+      - :ref:`alg-ext-api-common-error` を返す
 
    **リクエスト例**
 
