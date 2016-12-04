@@ -8,15 +8,7 @@
 
 *ユースケース図*
 
-.. uml::
-
-   left to right direction
-   skinparam packageStyle rect
-   actor 利用者
-   rectangle 収支管理システム {
-     利用者 -- (収支を登録する)
-     利用者 -- (今月の収支を確認する)
-   }
+.. uml:: umls/usecase.uml
 
 .. _adh-req-create:
 
