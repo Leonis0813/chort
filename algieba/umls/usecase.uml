@@ -1,9 +1,9 @@
 left to right direction
 skinparam packageStyle rect
 
-actor Adhafera
-actor Zosma
-actor Webブラウザ
+rectangle Adhafera
+rectangle Zosma
+boundary Webブラウザ
 entity 収支
 
 rectangle "Algieba: 収支情報管理モジュール" {
