@@ -3,8 +3,8 @@
 
 本モジュールは以下の２つの機能を提供する
 
-- :ref:`req-create`
-- :ref:`req-settle`
+- :ref:`adh-req-create`
+- :ref:`adh-req-settle`
 
 *ユースケース図*
 
@@ -18,7 +18,7 @@
      利用者 -- (今月の収支を確認する)
    }
 
-.. _req-create:
+.. _adh-req-create:
 
 収支の登録
 ----------
@@ -32,7 +32,7 @@
 2. 利用者は「登録」ボタンを押す
 3. システムは収支情報を登録する
 
-.. _req-settle:
+.. _adh-req-settle:
 
 収支の表示
 ----------
