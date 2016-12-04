@@ -3,19 +3,19 @@
 
 機能仕様では以下を定義する
 
-- :ref:`ext-resource`
-- :ref:`ext-ui`
+- :ref:`zos-ext-resource`
+- :ref:`zos-ext-ui`
 
-.. _ext-resource:
+.. _zos-ext-resource:
 
 データ構造
 ----------
 
 本モジュールでは以下のデータを扱う
 
-- :ref:`ext-resource-payment`
+- :ref:`zos-ext-resource-payment`
 
-.. _ext-resource-payment:
+.. _zos-ext-resource-payment:
 
 収支
 ^^^^
@@ -34,7 +34,7 @@
    "カテゴリ", "費目（例：食費，水道光熱費）"
    "金額", "所持金の増減"
 
-.. _ext-ui:
+.. _zos-ext-ui:
 
 ユーザインターフェース
 ----------------------
