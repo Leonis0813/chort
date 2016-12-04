@@ -55,10 +55,3 @@ Welcome to PaymentManager's documentation!
 
 - 利用者は Android アプリの登録・検索画面、Webブラウザを使って収支を管理する
 - 収支情報は全てサーバー内で一括管理される
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
