@@ -42,6 +42,7 @@ class HTTPClient {
   + HTTPClient(context : Context, inputs : String[])
   + HTTPClient(context : Context)
   + sendRequest() : HashMap
+  - credential() : String
 }
 
 MainActivity "1" --> "1" RegistrationView

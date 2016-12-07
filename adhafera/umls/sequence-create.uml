@@ -43,6 +43,7 @@ end
 
 autonumber resume
 MainActivity -> HTTPClient : sendRequest
+HTTPClient -> HTTPClient : credential
 
 autonumber stop
 HTTPClient --> MainActivity
@@ -67,6 +68,7 @@ RegistrationView --> MainActivity
 
 autonumber resume
 MainActivity -> MainActivity : settle
+MainActivity -> HTTPClient : sendRequest
 MainActivity -> HTTPClient : sendRequest
 
 autonumber stop
