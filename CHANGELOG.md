@@ -1,6 +1,9 @@
 chort
 =====
 
+- 4.2.0:
+  - [Algieba] update version to 2.3.0
+
 - 4.1.1:
   - [Adhafera] update version to 2.0.1
   - [Regulus] remove
