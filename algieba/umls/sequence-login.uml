@@ -1,0 +1,19 @@
+autonumber
+
+actor 利用者
+利用者 -> Login_View
+Login_View -> LoginController : authenticate_user
+LoginController -> User : find
+
+autonumber stop
+User --> LoginController
+LoginController --> Login_View
+
+alt ログイン成功
+  autonumber resume
+  Login_View -> PaymentController : manage
+  PaymentController -> Payment_View
+
+  autonumber stop
+  Payment_View --> 利用者
+end
