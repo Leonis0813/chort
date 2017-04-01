@@ -87,7 +87,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml:: umls/sequence-login.uml
+.. uml:: umls/seq-login.uml
 
 1. 利用者がブラウザから本アプリにアクセスする
 2. 利用者がユーザーIDとパスワードを入力してログインする
@@ -103,26 +103,25 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml:: umls/sequence-create.uml
+.. uml:: umls/seq-create-payment.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのcreateメソッドを実行する
-2. 必須パラメーターをチェックする
 
    - 必須パラメーターがない場合
 
-     3-1. BadRequestを発生させてステータスコード400とエラーコードを返す
+     - BadRequestを発生させてステータスコード400とエラーコードを返す
 
-   - 必須パラメーターがある場合
+2. Categoryクラスのwhereメソッドを実行してcategoryパラメーターで指定されたカテゴリが存在するかチェックする
+3. 指定されたカテゴリが存在しない場合，Categoryクラスのcreateメソッドを実行してカテゴリを作成する
+4. Paymentクラスのcreateメソッドを実行して収支情報を作成する
 
-     3-2. Paymentクラスのcreateメソッドを実行してPaymentオブジェクトを作成，DBに保存する
+   - 作成に成功した場合
 
-     - 登録に成功した場合
+     - ステータスコード201と登録したPaymentオブジェクトを返す
 
-       4-1. ステータスコード201と登録したPaymentオブジェクトを返す
+   - 作成に失敗した場合
 
-     - 登録に失敗した場合
-
-       4-2. BadRequestを発生させて，ステータスコード400とエラーコードを返す
+     - BadRequestを発生させて，ステータスコード400とエラーコードを返す
 
 .. _alg-int-seq-read-payment:
 
@@ -131,7 +130,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml:: umls/sequence-read.uml
+.. uml:: umls/seq-read-payment.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのreadメソッドを実行する
 2. findメソッドでPaymentオブジェクトを取得する
@@ -144,7 +143,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml:: umls/sequence-index.uml
+.. uml:: umls/seq-index-payment.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのindexメソッドを実行する
 2. パラメーターからQueryクラスのオブジェクトを作成する
@@ -167,7 +166,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml:: umls/sequence-update.uml
+.. uml:: umls/seq-update-payment.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのupdateメソッドを実行する
 2. update_attributesメソッドでPaymentオブジェクトを更新する
@@ -187,7 +186,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml:: umls/sequence-delete.uml
+.. uml:: umls/seq-delete-payment.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのdeleteメソッドを実行する
 2. Paymentクラスのdeleteメソッドを実行して削除する
@@ -200,7 +199,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml:: umls/sequence-settle.uml
+.. uml:: umls/seq-settle.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのsettleメソッドを実行する
 2. Paymentクラスのsettleメソッドを実行して収支を計算する
@@ -223,7 +222,7 @@ MVCモデルを利用する
 
 *シーケンス図*
 
-.. uml:: umls/sequence-index-category.uml
+.. uml:: umls/seq-index-category.uml
 
 1. リクエストを受けると，CategoriesControllerクラスのindexメソッドを実行する
 2. Categoryクラスのwhereメソッドを実行してカテゴリを検索する
@@ -287,7 +286,7 @@ payments テーブル
    "payment_type", "STRING", "収入/支出を表すフラグ",, "◯"
    "date", "DATE", "収入/支出があった日",, "◯"
    "content", "STRING", "収入/支出の内容",, "◯"
-   "category", "STRING", "収入/支出のカテゴリ",, "◯"
+   "category_id", "INTEGER", "categoryオブジェクトのID",, "◯"
    "price", "INTEGER", "収入/支出の金額",, "◯"
    "created_at", "DATETIME", "収支が登録された日時",, "◯"
    "updated_at", "DATETIME", "収支が登録 or 更新された日時",, "◯"
