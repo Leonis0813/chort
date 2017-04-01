@@ -70,4 +70,4 @@ PaymentsController "1" -- "0..*" Payment
 PaymentsController -- Query
 PaymentsController -- Settlement
 CategoriesController "1" -- "0..*" Category
-Payment "1" -- "1" Category
+Payment "1" -- "1..*" Category

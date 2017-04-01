@@ -20,7 +20,7 @@ MVCモデルを利用する
 
 - Model
 
-  - Category: categoryテーブルを操作するモデル
+  - Category: categoriesテーブルを操作するモデル
   - Client: clientsテーブルを操作するモデル
   - Payment: paymentsテーブルを操作するモデル
 
@@ -236,7 +236,8 @@ MVCモデルを利用する
 
 1. リクエストを受けると，CategoriesControllerクラスのindexメソッドを実行する
 2. Categoryクラスのwhereメソッドを実行してカテゴリを検索する
-3. ステータスコード200とCategoryオブジェクトの配列を返す
+
+   - ステータスコード200とCategoryオブジェクトの配列を返す
 
 .. _alg-int-scm:
 
