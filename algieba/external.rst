@@ -17,6 +17,7 @@
 - :ref:`alg-ext-resource-user`
 - :ref:`alg-ext-resource-application`
 - :ref:`alg-ext-resource-payment`
+- :ref:`alg-ext-resource-category`
 
 .. _alg-ext-resource-user:
 
@@ -62,8 +63,22 @@
    "種類", "文字列(string)", "収入, 支出を表す文字列", "``income`` または ``expense``",
    "日付", "文字列(string)", "所持金の増減があった日時", "yyyy-mm-dd",
    "内容", "文字列(string)", "所持金の増減があった理由など", "任意の文字列",
-   "カテゴリ", "文字列(string)", "費目（例：食費，水道光熱費）", "任意の文字列",
+   "カテゴリ", ":ref:`alg-ext-resource-category`", "カテゴリリソースの名前", "任意の文字列",
    "金額", "自然数(integer)", "所持金の増減量", "半角数字",
+
+.. _alg-ext-resource-category:
+
+カテゴリリソース
+^^^^^^^^^^^^^^^^
+
+収支のカテゴリを表す
+
+.. csv-table::
+   :header: "入力項目", "型", "意味", "フォーマット", "備考"
+   :widths: 10, 10, 20, 20, 40
+
+   "名前", "文字列(string)", "費目（例：食費，水道光熱費）", "任意の文字列",
+   "意味", "文字列(string)", "どのような収支情報が分類されるかを表す", "任意の文字列",
 
 .. _alg-ext-ui:
 
@@ -123,6 +138,7 @@ Web API
 - :ref:`alg-ext-api-update`
 - :ref:`alg-ext-api-delete`
 - :ref:`alg-ext-api-settle`
+- :ref:`alg-ext-api-index`
 
 共通定義
 ^^^^^^^^
@@ -432,3 +448,45 @@ Web API
       {
         "1000-01": 200000
       }
+
+カテゴリを検索する
+^^^^^^^^^^^^^^^^^^
+
+.. http:get:: /categories
+
+   :query keyword: keywordを含むカテゴリを検索する
+
+   :responseArray JSONObject:
+      - :ref:`alg-ext-resource-payment`
+
+        - id
+        - name
+        - description
+
+   :status 200:
+      - カテゴリの検索に成功
+      - :ref:`alg-ext-resource-category` の配列を返す
+   :status 400:
+      - カテゴリの検索に失敗
+      - :ref:`alg-ext-api-common-error` を返す
+
+   **リクエスト例**
+
+   .. sourcecode:: http
+
+      GET /categories?keyword=食費 HTTP/1.1
+
+   **レスポンス例**
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+      [
+        {
+          "id": 1,
+          "name": "食費",
+          "description": "食品や飲料を購入した時に発生する支出"
+        }
+      ]
