@@ -12,7 +12,9 @@
 
 .. http:get:: /categories
 
-   :query keyword: keywordを含むカテゴリを検索する
+   :query keyword:
+      - keywordを含むカテゴリを検索する
+      - 指定しなかった場合は全てのカテゴリを取得する
 
    :responseArray JSONObject:
       - :ref:`alg-ext-resource-category`
