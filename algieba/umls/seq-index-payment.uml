@@ -2,6 +2,14 @@ autonumber
 
 actor 利用者
 利用者 -> PaymentsController : index
+create Query
+PaymentsController -> Query : new
+PaymentsController -> Query : valid?
+
+autonumber stop
+Query -> PaymentsController
+
+autonumber resume
 PaymentsController -> Payment : where
 
 autonumber stop
