@@ -18,6 +18,10 @@ class PaymentsController {
   - index_params() : Array
 }
 
+class CategoriesController {
+  + index(keyword: String)
+}
+
 class User {
   + user_id : String
   + password : String
@@ -32,7 +36,7 @@ class Payment {
   + payment_type : String
   + date : Date
   + content : String
-  + category : String
+  + category : Category
   + price : Fixnum
   + settle(interval : String) : Hash<String, Fixnum>
 }
@@ -53,6 +57,11 @@ class Settlement {
   - interval : String
 }
 
+class Category {
+  + name: String
+  + description: String
+}
+
 Login_View -right- LoginController
 LoginController -- User
 LoginController -- Client
@@ -60,3 +69,5 @@ Payment_View -right- PaymentsController
 PaymentsController "1" -- "0..*" Payment
 PaymentsController -- Query
 PaymentsController -- Settlement
+CategoriesController "1" -- "0..*" Category
+Payment "1" -- "1" Category
