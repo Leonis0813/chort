@@ -2,7 +2,17 @@ autonumber
 
 actor 利用者
 利用者 -> PaymentsController : update
-PaymentsController -> Payment : update_attributes
+
+alt カテゴリを更新する
+  PaymentsController -> Category : find_or_create_by
+
+  autonumber stop
+  Category -> PaymentsController
+
+  autonumber resume
+end
+
+PaymentsController -> Payment : update
 
 autonumber stop
 Payment --> PaymentsController
