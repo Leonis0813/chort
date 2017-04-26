@@ -311,7 +311,6 @@ payments テーブル
    "payment_type", "STRING", "収入/支出を表すフラグ",, "◯"
    "date", "DATE", "収入/支出があった日",, "◯"
    "content", "STRING", "収入/支出の内容",, "◯"
-   "category_id", "INTEGER", "categoryオブジェクトのID",, "◯"
    "price", "INTEGER", "収入/支出の金額",, "◯"
    "created_at", "DATETIME", "収支が登録された日時",, "◯"
    "updated_at", "DATETIME", "収支が登録 or 更新された日時",, "◯"
