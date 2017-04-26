@@ -247,6 +247,7 @@ MVCモデルを利用する
 データベースは下記のテーブルで構成される
 
 - :ref:`alg-int-scm-categories`
+- :ref:`alg-int-scm-categories-payments`
 - :ref:`alg-int-scm-clients`
 - :ref:`alg-int-scm-payments`
 - :ref:`alg-int-scm-users`
@@ -266,6 +267,19 @@ categories テーブル
    "description", "STRING", "カテゴリの説明",,
    "created_at", "DATETIME", "カテゴリ情報が登録された日時",, "◯"
    "updated_at", "DATETIME", "カテゴリ情報が登録 or 更新された日時",, "◯"
+
+.. _alg-int-scm-categories-payments:
+
+categories_payments テーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+カテゴリと収支情報を紐づける中間テーブルを定義する
+
+.. csv-table::
+   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
+
+   "category_id", "INTEGER", "categoryオブジェクトのID", "◯", "◯"
+   "payment_id", "INTEGER", "paymentオブジェクトのID", "◯", "◯"
 
 .. _alg-int-scm-clients:
 
@@ -297,7 +311,6 @@ payments テーブル
    "payment_type", "STRING", "収入/支出を表すフラグ",, "◯"
    "date", "DATE", "収入/支出があった日",, "◯"
    "content", "STRING", "収入/支出の内容",, "◯"
-   "category_id", "INTEGER", "categoryオブジェクトのID",, "◯"
    "price", "INTEGER", "収入/支出の金額",, "◯"
    "created_at", "DATETIME", "収支が登録された日時",, "◯"
    "updated_at", "DATETIME", "収支が登録 or 更新された日時",, "◯"
