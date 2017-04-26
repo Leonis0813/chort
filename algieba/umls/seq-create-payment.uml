@@ -2,18 +2,10 @@ autonumber
 
 actor 利用者
 利用者 -> PaymentsController : create
-PaymentsController -> Category : where
+PaymentsController -> Category : find_or_create_by
 
 autonumber stop
 Category -> PaymentsController
-
-alt カテゴリが存在しない
-  autonumber resume
-  PaymentsController -> Category : create
-
-  autonumber stop
-  Category -> PaymentsController
-end
 
 autonumber resume
 PaymentsController -> Payment : create

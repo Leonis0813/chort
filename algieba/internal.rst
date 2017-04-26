@@ -111,9 +111,8 @@ MVCモデルを利用する
 
      - BadRequestを発生させてステータスコード400とエラーコードを返す
 
-2. Categoryクラスのwhereメソッドを実行してcategoryパラメーターで指定されたカテゴリが存在するかチェックする
-3. 指定されたカテゴリが存在しない場合，Categoryクラスのcreateメソッドを実行してカテゴリを作成する
-4. Paymentクラスのcreateメソッドを実行して収支情報を作成する
+2. Categoryクラスのfind_or_create_byメソッドを実行してcategoryパラメーターで指定されたカテゴリを取得し，存在しなければ作成する
+3. Paymentクラスのcreateメソッドを実行して収支情報を作成する
 
    - 作成に成功した場合
 
@@ -174,7 +173,8 @@ MVCモデルを利用する
 .. uml:: umls/seq-update-payment.uml
 
 1. リクエストを受けると，PaymentsControllerクラスのupdateメソッドを実行する
-2. update_attributesメソッドでPaymentオブジェクトを更新する
+2. categoryパラメーターが存在する場合は，Categoryクラスのfind_or_create_byメソッドを実行して指定されたカテゴリを取得し，存在しなければ作成する
+3. Paymentクラスのupdateメソッドを実行して収支情報を更新する
 
    - 不正な値がある場合
 

@@ -1,6 +1,9 @@
 chort
 =====
 
+- 4.4.0:
+  - [Algieba] update version to 2.5.0
+
 - 4.3.0:
   - [Algieba] update version to 2.4.0
 
