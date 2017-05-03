@@ -27,6 +27,28 @@
   - RegistrationView
 
     - MainActivityから渡される情報を表示するクラス
+    - 下記のビューを含む
+
+      - InputView
+
+        - 入力項目を表す抽象クラス
+        - 下記の４つのビューを抽象化している
+
+          - DateView
+
+            - 日付に関する情報を表すクラス
+
+          - ContentView
+
+            - 内容に関する情報を表すクラス
+
+          - CategoryView
+
+            - カテゴリに関する情報を表すクラス
+
+          - PriceView
+
+            - 金額に関する情報を表すクラス
 
 - Controller
 
@@ -49,35 +71,46 @@
 
 .. _adh-int-sequence:
 
-処理手順
---------
+シーケンス
+----------
 
 - `収支を登録する <http://localhost/adhafera_docs/design_spec.html#id4>`__
-- `今月の収支を確認する <http://localhost/adhafera_docs/design_spec.html#id5>`__
 
 収支を登録する
 ^^^^^^^^^^^^^^
 
 .. uml:: umls/sequence-create.uml
 
-1. 利用者が収支情報を入力して登録ボタンを押すと，onClickメソッドが実行される
-2. registPaymentメソッドを実行して受け取った収支情報を処理する
-3. checkEmptyメソッドで空欄のチェックを行う
-4. checkDateメソッドで日付のフォーマットのチェックを行う
-5. checkPriceメソッドで金額のチェックを行う
-6. 入力情報に問題が無ければ，sendPaymentメソッドで収支情報を送信する
-7. 送信結果が返ると，noticeResultメソッドで結果を表示する
-8. showMessageメソッドで登録結果を利用者に通知する
-9. 入力欄を空にする
-10. 利用日を入力する
-11. settleメソッドを実行して収支情報を取得する
-12. showSettlementメソッドを実行して収支を画面に表示する
-
-今月の収支を確認する
-^^^^^^^^^^^^^^^^^^^^
-
-.. uml:: umls/sequence-settle.uml
-
-1. 利用者がアプリを起動すると，settleメソッドが実行される
-2. sendRequestメソッドを実行してデータベースサーバから収支情報を取得する
-3. showSettlementメソッドを実行して画面に今月の収支を表示する
+1. 利用者がアプリを起動するとonCreateメソッドが実行される
+2. settleメソッドを実行して収支を取得する
+3. 収支を取得するためにHTTPClientクラスのインスタンスを作成する
+4. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
+5. sendRequestメソッドを実行してWebAPIを実行し，収支を取得する
+6. showSettlementメソッドを実行して今月の収支を表示する
+7. getCategoriesメソッドを実行してカテゴリ情報を取得する
+8. カテゴリ情報を取得するためにHTTPClientクラスのインスタンスを作成する
+9. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
+10. sendRequestメソッドを実行してWebAPIを実行し，カテゴリ情報を取得する
+11. setCategoriesメソッドを実行してCategoryViewにカテゴリ情報をセットする
+12. 利用者が登録ボタンを押下するとonClickメソッドが実行される
+13. registPaymentメソッドを実行して入力情報を登録する
+14. checkEmptyメソッドを実行して入力が空の項目がないかチェックする
+15. 空の項目がある場合はshowMessageメソッドを実行してエラーメッセージを表示する
+16. さらにshowWrontInputメソッドを実行して不正な入力項目にチェックマークを付ける
+17. 空の項目がない場合は，checkDateメソッドを実行して入力された日付のフォーマットをチェックする
+18. 日付が不正な場合は，showMessageメソッドを実行してエラーメッセージを表示する
+19. さらにshowWrontInputメソッドを実行して日付入力項目にチェックマークを付ける
+20. 日付のフォーマットが正しい場合は，checkPriceメソッドを実行して入力された金額をチェックする
+21. 金額が不正な場合は，showMessageメソッドを実行してエラーメッセージを表示する
+22. さらにshowWrontInputメソッドを実行して金額入力項目にチェックマークを付ける
+23. 金額が正しい場合は，収支情報を登録するためのHTTPClientクラスのインスタンスを作成する
+24. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
+25. sendRequestメソッドを実行してWebAPIを実行し，収支情報を登録する
+26. showMessageメソッドを実行して収支情報が登録された旨を通知する
+27. resetFieldメソッドを実行して入力フォームを空文字にする
+28. setTodayメソッドを実行して日付入力欄にアプリ起動時の日付をセットする
+29. settleメソッドを実行して収支を取得する
+30. 収支を取得するためにHTTPClientクラスのインスタンスを作成する
+31. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
+32. sendRequestメソッドを実行してWebAPIを実行し，収支を取得する
+33. showSettlementメソッドを実行して今月の収支を表示する

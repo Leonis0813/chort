@@ -4,12 +4,10 @@ class MainActivity {
   + registPayment(inputs : String[]) : void
   + noticeError(errorMessage : String, ids : ArrayList) : void
   + settle() : void
+  + getCategories() : void
 }
 
 class RegistrationView {
-  - {static} LABELS : String[] = {"日付", "内容", "カテゴリ", "金額"}
-  - fields : EditText[]
-  - errorCheckers : TextView[]
   - radioGroup : RadioGroup
   - OK : Button
   - cancel : Button
@@ -20,8 +18,37 @@ class RegistrationView {
   + showMessage(message : String) : void
   + showWrongInput(ids : ArrayList) : void
   + showSettlement(settlement : String) : void
+  + setCategories(categories : String[]) : void
   + resetField() : void
   + onClick(v : View) : void
+}
+
+class InputView {
+  # errorChecker : TextView
+  + InputView()
+}
+
+class DateView {
+  - {static} LABEL : String = "日付"
+  - inputField : EditText
+  + DateView()
+}
+
+class ContentView {
+  - {static} LABEL : String = "内容"
+  - inputField : EditText
+  + ContentView()
+}
+
+class CategoryView {
+  - {static} LABEL : String = "カテゴリ"
+  + CategoryView()
+}
+
+class PriceView {
+  - {static} LABEL : String = "金額"
+  - inputField : EditText
+  + PriceView()
 }
 
 class InputChecker {
@@ -40,6 +67,7 @@ class HTTPClient {
   - param : JSONObject
   - response : HashMap
   + HTTPClient(context : Context, inputs : String[])
+  + HTTPClient(context : Context, keyword : String)
   + HTTPClient(context : Context)
   + sendRequest() : HashMap
   - credential() : String
@@ -48,3 +76,8 @@ class HTTPClient {
 MainActivity "1" --> "1" RegistrationView
 MainActivity "1" --> "1" InputChecker
 MainActivity "1" --> "1" HTTPClient
+RegistrationView "1" *-- "4" InputView
+InputView <|-- DateView
+InputView <|-- ContentView
+InputView <|-- CategoryView
+InputView <|-- PriceView
