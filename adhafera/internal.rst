@@ -49,11 +49,10 @@
 
 .. _adh-int-sequence:
 
-処理手順
---------
+シーケンス
+----------
 
 - `収支を登録する <http://localhost/adhafera_docs/design_spec.html#id4>`__
-- `今月の収支を確認する <http://localhost/adhafera_docs/design_spec.html#id5>`__
 
 収支を登録する
 ^^^^^^^^^^^^^^
@@ -72,12 +71,3 @@
 10. 利用日を入力する
 11. settleメソッドを実行して収支情報を取得する
 12. showSettlementメソッドを実行して収支を画面に表示する
-
-今月の収支を確認する
-^^^^^^^^^^^^^^^^^^^^
-
-.. uml:: umls/sequence-settle.uml
-
-1. 利用者がアプリを起動すると，settleメソッドが実行される
-2. sendRequestメソッドを実行してデータベースサーバから収支情報を取得する
-3. showSettlementメソッドを実行して画面に今月の収支を表示する

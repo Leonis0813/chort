@@ -1,82 +1,233 @@
 autonumber
 
 actor 利用者
-利用者 -> RegistrationView : onClick
-RegistrationView -> MainActivity : registPayment
-MainActivity -> InputChecker : checkEmpty
 
-autonumber stop
-InputChecker --> MainActivity
+利用者 -> MainActivity : onCreate
 
-alt 空欄がある
-  MainActivity -> RegistrationView : showMessage
-  RegistrationView --> MainActivity
-  MainActivity -> RegistrationView : showWrongInput
-  RegistrationView --> 利用者
-end
+activate MainActivity
+  MainActivity -> MainActivity : settle
 
-autonumber resume
-MainActivity -> InputChecker : checkDate
+  activate MainActivity
+    create HTTPClient
+    MainActivity -> HTTPClient : new
 
-autonumber stop
-InputChecker --> MainActivity
+    activate HTTPClient
+      HTTPClient -> HTTPClient : credential
 
-alt 空欄がある
-  MainActivity -> RegistrationView : showMessage
-  RegistrationView --> MainActivity
-  MainActivity -> RegistrationView : showWrongInput
-  RegistrationView --> 利用者
-end
+      autonumber stop
+      HTTPClient --> MainActivity
 
-autonumber resume
-MainActivity -> InputChecker : checkPrice
+      autonumber resume
+      MainActivity ->> HTTPClient : sendRequest
 
-autonumber stop
-InputChecker --> MainActivity
+      autonumber stop
+      HTTPClient --> MainActivity
+    deactivate HTTPClient
 
-alt 空欄がある
-  MainActivity -> RegistrationView : showMessage
-  RegistrationView --> MainActivity
-  MainActivity -> RegistrationView : showWrongInput
-  RegistrationView --> 利用者
-end
+    destroy HTTPClient
+  deactivate MainActivity
 
-autonumber resume
-MainActivity -> HTTPClient : sendRequest
-HTTPClient -> HTTPClient : credential
+  autonumber resume
+  MainActivity -> RegistrationView : showSettlement
 
-autonumber stop
-HTTPClient --> MainActivity
+  activate RegistrationView
+    autonumber stop
+    RegistrationView --> MainActivity
+  deactivate RegistrationView
 
-autonumber resume
-MainActivity -> RegistrationView : showMessage
+  autonumber resume
+  MainActivity -> MainActivity : getCategories
 
-autonumber stop
-RegistrationView --> MainActivity
+  activate MainActivity
+    create HTTPClient
+    MainActivity -> HTTPClient : new
 
-autonumber resume
-MainActivity -> RegistrationView : resetField
+    activate HTTPClient
+      HTTPClient -> HTTPClient : credential
 
-autonumber stop
-RegistrationView --> MainActivity
+      autonumber stop
+      HTTPClient --> MainActivity
 
-autonumber resume
-MainActivity -> RegistrationView : setToday
+      autonumber resume
+      MainActivity ->> HTTPClient : sendRequest
 
-autonumber stop
-RegistrationView --> MainActivity
+      autonumber stop
+      HTTPClient --> MainActivity
+    deactivate HTTPClient
 
-autonumber resume
-MainActivity -> MainActivity : settle
-MainActivity -> HTTPClient : sendRequest
-MainActivity -> HTTPClient : sendRequest
+    destroy HTTPClient
+  deactivate MainActivity
 
-autonumber stop
-HTTPClient --> MainActivity
+  autonumber resume
+  MainActivity -> RegistrationView : setCategories
 
-autonumber resume
-MainActivity -> RegistrationView : showSettlement
+  activate RegistrationView
+    autonumber stop
+    RegistrationView --> MainActivity
+  deactivate RegistrationView
 
-autonumber stop
+  autonumber resume
+  利用者 -> RegistrationView : onClick
 
-RegistrationView --> 利用者
+  activate RegistrationView
+    RegistrationView -> MainActivity : registPayment
+
+    activate MainActivity
+      MainActivity -> InputChecker : checkEmpty
+
+      activate InputChecker
+        autonumber stop
+        InputChecker --> MainActivity
+      deactivate InputChecker
+
+      alt 空欄がある
+        autonumber resume
+        MainActivity -> RegistrationView : showMessage
+
+        activate RegistrationView
+          autonumber stop
+          RegistrationView --> MainActivity
+        deactivate RegistrationView
+
+        autonumber resume
+        MainActivity -> RegistrationView : showWrongInput
+
+        activate RegistrationView
+          autonumber stop
+          RegistrationView --> MainActivity
+        deactivate RegistrationView
+      end
+
+      autonumber resume
+      MainActivity -> InputChecker : checkDate
+
+      activate InputChecker
+        autonumber stop
+        InputChecker --> MainActivity
+      deactivate InputChecker
+
+      alt 日付が不正
+        autonumber resume
+        MainActivity -> RegistrationView : showMessage
+
+        activate RegistrationView
+          autonumber stop
+          RegistrationView --> MainActivity
+        deactivate RegistrationView
+
+        autonumber resume
+        MainActivity -> RegistrationView : showWrongInput
+
+        activate RegistrationView
+          autonumber stop
+          RegistrationView --> MainActivity
+        deactivate RegistrationView
+      end
+
+      autonumber resume
+      MainActivity -> InputChecker : checkPrice
+
+      activate InputChecker
+        autonumber stop
+        InputChecker --> MainActivity
+      deactivate InputChecker
+
+      alt 金額が不正
+        autonumber resume
+        MainActivity -> RegistrationView : showMessage
+
+        activate RegistrationView
+          autonumber stop
+          RegistrationView --> MainActivity
+        deactivate RegistrationView
+
+        autonumber resume
+        MainActivity -> RegistrationView : showWrongInput
+
+        activate RegistrationView
+          autonumber stop
+          RegistrationView --> MainActivity
+        deactivate RegistrationView
+      end
+
+      autonumber resume
+      create HTTPClient
+      MainActivity -> HTTPClient : new
+
+      activate HTTPClient
+        HTTPClient -> HTTPClient : credential
+
+        autonumber stop
+        HTTPClient --> MainActivity
+
+        autonumber resume
+        MainActivity ->> HTTPClient : sendRequest
+
+        autonumber stop
+        HTTPClient --> MainActivity
+      deactivate HTTPClient
+
+      destroy HTTPClient
+
+      autonumber resume
+      MainActivity -> RegistrationView : showMessage
+
+      activate RegistrationView
+        autonumber stop
+        RegistrationView --> MainActivity
+      deactivate RegistrationView
+
+      autonumber resume
+      MainActivity -> RegistrationView : resetField
+
+      activate RegistrationView
+        autonumber stop
+        RegistrationView --> MainActivity
+      deactivate RegistrationView
+
+      autonumber resume
+      MainActivity -> RegistrationView : setToday
+
+      activate RegistrationView
+        autonumber stop
+        RegistrationView --> MainActivity
+      deactivate RegistrationView
+
+      autonumber resume
+      MainActivity -> MainActivity : settle
+
+      activate MainActivity
+        create HTTPClient
+        MainActivity -> HTTPClient : new
+
+        activate HTTPClient
+          HTTPClient -> HTTPClient : credential
+
+          autonumber stop
+          HTTPClient --> MainActivity
+
+          autonumber resume
+          MainActivity ->> HTTPClient : sendRequest
+
+          autonumber stop
+          HTTPClient --> MainActivity
+        deactivate HTTPClient
+
+        destroy HTTPClient
+      deactivate MainActivity
+
+      autonumber resume
+      MainActivity -> RegistrationView : showSettlement
+
+      activate RegistrationView
+        autonumber stop
+        RegistrationView --> MainActivity
+      deactivate RegistrationView
+
+      MainActivity --> RegistrationView
+    deactivate MainActivity
+
+    RegistrationView --> MainActivity
+  deactivate RegistrationView
+
+MainActivity --> 利用者
