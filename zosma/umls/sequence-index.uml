@@ -1,6 +1,33 @@
 autonumber
 
 actor 利用者
+
+create ApplicationController
+利用者 -> ApplicationController : new
+
+create HTTPClient
+ApplicationController -> HTTPClient : new
+ApplicationController -> HTTPClient : getCategories
+
+autonumber stop
+HTTPClient --> ApplicationController
+
+autonumber resume
+create ViewController
+ApplicationController -> ViewController : new
+
+create SearchForm
+ViewController -> SearchForm : new
+
+create PaymentTable
+ViewController -> PaymentTable : new
+
+create MessageField
+ViewController -> MessageField : new
+
+create InputChecker
+ApplicationController -> InputChecker : new
+
 利用者 -> SearchForm : actionPerformed
 SearchForm -> ApplicationController : searchPayments
 ApplicationController -> InputChecker : checkDate
