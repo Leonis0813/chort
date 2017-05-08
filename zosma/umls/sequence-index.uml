@@ -54,10 +54,17 @@ autonumber stop
 InputChecker --> ApplicationController
 
 alt 入力が不正
+  autonumber resume
   ApplicationController -> ViewController : noticeInputError
   ViewController -> MessageField : showMessage
+
+  autonumber stop
   MessageField --> ViewController
+
+  autonumber resume
   ViewController -> SearchForm : showWrongInput
+
+  autonumber stop
   SearchForm --> 利用者
 end
 
