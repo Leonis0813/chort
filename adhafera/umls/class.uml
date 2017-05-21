@@ -3,11 +3,18 @@ class MainActivity {
   - {static} LOADER_ID : int = 0
   + registPayment(inputs : String[]) : void
   + noticeError(errorMessage : String, ids : ArrayList) : void
+  + noticeResult(result : String) : void
   + settle() : void
   + getCategories() : void
 }
 
 class RegistrationView {
+  + {static} INPUT_VIEW_DATE : int = 0
+  + {static} INPUT_VIEW_CONTENT : int = 1
+  + {static} INPUT_VIEW_CATEGORY : int = 2
+  + {static} INPUT_VIEW_PRICE : int = 3
+  + {static} INPUT_VIEW_SIZE : int = 4
+  - inputViews : InputView[]
   - radioGroup : RadioGroup
   - OK : Button
   - cancel : Button
@@ -18,37 +25,54 @@ class RegistrationView {
   + showMessage(message : String) : void
   + showWrongInput(ids : ArrayList) : void
   + showSettlement(settlement : String) : void
+  + resetFields() : void
+  + resetErrorCheckers() : void
   + setCategories(categories : String[]) : void
-  + resetField() : void
+  + getLabel(id ;int) : String
   + onClick(v : View) : void
 }
 
 class InputView {
+  # context : Context
+  # labelView : TextView
   # errorChecker : TextView
   + InputView()
+  + {abstract} setInputText(text : String) : void
+  + {abstract} getInputText() : String
 }
 
 class DateView {
-  - {static} LABEL : String = "日付"
-  - inputField : EditText
+  - {static} simpleDataFormat : SimpleDataFormat = "yyyy-mm-dd"
+  - fieldView : EditText
   + DateView()
+  + setInputText(text : String) : void
+  + getInputText() : String
 }
 
 class ContentView {
-  - {static} LABEL : String = "内容"
-  - inputField : EditText
+  - fieldView : EditText
   + ContentView()
+  + setInputText(text : String) : void
+  + getInputText() : String
 }
 
 class CategoryView {
-  - {static} LABEL : String = "カテゴリ"
+  - categories : String[]
+  - selected : boolean[]
+  - fieldView : TextView
+  - selectButton : Button
   + CategoryView()
+  + setInputText(text : String) : void
+  + getInputText() : String
+  - setCategories(names : String[]) : void
+  + onClick(v View) : void
 }
 
 class PriceView {
-  - {static} LABEL : String = "金額"
-  - inputField : EditText
+  - fieldView : EditText
   + PriceView()
+  + setInputText(text : String) : void
+  + getInputText() : String
 }
 
 class InputChecker {
