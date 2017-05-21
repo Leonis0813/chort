@@ -62,7 +62,13 @@ activate MainActivity
   MainActivity -> RegistrationView : setCategories
 
   activate RegistrationView
-    autonumber stop
+    RegistrationView -> CategoryView : setCategories
+
+    activate CategoryView
+      autonumber stop
+      CategoryView --> RegistrationView
+    deactivate CategoryView
+
     RegistrationView --> MainActivity
   deactivate RegistrationView
 
