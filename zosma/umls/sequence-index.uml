@@ -1,6 +1,56 @@
 autonumber
 
 actor 利用者
+
+create ApplicationController
+利用者 -> ApplicationController : new
+
+autonumber resume
+create ViewController
+ApplicationController -> ViewController : new
+
+create SearchForm
+ViewController -> SearchForm : new
+
+create CategoryForm
+SearchForm -> CategoryForm : new
+
+create PaymentTable
+ViewController -> PaymentTable : new
+
+create MessageField
+ViewController -> MessageField : new
+
+create InputChecker
+ApplicationController -> InputChecker : new
+
+alt カテゴリ選択ボタンを押下
+  利用者 -> CategoryForm : actionPerformed
+  CategoryForm -> ApplicationController : getCategories
+
+  create HTTPClient
+  ApplicationController -> HTTPClient : new
+  ApplicationController -> HTTPClient : getCategories
+
+  autonumber stop
+  HTTPClient --> ApplicationController
+
+  autonumber stop
+  ApplicationController --> CategoryForm
+
+  autonumber resume
+  create CategoryDialog
+  CategoryForm -> CategoryDialog : new
+
+  利用者 -> CategoryDialog : actionPerformed
+  CategoryDialog -> CategoryForm : setCategory
+
+  autonumber stop
+  CategoryForm --> CategoryDialog
+  destroy CategoryDialog
+end
+
+autonumber resume
 利用者 -> SearchForm : actionPerformed
 SearchForm -> ApplicationController : searchPayments
 ApplicationController -> InputChecker : checkDate
@@ -27,10 +77,17 @@ autonumber stop
 InputChecker --> ApplicationController
 
 alt 入力が不正
+  autonumber resume
   ApplicationController -> ViewController : noticeInputError
   ViewController -> MessageField : showMessage
+
+  autonumber stop
   MessageField --> ViewController
+
+  autonumber resume
   ViewController -> SearchForm : showWrongInput
+
+  autonumber stop
   SearchForm --> 利用者
 end
 

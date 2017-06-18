@@ -64,7 +64,17 @@ class ContentForm {
 
 class CategoryForm {
   - category : JTextField
+  - selectButton : JButton
+  + setCategory(category : String) : void
   + getCategory() : String
+  + actionPerformed() : void
+}
+
+class CategoryDialog {
+  - categories : JCheckBox[]
+  - OK : JButton
+  - cancel : JButton
+  + actionPerformed() : void
 }
 
 class PriceForm {
@@ -91,6 +101,7 @@ class HTTPClient {
   - query : String
   - response : ArrayList
   + getPayments(condition : HashMap) : ArrayList
+  + getCategories(keyword : String) : ArrayList
 }
 
 ApplicationController "1" -left-> "1" InputChecker
@@ -105,3 +116,4 @@ SearchForm "1" *-- "1" DateForm
 SearchForm "1" *-- "1" ContentForm
 SearchForm "1" *-- "1" CategoryForm
 SearchForm "1" *-- "1" PriceForm
+CategoryForm "1" *-- "1" CategoryDialog
