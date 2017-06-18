@@ -65,6 +65,7 @@ class ContentForm {
 class CategoryForm {
   - category : JTextField
   - selectButton : JButton
+  + setCategory(category : String) : void
   + getCategory() : String
   + actionPerformed() : void
 }
