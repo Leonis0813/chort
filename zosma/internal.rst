@@ -49,6 +49,11 @@
           - カテゴリに関する条件を入力するフォーム
           - category: 指定したカテゴリに一致する収支を検索する
 
+            - CategoryDialog
+
+              - 検索したいカテゴリを選択するためのダイアログ
+              - categories: カテゴリの一覧
+
         - PriceForm
 
           - 金額に関する条件を入力するフォーム
@@ -80,8 +85,8 @@
 
 .. _zos-int-sequence:
 
-処理手順
---------
+シーケンス
+----------
 
 - :ref:`zos-int-sequence-index`
 
