@@ -6,6 +6,10 @@ create ApplicationController
 利用者 -> ApplicationController : new
 
 autonumber resume
+create InputChecker
+ApplicationController -> InputChecker : new
+create HTTPClient
+ApplicationController -> HTTPClient : new
 create ViewController
 ApplicationController -> ViewController : new
 
@@ -21,15 +25,10 @@ ViewController -> PaymentTable : new
 create MessageField
 ViewController -> MessageField : new
 
-create InputChecker
-ApplicationController -> InputChecker : new
-
 alt カテゴリ選択ボタンを押下
   利用者 -> CategoryForm : actionPerformed
   CategoryForm -> ApplicationController : getCategories
 
-  create HTTPClient
-  ApplicationController -> HTTPClient : new
   ApplicationController -> HTTPClient : getCategories
 
   autonumber stop
