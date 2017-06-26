@@ -27,7 +27,7 @@
 
       - 取得した収支を表示するテーブル
 
-    - SerachForm
+    - SerachPanel
 
       - 検索フォームを表すクラス
 
@@ -102,15 +102,15 @@
 - 利用者が検索画面を開いてから収支を表示するまでの流れ
 
   1. 利用者がアプリを起動すると，ApplicationControllerが作成される
-  2. ApplicationControllerはViewControllerを作成する
-  3. ViewControllerはSearchFormを作成する
-  4. SearchFormはCategoryFormを作成する
-  5. ViewControllerはPaymentTableを作成する
-  6. ViewControllerはMessageFieldを作成する
-  7. ViewControllerはInputCheckerを作成する
-  8. 利用者がカテゴリ選択ボタンを押下した場合，14までの処理が実行される
-  9. CategoryFormはApplicationControllerのgetCategoryメソッドを実行してカテゴリ一覧を取得する
-  10. ApplicationControllerはHTTPClientを作成する
+  2. ViewControllerはInputCheckerを作成する
+  3. ApplicationControllerはHTTPClientを作成する
+  4. ApplicationControllerはViewControllerを作成する
+  5. ViewControllerはSearchFormを作成する
+  6. SearchFormはCategoryFormを作成する
+  7. ViewControllerはPaymentTableを作成する
+  8. ViewControllerはMessageFieldを作成する
+  9. 利用者がカテゴリ選択ボタンを押下した場合，14までの処理が実行される
+  10. CategoryFormはApplicationControllerのgetCategoryメソッドを実行してカテゴリ一覧を取得する
   11. ApplicationControllerはHTTPClientクラスのgetCategoriesメソッドを実行してサーバーからカテゴリ情報を取得する
   12. CategoryFormはCategoryDialogを作成し，取得したカテゴリ名を表示する
   13. 利用者はカテゴリを選択し，OKもしくはキャンセルボタンを押下する
