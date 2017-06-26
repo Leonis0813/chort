@@ -1,6 +1,9 @@
 chort
 =====
 
+- 4.6.0:
+  - [Zosma] update version to 1.2.0
+
 - 4.5.0:
   - [Adhafera] update version to 2.1.0
 
