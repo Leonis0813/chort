@@ -2,6 +2,14 @@ autonumber
 
 actor 利用者
 利用者 -> PaymentsController : settle
+create Settlement
+PaymentsController -> Settlement : new
+PaymentsController -> Settlement : valid?
+
+autonumber stop
+Settlement -> PaymentsController
+
+autonumber resume
 PaymentsController -> Payment : settle
 
 autonumber stop

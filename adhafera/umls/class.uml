@@ -3,13 +3,18 @@ class MainActivity {
   - {static} LOADER_ID : int = 0
   + registPayment(inputs : String[]) : void
   + noticeError(errorMessage : String, ids : ArrayList) : void
+  + noticeResult(result : String) : void
   + settle() : void
+  + getCategories() : void
 }
 
 class RegistrationView {
-  - {static} LABELS : String[] = {"日付", "内容", "カテゴリ", "金額"}
-  - fields : EditText[]
-  - errorCheckers : TextView[]
+  + {static} INPUT_VIEW_DATE : int = 0
+  + {static} INPUT_VIEW_CONTENT : int = 1
+  + {static} INPUT_VIEW_CATEGORY : int = 2
+  + {static} INPUT_VIEW_PRICE : int = 3
+  + {static} INPUT_VIEW_SIZE : int = 4
+  - inputViews : InputView[]
   - radioGroup : RadioGroup
   - OK : Button
   - cancel : Button
@@ -20,8 +25,54 @@ class RegistrationView {
   + showMessage(message : String) : void
   + showWrongInput(ids : ArrayList) : void
   + showSettlement(settlement : String) : void
-  + resetField() : void
+  + resetFields() : void
+  + resetErrorCheckers() : void
+  + setCategories(categories : String[]) : void
+  + getLabel(id ;int) : String
   + onClick(v : View) : void
+}
+
+class InputView {
+  # context : Context
+  # labelView : TextView
+  # errorChecker : TextView
+  + InputView()
+  + {abstract} setInputText(text : String) : void
+  + {abstract} getInputText() : String
+}
+
+class DateView {
+  - {static} simpleDataFormat : SimpleDataFormat = "yyyy-mm-dd"
+  - fieldView : EditText
+  + DateView()
+  + setInputText(text : String) : void
+  + getInputText() : String
+}
+
+class ContentView {
+  - fieldView : EditText
+  + ContentView()
+  + setInputText(text : String) : void
+  + getInputText() : String
+}
+
+class CategoryView {
+  - categories : String[]
+  - selected : boolean[]
+  - fieldView : TextView
+  - selectButton : Button
+  + CategoryView()
+  + setInputText(text : String) : void
+  + getInputText() : String
+  - setCategories(names : String[]) : void
+  + onClick(v View) : void
+}
+
+class PriceView {
+  - fieldView : EditText
+  + PriceView()
+  + setInputText(text : String) : void
+  + getInputText() : String
 }
 
 class InputChecker {
@@ -40,6 +91,7 @@ class HTTPClient {
   - param : JSONObject
   - response : HashMap
   + HTTPClient(context : Context, inputs : String[])
+  + HTTPClient(context : Context, keyword : String)
   + HTTPClient(context : Context)
   + sendRequest() : HashMap
   - credential() : String
@@ -48,3 +100,8 @@ class HTTPClient {
 MainActivity "1" --> "1" RegistrationView
 MainActivity "1" --> "1" InputChecker
 MainActivity "1" --> "1" HTTPClient
+RegistrationView "1" *-- "4" InputView
+InputView <|-- DateView
+InputView <|-- ContentView
+InputView <|-- CategoryView
+InputView <|-- PriceView

@@ -2,6 +2,12 @@ autonumber
 
 actor 利用者
 利用者 -> PaymentsController : create
+PaymentsController -> Category : find_or_create_by
+
+autonumber stop
+Category -> PaymentsController
+
+autonumber resume
 PaymentsController -> Payment : create
 
 autonumber stop
