@@ -1,3 +1,6 @@
+# 4.7.0
+- [Algieba] update version to 2.6.0
+
 # 4.6.0
 - [Zosma] update version to 1.2.0
 
