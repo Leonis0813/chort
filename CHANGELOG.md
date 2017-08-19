@@ -1,3 +1,6 @@
+# 4.9.0
+- [Algieba] update version to 2.8.0
+
 # 4.8.0
 - [Algieba] update version to 2.7.0
 
