@@ -1,7 +1,9 @@
 Welcome to Horse-Race Estimator's documentation!
 ================================================
 
-Contents:
+本書では競馬予測システムの仕様を記載する
 
 .. toctree::
    :maxdepth: 1
+
+   requirements
