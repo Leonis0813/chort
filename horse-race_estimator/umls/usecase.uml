@@ -1,0 +1,14 @@
+left to right direction
+skinparam packageStyle rect
+
+boundary Webブラウザ
+entity レース結果
+
+rectangle "競馬予測システム" {
+  Webブラウザ -- (過去のレース結果を分析する)
+  (過去のレース結果を分析する) -- レース結果
+}
+
+rectangle "レース結果収集システム"
+
+レース結果 -- レース結果収集システム
