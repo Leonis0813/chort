@@ -192,10 +192,23 @@ Web API
    apis/payment
    apis/category
 
-共通定義
+共通仕様
 ^^^^^^^^
 
 .. _alg-ext-api-common-error:
+
+リクエスト
+""""""""""
+
+- WebAPI のパスには全て先頭に ``/algieba/api`` を付与すること
+
+  - 本API仕様書に記載されているパスは全て上記のパス以下を記載する
+
+  - 例：収支を検索する場合
+
+    .. sourcecode:: http
+
+       GET /algieba/api/payments HTTP/1.1
 
 エラーコード
 """"""""""""
