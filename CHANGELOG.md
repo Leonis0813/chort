@@ -1,3 +1,6 @@
+# 4.12.0
+- [Algieba] update version to 2.11.0
+
 # 4.11.0
 - [Algieba] update version to 2.10.0
 - [Zosma] remove doc
