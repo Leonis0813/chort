@@ -47,9 +47,5 @@ MVCモデルを利用する
 
 .. uml:: umls/seq-analyze.uml
 
-1. 利用者がブラウザから本アプリにアクセスする
-2. 利用者がユーザーIDとパスワードを入力してログインする
-3. LoginControllerがユーザーIDとパスワードが一致するUserオブジェクトを検索する
-4. 一致するユーザーが存在しなければLogin_Viewを表示して2へ戻る
-5. 一致するユーザーが存在すればPaymentController#manageを実行する
-6. PaymentControllerがPaymentを取得してPayment_Viewを表示する
+1. 利用者がパラメーターを入力して実行ボタンを押下する
+2. システムはlearnスクリプトを実行してレース結果を分析する
