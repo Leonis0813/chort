@@ -1,0 +1,7 @@
+autonumber
+
+actor 利用者
+利用者 -> Analyze_View : 実行ボタン押下
+Analyze_View --> レース結果 : learn
+autonumber stop
+Analyze_View --> 利用者

@@ -8,3 +8,4 @@ Welcome to Horse-Race Estimator's documentation!
 
    requirements
    external
+   internal
