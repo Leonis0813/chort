@@ -7,3 +7,4 @@ Welcome to Horse-Race Estimator's documentation!
    :maxdepth: 1
 
    requirements
+   external
