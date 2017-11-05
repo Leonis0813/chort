@@ -48,11 +48,13 @@ help:
 clean:
 	cd payment_manager; rm -rf $(BUILDDIR)/*
 	cd horse-race_estimator; rm -rf $(BUILDDIR)/*
+	cd fx-rate_estimator; rm -rf $(BUILDDIR)/*
 
 .PHONY: html
 html:
 	cd payment_manager; $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	cd horse-race_estimator; $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	cd fx-rate_estimator; $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
