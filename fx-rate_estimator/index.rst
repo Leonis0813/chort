@@ -7,3 +7,4 @@ Welcome to FX Rate Estimator's documentation!
    :maxdepth: 1
 
    requirements
+   external
