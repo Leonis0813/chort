@@ -1,7 +1,9 @@
 Welcome to FX Rate Estimator's documentation!
 =============================================
 
-Contents:
+本書ではFXにおけるレートを予測するシステムの仕様を記載する
 
 .. toctree::
    :maxdepth: 1
+
+   requirements
