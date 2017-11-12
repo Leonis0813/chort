@@ -7,18 +7,22 @@ class LoginController {
 }
 
 class PaymentsController {
-  + manage() : void
+  + index(query_parameters : Hash) : void
+  - index_params() : Array
+}
+
+class Api::PaymentsController {
   + create(request_parameters : Hash) : void
-  + read(id : String) : void
+  + show(id : String) : void
   + index(query_parameters : Hash) : void
   + update(id : String, request_parameters : Hash) : void
-  + delete(id : String) : void
+  + destroy(id : String) : void
   + settle(interval : String) : void
   - payment_params() : Array
   - index_params() : Array
 }
 
-class CategoriesController {
+class Api::CategoriesController {
   + index(keyword: String)
 }
 
@@ -68,6 +72,8 @@ LoginController -- Client
 Payment_View -right- PaymentsController
 PaymentsController "1" -- "0..*" Payment
 PaymentsController -- Query
-PaymentsController -- Settlement
-CategoriesController "1" -- "0..*" Category
+Api::PaymentsController "1" -- "0..*" Payment
+Api::PaymentsController -- Query
+Api::PaymentsController -- Settlement
+Api::CategoriesController "1" -- "0..*" Category
 Payment "1..*" -- "1..*" Category

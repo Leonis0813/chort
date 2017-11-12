@@ -1,8 +1,8 @@
 autonumber
 
 actor 利用者
-利用者 -> PaymentsController : read
-PaymentsController -> Payment : find
+利用者 -> PaymentsController : destroy
+PaymentsController -> Payment : destroy
 
 autonumber stop
 Payment --> PaymentsController
