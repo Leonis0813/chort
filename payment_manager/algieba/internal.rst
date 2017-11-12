@@ -45,25 +45,29 @@ MVCモデルを利用する
 
 - Controller
 
-  - CategoriesController: カテゴリを処理するコントローラ
+  - Api::CategoriesController: カテゴリを処理するコントローラ
 
     - index: カテゴリを検索するメソッド
+
+  - Api::PaymentsController: 収支を処理するコントローラ(WebAPI用コントローラ)
+
+    - create: 収支を登録するメソッド
+    - show: 収支を取得するメソッド
+    - index: 収支を検索するメソッド
+    - update: 収支を更新するメソッド
+    - destroy: 収支を削除するメソッド
+    - settle: 収支を計算するメソッド
+    - payment_params: Paymentの属性名の配列を返すメソッド
+    - index_params: Queryの属性名の配列を返すメソッド
 
   - LoginController: 認証処理を行うコントローラー
 
     - authenticate_user: ユーザー認証を行うメソッド
     - authenticate_client: アプリ認証を行うメソッド
 
-  - PaymentsController: 収支を処理するコントローラ
+  - PaymentsController: 収支を処理するコントローラ(UI用コントローラ)
 
-    - manage: ブラウザに管理画面を表示するメソッド
-    - create: 収支を登録するメソッド
-    - read: 収支を取得するメソッド
     - index: 収支を検索するメソッド
-    - update: 収支を更新するメソッド
-    - delete: 収支を削除するメソッド
-    - settle: 収支を計算するメソッド
-    - payment_params: Paymentの属性名の配列を返すメソッド
     - index_params: Queryの属性名の配列を返すメソッド
 
 .. _alg-int-seq:
@@ -73,10 +77,10 @@ MVCモデルを利用する
 
 - :ref:`alg-int-seq-login`
 - :ref:`alg-int-seq-create-payment`
-- :ref:`alg-int-seq-read-payment`
+- :ref:`alg-int-seq-show-payment`
 - :ref:`alg-int-seq-index-payment`
 - :ref:`alg-int-seq-update-payment`
-- :ref:`alg-int-seq-delete-payment`
+- :ref:`alg-int-seq-destroy-payment`
 - :ref:`alg-int-seq-settle-payment`
 - :ref:`alg-int-seq-index-category`
 
@@ -122,16 +126,16 @@ MVCモデルを利用する
 
      - BadRequestを発生させて，ステータスコード400とエラーコードを返す
 
-.. _alg-int-seq-read-payment:
+.. _alg-int-seq-show-payment:
 
 収支を取得する
 ^^^^^^^^^^^^^^
 
 *シーケンス図*
 
-.. uml:: umls/seq-read-payment.uml
+.. uml:: umls/seq-show-payment.uml
 
-1. リクエストを受けると，PaymentsControllerクラスのreadメソッドを実行する
+1. リクエストを受けると，PaymentsControllerクラスのshowメソッドを実行する
 2. findメソッドでPaymentオブジェクトを取得する
 
    - 取得に成功した場合
@@ -184,17 +188,17 @@ MVCモデルを利用する
 
      - ステータスコード200と更新したPaymentオブジェクトを返す
 
-.. _alg-int-seq-delete-payment:
+.. _alg-int-seq-destroy-payment:
 
 収支を削除する
 ^^^^^^^^^^^^^^
 
 *シーケンス図*
 
-.. uml:: umls/seq-delete-payment.uml
+.. uml:: umls/seq-destroy-payment.uml
 
-1. リクエストを受けると，PaymentsControllerクラスのdeleteメソッドを実行する
-2. Paymentクラスのdeleteメソッドを実行して削除する
+1. リクエストを受けると，PaymentsControllerクラスのdestroyメソッドを実行する
+2. Paymentクラスのdestroyメソッドを実行して削除する
 
    - 削除に成功した場合
 
