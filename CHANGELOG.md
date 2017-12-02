@@ -1,3 +1,6 @@
+# 5.1.0
+- [Algieba] update version to 2.12.0
+
 # 5.0.1
 - [Algieba] update internal spec
 
