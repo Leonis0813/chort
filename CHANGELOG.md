@@ -1,3 +1,6 @@
+# 5.2.0
+- [Algieba] update version to 2.13.0
+
 # 5.1.0
 - [Algieba] update version to 2.12.0
 
