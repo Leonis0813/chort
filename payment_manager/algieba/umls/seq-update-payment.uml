@@ -1,19 +1,19 @@
 autonumber
 
 actor 利用者
-利用者 -> PaymentsController : update
+利用者 -> "Api::PaymentsController" : update
 
 alt カテゴリを更新する
-  PaymentsController -> Category : find_or_create_by
+  "Api::PaymentsController" -> "Category" : find_or_create_by
 
   autonumber stop
-  Category -> PaymentsController
+  "Category" -> "Api::PaymentsController"
 
   autonumber resume
 end
 
-PaymentsController -> Payment : update
+"Api::PaymentsController" -> "Payment" : update
 
 autonumber stop
-Payment --> PaymentsController
-PaymentsController --> 利用者
+"Payment" --> "Api::PaymentsController"
+"Api::PaymentsController" --> 利用者

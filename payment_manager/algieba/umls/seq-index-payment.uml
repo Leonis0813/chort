@@ -1,17 +1,17 @@
 autonumber
 
 actor 利用者
-利用者 -> PaymentsController : index
+利用者 -> "Api::PaymentsController" : index
 create Query
-PaymentsController -> Query : new
-PaymentsController -> Query : valid?
+"Api::PaymentsController" -> "Query" : new
+"Api::PaymentsController" -> "Query" : valid?
 
 autonumber stop
-Query -> PaymentsController
+"Query" -> "Api::PaymentsController"
 
 autonumber resume
-PaymentsController -> Payment : where
+"Api::PaymentsController" -> "Payment" : where
 
 autonumber stop
-Payment --> PaymentsController
-PaymentsController --> 利用者
+"Payment" --> "Api::PaymentsController"
+"Api::PaymentsController" --> 利用者

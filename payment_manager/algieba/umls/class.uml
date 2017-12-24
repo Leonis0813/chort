@@ -1,5 +1,6 @@
 class Login_View <<Boundary>>
 class Payment_View <<Boundary>>
+class Statistics_View <<Boundary>>
 
 class LoginController {
   + authenticate_user() ; void
@@ -24,6 +25,9 @@ class Api::PaymentsController {
 
 class Api::CategoriesController {
   + index(keyword: String)
+}
+
+class StatisticsController {
 }
 
 class User {
@@ -70,6 +74,7 @@ Login_View -right- LoginController
 LoginController -- User
 LoginController -- Client
 Payment_View -right- PaymentsController
+Payment_View -right- Api::PaymentsController
 PaymentsController "1" -- "0..*" Payment
 PaymentsController -- Query
 Api::PaymentsController "1" -- "0..*" Payment
@@ -77,3 +82,5 @@ Api::PaymentsController -- Query
 Api::PaymentsController -- Settlement
 Api::CategoriesController "1" -- "0..*" Category
 Payment "1..*" -- "1..*" Category
+Statistics_View -right- StatisticsController
+Statistics_View -right- Api::PaymentsController

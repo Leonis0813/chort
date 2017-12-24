@@ -1,17 +1,17 @@
 autonumber
 
 actor 利用者
-利用者 -> PaymentsController : settle
+利用者 -> "Api::PaymentsController" : settle
 create Settlement
-PaymentsController -> Settlement : new
-PaymentsController -> Settlement : valid?
+"Api::PaymentsController" -> "Settlement" : new
+"Api::PaymentsController" -> "Settlement" : valid?
 
 autonumber stop
-Settlement -> PaymentsController
+"Settlement" -> "Api::PaymentsController"
 
 autonumber resume
-PaymentsController -> Payment : settle
+"Api::PaymentsController" -> "Payment" : settle
 
 autonumber stop
-Payment --> PaymentsController
-PaymentsController --> 利用者
+"Payment" --> "Api::PaymentsController"
+"Api::PaymentsController" --> 利用者

@@ -1,0 +1,15 @@
+autonumber
+
+actor 利用者
+利用者 -> "Statistics_View"
+"Statistics_View" -> "StatisticsController" : show
+
+autonumber stop
+"Statistics_View" <-- "StatisticsController"
+
+autonumber resume
+"Statistics_View" -> "Api::PaymentsController" : settle
+
+autonumber stop
+"Statistics_View" <-- "Api::PaymentsController"
+利用者 <-- "Statistics_View"
