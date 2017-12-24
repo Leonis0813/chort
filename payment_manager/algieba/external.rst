@@ -104,7 +104,7 @@
 管理画面
 ^^^^^^^^
 
-.. image:: images/ui_management.jpg
+.. image:: images/ui_management.png
    :alt: 管理画面
 
 - 画面の上部に登録と検索用の入力フォームが表示される
@@ -115,13 +115,13 @@
 
 - 日付入力フォームを選択すると，カレンダーが表示される
 
-  .. image:: images/ui_management_calendar.jpg
+  .. image:: images/ui_management_calendar.png
      :alt: カレンダー
      :scale: 50
 
 - カテゴリ入力フォームの右側の選択ボタンを押すと，カテゴリ一覧が表示される
 
-  .. image:: images/ui_management_category.jpg
+  .. image:: images/ui_management_category.png
      :alt: カテゴリ一覧
      :scale: 50
 
@@ -129,7 +129,8 @@
   - 「OK」ボタンを押下すると，選択したカテゴリがフォームに表示される
 
     - 複数個選択した場合は，カンマ区切りで表示される
-    - 「Cancel」ボタンを押下すると，ダイアログが閉じて管理画面に戻る
+
+  - 「Cancel」ボタンを押下すると，ダイアログが閉じて管理画面に戻る
 
 登録フォーム仕様
 """"""""""""""""
@@ -138,7 +139,7 @@
 
   - 不正な入力があった場合は，下記のダイアログが表示される
 
-    .. image:: images/ui_management_failure.jpg
+    .. image:: images/ui_management_failure.png
        :scale: 50
 
 - リセットボタンを押下すると，入力フォームが全て空欄になる
@@ -194,7 +195,7 @@
 
 - 収支情報の右側にあるボタンを押すと、削除を確認するダイアログが表示される
 
-  .. image:: images/ui_management_confirm.jpg
+  .. image:: images/ui_management_confirm.png
      :alt: 削除確認画面
      :scale: 50
 
@@ -206,6 +207,9 @@
 
 .. image:: images/ui_statistics.png
    :alt: 統計情報確認画面
+
+- 管理画面へ遷移するボタンと収支を表すグラフからなる
+- 1ヶ月単位の棒グラフが表示される
 
 .. _alg-ext-api:
 
