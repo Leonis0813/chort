@@ -301,6 +301,9 @@
       HTTP/1.1 200 OK
       Content-Type: application/json
 
-      {
-        "1000-01": 200000
-      }
+      [
+        {
+          "date": "1000-01",
+          "price": 200000
+        }
+      ]
