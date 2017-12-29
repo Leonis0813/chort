@@ -1,1 +1,20 @@
 class Analyze_View <<Boundary>>
+class AnalysisController
+class AnalysisJob
+class AnalysisMailer
+
+class AnalysisController {
+  + learn(num_data : Integer, num_tree : Integer, num_feature : Integer)
+}
+
+class AnalysisJob {
+  + perform(num_data : Integer, num_tree : Integer, num_feature : Integer)
+}
+
+class AnalysisMailer {
+  + finished(is_success : Boolean)
+}
+
+Analyze_View -right- AnalysisController
+AnalysisController -> AnalysisJob
+AnalysisJob -> AnalysisMailer
