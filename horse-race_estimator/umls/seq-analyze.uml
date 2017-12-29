@@ -5,6 +5,12 @@ actor 利用者
 Analyze_View -> AnalysisController : learn
 
 AnalysisController --> AnalysisJob : perform_later
+
+autonumber stop
+Analyze_View <- AnalysisController
+利用者 <- Analyze_View
+
+autonumber resume
 AnalysisJob -> AnalysisMailer : finished
 
 autonumber stop
