@@ -48,4 +48,6 @@ MVCモデルを利用する
 .. uml:: umls/seq-analyze.uml
 
 1. 利用者がパラメーターを入力して実行ボタンを押下する
-2. システムはlearnスクリプトを実行してレース結果を分析する
+2. Analyze_ViewがAnalysisControllerのlearnメソッドを実行する
+3. AnalysisControllerが非同期でAnalysisJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
+4. AnalysisJobが分析を完了させた後，AnalysisMailerのfinishedを実行して利用者にメールを送信する
