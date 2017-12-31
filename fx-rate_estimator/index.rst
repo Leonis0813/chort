@@ -8,3 +8,4 @@ Welcome to FX Rate Estimator's documentation!
 
    requirements
    external
+   internal
