@@ -1,5 +1,6 @@
 class Login_View <<Boundary>>
 class Payment_View <<Boundary>>
+class Statistics_View <<Boundary>>
 
 class LoginController {
   + authenticate_user() ; void
@@ -7,19 +8,26 @@ class LoginController {
 }
 
 class PaymentsController {
-  + manage() : void
+  + index(query_parameters : Hash) : void
+  - index_params() : Array
+}
+
+class Api::PaymentsController {
   + create(request_parameters : Hash) : void
-  + read(id : String) : void
+  + show(id : String) : void
   + index(query_parameters : Hash) : void
   + update(id : String, request_parameters : Hash) : void
-  + delete(id : String) : void
+  + destroy(id : String) : void
   + settle(interval : String) : void
   - payment_params() : Array
   - index_params() : Array
 }
 
-class CategoriesController {
+class Api::CategoriesController {
   + index(keyword: String)
+}
+
+class StatisticsController {
 }
 
 class User {
@@ -66,8 +74,13 @@ Login_View -right- LoginController
 LoginController -- User
 LoginController -- Client
 Payment_View -right- PaymentsController
+Payment_View -right- Api::PaymentsController
 PaymentsController "1" -- "0..*" Payment
 PaymentsController -- Query
-PaymentsController -- Settlement
-CategoriesController "1" -- "0..*" Category
+Api::PaymentsController "1" -- "0..*" Payment
+Api::PaymentsController -- Query
+Api::PaymentsController -- Settlement
+Api::CategoriesController "1" -- "0..*" Category
 Payment "1..*" -- "1..*" Category
+Statistics_View -right- StatisticsController
+Statistics_View -right- Api::PaymentsController

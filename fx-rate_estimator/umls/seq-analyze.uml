@@ -1,0 +1,17 @@
+autonumber
+
+actor 利用者
+利用者 -> Analyze_View : 実行ボタン押下
+Analyze_View -> AnalysisController : learn
+
+AnalysisController --> AnalysisJob : perform_later
+
+autonumber stop
+Analyze_View <- AnalysisController
+利用者 <- Analyze_View
+
+autonumber resume
+AnalysisJob -> AnalysisMailer : finished
+
+autonumber stop
+AnalysisMailer --> 利用者 : メール通知

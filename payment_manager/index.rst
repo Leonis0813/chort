@@ -10,7 +10,6 @@ Welcome to PaymentManager's documentation!
 
    algieba/index
    adhafera/index
-   zosma/index
 
 サービス全体構成
 ================
@@ -29,13 +28,6 @@ Welcome to PaymentManager's documentation!
      登録画面 -- 登録コントローラー
    }
 
-   rectangle Zosma {
-     boundary 検索画面
-     control 検索コントローラー
-     利用者 -- 検索画面
-     検索画面 -- 検索コントローラー
-   }
-
    boundary Webブラウザ
    利用者 -- Webブラウザ
 
@@ -46,7 +38,6 @@ Welcome to PaymentManager's documentation!
      Webブラウザ -- (収支を取得する)
      (収支を取得する) -- 収支
      Webブラウザ -- (収支を検索する)
-     検索コントローラー -- (収支を検索する)
      (収支を検索する) -- 収支
      (収支を更新する) -- 収支
      Webブラウザ -- (収支を削除する)

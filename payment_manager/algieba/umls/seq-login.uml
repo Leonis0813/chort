@@ -1,19 +1,24 @@
 autonumber
 
 actor 利用者
-利用者 -> Login_View
-Login_View -> LoginController : authenticate_user
-LoginController -> User : find
+利用者 -> "Login_View"
+"Login_View" -> "LoginController" : authenticate_user
+"LoginController" -> "User" : find
 
 autonumber stop
-User --> LoginController
-LoginController --> Login_View
+"LoginController" <-- "User"
 
 alt ログイン成功
+  "Login_View" <-- "LoginController" : リダイレクト
+
   autonumber resume
-  Login_View -> PaymentController : manage
-  PaymentController -> Payment_View
+  "Login_View" -> "PaymentController" : index
 
   autonumber stop
-  Payment_View --> 利用者
+  "Payment_View" <-- "PaymentController"
+  利用者 <-- "Payment_View"
+else ログイン失敗
+  autonumber stop
+  "Login_View" <-- "LoginController"
+  利用者 <-- "Login_View"
 end

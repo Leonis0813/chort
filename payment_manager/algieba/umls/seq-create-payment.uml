@@ -1,15 +1,15 @@
 autonumber
 
 actor 利用者
-利用者 -> PaymentsController : create
-PaymentsController -> Category : find_or_create_by
+利用者 -> "Api::PaymentsController" : create
+"Api::PaymentsController" -> "Category" : find_or_create_by
 
 autonumber stop
-Category -> PaymentsController
+"Category" -> "Api::PaymentsController"
 
 autonumber resume
-PaymentsController -> Payment : create
+"Api::PaymentsController" -> "Payment" : create
 
 autonumber stop
-Payment --> PaymentsController
-PaymentsController --> 利用者
+"Payment" --> "Api::PaymentsController"
+"Api::PaymentsController" --> 利用者

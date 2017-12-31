@@ -1,3 +1,27 @@
+# 6.0.0
+- [Algieba] update version to 3.0.0
+- [Alterf] update version to 1.1.0
+- [Regulus] create doc
+
+# 5.2.0
+- [Algieba] update version to 2.13.0
+
+# 5.1.0
+- [Algieba] update version to 2.12.0
+
+# 5.0.1
+- [Algieba] update internal spec
+
+# 5.0.0
+- [Alterf] create doc
+
+# 4.12.0
+- [Algieba] update version to 2.11.0
+
+# 4.11.0
+- [Algieba] update version to 2.10.0
+- [Zosma] remove doc
+
 # 4.10.0
 - [Algieba] update version to 2.9.0
 

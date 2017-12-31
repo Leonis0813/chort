@@ -1,9 +1,0 @@
-autonumber
-
-actor 利用者
-利用者 -> PaymentsController : delete
-PaymentsController -> Payment : delete
-
-autonumber stop
-Payment --> PaymentsController
-PaymentsController --> 利用者

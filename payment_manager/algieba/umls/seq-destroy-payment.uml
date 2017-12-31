@@ -1,0 +1,9 @@
+autonumber
+
+actor 利用者
+利用者 -> "Api::PaymentsController" : destroy
+"Api::PaymentsController" -> "Payment" : destroy
+
+autonumber stop
+"Payment" --> "Api::PaymentsController"
+"Api::PaymentsController" --> 利用者
