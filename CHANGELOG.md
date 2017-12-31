@@ -1,3 +1,6 @@
+# 6.0.0
+- [Regulus] create doc
+
 # 5.2.0
 - [Algieba] update version to 2.13.0
 
