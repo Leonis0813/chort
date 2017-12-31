@@ -43,6 +43,8 @@ MVCモデルを利用する
 
     - 認証された利用者が収支の登録・参照を行う
 
+  - Statistics_View: 統計情報を表示するビュー
+
 - Controller
 
   - Api::CategoriesController: カテゴリを処理するコントローラ
@@ -70,6 +72,8 @@ MVCモデルを利用する
     - index: 収支を検索するメソッド
     - index_params: Queryの属性名の配列を返すメソッド
 
+  - StatisticsController: 統計情報を管理するコントローラー(UI用コントローラ)
+
 .. _alg-int-seq:
 
 シーケンス
@@ -83,6 +87,7 @@ MVCモデルを利用する
 - :ref:`alg-int-seq-destroy-payment`
 - :ref:`alg-int-seq-settle-payment`
 - :ref:`alg-int-seq-index-category`
+- :ref:`alg-int-seq-show-stats`
 
 .. _alg-int-seq-login:
 
@@ -242,6 +247,17 @@ MVCモデルを利用する
 2. Categoryクラスのwhereメソッドを実行してカテゴリを検索する
 
    - ステータスコード200とCategoryオブジェクトの配列を返す
+
+.. _alg-int-seq-show-stats:
+
+統計情報を表示する
+^^^^^^^^^^^^^^^^^^
+
+.. uml:: umls/seq-show-stats.uml
+
+1. 利用者が統計情報確認画面にアクセスする
+2. StatisticsControllerのshowメソッドを実行し，画面を表示する
+3. Statistics_ViewがApi::PaymentsControllerのsettleメソッドを実行し，収支をグラフで表示する
 
 .. _alg-int-scm:
 
