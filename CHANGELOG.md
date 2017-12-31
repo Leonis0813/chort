@@ -1,4 +1,5 @@
 # 6.0.0
+- [Alterf] update version to 1.1.0
 - [Regulus] create doc
 
 # 5.2.0
