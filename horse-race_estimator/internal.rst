@@ -19,17 +19,21 @@ MVCモデルを利用する
 
 - Model
 
-  - 画面から分析を実行するアプリのためモデルは存在しない
+  - Job
+
+    - ジョブ情報を管理するクラス
 
 - View
 
-  - Analyze_View: 分析を行うビュー
+  - Analyze_View
 
-    - 利用者が分析を実行するための画面
+    - 利用者が分析処理を実行，確認するための画面
 
 - Controller
 
-  - 画面から分析を実行するアプリのためモデルは存在しない
+  - AnalysisController
+
+    - 分析処理を管理するコントローラー
 
 .. _alg-int-seq:
 
@@ -37,6 +41,7 @@ MVCモデルを利用する
 ----------
 
 - :ref:`alg-int-seq-analyze`
+- :ref:`alg-int-seq-read-job`
 
 .. _alg-int-seq-analyze:
 
@@ -51,3 +56,16 @@ MVCモデルを利用する
 2. Analyze_ViewがAnalysisControllerのlearnメソッドを実行する
 3. AnalysisControllerが非同期でAnalysisJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
 4. AnalysisJobが分析を完了させた後，AnalysisMailerのfinishedを実行して利用者にメールを送信する
+
+.. _alg-int-seq-read-job:
+
+ジョブ情報を確認する
+^^^^^^^^^^^^^^^^^^^^
+
+*シーケンス図*
+
+.. uml:: umls/seq-read-job.uml
+
+1. 利用者が分析画面を開く
+2. Analyze_ViewがAnalysisControllerのmanageメソッドを実行する
+3. AnalysisControllerがJobクラスのallメソッドを実行してジョブ情報を取得する

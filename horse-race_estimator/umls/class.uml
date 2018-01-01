@@ -2,6 +2,7 @@ class Analyze_View <<Boundary>>
 class AnalysisController
 class AnalysisJob
 class AnalysisMailer
+class Job
 
 class AnalysisController {
   + learn(num_data : Integer, num_tree : Integer, num_feature : Integer)
@@ -15,6 +16,16 @@ class AnalysisMailer {
   + finished(is_success : Boolean)
 }
 
+class Job {
+  - id : int
+  - num_data : int
+  - num_tree : int
+  - num_feature : int
+  - created_at : Datetime
+  - state : String
+}
+
 Analyze_View -right- AnalysisController
 AnalysisController -> AnalysisJob
 AnalysisJob -> AnalysisMailer
+AnalysisJob "1" -- "1" Job
