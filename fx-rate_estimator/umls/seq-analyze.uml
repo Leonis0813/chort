@@ -1,16 +1,16 @@
 autonumber
 
 actor 利用者
-利用者 -> Analyze_View : 実行ボタン押下
-Analyze_View -> AnalysesController : learn
+利用者 -> AnalysisView : 実行ボタン押下
+AnalysisView -> AnalysesController : learn
 
 create Analysis
 AnalysesController -> Analysis : new
 AnalysesController --> AnalysisJob : perform_later
 
 autonumber stop
-Analyze_View <- AnalysesController
-利用者 <- Analyze_View
+AnalysisView <- AnalysesController
+利用者 <- AnalysisView
 
 autonumber resume
 Analysis <- AnalysisJob : update

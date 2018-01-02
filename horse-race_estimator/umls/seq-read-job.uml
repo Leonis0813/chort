@@ -1,11 +1,11 @@
 autonumber
 
 actor 利用者
-利用者 -> Analyze_View : 分析画面表示
-Analyze_View -> AnalysesController : manage
+利用者 -> AnalysisView : 分析画面表示
+AnalysisView -> AnalysesController : manage
 AnalysesController -> Analysis : all
 
 autonumber stop
 AnalysesController <-- Analysis
-Analyze_View <-- AnalysesController
-利用者 <-- Analyze_View
+AnalysisView <-- AnalysesController
+利用者 <-- AnalysisView
