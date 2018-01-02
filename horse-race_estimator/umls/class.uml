@@ -2,21 +2,21 @@ class Analyze_View <<Boundary>>
 class AnalysisController
 class AnalysisJob
 class AnalysisMailer
-class Job
+class Analysis
 
 class AnalysisController {
   + learn(num_data : Integer, num_tree : Integer, num_feature : Integer)
 }
 
 class AnalysisJob {
-  + perform(num_data : Integer, num_tree : Integer, num_feature : Integer)
+  + perform(analysis_id : Integer)
 }
 
 class AnalysisMailer {
   + finished(is_success : Boolean)
 }
 
-class Job {
+class Analysis {
   - id : int
   - num_data : int
   - num_tree : int
@@ -28,4 +28,5 @@ class Job {
 Analyze_View -right- AnalysisController
 AnalysisController -> AnalysisJob
 AnalysisJob -> AnalysisMailer
-AnalysisJob "1" -- "1" Job
+AnalysisController "1" -- "1" Analysis
+AnalysisJob "1" -- "1" Analysis
