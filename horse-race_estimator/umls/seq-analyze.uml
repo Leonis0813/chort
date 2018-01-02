@@ -4,11 +4,19 @@ actor 利用者
 利用者 -> Analyze_View : 実行ボタン押下
 Analyze_View -> AnalysisController : learn
 
+create Analysis
+AnalysisController -> Analysis : new
 AnalysisController --> AnalysisJob : perform_later
 
 autonumber stop
 Analyze_View <- AnalysisController
 利用者 <- Analyze_View
+
+autonumber resume
+Analysis <- AnalysisJob : update
+
+autonumber stop
+Analysis --> AnalysisJob
 
 autonumber resume
 AnalysisJob -> AnalysisMailer : finished
