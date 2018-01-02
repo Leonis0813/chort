@@ -1,10 +1,10 @@
-class Analyze_View <<Boundary>>
-class AnalysisController
+class AnalysisView <<Boundary>>
+class AnalysesController
 class AnalysisJob
 class AnalysisMailer
 class Analysis
 
-class AnalysisController {
+class AnalysesController {
   + learn(num_data : Integer, num_tree : Integer, num_feature : Integer)
 }
 
@@ -25,8 +25,8 @@ class Analysis {
   - state : String
 }
 
-Analyze_View -right- AnalysisController
-AnalysisController -> AnalysisJob
+AnalysisView -right- AnalysesController
+AnalysesController -> AnalysisJob
 AnalysisJob -> AnalysisMailer
-AnalysisController "1" -- "1" Analysis
+AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
