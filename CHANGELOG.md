@@ -1,3 +1,6 @@
+# 7.1.0
+- [Algieba] update version to 3.1.0
+
 # 7.0.0
 - [Alterf] update version to 2.0.0
 - [Regulus] update version to 3.0.0
