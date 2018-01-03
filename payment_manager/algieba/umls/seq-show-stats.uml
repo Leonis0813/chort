@@ -1,7 +1,7 @@
 autonumber
 
 actor 利用者
-利用者 -> "Statistics_View"
+利用者 -> "Statistics_View" : 統計情報確認画面を表示
 "Statistics_View" -> "StatisticsController" : show
 
 autonumber stop
@@ -12,4 +12,12 @@ autonumber resume
 
 autonumber stop
 "Statistics_View" <-- "Api::PaymentsController"
+利用者 <-- "Statistics_View"
+
+autonumber resume
+利用者 -> "Statistics_View" : グラフをクリック
+"Statistics_View" -> "Api::PaymentController" : settle
+
+autonumber stop
+"Statistics_View" <-- "Api::PaymentController"
 利用者 <-- "Statistics_View"
