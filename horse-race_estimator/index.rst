@@ -25,14 +25,14 @@ Welcome to Horse-Race Estimator's documentation!
 
    利用者 -- Webブラウザ
 
-   rectangle Denebola {
+   rectangle Alterf {
      control 分析ジョブコントローラー
      Webブラウザ -- 分析ジョブコントローラー
      分析ジョブコントローラー -- レース情報
      分析ジョブコントローラー -- 分析ジョブ
    }
 
-   rectangle Alterf {
+   rectangle Denebola {
      control レース情報収集スクリプト
      レース情報収集スクリプト -- レース情報
    }
