@@ -1,0 +1,29 @@
+autonumber
+
+collect -> http_client : get
+
+autonumber stop
+collect <-- http_client
+
+loop
+  autonumber resume
+  collect -> http_client : get
+
+  autonumber stop
+  collect <-- http_client
+
+  autonumber resume
+  collect -> page : parse
+
+  autonumber stop
+  collect <-- page
+
+  autonumber resume
+  collect -> race : insert
+
+  loop
+    collect -> entry : insert
+    collect -> result : insert
+    collect -> feature : insert
+  end
+end
