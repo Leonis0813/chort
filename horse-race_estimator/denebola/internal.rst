@@ -3,8 +3,32 @@
 
 設計仕様では以下を定義する
 
+- :ref:`den-int-cls`
 - :ref:`den-int-seq`
 - :ref:`den-int-sch`
+
+.. _den-int-cls:
+
+モジュール構成
+--------------
+
+MVCモデルを利用する
+
+*クラス図*
+
+.. uml:: umls/class.uml
+
+- Race
+
+  - レース情報を表すクラス
+
+- Entry
+
+  - エントリー情報を表すクラス
+
+- Result
+
+  - レース結果を表すクラス
 
 .. _den-int-seq:
 
