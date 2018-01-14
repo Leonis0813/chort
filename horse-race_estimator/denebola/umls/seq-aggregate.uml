@@ -1,13 +1,43 @@
 autonumber
 
-aggregate -> age : update
-aggregate -> direction : update
-aggregate -> distance : update
-aggregate -> number : update
-aggregate -> weight : update
-aggregate -> place : update
-aggregate -> round : update
-aggregate -> track : update
-aggregate -> weather : update
-aggregate -> burden_weight : update
-aggregate -> won : update
+aggregate -> MysqlClient : select
+
+autonumber stop
+aggregate <-- MysqlClient
+
+autonumber resume
+aggregate -> MysqlClient : select
+
+autonumber stop
+aggregate <-- MysqlClient
+
+loop
+  autonumber resume
+  create Feature
+  aggregate -> Feature : new
+  aggregate -> Feature : save!
+end
+
+loop
+  aggregate -> Race : find
+
+  autonumber stop
+  aggregate <-- Race
+
+  autonumber resume
+  aggregate -> Feature : update!
+  aggregate -> Entry : find
+
+  autonumber stop
+  aggregate <-- Entry
+
+  autonumber resume
+  aggregate -> Feature : update!
+  aggregate -> Result : find
+
+  autonumber stop
+  aggregate <-- Result
+
+  autonumber resume
+  aggregate -> Feature : update!
+end

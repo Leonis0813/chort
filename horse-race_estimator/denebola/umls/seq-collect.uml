@@ -1,29 +1,35 @@
 autonumber
 
-collect -> http_client : get
+collect -> HTTPClient : get
 
 autonumber stop
-collect <-- http_client
+collect <-- HTTPClient
 
 loop
   autonumber resume
-  collect -> http_client : get
+  collect -> HTTPClient : get
 
   autonumber stop
-  collect <-- http_client
+  collect <-- HTTPClient
 
   autonumber resume
-  collect -> page : parse
-
-  autonumber stop
-  collect <-- page
-
-  autonumber resume
-  collect -> race : insert
+  create Race
+  collect -> Race : new
 
   loop
-    collect -> entry : insert
-    collect -> result : insert
-    collect -> feature : insert
+    create Entry
+    Race -> Entry : new
+    create Result
+    Entry -> Result : new
   end
+
+  collect -> Race : save!
+
+  loop
+    Race -> Entry : save!
+    Entry -> Result : save!
+  end
+
+  autonumber stop
+  collect <-- Race
 end
