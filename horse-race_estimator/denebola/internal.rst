@@ -47,13 +47,14 @@ MVCモデルを利用する
 
 .. uml:: umls/seq-collect.uml
 
-1. レース一覧を取得する
-2. レース情報を1ページずつウェブサイトから取得する
-3. 取得したウェブページをパースする
-4. レース情報をDBに登録する
-5. レースのエントリーを1つずつDBに登録する
-6. 各エントリーの結果を1つずつDBに登録する
-7. レースIDとエントリー番号をDBに登録して素性を生成するためのレコードを作成する
+1. HTTPClientのgetメソッドを実行してレース一覧を取得する
+2. HTTPClientのgetメソッドを実行してレース情報を取得する
+3. Raceオブジェクトを作成する
+4. Entryオブジェクトを作成する
+5. Resultオブジェクトを作成する
+6. RaceオブジェクトをDBに保存する
+7. EntryオブジェクトをDBに保存する
+8. ResultオブジェクトをDBに保存する
 
 .. _den-int-seq-aggregate:
 
@@ -64,7 +65,16 @@ MVCモデルを利用する
 
 .. uml:: umls/seq-aggregate.uml
 
-- 素性ごとにレコードを更新していく
+1. MysqlClientのselectメソッドを実行してレース情報登録後の状態のIDを取得する
+2. MysqlClientのselectメソッドを実行して素性作成済みのレース情報のIDを取得する
+3. Featureオブジェクトを作成する
+4. FeatureオブジェクトをDBに登録する
+5. Raceオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース情報を取得する
+6. Featureオブジェクトのupdate!メソッドを実行して素性を更新する
+7. Entryオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するエントリー情報を取得する
+8. Featureオブジェクトのupdate!メソッドを実行して素性を更新する
+9. Resultオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース結果情報を取得する
+10. Featureオブジェクトのupdate!メソッドを実行して素性を更新する
 
 .. _den-int-sch:
 
