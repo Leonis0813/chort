@@ -1,0 +1,27 @@
+class Race
+class Entry
+class Result
+
+class Race {
+  - track : String
+  - direction : String
+  - distance : int
+  - weather : String
+  - place : String
+  - round : int
+  - start_time : Datetime
+}
+
+class Entry {
+  - number : int
+  - age : int
+  - burden_weight : double
+  - weight : double
+}
+
+class Result {
+  - order : String
+}
+
+Race "1" -- "1..*" Entry
+Entry "1" -- "1" Result
