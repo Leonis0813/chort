@@ -1,0 +1,31 @@
+class AnalysisView <<Boundary>>
+class AnalysesController
+class AnalysisJob
+class AnalysisMailer
+class Analysis
+
+class AnalysesController {
+  + learn(num_data : Integer, interval : Integer)
+}
+
+class AnalysisJob {
+  + perform(num_data : Integer, interval : Integer)
+}
+
+class AnalysisMailer {
+  + finished(is_success : Boolean)
+}
+
+class Analysis {
+  - id : int
+  - num_data : int
+  - interval : int
+  - created_at : Datetime
+  - state : String
+}
+
+AnalysisView -right- AnalysesController
+AnalysesController -> AnalysisJob
+AnalysisJob -> AnalysisMailer
+AnalysesController "1" -- "1" Analysis
+AnalysisJob "1" -- "1" Analysis
