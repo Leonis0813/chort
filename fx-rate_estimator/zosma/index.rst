@@ -1,5 +1,5 @@
-Regulus: 分析ジョブ管理モジュール
-=================================
+Zosma: レース情報収集モジュール
+===============================
 
 Contents:
 
@@ -7,5 +7,4 @@ Contents:
    :maxdepth: 2
 
    requirements
-   external
    internal
