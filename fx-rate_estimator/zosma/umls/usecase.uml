@@ -1,17 +1,10 @@
 left to right direction
 skinparam packageStyle rect
 
-boundary Webブラウザ
 entity レート
-entity ジョブ情報
+entity 指標
 
-rectangle "レート予測システム" {
-  Webブラウザ -- (過去のレートを分析する)
-  Webブラウザ -- (ジョブ情報を確認する)
-  (過去のレートを分析する) -- レート
-  (ジョブ情報を確認する) -- ジョブ情報
+rectangle "レート収集システム" {
+  (レートを収集する) -- レート
+  (指標を生成する) -- 指標
 }
-
-rectangle "レート収集システム"
-
-レート -- レート収集システム
