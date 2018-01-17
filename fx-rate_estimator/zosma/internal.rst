@@ -34,53 +34,24 @@
 
 .. _zos-int-seq-collect:
 
-過去のレースを分析する
-^^^^^^^^^^^^^^^^^^^^^^
+レートを収集する
+^^^^^^^^^^^^^^^^
 
 *シーケンス図*
 
 .. uml:: umls/seq-collect.uml
 
-1. 利用者がパラメーターを入力して実行ボタンを押下する
-2. AnalysisViewがAnalysesControllerのlearnメソッドを実行する
-3. AnalysesControllerが非同期でAnalysisJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
-4. AnalysisJobが分析を完了させた後，AnalysisMailerのfinishedを実行して利用者にメールを送信する
+1. レートのファイル数分MysqlClientクラスのexecute_queryメソッドを実行してレートをDBに登録する
+
+   - 外部ツールのレートはリアルタイムで日付・ペアごとにファイル出力されている
 
 .. _zos-int-seq-aggregate:
 
-ジョブ情報を確認する
-^^^^^^^^^^^^^^^^^^^^
+指標を生成する
+^^^^^^^^^^^^^^
 
 *シーケンス図*
 
 .. uml:: umls/seq-aggregate.uml
 
-1. 利用者が分析画面を開く
-2. AnalysisViewがAnalysesControllerのmanageメソッドを実行する
-3. AnalysesControllerがAnalysisクラスのallメソッドを実行してジョブ情報を取得する
-
-.. _zos-int-sch:
-
-スキーマ定義
-------------
-
-- :ref:`zos-int-sch-rates`
-
-.. _zos-int-sch-rates:
-
-ratesテーブル
-^^^^^^^^^^^^^
-
-レース情報を登録するratesテーブルを定義する
-
-.. csv-table::
-   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 10
-
-   "id", "INTEGER", "レースのID", "◯", "◯"
-   "direction", "STRING", "左回りか右回りか",,
-   "distance", "INTEGER", "コースの距離",,
-   "place", "STRING", "場所",,
-   "round", "INTEGER", "ラウンド",,
-   "track", "STRING", "芝やダートなど，地面の種類",,
-   "weather", "STRING", "天候",,
+1. 1分間隔でペアごとにレートから1日分のローソク足を作成する
