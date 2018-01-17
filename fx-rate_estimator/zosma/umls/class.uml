@@ -1,31 +1,21 @@
-class AnalysisView <<Boundary>>
-class AnalysesController
-class AnalysisJob
-class AnalysisMailer
-class Analysis
+class Rate
 
-class AnalysesController {
-  + learn(num_data : Integer, interval : Integer)
+class Rate {
+  - time : Datetime
+  - pair : String
+  - bid : double
+  - ask : double
 }
 
-class AnalysisJob {
-  + perform(num_data : Integer, interval : Integer)
+class CandleStick {
+  - from : Datetime
+  - to : Datetime
+  - pair : String
+  - interval : String
+  - open : double
+  - close : double
+  - high : double
+  - low : double
 }
 
-class AnalysisMailer {
-  + finished(is_success : Boolean)
-}
-
-class Analysis {
-  - id : int
-  - num_data : int
-  - interval : int
-  - created_at : Datetime
-  - state : String
-}
-
-AnalysisView -right- AnalysesController
-AnalysesController -> AnalysisJob
-AnalysisJob -> AnalysisMailer
-AnalysesController "1" -- "1" Analysis
-AnalysisJob "1" -- "1" Analysis
+Rate "1..*" -- "1..*" CandleStick
