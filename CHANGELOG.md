@@ -1,3 +1,6 @@
+# 2018/02/04
+- [Algieba] update version to 3.2.0
+
 # 7.1.0
 - [Algieba] update version to 3.1.0
 
