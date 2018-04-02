@@ -13,7 +13,7 @@ class AnalysisJob {
 }
 
 class AnalysisMailer {
-  + finished(analysis_id, Integer, is_success : Boolean)
+  + finished(analysis, Analysis, is_success : Boolean)
 }
 
 class Analysis {
@@ -22,6 +22,7 @@ class Analysis {
   - num_tree : int
   - num_feature : int
   - created_at : Datetime
+  - updated_at : Datetime
   - state : String
 }
 
