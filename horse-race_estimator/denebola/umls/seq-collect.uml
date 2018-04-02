@@ -1,0 +1,35 @@
+autonumber
+
+collect -> HTTPClient : get
+
+autonumber stop
+collect <-- HTTPClient
+
+loop
+  autonumber resume
+  collect -> HTTPClient : get
+
+  autonumber stop
+  collect <-- HTTPClient
+
+  autonumber resume
+  create Race
+  collect -> Race : new
+
+  loop
+    create Entry
+    Race -> Entry : new
+    create Result
+    Entry -> Result : new
+  end
+
+  collect -> Race : save!
+
+  loop
+    Race -> Entry : save!
+    Entry -> Result : save!
+  end
+
+  autonumber stop
+  collect <-- Race
+end

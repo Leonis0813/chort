@@ -258,6 +258,8 @@ MVCモデルを利用する
 1. 利用者が統計情報確認画面にアクセスする
 2. StatisticsControllerのshowメソッドを実行し，画面を表示する
 3. Statistics_ViewがApi::PaymentsControllerのsettleメソッドを実行し，収支をグラフで表示する
+4. 利用者がグラフの棒をクリックする
+5. Statics_ViewがApi::PaymentsControllerのsettleメソッドを実行し，日次の収支を取得する
 
 .. _alg-int-scm:
 
