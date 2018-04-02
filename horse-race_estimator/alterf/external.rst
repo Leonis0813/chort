@@ -5,6 +5,7 @@
 
 - :ref:`alt-ext-resource`
 - :ref:`alt-ext-ui`
+- :ref:`alt-ext-api`
 
 .. _alt-ext-resource:
 
@@ -54,3 +55,33 @@
 
   - 実行開始日時の降順でソートされている
   - 実行中のジョブは黄色，完了したジョブの行は緑色で表示される
+
+.. _alt-ext-api:
+
+Web API
+-------
+
+以下のAPIを定義する
+
+.. toctree::
+   :maxdepth: 1
+
+   apis/analysis
+
+共通仕様
+^^^^^^^^
+
+.. _alt-ext-api-common-error:
+
+リクエスト
+""""""""""
+
+- WebAPI のパスには全て先頭に ``/alterf/api`` を付与すること
+
+  - 本API仕様書に記載されているパスは全て上記のパス以下を記載する
+
+  - 例：学習データを取得する場合
+
+    .. sourcecode:: http
+
+       GET /alterf/api/analyses/1/training_data HTTP/1.1
