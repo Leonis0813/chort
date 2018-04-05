@@ -1,3 +1,6 @@
+# 2018/04/03
+- [Alterf] update version to 2.2.1
+
 # 2018/04/02
 - [Alterf] update version to 2.2.0
 
