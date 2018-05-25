@@ -24,17 +24,29 @@ MVCモデルを利用する
 
     - 分析ジョブの情報を管理するクラス
 
+  - Prediction
+
+    - 予測ジョブの情報を管理するクラス
+
 - View
 
   - AnalysisView
 
     - 利用者が分析処理を実行，確認するための画面
 
+  - PredictionView
+
+    - 利用者が予測処理を実行，確認するための画面
+
 - Controller
 
   - AnalysesController
 
     - 分析処理を管理するコントローラー
+
+  - PredictionsController
+
+    - 予測処理を管理するコントローラー
 
 .. _alt-int-seq:
 
