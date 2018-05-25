@@ -1,0 +1,25 @@
+autonumber
+
+actor 利用者
+利用者 -> PredictionView : 実行ボタン押下
+PredictionView -> PredictionsController : predict
+
+create Prediction
+PredictionsController -> Prediction : new
+PredictionsController --> PredictionJob : perform_later
+
+autonumber stop
+PredictionView <- PredictionsController
+利用者 <- PredictionView
+
+autonumber resume
+Prediction <- PredictionJob : update
+
+autonumber stop
+Prediction --> PredictionJob
+
+autonumber resume
+PredictionJob -> PredictionMailer : finished
+
+autonumber stop
+PredictionMailer --> 利用者 : メール通知
