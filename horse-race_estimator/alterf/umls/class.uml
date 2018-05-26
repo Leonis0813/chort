@@ -10,11 +10,11 @@ class Analysis
 class Prediction
 
 class AnalysesController {
-  + learn(num_data : Integer, num_tree : Integer, num_feature : Integer)
+  + execute(num_data : Integer, num_tree : Integer, num_feature : Integer)
 }
 
 class PredictionsController {
-  + predict(model : File, test_data: File)
+  + execute(model : File, test_data: File)
 }
 
 class AnalysisJob {

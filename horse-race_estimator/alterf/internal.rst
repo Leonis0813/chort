@@ -68,7 +68,7 @@ MVCモデルを利用する
 .. uml:: umls/seq-execute-analysis.uml
 
 1. 利用者がパラメーターを入力して実行ボタンを押下する
-2. AnalysisViewがAnalysesControllerのlearnメソッドを実行する
+2. AnalysisViewがAnalysesControllerのexecuteメソッドを実行する
 3. AnalysesControllerがAnalysisを生成してジョブ情報を保存する
 4. AnalysesControllerが非同期でAnalysisJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
 5. 分析が完了したらAnalysisJobがAnalysisのstate属性をcompletedに更新する
@@ -97,7 +97,7 @@ MVCモデルを利用する
 .. uml:: umls/seq-execute-prediction.uml
 
 1. 利用者がファイルを入力して実行ボタンを押下する
-2. PredictionViewがPredictionsControllerのpredictメソッドを実行する
+2. PredictionViewがPredictionsControllerのexecuteメソッドを実行する
 3. PredictionsControllerがPredictionを生成してジョブ情報を保存する
 4. PredictionsControllerが非同期でPredictionJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
 5. 分析が完了したらPredictionJobがPredictionのstate属性をcompletedに更新する

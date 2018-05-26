@@ -2,7 +2,7 @@ autonumber
 
 actor 利用者
 利用者 -> PredictionView : 実行ボタン押下
-PredictionView -> PredictionsController : predict
+PredictionView -> PredictionsController : execute
 
 create Prediction
 PredictionsController -> Prediction : new
