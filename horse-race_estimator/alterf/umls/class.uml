@@ -23,6 +23,7 @@ class AnalysisJob {
 
 class PredictionJob {
   + perform(prediction_id: Integer)
+  - generate_test_data(url: String)
 }
 
 class AnalysisMailer {
