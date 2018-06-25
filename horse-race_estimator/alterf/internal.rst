@@ -100,8 +100,9 @@ MVCモデルを利用する
 2. PredictionViewがPredictionsControllerのexecuteメソッドを実行する
 3. PredictionsControllerがPredictionを生成してジョブ情報を保存する
 4. PredictionsControllerが非同期でPredictionJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
-5. 分析が完了したらPredictionJobがPredictionのstate属性をcompletedに更新する
-6. PredictionMailerのfinishedを実行して利用者にメールを送信する
+5. URLが指定された場合は，そのURLにアクセスしてテストデータを取得，変換する
+6. 分析が完了したらPredictionJobがPredictionのstate属性をcompletedに更新する
+7. PredictionMailerのfinishedを実行して利用者にメールを送信する
 
 .. _alt-int-seq-show-predictions:
 

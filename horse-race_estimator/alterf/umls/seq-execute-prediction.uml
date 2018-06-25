@@ -12,6 +12,11 @@ autonumber stop
 PredictionView <- PredictionsController
 利用者 <- PredictionView
 
+alt URL指定
+  autonumber resume
+  PredictionJob -> PredictionJob : generate_test_data
+end
+
 autonumber resume
 Prediction <- PredictionJob : update
 
