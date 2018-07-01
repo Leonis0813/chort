@@ -95,13 +95,17 @@ racesテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 10, 10, 20, 20, 10
 
-   "id", "INTEGER", "レースのID", "◯", "◯"
-   "direction", "STRING", "左回りか右回りか",,
-   "distance", "INTEGER", "コースの距離",,
-   "place", "STRING", "場所",,
-   "round", "INTEGER", "ラウンド",,
-   "track", "STRING", "芝やダートなど，地面の種類",,
-   "weather", "STRING", "天候",,
+   "id", "INTEGER", "レースのID", "○", "○"
+   "direction", "STRING", "左回りか右回りか",, "○"
+   "distance", "INTEGER", "コースの距離",, "○"
+   "grade", "STRING", "グレード",,
+   "place", "STRING", "場所",, "○"
+   "round", "INTEGER", "ラウンド",, "○"
+   "start_time", "DATETIME", "レース日時",, "○"
+   "track", "STRING", "芝やダートなど，地面の種類",, "○"
+   "weather", "STRING", "天候",, "○"
+   "created_at", "DATETIME", "レース情報の作成日時", "", "○"
+   "updated_at", "DATETIME", "レース情報の更新日時", "", "○"
 
 .. _den-int-sch-entries:
 
@@ -114,12 +118,16 @@ entriesテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 10, 10, 20, 20, 10
 
-   "id", "INTEGER", "エントリーのID", "◯", "◯"
-   "number", "INTEGER", "エントリーの番号",,
-   "age", "INTEGER", "年齢",,
+   "id", "INTEGER", "エントリーのID", "○", "○"
+   "age", "INTEGER", "年齢",, "○"
+   "burden_weight", "FLOAT", "斤量",, "○"
+   "jockey", "STRING", "騎手",,
+   "number", "INTEGER", "エントリーの番号",, "○"
    "weight", "FLOAT", "体重",,
-   "burden_weight", "FLOAT", "斤量",,
+   "weight_diff", "FLOAT", "前走との体重の差分",,
    "race_id", "INTEGER", "レース情報の外部キー",,
+   "created_at", "DATETIME", "エントリー情報の作成日時", "", "○"
+   "updated_at", "DATETIME", "エントリー情報の更新日時", "", "○"
 
 .. _den-int-sch-results:
 
@@ -132,10 +140,12 @@ resultsテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 10, 10, 20, 20, 10
 
-   "id", "INTEGER", "レース結果のID", "◯", "◯"
-   "order", "INTEGER", "着順",,
-   "race_id", "DATETIME", "レース情報の外部キー",,
-   "entry_id", "DATETIME", "エントリー情報の外部キー",,
+   "id", "INTEGER", "レース結果のID", "○", "○"
+   "order", "INTEGER", "着順",, "○"
+   "race_id", "INTEGER", "レース情報の外部キー",,
+   "entry_id", "INTEGER", "エントリー情報の外部キー",,
+   "created_at", "DATETIME", "レース結果情報の作成日時", "", "○"
+   "updated_at", "DATETIME", "レース結果情報の更新日時", "", "○"
 
 .. _den-int-sch-features:
 
@@ -148,16 +158,22 @@ featuresテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 10, 10, 20, 20, 10
 
-   "id", "INTEGER", "素性のID", "◯", "◯"
-   "direction", "STRING", "左回りか右回りか",,
-   "distance", "INTEGER", "コースの距離",,
-   "place", "STRING", "場所",,
-   "round", "INTEGER", "ラウンド",,
-   "track", "STRING", "芝やダートなど，地面の種類",,
-   "weather", "STRING", "天候",,
-   "number", "INTEGER", "エントリーの番号",,
-   "age", "INTEGER", "年齢",,
+   "id", "INTEGER", "素性のID", "○", "○"
+   "age", "INTEGER", "年齢",, "○"
+   "burden_weight", "FLOAT", "斤量",, "○"
+   "direction", "STRING", "左回りか右回りか",, "○"
+   "distance", "INTEGER", "コースの距離",, "○"
+   "grade", "STRING", "グレード",,
+   "jockey", "STRING", "騎手",,
+   "number", "INTEGER", "エントリーの番号",, "○"
+   "place", "STRING", "場所",, "○"
+   "round", "INTEGER", "ラウンド",, "○"
+   "start_time", "DATETIME", "レース日時",, "○"
+   "track", "STRING", "芝やダートなど，地面の種類",, "○"
+   "weather", "STRING", "天候",, "○"
    "weight", "FLOAT", "体重",,
-   "burden_weight", "FLOAT", "斤量",,
-   "race_id", "DATETIME", "レース情報の外部キー",,
-   "entry_id", "DATETIME", "エントリー情報の外部キー",,
+   "weight_diff", "FLOAT", "前走との体重の差分",,
+   "race_id", "INTEGER", "レース情報の外部キー",,
+   "entry_id", "INTEGER", "エントリー情報の外部キー",,
+   "created_at", "DATETIME", "素性の作成日時", "", "○"
+   "updated_at", "DATETIME", "素性の更新日時", "", "○"
