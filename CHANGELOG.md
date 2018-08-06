@@ -1,3 +1,6 @@
+# 2018/08/04
+- [Alterf] update version to 3.2.0
+
 # 2018/06/25
 - [Alterf] update version to 3.1.0
 
