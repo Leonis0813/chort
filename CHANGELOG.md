@@ -1,3 +1,6 @@
+# 2018/08/06
+- [Regulus] update version to 3.1.0
+
 # 2018/08/04
 - [Alterf] update version to 3.2.0
 
