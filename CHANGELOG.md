@@ -1,5 +1,6 @@
 # 2018/08/11
 - [Alterf] update version to 3.3.0
+- [Denebola] update version to 1.0.0
 
 # 2018/08/06
 - [Regulus] update version to 3.1.0
