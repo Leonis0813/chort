@@ -66,9 +66,9 @@
 
 - 実行例
 
-.. code-block:: none
+  .. code-block:: none
 
-   bundle exec ruby collect.rb --from=2018-01-01 --to=2018-01-31
+     bundle exec ruby collect.rb --from=2018-01-01 --to=2018-01-31
 
 .. _den-int-seq-aggregate:
 
