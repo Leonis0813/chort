@@ -66,7 +66,7 @@
 
 - 実行例
 
-.. code-block::
+.. code-block:: none
 
    bundle exec ruby collect.rb --from=2018-01-01 --to=2018-01-31
 
