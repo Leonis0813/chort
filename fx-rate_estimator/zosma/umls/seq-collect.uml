@@ -1,5 +1,20 @@
 autonumber
 
-loop ペア数分繰り返す
-  collect -> MysqlClient : execute_query
+collect -> collect : Dir[]
+
+loop "ファイル数分繰り返す"
+  collect -> Rate : find_or_create_by
+
+  autonumber stop
+  collect <-- Rate : レート
+end
+
+collect -> Rate : find_by
+
+autonumber stop
+collect <-- Rate : レート
+
+alt "レートの数が一致している"
+  collect -> collect : File.write
+  collect -> collect : File.rm
 end

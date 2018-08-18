@@ -1,0 +1,5 @@
+autonumber
+
+collect -> collect : Dir[]
+collect -> collect : compress
+collect -> collect : File.rm

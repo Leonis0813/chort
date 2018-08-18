@@ -20,17 +20,13 @@
 
   - レートを表すクラス
 
-- CandleStick
-
-  - ローソク足を表すクラス
-
 .. _zos-int-seq:
 
 シーケンス
 ----------
 
 - :ref:`zos-int-seq-collect`
-- :ref:`zos-int-seq-aggregate`
+- :ref:`zos-int-seq-compress`
 
 .. _zos-int-seq-collect:
 
@@ -41,20 +37,42 @@
 
 .. uml:: umls/seq-collect.uml
 
-1. レートのファイル数分MysqlClientクラスのexecute_queryメソッドを実行してレートをDBに登録する
+1. 外部ツールからレートが書かれたファイルを取得する
 
    - 外部ツールのレートはリアルタイムで日付・ペアごとにファイル出力されている
+   - 1行に1レートが日時の順番で記載されている
 
-.. _zos-int-seq-aggregate:
+2. ファイルに記載されているレートをDBに登録する処理をファイル数分繰り返す
+3. DBから日時を指定してレートを取得する
 
-指標を生成する
-^^^^^^^^^^^^^^
+レートの数が一致していれば以下を実行する
+
+4. DBに登録したレートをファイルに出力する
+
+   - 1日分の全てのペアのレートを日時の順番で1ファイルに出力する
+   - 一致していなければエラーを発生させる
+
+5. 外部ツールに保存されているファイルを削除する
+
+.. _zos-int-seq-compress:
+
+レートを圧縮する
+^^^^^^^^^^^^^^^^
 
 *シーケンス図*
 
-.. uml:: umls/seq-aggregate.uml
+.. uml:: umls/seq-compress.uml
 
-1. 1分間隔でペアごとにレートから1日分のローソク足を作成する
+1. 圧縮対象のファイルを取得する
+
+   - 1ヶ月分のファイルを取得する
+
+2. 圧縮ファイルを作成する
+
+   - tar.gz 形式のファイルを作成する
+   - ファイル名は"YYYY-MM.tar.gz"
+
+3. 圧縮対象のファイルを削除する
 
 .. _zos-int-sch:
 
@@ -62,7 +80,6 @@
 ------------
 
 - :ref:`zos-int-sch-rates`
-- :ref:`zos-int-sch-candle_sticks`
 
 .. _zos-int-sch-rates:
 
@@ -80,24 +97,3 @@ ratesテーブル
    "pair", "STRING", "レートのペア",, "◯"
    "bid", "FLOAT", "売値",, "◯"
    "ask", "FLOAT", "買値",, "◯"
-
-.. _zos-int-sch-candle_sticks:
-
-candle_sticksテーブル
-^^^^^^^^^^^^^^^^^^^^^
-
-ローソク足を登録するcandle_sticksテーブルを定義する
-
-.. csv-table::
-   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 10
-
-   "id", "INTEGER", "ローソク足のID", "◯", "◯"
-   "from", "STRING", "開始時間",, "◯"
-   "to", "INTEGER", "終了時間",, "◯"
-   "pair", "STRING", "ペア",, "◯"
-   "interval", "INTEGER", "間隔(5分足，1時間足など)",, "◯"
-   "open", "STRING", "始値",, "◯"
-   "close", "STRING", "終値",, "◯"
-   "high", "STRING", "高値",, "◯"
-   "low", "STRING", "安値",, "◯"
