@@ -1,8 +1,13 @@
 left to right direction
 skinparam packageStyle rect
 
+rectangle "外部ツール"
+
 entity "レート"
 
 rectangle "レート収集システム" {
+  (レートを収集する) -- "外部ツール"
   (レートを収集する) -- "レート"
+  (外部ツールが収集したレートを削除する) -- "外部ツール"
+  (レートを圧縮する) -- "レート"
 }
