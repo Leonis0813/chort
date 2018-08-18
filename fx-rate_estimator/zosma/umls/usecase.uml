@@ -1,7 +1,7 @@
 left to right direction
 skinparam packageStyle rect
 
-rectangle "外部ツール"
+rectangle "外部ツール" {}
 
 entity "レート"
 
