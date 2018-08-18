@@ -1,10 +1,8 @@
 left to right direction
 skinparam packageStyle rect
 
-entity レート
-entity 指標
+entity "レート"
 
 rectangle "レート収集システム" {
-  (レートを収集する) -- レート
-  (指標を生成する) -- 指標
+  (レートを収集する) -- "レート"
 }
