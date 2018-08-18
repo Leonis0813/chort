@@ -2,7 +2,7 @@ autonumber
 
 collect -> collect : Dir[]
 
-loop "ファイル数分繰り返す"
+loop ファイル数分繰り返す
   collect -> Rate : find_or_create_by
 
   autonumber stop
@@ -14,7 +14,7 @@ collect -> Rate : find_by
 autonumber stop
 collect <-- Rate : レート
 
-alt "レートの数が一致している"
+alt レートの数が一致している
   collect -> collect : File.write
   collect -> collect : File.rm
 end
