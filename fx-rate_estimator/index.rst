@@ -32,8 +32,12 @@ Welcome to FX Rate Estimator's documentation!
      分析ジョブコントローラー -- 分析ジョブ
    }
 
+   rectangle 外部ツール {
+   }
+
    rectangle Zosma {
      control レート情報収集スクリプト
+     レート情報収集スクリプト -- 外部ツール
      レート情報収集スクリプト -- レート情報
    }
 
