@@ -1,5 +1,0 @@
-autonumber
-
-loop ペア数分繰り返す
-  collect -> MysqlClient : execute_query
-end

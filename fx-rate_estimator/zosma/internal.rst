@@ -20,41 +20,38 @@
 
   - レートを表すクラス
 
-- CandleStick
-
-  - ローソク足を表すクラス
-
 .. _zos-int-seq:
 
 シーケンス
 ----------
 
-- :ref:`zos-int-seq-collect`
-- :ref:`zos-int-seq-aggregate`
+- :ref:`zos-int-seq-import`
 
-.. _zos-int-seq-collect:
+.. _zos-int-seq-import:
 
-レートを収集する
+レートを取得する
 ^^^^^^^^^^^^^^^^
 
 *シーケンス図*
 
-.. uml:: umls/seq-collect.uml
+.. uml:: umls/seq-import.uml
 
-1. レートのファイル数分MysqlClientクラスのexecute_queryメソッドを実行してレートをDBに登録する
+1. 外部ツールからレートが書かれたファイルを取得する
 
    - 外部ツールのレートはリアルタイムで日付・ペアごとにファイル出力されている
+   - 1行に1レートが日時の順番で記載されている
 
-.. _zos-int-seq-aggregate:
+取得したファイル数分，2, 3を繰り返す
 
-指標を生成する
-^^^^^^^^^^^^^^
+2. ファイルに記載されているレート情報を成形して一時ファイルに書き込む
+3. 書き込んだ一時ファイルをDBにインポートする
+4. DBから日時を指定してレートを取得する
 
-*シーケンス図*
+レートが存在していれば5を実行する
 
-.. uml:: umls/seq-aggregate.uml
+5. DBに登録したレートをファイルに出力する
 
-1. 1分間隔でペアごとにレートから1日分のローソク足を作成する
+   - 1日分の全てのペアのレートを日時の順番で1ファイルに出力する
 
 .. _zos-int-sch:
 
@@ -62,7 +59,6 @@
 ------------
 
 - :ref:`zos-int-sch-rates`
-- :ref:`zos-int-sch-candle_sticks`
 
 .. _zos-int-sch-rates:
 
@@ -80,24 +76,3 @@ ratesテーブル
    "pair", "STRING", "レートのペア",, "◯"
    "bid", "FLOAT", "売値",, "◯"
    "ask", "FLOAT", "買値",, "◯"
-
-.. _zos-int-sch-candle_sticks:
-
-candle_sticksテーブル
-^^^^^^^^^^^^^^^^^^^^^
-
-ローソク足を登録するcandle_sticksテーブルを定義する
-
-.. csv-table::
-   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 10
-
-   "id", "INTEGER", "ローソク足のID", "◯", "◯"
-   "from", "STRING", "開始時間",, "◯"
-   "to", "INTEGER", "終了時間",, "◯"
-   "pair", "STRING", "ペア",, "◯"
-   "interval", "INTEGER", "間隔(5分足，1時間足など)",, "◯"
-   "open", "STRING", "始値",, "◯"
-   "close", "STRING", "終値",, "◯"
-   "high", "STRING", "高値",, "◯"
-   "low", "STRING", "安値",, "◯"
