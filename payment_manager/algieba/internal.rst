@@ -21,7 +21,6 @@ MVCモデルを利用する
 - Model
 
   - Category: categoriesテーブルを操作するモデル
-  - Client: clientsテーブルを操作するモデル
   - Payment: paymentsテーブルを操作するモデル
 
     - settle: 収支を計算するメソッド
@@ -31,13 +30,8 @@ MVCモデルを利用する
     - date_valid?: 日付を検証するためのメソッド
 
   - Settlement: 収支計算時のクエリを管理するモデル
-  - User: usersテーブルを操作するモデル
 
 - View
-
-  - Login_View: 認証を行うビュー
-
-    - 利用者が未認証時に表示される
 
   - Payment_View: 収支の登録や表示を行うビュー
 
@@ -62,11 +56,6 @@ MVCモデルを利用する
     - payment_params: Paymentの属性名の配列を返すメソッド
     - index_params: Queryの属性名の配列を返すメソッド
 
-  - LoginController: 認証処理を行うコントローラー
-
-    - authenticate_user: ユーザー認証を行うメソッド
-    - authenticate_client: アプリ認証を行うメソッド
-
   - PaymentsController: 収支を処理するコントローラ(UI用コントローラ)
 
     - index: 収支を検索するメソッド
@@ -79,7 +68,6 @@ MVCモデルを利用する
 シーケンス
 ----------
 
-- :ref:`alg-int-seq-login`
 - :ref:`alg-int-seq-create-payment`
 - :ref:`alg-int-seq-show-payment`
 - :ref:`alg-int-seq-index-payment`
@@ -88,22 +76,6 @@ MVCモデルを利用する
 - :ref:`alg-int-seq-settle-payment`
 - :ref:`alg-int-seq-index-category`
 - :ref:`alg-int-seq-show-stats`
-
-.. _alg-int-seq-login:
-
-ログインする
-^^^^^^^^^^^^
-
-*シーケンス図*
-
-.. uml:: umls/seq-login.uml
-
-1. 利用者がブラウザから本アプリにアクセスする
-2. 利用者がユーザーIDとパスワードを入力してログインする
-3. LoginControllerがユーザーIDとパスワードが一致するUserオブジェクトを検索する
-4. 一致するユーザーが存在しなければLogin_Viewを表示して2へ戻る
-5. 一致するユーザーが存在すればPaymentController#manageを実行する
-6. PaymentControllerがPaymentを取得してPayment_Viewを表示する
 
 .. _alg-int-seq-create-payment:
 
@@ -270,9 +242,7 @@ MVCモデルを利用する
 
 - :ref:`alg-int-scm-categories`
 - :ref:`alg-int-scm-categories-payments`
-- :ref:`alg-int-scm-clients`
 - :ref:`alg-int-scm-payments`
-- :ref:`alg-int-scm-users`
 
 .. _alg-int-scm-categories:
 
@@ -303,22 +273,6 @@ categories_payments テーブル
    "category_id", "INTEGER", "categoryオブジェクトのID", "◯", "◯"
    "payment_id", "INTEGER", "paymentオブジェクトのID", "◯", "◯"
 
-.. _alg-int-scm-clients:
-
-clients テーブル
-^^^^^^^^^^^^^^^^
-
-アプリを登録するclientsテーブルを定義する
-
-.. csv-table::
-   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-
-   "id", "INTEGER", "clientオブジェクトのID", "◯", "◯"
-   "application_id", "STRING", "クライアントアプリのID",, "◯"
-   "application_key", "STRING", "クライアントアプリのキー",, "◯"
-   "created_at", "DATETIME", "アプリ情報が登録された日時",, "◯"
-   "updated_at", "DATETIME", "アプリ情報が登録 or 更新された日時",, "◯"
-
 .. _alg-int-scm-payments:
 
 payments テーブル
@@ -336,19 +290,3 @@ payments テーブル
    "price", "INTEGER", "収入/支出の金額",, "◯"
    "created_at", "DATETIME", "収支が登録された日時",, "◯"
    "updated_at", "DATETIME", "収支が登録 or 更新された日時",, "◯"
-
-.. _alg-int-scm-users:
-
-users テーブル
-^^^^^^^^^^^^^^
-
-ユーザーを登録するusersテーブルを定義する
-
-.. csv-table::
-   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-
-   "id", "INTEGER", "userオブジェクトのID", "◯", "◯"
-   "user_id", "STRING", "ユーザーが登録したID",, "◯"
-   "password", "STRING", "パスワード",, "◯"
-   "created_at", "DATETIME", "ユーザー情報が登録された日時",, "◯"
-   "updated_at", "DATETIME", "ユーザー情報が登録 or 更新された日時",, "◯"

@@ -1,11 +1,5 @@
-class Login_View <<Boundary>>
 class Payment_View <<Boundary>>
 class Statistics_View <<Boundary>>
-
-class LoginController {
-  + authenticate_user() ; void
-  + authenticate_client() : void
-}
 
 class PaymentsController {
   + index(query_parameters : Hash) : void
@@ -28,16 +22,6 @@ class Api::CategoriesController {
 }
 
 class StatisticsController {
-}
-
-class User {
-  + user_id : String
-  + password : String
-}
-
-class Client {
-  + application_id : String
-  + application_key : String
 }
 
 class Payment {
@@ -70,9 +54,6 @@ class Category {
   + description: String
 }
 
-Login_View -right- LoginController
-LoginController -- User
-LoginController -- Client
 Payment_View -right- PaymentsController
 Payment_View -right- Api::PaymentsController
 PaymentsController "1" -- "0..*" Payment
