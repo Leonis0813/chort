@@ -41,7 +41,7 @@ MVCモデルを利用する
 
 - Controller
 
-  - Api::CategoriesController: カテゴリを処理するコントローラ
+  - Api::CategoriesController: カテゴリを処理するコントローラ(WebAPI用コントローラ)
 
     - index: カテゴリを検索するメソッド
 
