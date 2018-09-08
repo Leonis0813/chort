@@ -1,3 +1,6 @@
+# 2018/09/0
+- [Algieba] update version to 3.4.0
+
 # 2018/08/22
 - [Zosma] create doc
 
