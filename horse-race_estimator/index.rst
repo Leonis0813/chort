@@ -3,14 +3,6 @@ Horse-Race Estimator: 競馬予測システム
 
 本書では競馬予測システムの仕様を記載する
 
-本サービスは下記のモジュール・アプリで構成される:
-
-.. toctree::
-   :maxdepth: 1
-
-   alterf/index
-   denebola/index
-
 サービス全体構成
 ----------------
 
@@ -39,3 +31,14 @@ Horse-Race Estimator: 競馬予測システム
 
 - 利用者はWebブラウザからレース情報の分析を実行する
 - レース情報は定期的にスクリプトによって収集される
+
+モジュール一覧
+--------------
+
+本サービスは下記のモジュール・アプリで構成される:
+
+.. toctree::
+   :maxdepth: 1
+
+   alterf/index
+   denebola/index
