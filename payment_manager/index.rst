@@ -1,5 +1,5 @@
-Welcome to PaymentManager's documentation!
-==========================================
+PaymentManager
+==============
 
 本書では収支情報管理サービスの仕様を記載する
 
@@ -12,7 +12,7 @@ Welcome to PaymentManager's documentation!
    adhafera/index
 
 サービス全体構成
-================
+----------------
 
 .. uml::
 

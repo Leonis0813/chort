@@ -1,5 +1,5 @@
-Welcome to FX Rate Estimator's documentation!
-=============================================
+FX Rate Estimator
+=================
 
 本書ではFXにおけるレート予測システムの仕様を記載する
 
@@ -12,7 +12,7 @@ Welcome to FX Rate Estimator's documentation!
    zosma/index
 
 サービス全体構成
-================
+----------------
 
 .. uml::
 

@@ -1,5 +1,5 @@
-Welcome to Horse-Race Estimator's documentation!
-================================================
+Horse-Race Estimator
+====================
 
 本書では競馬予測システムの仕様を記載する
 
@@ -12,7 +12,7 @@ Welcome to Horse-Race Estimator's documentation!
    denebola/index
 
 サービス全体構成
-================
+----------------
 
 .. uml::
 
