@@ -1,18 +1,10 @@
-Welcome to FX Rate Estimator's documentation!
-=============================================
+FX Rate Estimator: レート予測システム
+=====================================
 
 本書ではFXにおけるレート予測システムの仕様を記載する
 
-本サービスは下記のモジュール・アプリで構成される:
-
-.. toctree::
-   :maxdepth: 1
-
-   regulus/index
-   zosma/index
-
 サービス全体構成
-================
+----------------
 
 .. uml::
 
@@ -43,3 +35,14 @@ Welcome to FX Rate Estimator's documentation!
 
 - 利用者はWebブラウザからレート情報の分析を実行する
 - レート情報は定期的にスクリプトによって収集される
+
+モジュール一覧
+--------------
+
+本サービスは下記のモジュール・アプリで構成される:
+
+.. toctree::
+   :maxdepth: 1
+
+   regulus/index
+   zosma/index

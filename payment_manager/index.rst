@@ -1,18 +1,10 @@
-Welcome to PaymentManager's documentation!
-==========================================
+PaymentManager: 収支情報管理サービス
+====================================
 
 本書では収支情報管理サービスの仕様を記載する
 
-本サービスは下記のモジュール・アプリで構成される:
-
-.. toctree::
-   :maxdepth: 1
-
-   algieba/index
-   adhafera/index
-
 サービス全体構成
-================
+----------------
 
 .. uml::
 
@@ -48,3 +40,14 @@ Welcome to PaymentManager's documentation!
 
 - 利用者は Android アプリの登録・検索画面、Webブラウザを使って収支を管理する
 - 収支情報は全てサーバー内で一括管理される
+
+モジュール一覧
+--------------
+
+本サービスは下記のモジュール・アプリで構成される:
+
+.. toctree::
+   :maxdepth: 1
+
+   algieba/index
+   adhafera/index
