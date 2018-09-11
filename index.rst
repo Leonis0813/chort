@@ -24,6 +24,7 @@ Welcome to Leonis's documentation!
   - ログインが成功すると以下のいずれかのページに遷移する
 
     リダイレクトURLが設定されている場合: リダイレクト先のページ
+
     リダイレクトURLが設定されていない場合: :ref:`ui-portal`
 
 .. _ui-portal:
