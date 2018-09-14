@@ -13,7 +13,6 @@ aggregate <-- Feature
 
 loop
   autonumber resume
-  create Feature
   aggregate -> Feature : new
 
   aggregate -> Race : find
