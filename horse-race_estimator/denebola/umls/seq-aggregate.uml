@@ -13,8 +13,6 @@ aggregate <-- Feature
 
 loop
   autonumber resume
-  aggregate -> Feature : new
-
   aggregate -> Race : find
 
   autonumber stop
@@ -27,11 +25,11 @@ loop
   aggregate <-- Entry
 
   autonumber resume
-  aggregate -> Result : find
+  aggregate -> Result : find_by
 
   autonumber stop
   aggregate <-- Result
 
   autonumber resume
-  aggregate -> Feature : save!
+  aggregate -> Feature : create!
 end
