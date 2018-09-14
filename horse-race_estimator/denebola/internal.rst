@@ -79,16 +79,16 @@
 
 .. uml:: umls/seq-aggregate.uml
 
-1. MysqlClientのselectメソッドを実行してレース情報登録後の状態のIDを取得する
-2. MysqlClientのselectメソッドを実行して素性作成済みのレース情報のIDを取得する
+1. Raceオブジェクトのpluckメソッドを実行してレース情報登録後の状態のIDを取得する
+2. Featureオブジェクトのpluckメソッドを実行して素性作成済みのレース情報のIDを取得する
+
+シーケンス1, 2で取得したIDの差分だけ以下を繰り返す
+
 3. Featureオブジェクトを作成する
-4. FeatureオブジェクトをDBに登録する
-5. Raceオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース情報を取得する
-6. Featureオブジェクトのupdate!メソッドを実行して素性を更新する
-7. Entryオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するエントリー情報を取得する
-8. Featureオブジェクトのupdate!メソッドを実行して素性を更新する
-9. Resultオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース結果情報を取得する
-10. Featureオブジェクトのupdate!メソッドを実行して素性を更新する
+4. Raceオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース情報を取得する
+5. Entryオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するエントリー情報を取得する
+6. Resultオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース結果情報を取得する
+7. 取得した全ての情報を設定してFeatureオブジェクトをDBに登録する
 
 .. _den-int-sch:
 
