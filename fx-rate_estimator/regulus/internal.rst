@@ -40,31 +40,33 @@ MVCモデルを利用する
 シーケンス
 ----------
 
-- :ref:`reg-int-seq-analyze`
-- :ref:`reg-int-seq-read-job`
+- :ref:`reg-int-seq-execute-analysis`
+- :ref:`reg-int-seq-show-analyses`
 
-.. _reg-int-seq-analyze:
+.. _reg-int-seq-execute-analysis:
 
 過去のレースを分析する
 ^^^^^^^^^^^^^^^^^^^^^^
 
 *シーケンス図*
 
-.. uml:: umls/seq-analyze.uml
+.. uml:: umls/seq-execute-analysis.uml
 
 1. 利用者がパラメーターを入力して実行ボタンを押下する
-2. AnalysisViewがAnalysesControllerのlearnメソッドを実行する
-3. AnalysesControllerが非同期でAnalysisJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
-4. AnalysisJobが分析を完了させた後，AnalysisMailerのfinishedを実行して利用者にメールを送信する
+2. AnalysisViewがAnalysesControllerのexecuteメソッドを実行する
+3. AnalysesControllerがAnalysisを生成してジョブ情報を保存する
+4. AnalysesControllerが非同期でAnalysisJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
+5. 分析が完了したらAnalysisJobがAnalysisのstate属性をcompletedに更新する
+6. AnalysisMailerのfinishedを実行して利用者にメールを送信する
 
-.. _reg-int-seq-read-job:
+.. _reg-int-seq-show-analyses:
 
 ジョブ情報を確認する
 ^^^^^^^^^^^^^^^^^^^^
 
 *シーケンス図*
 
-.. uml:: umls/seq-read-job.uml
+.. uml:: umls/seq-show-analyses.uml
 
 1. 利用者が分析画面を開く
 2. AnalysisViewがAnalysesControllerのmanageメソッドを実行する
