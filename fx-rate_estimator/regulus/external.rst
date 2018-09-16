@@ -51,12 +51,14 @@
 
   .. image:: images/analysis_calendar.png
      :alt: カレンダー
+     :scale: 35
 
   - 実行ボタンを押下すると分析が開始される
   - 入力フォームの値に不正なものが含まれている場合はエラーダイアログが表示される
 
   .. image:: images/analysis_failure.png
      :alt: エラーダイアログ
+     :scale: 35
 
   - 分析が終了すると登録されているメールアドレスに通知される
 
