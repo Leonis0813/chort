@@ -5,24 +5,28 @@ class AnalysisMailer
 class Analysis
 
 class AnalysesController {
-  + learn(num_data : Integer, interval : Integer)
+  + execute(from : String, to : String, batch_size : Integer)
 }
 
 class AnalysisJob {
-  + perform(num_data : Integer, interval : Integer)
+  + perform(analysis_id : Integer)
 }
 
 class AnalysisMailer {
-  + finished(is_success : Boolean)
+  + finished(analysis : Analysis, is_success : Boolean)
 }
 
 class Analysis {
   - id : int
-  - num_data : int
-  - interval : int
+  - from : Datetime
+  - to : Datetime
+  - batch_size : int
   - created_at : Datetime
+  - updated_at : Datetime
   - state : String
 }
+
+ブラウザ -right- AnalysisView
 
 AnalysisView -right- AnalysesController
 AnalysesController -> AnalysisJob
