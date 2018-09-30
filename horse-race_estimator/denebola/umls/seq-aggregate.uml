@@ -1,43 +1,35 @@
 autonumber
 
-aggregate -> MysqlClient : select
+aggregate -> Race : pluck
 
 autonumber stop
-aggregate <-- MysqlClient
+aggregate <-- Race
 
 autonumber resume
-aggregate -> MysqlClient : select
+aggregate -> Feature : pluck
 
 autonumber stop
-aggregate <-- MysqlClient
+aggregate <-- Feature
 
 loop
   autonumber resume
-  create Feature
-  aggregate -> Feature : new
-  aggregate -> Feature : save!
-end
-
-loop
   aggregate -> Race : find
 
   autonumber stop
   aggregate <-- Race
 
   autonumber resume
-  aggregate -> Feature : update!
   aggregate -> Entry : find
 
   autonumber stop
   aggregate <-- Entry
 
   autonumber resume
-  aggregate -> Feature : update!
-  aggregate -> Result : find
+  aggregate -> Result : find_by
 
   autonumber stop
   aggregate <-- Result
 
   autonumber resume
-  aggregate -> Feature : update!
+  aggregate -> Feature : create!
 end

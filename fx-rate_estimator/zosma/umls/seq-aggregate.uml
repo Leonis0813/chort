@@ -1,7 +1,0 @@
-autonumber
-
-loop 1分ごとに1440分前まで繰り返す
-  loop ペア数分繰り返す
-    aggregate -> MysqlClient : execute_query
-  end
-end

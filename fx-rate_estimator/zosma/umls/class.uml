@@ -1,21 +1,6 @@
-class Rate
-
 class Rate {
   - time : Datetime
   - pair : String
   - bid : double
   - ask : double
 }
-
-class CandleStick {
-  - from : Datetime
-  - to : Datetime
-  - pair : String
-  - interval : String
-  - open : double
-  - close : double
-  - high : double
-  - low : double
-}
-
-Rate "1..*" -- "1..*" CandleStick

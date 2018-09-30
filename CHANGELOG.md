@@ -1,3 +1,22 @@
+# 2018/09/14
+- [Denebola] update version to 1.0.3
+
+# 2018/09/08
+- [Algieba] update version to 3.4.0
+
+# 2018/08/22
+- [Zosma] create doc
+
+# 2018/08/11
+- [Alterf] update version to 3.3.0
+- [Denebola] update version to 1.0.0
+
+# 2018/08/06
+- [Regulus] update version to 3.1.0
+
+# 2018/08/04
+- [Alterf] update version to 3.2.0
+
 # 2018/06/25
 - [Alterf] update version to 3.1.0
 

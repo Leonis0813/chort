@@ -45,14 +45,41 @@
 
 .. uml:: umls/seq-collect.uml
 
+指定された期間だけ1〜8を繰り返す
+
 1. HTTPClientのgetメソッドを実行してレース一覧を取得する
+
+取得したレース情報分2〜8を繰り返す
+
 2. HTTPClientのgetメソッドを実行してレース情報を取得する
 3. Raceオブジェクトを作成する
+
+レースのエントリー数分4, 5を繰り返す
+
 4. Entryオブジェクトを作成する
 5. Resultオブジェクトを作成する
+
 6. RaceオブジェクトをDBに保存する
+
+レースのエントリー数分7, 8を繰り返す
+
 7. EntryオブジェクトをDBに保存する
 8. ResultオブジェクトをDBに保存する
+
+- 収集開始日と終了日を指定可能
+
+  - 日付はyyyy-mm-ddの形式で指定する
+
+- 指定がない場合は以下に従う
+
+  - 収集開始日: 実行した日の1週間前
+  - 収集終了日: 実行した日
+
+- 実行例
+
+  .. code-block:: none
+
+     bundle exec ruby collect.rb --from=2018-01-01 --to=2018-01-31
 
 .. _den-int-seq-aggregate:
 
@@ -63,16 +90,15 @@
 
 .. uml:: umls/seq-aggregate.uml
 
-1. MysqlClientのselectメソッドを実行してレース情報登録後の状態のIDを取得する
-2. MysqlClientのselectメソッドを実行して素性作成済みのレース情報のIDを取得する
-3. Featureオブジェクトを作成する
-4. FeatureオブジェクトをDBに登録する
-5. Raceオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース情報を取得する
-6. Featureオブジェクトのupdate!メソッドを実行して素性を更新する
-7. Entryオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するエントリー情報を取得する
-8. Featureオブジェクトのupdate!メソッドを実行して素性を更新する
-9. Resultオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース結果情報を取得する
-10. Featureオブジェクトのupdate!メソッドを実行して素性を更新する
+1. Raceオブジェクトのpluckメソッドを実行してレース情報登録後の状態のIDを取得する
+2. Featureオブジェクトのpluckメソッドを実行して素性作成済みのレース情報のIDを取得する
+
+シーケンス1, 2で取得したIDの差分だけ以下を繰り返す
+
+3. Raceオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース情報を取得する
+4. Entryオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するエントリー情報を取得する
+5. Resultオブジェクトのfind_byメソッドを実行してFeatureオブジェクトのIDと一致するレース結果情報を取得する
+6. 取得した全ての情報を設定してFeatureオブジェクトをDBに登録する
 
 .. _den-int-sch:
 
