@@ -1,3 +1,6 @@
+# 2018/10/01
+- [Alterf] update version to 3.4.0
+
 # 2018/09/14
 - [Denebola] update version to 1.0.3
 
