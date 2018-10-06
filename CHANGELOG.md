@@ -1,3 +1,6 @@
+# 2018/10/05
+- [Algieba] update version to 3.5.0
+
 # 2018/10/01
 - [Alterf] update version to 3.4.0
 
