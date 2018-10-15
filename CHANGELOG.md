@@ -1,3 +1,6 @@
+# 2018/10/15
+- [Regulus] update version to 3.2.0
+
 # 2018/10/05
 - [Algieba] update version to 3.5.0
 
