@@ -25,16 +25,17 @@
 シーケンス
 ----------
 
-- :ref:`zos-int-seq-import`
+- :ref:`zos-int-seq-import-rates`
+- :ref:`zos-int-seq-import-candle-sticks`
 
-.. _zos-int-seq-import:
+.. _zos-int-seq-import-rates:
 
-レートを取得する
+レートを収集する
 ^^^^^^^^^^^^^^^^
 
 *シーケンス図*
 
-.. uml:: umls/seq-import.uml
+.. uml:: umls/seq-import-rates.uml
 
 1. 外部ツールからレートが書かれたファイルを取得する
 
@@ -53,12 +54,49 @@
 
    - 1日分の全てのペアのレートを日時の順番で1ファイルに出力する
 
+.. _zos-int-seq-import-candle-sticks:
+
+ローソク足を収集する
+^^^^^^^^^^^^^^^^^^^^
+
+*シーケンス図*
+
+.. uml:: umls/seq-import-candle-sticks.uml
+
+1. 外部ツールからローソク足情報が書かれたファイルを取得する
+
+   - 外部ツールではローソク足情報として1分ごとに以下の情報が出力されている
+
+     - 開始日時
+     - 終了日時
+     - 期間
+     - 始値
+     - 終値
+     - 高値
+     - 安値
+
+   - 1行に1レートが日時の順番で記載されている
+   - ファイルは通貨ペアごとに出力されている
+
+取得したファイル数分，2, 3を繰り返す
+
+2. ファイルに記載されているローソク足情報を成形して一時ファイルに書き込む
+3. 書き込んだ一時ファイルをDBにインポートする
+4. DBから日時を指定してローソク足を取得する
+
+ローソク足が存在していれば5を実行する
+
+5. DBに登録したローソク足をファイルに出力する
+
+   - 1日分の全てのペアのローソク足を日時の順番で1ファイルに出力する
+
 .. _zos-int-sch:
 
 スキーマ定義
 ------------
 
 - :ref:`zos-int-sch-rates`
+- :ref:`zos-int-sch-candle-sticks`
 
 .. _zos-int-sch-rates:
 
@@ -71,8 +109,33 @@ ratesテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 10, 10, 20, 20, 10
 
-   "id", "INTEGER", "レートのID", "◯", "◯"
-   "time", "DATETIME", "レートが変化した日時",, "◯"
-   "pair", "STRING", "レートのペア",, "◯"
-   "bid", "FLOAT", "売値",, "◯"
-   "ask", "FLOAT", "買値",, "◯"
+   "id", "INTEGER", "レートのID", "○", "○"
+   "time", "DATETIME", "レートが変化した日時",,"○"
+   "pair", "STRING", "レートのペア",,"○"
+   "bid", "FLOAT", "売値",,"○"
+   "ask", "FLOAT", "買値",,"○"
+   "created_at", "DATETIME", "作成日時",,"○"
+   "updated_at", "DATETIME", "更新日時",,"○"
+
+.. _zos-int-sch-candle-sticks:
+
+candle_sticksテーブル
+^^^^^^^^^^^^^^^^^^^^^
+
+ローソク足を登録するcandle_sticksテーブルを定義する
+
+.. csv-table::
+   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
+   :widths: 10, 10, 20, 20, 10
+
+   "id", "INTEGER", "レートのID", "○", "○"
+   "from", "DATETIME", "ローソク足の開始日時",, "○"
+   "to", "DATETIME", "ローソク足の終了日時",, "○"
+   "pair", "STRING", "レートのペア",, "○"
+   "interval", "STRING", "期間を示すID",, "○"
+   "open", "FLOAT", "始値",, "○"
+   "close", "FLOAT", "終値",, "○"
+   "high", "FLOAT", "高値",, "○"
+   "low", "FLOAT", "安値",, "○"
+   "created_at", "DATETIME", "作成日時",,"○"
+   "updated_at", "DATETIME", "更新日時",,"○"

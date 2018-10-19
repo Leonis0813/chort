@@ -13,10 +13,10 @@
 
 本システムでは以下のリソースを扱う
 
-- :ref:`zos-ext-resource-rate`
-- :ref:`zos-ext-resource-candle-stick`
+- :ref:`zos-ext-resource-rates`
+- :ref:`zos-ext-resource-candle-sticks`
 
-.. _zos-ext-resource-rate`:
+.. _zos-ext-resource-rates`:
 
 レート
 ^^^^^^
@@ -32,7 +32,7 @@ FXにおけるレート値を表す
    "買値", "数値", "通貨を買う時の値段", "0より大きい小数値",
    "売値", "数値", "通貨を売る時の値段", "0より大きい小数値",
 
-.. _zos-ext-resource-candle-stick`:
+.. _zos-ext-resource-candle-sticks`:
 
 ローソク足
 ^^^^^^^^^^
@@ -59,19 +59,19 @@ FXにおけるレート値を表す
 
 本システムは以下の機能を備えている
 
-- :ref:`zos-ext-api-import-rate`
-- :ref:`zos-ext-api-import-candle-stick`
+- :ref:`zos-ext-api-import-rates`
+- :ref:`zos-ext-api-import-candle-sticks`
 
-.. _zos-ext-api-import-rate:
+.. _zos-ext-api-import-rates:
 
 レートを収集する
 ^^^^^^^^^^^^^^^^
 
-外部ツールからレート情報を収集し，データベースに :ref:`zos-ext-resource-rate` を登録する．入出力はない
+外部ツールからレート情報を収集し，データベースに :ref:`zos-ext-resource-rates` を登録する．入出力はない
 
-.. _zos-ext-api-import-candle-stick:
+.. _zos-ext-api-import-candle-sticks:
 
 ローソク足を収集する
 ^^^^^^^^^^^^^^^^^^^^
 
-外部ツールからローソク足情報を収集し，データベースに :ref:`zos-ext-resource-candle-stick` を登録する．入出力はない
+外部ツールからローソク足情報を収集し，データベースに :ref:`zos-ext-resource-candle-sticks` を登録する．入出力はない
