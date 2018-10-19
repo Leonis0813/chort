@@ -3,8 +3,8 @@
 
 本システムは以下の機能を提供する
 
-- :ref:`zos-req-collect-rates`
-- :ref:`zos-req-collect-candle-sticks`
+- :ref:`zos-req-import-rates`
+- :ref:`zos-req-import-candle-sticks`
 
 *ユースケース図*
 
@@ -23,7 +23,7 @@
 2. システムはレートを取得する
 3. システムは取得したレートをデータベースに保存する
 
-.. _zos-req-collect-candle-sticks:
+.. _zos-req-import-candle-sticks:
 
 ローソク足を収集する
 --------------------
