@@ -16,7 +16,7 @@
 - :ref:`zos-ext-resource-rates`
 - :ref:`zos-ext-resource-candle-sticks`
 
-.. _zos-ext-resource-rates`:
+.. _zos-ext-resource-rates:
 
 レート
 ^^^^^^
@@ -32,7 +32,7 @@ FXにおけるレート値を表す
    "買値", "数値", "通貨を買う時の値段", "0より大きい小数値",
    "売値", "数値", "通貨を売る時の値段", "0より大きい小数値",
 
-.. _zos-ext-resource-candle-sticks`:
+.. _zos-ext-resource-candle-sticks:
 
 ローソク足
 ^^^^^^^^^^
