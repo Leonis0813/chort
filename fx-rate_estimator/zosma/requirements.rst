@@ -3,14 +3,14 @@
 
 本システムは以下の機能を提供する
 
-- :ref:`zos-req-collect-rate`
-- :ref:`zos-req-collect-candle-stick`
+- :ref:`zos-req-collect-rates`
+- :ref:`zos-req-collect-candle-sticks`
 
 *ユースケース図*
 
 .. uml:: umls/usecase.uml
 
-.. _zos-req-import:
+.. _zos-req-import-rates:
 
 レートを収集する
 ----------------
@@ -23,7 +23,7 @@
 2. システムはレートを取得する
 3. システムは取得したレートをデータベースに保存する
 
-.. _zos-req-collect-candle-stick:
+.. _zos-req-collect-candle-sticks:
 
 ローソク足を収集する
 --------------------
