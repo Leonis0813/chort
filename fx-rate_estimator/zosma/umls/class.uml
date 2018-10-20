@@ -9,7 +9,7 @@ class CandleStick {
   - from : Datetime
   - to : Datetime
   - pair : String
-  - interval : String
+  - period : String
   - open : Float
   - close : Float
   - high : Float

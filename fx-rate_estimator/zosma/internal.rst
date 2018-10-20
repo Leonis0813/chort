@@ -118,8 +118,6 @@ ratesテーブル
    "pair", "STRING", "レートのペア",,"○"
    "bid", "FLOAT", "売値",,"○"
    "ask", "FLOAT", "買値",,"○"
-   "created_at", "DATETIME", "作成日時",,"○"
-   "updated_at", "DATETIME", "更新日時",,"○"
 
 .. _zos-int-sch-candle-sticks:
 
@@ -136,7 +134,7 @@ candle_sticksテーブル
    "from", "DATETIME", "ローソク足の開始日時",, "○"
    "to", "DATETIME", "ローソク足の終了日時",, "○"
    "pair", "STRING", "レートのペア",, "○"
-   "interval", "STRING", "期間を示すID",, "○"
+   "period", "STRING", "期間を示すID",, "○"
    "open", "FLOAT", "始値",, "○"
    "close", "FLOAT", "終値",, "○"
    "high", "FLOAT", "高値",, "○"
