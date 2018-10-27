@@ -1,0 +1,17 @@
+autonumber
+
+import -> import : Dir[]
+
+loop ファイル数分繰り返す
+  import -> import : ファイル書き込み
+  import -> ActiveRecord : execute
+end
+
+import -> CandleStick : where
+
+autonumber stop
+import <-- CandleStick : ローソク足
+
+alt ローソク足が存在している
+  import -> import : ファイル書き込み
+end
