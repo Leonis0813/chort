@@ -1,3 +1,7 @@
+# 2018/10/27
+- [Zosma] update version to 2.0.0
+- [Zosma] update version to 2.0.1
+
 # 2018/10/15
 - [Regulus] update version to 3.2.0
 
