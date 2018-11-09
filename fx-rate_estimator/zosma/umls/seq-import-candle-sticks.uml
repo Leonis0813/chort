@@ -1,17 +1,25 @@
 autonumber
 
-import -> import : Dir[]
-
-loop ファイル数分繰り返す
-  import -> import : ファイル書き込み
-  import -> ActiveRecord : execute
+loop for each month
+  alt ファイルが存在する
+    import/candle_sticks -> Archive::Tar::Minitar : unpack
+  end
 end
 
-import -> CandleStick : where
+loop for each date
+  import/candle_sticks -> import/candle_sticks : Dir[]
 
-autonumber stop
-import <-- CandleStick : ローソク足
+  loop ファイル数分繰り返す
+    import/candle_sticks -> import/candle_sticks : ファイル書き込み
+    import/candle_sticks -> ActiveRecord : execute
+  end
 
-alt ローソク足が存在している
-  import -> import : ファイル書き込み
+  import/candle_sticks -> CandleStick : where
+
+  autonumber stop
+  import/candle_sticks <-- CandleStick : ローソク足
+
+  alt ローソク足が存在している かつ バックアップファイルでない
+    import/candle_sticks -> import/candle_sticks : ファイル書き込み
+  end
 end
