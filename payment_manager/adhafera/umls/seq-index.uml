@@ -25,21 +25,21 @@ activate MainActivity
   deactivate HTTPClient
 
   destroy HTTPClient
+
+  autonumber resume
+  MainActivity -> IndexView : setCategories
+
+  activate IndexView
+    IndexView -> CategoryView : setCategories
+
+    activate CategoryView
+      autonumber stop
+      CategoryView --> IndexView
+    deactivate CategoryView
+
+    IndexView --> MainActivity
+  deactivate IndexView
 deactivate MainActivity
-
-autonumber resume
-MainActivity -> IndexView : setCategories
-
-activate IndexView
-  IndexView -> CategoryView : setCategories
-
-  activate CategoryView
-    autonumber stop
-    CategoryView --> IndexView
-  deactivate CategoryView
-
-  IndexView --> MainActivity
-deactivate IndexView
 
 autonumber resume
 利用者 -> IndexView : onClick
@@ -136,3 +136,51 @@ activate IndexView
 deactivate IndexView
 
 MainActivity --> 利用者
+
+autonumber resume
+利用者 -> IndexView : onClick
+
+activate IndexView
+  IndexView -> MainActivity : searchPayments
+
+  activate MainActivity
+    create HTTPClient
+    MainActivity -> HTTPClient : new
+
+    activate HTTPClient
+      HTTPClient -> HTTPClient : credential
+
+      autonumber stop
+      HTTPClient --> MainActivity
+
+      autonumber resume
+      MainActivity ->> HTTPClient : sendRequest
+
+      autonumber stop
+      HTTPClient --> MainActivity
+    deactivate HTTPClient
+
+    destroy HTTPClient
+
+    autonumber resume
+    MainActivity -> IndexView : addResults
+
+    autonumber stop
+    IndexView --> MainActivity
+
+    autonumber resume
+    MainActivity -> IndexView : getCurrentPage
+
+    autonumber stop
+    IndexView --> MainActivity
+
+    autonumber resume
+    MainActivity -> IndexView : setCurrentPage
+
+    autonumber stop
+    IndexView --> MainActivity
+    MainActivity --> IndexView
+  deactivate MainActivity
+
+  IndexView --> MainActivity
+deactivate IndexView
