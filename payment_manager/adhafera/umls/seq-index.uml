@@ -4,10 +4,10 @@ actor 利用者
 
 利用者 -> MainActivity : onOptionsItemSelected
 
-MainActivity -> MainActivity : setContentView
-MainActivity -> MainActivity : getCategories
-
 activate MainActivity
+  MainActivity -> MainActivity : setContentView
+  MainActivity -> MainActivity : getCategories
+
   create HTTPClient
   MainActivity -> HTTPClient : new
 
