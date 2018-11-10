@@ -2,6 +2,7 @@ class MainActivity {
   + {static} INPUT_SIZE : int = 5
   - {static} LOADER_ID : int = 0
   + registPayment(inputs : String[]) : void
+  + searchPayments(condition : HashMap) : void
   + noticeError(errorMessage : String, ids : ArrayList) : void
   + noticeResult(result : String) : void
   + settle() : void
@@ -28,7 +29,7 @@ class RegistrationView {
   + resetFields() : void
   + resetErrorCheckers() : void
   + setCategories(categories : String[]) : void
-  + getLabel(id ;int) : String
+  + getLabel(id : int) : String
   + onClick(v : View) : void
 }
 
@@ -39,6 +40,27 @@ class InputView {
   + InputView()
   + {abstract} setInputText(text : String) : void
   + {abstract} getInputText() : String
+}
+
+class IndexView {
+  - dateBefore : DateView
+  - dateAfter: DateView
+  - content : ContentView
+  - contentType : Spinner
+  - category : CategoryView
+  - priceUpper : PriceView
+  - priceLower : PriceView
+  - submit : Button
+  - currentPage : int
+  - results : ArrayList<PaymentView>
+  - next : Button
+  - content : Context
+  + IndexView(context : Context)
+  + showMessage(message : String) : void
+  + showWrongInput(ids : ArrayList<Integer>) : void
+  + setCategories(categories : String[]) : void
+  + addResults(payments : ArrayList<Payment>) : void
+  + onClick(v : View) : void
 }
 
 class DateView {
@@ -75,6 +97,21 @@ class PriceView {
   + getInputText() : String
 }
 
+class PaymentView {
+  - dateView : TextView
+  - contentView : TextView
+  - categoryView : TextView
+  - priceView : TextView
+  + PaymentView(payment : Payment)
+}
+
+class Payment {
+  - date : Date
+  - content : String
+  - categories : String[]
+  - price : Integer
+}
+
 class InputChecker {
   - datePattern : Pattern
   - pricePattern : Pattern
@@ -98,6 +135,7 @@ class HTTPClient {
 }
 
 MainActivity "1" --> "1" RegistrationView
+MainActivity "1" --> "1" IndexView
 MainActivity "1" --> "1" InputChecker
 MainActivity "1" --> "1" HTTPClient
 RegistrationView "1" *-- "4" InputView
@@ -105,3 +143,9 @@ InputView <|-- DateView
 InputView <|-- ContentView
 InputView <|-- CategoryView
 InputView <|-- PriceView
+IndexView "1" *-- "2" DateView
+IndexView "1" *-- "1" ContentView
+IndexView "1" *-- "1" CategoryView
+IndexView "1" *-- "2" PriceView
+IndexView "1" *-- "*" PaymentView
+PaymentView "1" --> "1" Payment
