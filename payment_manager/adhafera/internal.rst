@@ -4,7 +4,7 @@
 設計仕様では以下を定義する
 
 - :ref:`adh-int-class`
-- :ref:`adh-int-sequence`
+- :ref:`adh-int-seq`
 
 .. _adh-int-class:
 
@@ -70,17 +70,20 @@
     - 収支の取得
     - カテゴリ情報の取得
 
-.. _adh-int-sequence:
+.. _adh-int-seq:
 
 シーケンス
 ----------
 
-- `収支を登録する <http://localhost/adhafera_docs/design_spec.html#id4>`__
+- :ref:`adh-int-seq-registration`
+- :ref:`adh-int-seq-idnex`
+
+.. _adh-int-seq-registration:
 
 収支を登録する
 ^^^^^^^^^^^^^^
 
-.. uml:: umls/sequence-create.uml
+.. uml:: umls/seq-registration.uml
 
 1. 利用者がアプリを起動するとonCreateメソッドが実行される
 2. settleメソッドを実行して収支を取得する
@@ -116,3 +119,10 @@
 32. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
 33. sendRequestメソッドを実行してWebAPIを実行し，収支を取得する
 34. showSettlementメソッドを実行して今月の収支を表示する
+
+.. _adh-int-seq-index:
+
+収支を検索する
+^^^^^^^^^^^^^^
+
+.. uml:: umls/seq-index.uml
