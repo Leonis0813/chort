@@ -118,6 +118,17 @@ activate IndexView
 
     destroy HTTPClient
 
+    autonumber resume
+    MainActivity -> IndexView : addResults
+
+    autonumber stop
+    IndexView --> MainActivity
+
+    autonumber resume
+    MainActivity -> IndexView : setCurrentPage
+
+    autonumber stop
+    IndexView --> MainActivity
     MainActivity --> IndexView
   deactivate MainActivity
 

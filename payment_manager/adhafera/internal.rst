@@ -76,7 +76,7 @@
 ----------
 
 - :ref:`adh-int-seq-registration`
-- :ref:`adh-int-seq-idnex`
+- :ref:`adh-int-seq-index`
 
 .. _adh-int-seq-registration:
 
@@ -126,3 +126,24 @@
 ^^^^^^^^^^^^^^
 
 .. uml:: umls/seq-index.uml
+
+1. 利用者がメニューから「検索」を選択するとonOptionsItemSelectedメソッドが実行される
+2. アプリはsetContentViewメソッドを実行して検索画面に切り替える
+3. アプリはgetCategoriesメソッドを実行してカテゴリ一覧を取得する
+4. カテゴリ情報を取得するためにHTTPClientクラスのインスタンスを作成する
+5. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
+6. sendRequestメソッドを実行してWebAPIを実行し，カテゴリ情報を取得する
+7. setCategoriesメソッドを実行してCategoryViewにカテゴリ情報をセットする
+8. setCategoriesメソッドを実行してダイアログにカテゴリ名をセットする
+9. 利用者が検索ボタンを押下するとonClickメソッドが実行される
+10. searchPaymentsメソッドを実行して収支情報を検索する
+11. heckDateメソッドを実行して入力された日付のフォーマットをチェックする
+12. 日付が不正な場合は，showMessageメソッドを実行してエラーメッセージを表示する
+13. さらにshowWrontInputメソッドを実行して日付入力項目にチェックマークを付ける
+14. 日付のフォーマットが正しい場合は，checkPriceメソッドを実行して入力された金額をチェックする
+15. 金額が不正な場合は，showMessageメソッドを実行してエラーメッセージを表示する
+16. さらにshowWrontInputメソッドを実行して金額入力項目にチェックマークを付ける
+17. 金額が正しい場合は，収支情報を検索するためのHTTPClientクラスのインスタンスを作成する
+18. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
+19. sendRequestメソッドを実行してWebAPIを実行し，収支情報を検索する
+20. showMessageメソッドを実行して収支情報が登録された旨を通知する
