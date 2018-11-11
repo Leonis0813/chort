@@ -26,10 +26,15 @@
    :response JSONObject:
       - :ref:`alg-ext-resource-payment`
 
+        - id
         - payment_type
         - date
         - content
-        - category
+        - categories - :ref:`alg-ext-resource-category` の配列
+
+          - name
+          - description
+
         - price
 
    :status 201:
@@ -62,10 +67,16 @@
       Content-Type: application/json
 
       {
+        "id": 1,
         "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
-        "category": "給料",
+        "categories": [
+          {
+            "name": "給料",
+            "description": nil
+          }
+        ],
         "price": 200000
       }
 
@@ -79,10 +90,15 @@
    :response JSONObject:
       - :ref:`alg-ext-resource-payment`
 
+        - id
         - payment_type
         - date
         - content
-        - category
+        - categories - :ref:`alg-ext-resource-category` の配列
+
+          - name
+          - description
+
         - price
 
    :status 200:
@@ -106,10 +122,16 @@
       Content-Type: application/json
 
       {
+        "id": 1,
         "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
-        "category": "給料",
+        "categories": [
+          {
+            "name": "給料",
+            "description": nil
+          }
+        ],
         "price": 200000
       }
 
@@ -138,12 +160,17 @@
         - 指定した数の収支情報が登録されていない場合
 
    :responseArray JSONObject:
-      - :ref:`alg-ext-resource-payment`
+      - :ref:`alg-ext-resource-payment` の配列
 
+        - id
         - payment_type
         - date
         - content
-        - category
+        - categories - :ref:`alg-ext-resource-category` の配列
+
+          - name
+          - description
+
         - price
 
    :status 200:
@@ -168,10 +195,16 @@
 
       [
         {
+          "id": 1,
           "payment_type": "income",
           "date": "1000-01-01",
           "content": "給料",
-          "category": "給料",
+          "categories": [
+            {
+              "name": "給料",
+              "description": nil
+            }
+          ],
           "price": 200000
         }
       ]
@@ -189,10 +222,15 @@
    :response JSONObject:
       - :ref:`alg-ext-resource-payment`
 
+        - id
         - payment_type
         - date
         - content
-        - category
+        - categories - :ref:`alg-ext-resource-category` の配列
+
+          - name
+          - description
+
         - price
 
    :status 201:
@@ -224,10 +262,16 @@
       Content-Type: application/json
 
       {
+        "id": 1,
         "payment_type": "income",
         "date": "1000-01-02",
         "content": "給料",
-        "category": "給料",
+        "categories": [
+          {
+            "name": "給料",
+            "description": nil
+          }
+        ],
         "price": 200000
       }
 
