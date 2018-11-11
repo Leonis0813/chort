@@ -76,7 +76,7 @@
           {
             "id": 1,
             "name": "給料",
-            "description": nil
+            "description": null
           }
         ],
         "price": 200000
@@ -133,7 +133,7 @@
           {
             "id": 1,
             "name": "給料",
-            "description": nil
+            "description": null
           }
         ],
         "price": 200000
@@ -208,7 +208,7 @@
             {
               "id": 1,
               "name": "給料",
-              "description": nil
+              "description": null
             }
           ],
           "price": 200000
@@ -277,7 +277,7 @@
           {
             "id": 1,
             "name": "給料",
-            "description": nil
+            "description": null
           }
         ],
         "price": 200000
