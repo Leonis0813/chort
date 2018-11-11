@@ -26,14 +26,11 @@
    :response JSONObject:
       - :ref:`alg-ext-resource-payment`
 
-        - id
         - payment_type
         - date
         - content
         - category
         - price
-        - created_at
-        - updated_at
 
    :status 201:
       - 収支の登録に成功
@@ -65,14 +62,11 @@
       Content-Type: application/json
 
       {
-        "id": 1,
         "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
         "category": "給料",
-        "price": 200000,
-        "created_at": "1000-01-01 00:00:00",
-        "updated_at": "1000-01-01 00:00:00"
+        "price": 200000
       }
 
 .. _alg-ext-api-pay-read:
@@ -85,14 +79,11 @@
    :response JSONObject:
       - :ref:`alg-ext-resource-payment`
 
-        - id
         - payment_type
         - date
         - content
         - category
         - price
-        - created_at
-        - updated_at
 
    :status 200:
       - 収支の取得に成功
@@ -115,14 +106,11 @@
       Content-Type: application/json
 
       {
-        "id": 1,
         "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
         "category": "給料",
-        "price": 200000,
-        "created_at": "1000-01-01 00:00:00",
-        "updated_at": "1000-01-01 00:00:00"
+        "price": 200000
       }
 
 .. _alg-ext-api-pay-index:
@@ -152,14 +140,11 @@
    :responseArray JSONObject:
       - :ref:`alg-ext-resource-payment`
 
-        - id
         - payment_type
         - date
         - content
         - category
         - price
-        - created_at
-        - updated_at
 
    :status 200:
       - 収支の検索に成功
@@ -183,14 +168,11 @@
 
       [
         {
-          "id": 1,
           "payment_type": "income",
           "date": "1000-01-01",
           "content": "給料",
           "category": "給料",
-          "price": 200000,
-          "created_at": "1000-01-01 00:00:00",
-          "updated_at": "1000-01-01 00:00:00"
+          "price": 200000
         }
       ]
 
@@ -207,14 +189,11 @@
    :response JSONObject:
       - :ref:`alg-ext-resource-payment`
 
-        - id
         - payment_type
         - date
         - content
         - category
         - price
-        - created_at
-        - updated_at
 
    :status 201:
       - 収支の更新に成功
@@ -245,14 +224,11 @@
       Content-Type: application/json
 
       {
-        "id": 1,
         "payment_type": "income",
         "date": "1000-01-02",
         "content": "給料",
         "category": "給料",
-        "price": 200000,
-        "created_at": "1000-01-01 00:00:00",
-        "updated_at": "1000-01-01 00:00:00"
+        "price": 200000
       }
 
 .. _alg-ext-api-pay-delete:
