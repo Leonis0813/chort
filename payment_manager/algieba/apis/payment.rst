@@ -140,6 +140,14 @@
    :query category: カテゴリが一致する収支を検索する
    :query price_upper: 指定された金額以上の収支を検索する
    :query price_lower: 指定された金額以下の収支を検索する
+   :query page: 指定したページの収支を返却する
+      - デフォルト 1
+   :query per_page: 指定した数の収支を返却する
+      - デフォルト 10
+      - 以下の場合，返却する数は指定した数よりも少なくなる可能性がある
+
+        - ``page`` パラメーターで最終ページを指定していた場合
+        - 指定した数の収支情報が登録されていない場合
 
    :responseArray JSONObject:
       - :ref:`alg-ext-resource-payment`
