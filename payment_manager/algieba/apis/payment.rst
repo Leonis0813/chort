@@ -32,6 +32,7 @@
         - content
         - categories - :ref:`alg-ext-resource-category` の配列
 
+          - id
           - name
           - description
 
@@ -73,6 +74,7 @@
         "content": "給料",
         "categories": [
           {
+            "id": 1,
             "name": "給料",
             "description": nil
           }
@@ -96,6 +98,7 @@
         - content
         - categories - :ref:`alg-ext-resource-category` の配列
 
+          - id
           - name
           - description
 
@@ -128,6 +131,7 @@
         "content": "給料",
         "categories": [
           {
+            "id": 1,
             "name": "給料",
             "description": nil
           }
@@ -168,6 +172,7 @@
         - content
         - categories - :ref:`alg-ext-resource-category` の配列
 
+          - id
           - name
           - description
 
@@ -201,6 +206,7 @@
           "content": "給料",
           "categories": [
             {
+              "id": 1,
               "name": "給料",
               "description": nil
             }
@@ -228,6 +234,7 @@
         - content
         - categories - :ref:`alg-ext-resource-category` の配列
 
+          - id
           - name
           - description
 
@@ -268,6 +275,7 @@
         "content": "給料",
         "categories": [
           {
+            "id": 1,
             "name": "給料",
             "description": nil
           }
