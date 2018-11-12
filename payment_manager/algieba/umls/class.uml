@@ -42,6 +42,8 @@ class Query {
   - category : String
   - price_upper : int
   - price_lower : int
+  - page : int
+  - per_page : int
   + date_valid?() : void
 }
 

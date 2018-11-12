@@ -30,10 +30,13 @@
         - payment_type
         - date
         - content
-        - category
+        - categories - :ref:`alg-ext-resource-category` の配列
+
+          - id
+          - name
+          - description
+
         - price
-        - created_at
-        - updated_at
 
    :status 201:
       - 収支の登録に成功
@@ -69,10 +72,14 @@
         "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
-        "category": "給料",
-        "price": 200000,
-        "created_at": "1000-01-01 00:00:00",
-        "updated_at": "1000-01-01 00:00:00"
+        "categories": [
+          {
+            "id": 1,
+            "name": "給料",
+            "description": null
+          }
+        ],
+        "price": 200000
       }
 
 .. _alg-ext-api-pay-read:
@@ -89,10 +96,13 @@
         - payment_type
         - date
         - content
-        - category
+        - categories - :ref:`alg-ext-resource-category` の配列
+
+          - id
+          - name
+          - description
+
         - price
-        - created_at
-        - updated_at
 
    :status 200:
       - 収支の取得に成功
@@ -119,10 +129,14 @@
         "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
-        "category": "給料",
-        "price": 200000,
-        "created_at": "1000-01-01 00:00:00",
-        "updated_at": "1000-01-01 00:00:00"
+        "categories": [
+          {
+            "id": 1,
+            "name": "給料",
+            "description": null
+          }
+        ],
+        "price": 200000
       }
 
 .. _alg-ext-api-pay-index:
@@ -140,18 +154,30 @@
    :query category: カテゴリが一致する収支を検索する
    :query price_upper: 指定された金額以上の収支を検索する
    :query price_lower: 指定された金額以下の収支を検索する
+   :query page: 指定したページの収支を返却する
+      - デフォルト 1
+      - 最大ページより大きい数を指定した場合は空配列を返却する
+   :query per_page: 指定した数の収支を返却する
+      - デフォルト 10
+      - 以下の場合，返却する数は指定した数よりも少なくなる可能性がある
+
+        - ``page`` パラメーターで最終ページを指定していた場合
+        - 指定した数の収支情報が登録されていない場合
 
    :responseArray JSONObject:
-      - :ref:`alg-ext-resource-payment`
+      - :ref:`alg-ext-resource-payment` の配列
 
         - id
         - payment_type
         - date
         - content
-        - category
+        - categories - :ref:`alg-ext-resource-category` の配列
+
+          - id
+          - name
+          - description
+
         - price
-        - created_at
-        - updated_at
 
    :status 200:
       - 収支の検索に成功
@@ -179,10 +205,14 @@
           "payment_type": "income",
           "date": "1000-01-01",
           "content": "給料",
-          "category": "給料",
-          "price": 200000,
-          "created_at": "1000-01-01 00:00:00",
-          "updated_at": "1000-01-01 00:00:00"
+          "categories": [
+            {
+              "id": 1,
+              "name": "給料",
+              "description": null
+            }
+          ],
+          "price": 200000
         }
       ]
 
@@ -203,10 +233,13 @@
         - payment_type
         - date
         - content
-        - category
+        - categories - :ref:`alg-ext-resource-category` の配列
+
+          - id
+          - name
+          - description
+
         - price
-        - created_at
-        - updated_at
 
    :status 201:
       - 収支の更新に成功
@@ -241,10 +274,14 @@
         "payment_type": "income",
         "date": "1000-01-02",
         "content": "給料",
-        "category": "給料",
-        "price": 200000,
-        "created_at": "1000-01-01 00:00:00",
-        "updated_at": "1000-01-01 00:00:00"
+        "categories": [
+          {
+            "id": 1,
+            "name": "給料",
+            "description": null
+          }
+        ],
+        "price": 200000
       }
 
 .. _alg-ext-api-pay-delete:

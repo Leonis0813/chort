@@ -1,3 +1,6 @@
+# 2018/11/12
+- [Algieba] update version to 3.6.0
+
 # 2018/10/29
 - [Zosma] update version to 2.1.0
 
