@@ -161,6 +161,8 @@ ratesテーブル
    "pair", "STRING", "レートのペア",,"○"
    "bid", "FLOAT", "売値",,"○"
    "ask", "FLOAT", "買値",,"○"
+   "created_at", "DATETIME", "作成日時",,"○"
+   "updated_at", "DATETIME", "更新日時",,"○"
 
 .. _zos-int-sch-candle-sticks:
 
