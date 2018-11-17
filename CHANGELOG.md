@@ -1,3 +1,6 @@
+# 2018/11/17
+- [Alterf] update version to 3.5.0
+
 # 2018/11/14
 - [Zosma] update version to 2.1.3
 
