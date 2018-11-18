@@ -73,9 +73,9 @@
 
     - 入力フォームに不正な値（文字列，負数など）を入力すると以下のダイアログを表示して入力が間違っていることを通知する
 
-    .. image:: images/analysis_failure.png
-       :alt: エラーダイアログ
-       :scale: 25
+      .. image:: images/analysis_failure.png
+         :alt: エラーダイアログ
+          :scale: 25
 
   - 分析が終了すると登録されているメールアドレスに完了を通知するメールが送信される
 
