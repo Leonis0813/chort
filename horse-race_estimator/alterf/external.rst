@@ -75,7 +75,7 @@
 
       .. image:: images/analysis_failure.png
          :alt: エラーダイアログ
-          :scale: 25
+         :scale: 25
 
   - 分析が終了すると登録されているメールアドレスに完了を通知するメールが送信される
 
