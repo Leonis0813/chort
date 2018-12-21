@@ -1,6 +1,9 @@
 # 2018/12/22
 - [Alterf] update version to 3.6.0
 
+# 2018/12/15
+- [Regulus] update version to 3.3.0
+
 # 2018/11/17
 - [Alterf] update version to 3.5.0
 
