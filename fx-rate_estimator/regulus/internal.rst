@@ -123,6 +123,8 @@ MVCモデルを利用する
 - :ref:`reg-int-sch-analyses`
 - :ref:`reg-int-sch-predictions`
 
+.. _reg-int-sch-analyses:
+
 analysesテーブル
 ^^^^^^^^^^^^^^^^
 
