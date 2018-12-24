@@ -158,6 +158,6 @@ predictionsテーブル
    "from", "DATETIME", "予測対象の開始日時",,
    "to", "DATETIME", "予測対象の終了日時",,
    "result", "STRING", "予測結果",,
-   "state", "STRING", "予測処理の状態",,
+   "state", "STRING", "予測処理の状態",, "○"
    "created_at", "DATETIME", "予測ジョブ情報の作成日時",, "○"
    "updated_at", "DATETIME", "予測ジョブ情報の更新日時",, "○"
