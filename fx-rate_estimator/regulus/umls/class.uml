@@ -5,7 +5,6 @@ class PredictionsController
 class AnalysisJob
 class PredictionJob
 class AnalysisMailer
-class PredictionMailer
 class Analysis
 class Prediction
 
@@ -27,10 +26,6 @@ class PredictionJob {
 
 class AnalysisMailer {
   + finished(analysis : Analysis, is_success : Boolean)
-}
-
-class PredictionMailer {
-  + finished(prediction : Prediction, is_success : Boolean)
 }
 
 class Analysis {
@@ -65,6 +60,5 @@ AnalysisJob "1" -- "1" Analysis
 
 PredictionView -right- PredictionsController
 PredictionsController -> PredictionJob
-PredictionJob -> PredictionMailer
 PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
