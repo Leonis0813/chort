@@ -131,6 +131,7 @@ class HTTPClient {
   - param : JSONObject
   - response : HashMap
   + HTTPClient(context : Context, inputs : String[])
+  + HTTPClient(context : Context, query : HashMap)
   + HTTPClient(context : Context, keyword : String)
   + HTTPClient(context : Context)
   + sendRequest() : HashMap
