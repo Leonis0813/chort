@@ -1,15 +1,27 @@
 class AnalysisView <<Boundary>>
+class PredictionView <<Boundary>>
 class AnalysesController
+class PredictionsController
 class AnalysisJob
+class PredictionJob
 class AnalysisMailer
 class Analysis
+class Prediction
 
 class AnalysesController {
   + execute(from : String, to : String, batch_size : Integer)
 }
 
+class PredictionsController {
+  + execute(model : File)
+}
+
 class AnalysisJob {
   + perform(analysis_id : Integer)
+}
+
+class PredictionJob {
+  + perform(prediction_id: Integer)
 }
 
 class AnalysisMailer {
@@ -26,10 +38,27 @@ class Analysis {
   - state : String
 }
 
+class Prediction {
+  - id : int
+  - model : String
+  - from : Datetime
+  - to : Datetime
+  - result : String
+  - state : String
+  - created_at : Datetime
+  - updated_at : Datetime
+}
+
 ブラウザ -right- AnalysisView
+ブラウザ -down- PredictionView
 
 AnalysisView -right- AnalysesController
 AnalysesController -> AnalysisJob
 AnalysisJob -> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
+
+PredictionView -right- PredictionsController
+PredictionsController -> PredictionJob
+PredictionsController "1" -- "1" Prediction
+PredictionJob "1" -- "1" Prediction
