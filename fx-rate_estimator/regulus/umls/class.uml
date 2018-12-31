@@ -1,31 +1,64 @@
 class AnalysisView <<Boundary>>
+class PredictionView <<Boundary>>
 class AnalysesController
+class PredictionsController
 class AnalysisJob
+class PredictionJob
 class AnalysisMailer
 class Analysis
+class Prediction
 
 class AnalysesController {
-  + learn(num_data : Integer, interval : Integer)
+  + execute(from : String, to : String, batch_size : Integer)
+}
+
+class PredictionsController {
+  + execute(model : File)
 }
 
 class AnalysisJob {
-  + perform(num_data : Integer, interval : Integer)
+  + perform(analysis_id : Integer)
+}
+
+class PredictionJob {
+  + perform(prediction_id: Integer)
 }
 
 class AnalysisMailer {
-  + finished(is_success : Boolean)
+  + finished(analysis : Analysis, is_success : Boolean)
 }
 
 class Analysis {
   - id : int
-  - num_data : int
-  - interval : int
+  - from : Datetime
+  - to : Datetime
+  - batch_size : int
   - created_at : Datetime
+  - updated_at : Datetime
   - state : String
 }
+
+class Prediction {
+  - id : int
+  - model : String
+  - from : Datetime
+  - to : Datetime
+  - result : String
+  - state : String
+  - created_at : Datetime
+  - updated_at : Datetime
+}
+
+ブラウザ -right- AnalysisView
+ブラウザ -down- PredictionView
 
 AnalysisView -right- AnalysesController
 AnalysesController -> AnalysisJob
 AnalysisJob -> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
+
+PredictionView -right- PredictionsController
+PredictionsController -> PredictionJob
+PredictionsController "1" -- "1" Prediction
+PredictionJob "1" -- "1" Prediction

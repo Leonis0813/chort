@@ -17,7 +17,7 @@
       - 指定しなかった場合は全てのカテゴリを取得する
 
    :responseArray JSONObject:
-      - :ref:`alg-ext-resource-category`
+      - :ref:`alg-ext-resource-category` の配列
 
         - id
         - name

@@ -1,0 +1,25 @@
+autonumber
+
+loop for each month
+  alt ファイルが存在する
+    import/rates -> Archive::Tar::Minitar : unpack
+  end
+end
+
+loop for each date
+  import/rates -> import/rates : Dir[]
+
+  loop ファイル数分繰り返す
+    import/rates -> import/rates : ファイル書き込み
+    import/rates -> ActiveRecord : execute
+  end
+
+  import/rates -> Rate : where
+
+  autonumber stop
+  import/rates <-- Rate : レート
+
+  alt レートが存在している かつ バックアップファイルでない
+    import/rates -> import/rates : ファイル書き込み
+  end
+end

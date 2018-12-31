@@ -4,3 +4,14 @@ class Rate {
   - bid : double
   - ask : double
 }
+
+class CandleStick {
+  - from : Datetime
+  - to : Datetime
+  - pair : String
+  - period : String
+  - open : Float
+  - close : Float
+  - high : Float
+  - low : Float
+}

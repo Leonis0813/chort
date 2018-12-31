@@ -1,0 +1,19 @@
+autonumber
+
+actor 利用者
+利用者 -> PredictionView : 実行ボタン押下
+PredictionView -> PredictionsController : execute
+
+create Prediction
+PredictionsController -> Prediction : new
+PredictionsController --> PredictionJob : perform_later
+
+autonumber stop
+PredictionView <- PredictionsController
+利用者 <- PredictionView
+
+autonumber resume
+Prediction <- PredictionJob : update
+
+autonumber stop
+Prediction --> PredictionJob

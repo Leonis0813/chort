@@ -1,3 +1,37 @@
+# 2018/12/30
+- [Regulus] update version to 4.0.0
+
+# 2018/12/22
+- [Alterf] update version to 3.6.0
+
+# 2018/12/15
+- [Regulus] update version to 3.3.0
+
+# 2018/11/17
+- [Alterf] update version to 3.5.0
+
+# 2018/11/14
+- [Zosma] update version to 2.1.3
+
+# 2018/11/12
+- [Algieba] update version to 3.6.0
+
+# 2018/10/29
+- [Zosma] update version to 2.1.0
+
+# 2018/10/27
+- [Zosma] update version to 2.0.0
+- [Zosma] update version to 2.0.1
+
+# 2018/10/15
+- [Regulus] update version to 3.2.0
+
+# 2018/10/05
+- [Algieba] update version to 3.5.0
+
+# 2018/10/01
+- [Alterf] update version to 3.4.0
+
 # 2018/09/14
 - [Denebola] update version to 1.0.3
 

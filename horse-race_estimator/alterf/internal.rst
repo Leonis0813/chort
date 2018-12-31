@@ -136,11 +136,11 @@ analysesテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 10, 10, 20, 20, 10
 
-   "id", "INTEGER", "レースのID", "○", "○"
-   "num_data", "INTEGER", "学習データ数",,
+   "id", "INTEGER", "分析ジョブのID", "○", "○"
+   "num_data", "INTEGER", "学習データ数",, "○"
    "num_tree", "INTEGER", "決定木の数",,
-   "num_feature", "INTEGER", "特徴量の数",,
-   "state", "STRING", "分析の状態",,
+   "num_feature", "INTEGER", "特徴量の数",, "○"
+   "state", "STRING", "分析処理の状態",,
    "created_at", "DATETIME", "分析ジョブ情報の作成日時", "", "○"
    "updated_at", "DATETIME", "分析ジョブ情報の更新日時", "", "○"
 
@@ -155,9 +155,9 @@ predictionsテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 10, 10, 20, 20, 10
 
-   "id", "INTEGER", "レースのID", "○", "○"
+   "id", "INTEGER", "予測ジョブのID", "○", "○"
    "model", "STRING", "モデルファイル名",,
-   "test_data", "STRING", "テストデータファイル名",,
-   "state", "STRING", "分析の状態",,
-   "created_at", "DATETIME", "分析ジョブ情報の作成日時", "", "○"
-   "updated_at", "DATETIME", "分析ジョブ情報の更新日時", "", "○"
+   "test_data", "STRING", "テストデータのファイル名，またはURL",,
+   "state", "STRING", "予測処理の状態",,
+   "created_at", "DATETIME", "予測ジョブ情報の作成日時", "", "○"
+   "updated_at", "DATETIME", "予測ジョブ情報の更新日時", "", "○"
