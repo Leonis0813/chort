@@ -163,6 +163,19 @@
 
         - ``page`` パラメーターで最終ページを指定していた場合
         - 指定した数の収支情報が登録されていない場合
+   :query sort: 指定したパラメーターで並べ替えて返却する
+      - 以下を指定可能
+
+        - id
+        - date
+        - price
+      - デフォルト id
+   :query order: 指定した順番で返却する
+      - 以下を指定可能
+
+        - asc: 昇順で返却する
+        - desc: 降順で返却する
+      - デフォルト asc
 
    :responseArray JSONObject:
       - :ref:`alg-ext-resource-payment` の配列
