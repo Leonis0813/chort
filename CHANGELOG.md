@@ -1,3 +1,6 @@
+# 2019/01/06
+- [Regulus] update version to 4.1.0
+
 # 2019/01/05
 - [Algieba] update version to 3.6.5
 
