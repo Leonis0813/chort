@@ -50,14 +50,14 @@ class DateView {
   + getInputText() : String
 }
 
-class ContentView {
+class create.ContentView {
   - fieldView : EditText
   + ContentView(context : Context, attributeSet : AttributeSet)
   + setInputText(text : String) : void
   + getInputText() : String
 }
 
-class CategoryView {
+class create.CategoryView {
   - categories : String[]
   - selected : boolean[]
   - fieldView : TextView
@@ -67,7 +67,7 @@ class CategoryView {
   + setCategories(names : String[]) : void
 }
 
-class PriceView {
+class create.PriceView {
   - fieldView : EditText
   + PriceView(context : Context, attributeSet : AttributeSet)
   + setInputText(text : String) : void
@@ -88,6 +88,46 @@ class IndexView {
   + setCategories(names : String[]) : void
   + addPayments(payments : ArrayList) : void
   - fixListViewHeight(listView : ListView) : void
+}
+
+class PeriodView {
+  - dateBefore : EditText
+  - dateAfter : Edittext
+  - errorChecker : TextView
+  + PeriodView(context : Context, attributeSet : AttributeSet)
+  + getDateBefore() : String
+  + getDateAfter() : String
+  + checkError() : void
+  + uncheckError() : void
+}
+
+class index.ContentView {
+  - content : EditText
+  - contentType : Spinner
+  + {static} CONTENT_TYPE_KEYS : String[] = {"content_include", "content_equal"}
+  + ContentView(context : Context, attributeSet : AttributeSet)
+  + getContent() : String
+  + getContentType() : String
+}
+
+class index.CategoryView {
+  - categories : String[]
+  - selected : boolean[]
+  - category : TextView
+  + CategoryView(context : Context, attributeSet : AttributeSet)
+  + setCategories(names : String[]) : void
+  + getCategory() : String
+}
+
+class index.PriceView {
+  - priceUpper : EditText
+  - priceLower : EditText
+  - errorChecker : TextView
+  + PriceView(context : Context, attributeSet : AttributeSet)
+  + getPriceUpper() : String
+  + getPriceLower() : String
+  + checkError() : void
+  + uncheckError() : void
 }
 
 class PaymentListAdapter {
@@ -143,13 +183,13 @@ IndexActivity "1" --> "1" HTTPClient
 CreateView "1" *-- "1" InputView
 MainActivity <-- InputView
 InputView <|-- DateView
-InputView <|-- ContentView
-InputView <|-- CategoryView
-InputView <|-- PriceView
+InputView <|-- create.ContentView
+InputView <|-- create.CategoryView
+InputView <|-- create.PriceView
 IndexView "1" -- "1" PeriodView
-IndexView "1" -- "1" ContentView
-IndexView "1" -- "1" CategoryView
-IndexView "1" -- "1" PriceView
+IndexView "1" -- "1" index.ContentView
+IndexView "1" -- "1" index.CategoryView
+IndexView "1" -- "1" index.PriceView
 IndexView "1" -- "1" PaymentListAdapter
 IndexView "1" -- "*" Payment
 PaymentListAdapter "1" -- "*" Payment
