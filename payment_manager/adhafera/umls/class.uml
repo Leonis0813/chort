@@ -1,27 +1,30 @@
 class MainActivity {
-  + {static} INPUT_SIZE : int = 5
   - {static} LOADER_ID : int = 0
-  + registPayment(inputs : String[]) : void
-  + searchPayments(condition : HashMap) : void
+  + createPayment(inputs : String[]) : void
   + noticeError(errorMessage : String, ids : ArrayList) : void
-  + noticeResult(result : String) : void
   + settle() : void
   + getCategories() : void
 }
 
-class RegistrationView {
+class IndexActivity {
+  - {static} LOADER_ID : int = 0
+  + searchPayments(query : HashMap) : void
+  + getCategories() : void
+}
+
+class CreateView {
   + {static} INPUT_VIEW_DATE : int = 0
-  + {static} INPUT_VIEW_CONTENT : int = 1
-  + {static} INPUT_VIEW_CATEGORY : int = 2
+  - {static} INPUT_VIEW_CONTENT : int = 1
+  - {static} INPUT_VIEW_CATEGORY : int = 2
   + {static} INPUT_VIEW_PRICE : int = 3
-  + {static} INPUT_VIEW_SIZE : int = 4
-  - inputViews : InputView[]
+  - {static} INPUT_VIEW_SIZE : int = 4
+  - {static} INPUT_PAYMENT_TYPE : int = 4
+  - {static} INPUT_SIZE : int = 5
   - radioGroup : RadioGroup
   - OK : Button
   - cancel : Button
   - settleView : TextView
-  - context : Context
-  + RegistrationView(context : Context, attributeSet : AttributeSet)
+  + CreateView(context : Context, attributeSet : AttributeSet)
   + setToday() : void
   + showMessage(message : String) : void
   + showWrongInput(ids : ArrayList) : void
@@ -30,53 +33,26 @@ class RegistrationView {
   + resetErrorCheckers() : void
   + setCategories(categories : String[]) : void
   + getLabel(id : int) : String
-  + onClick(v : View) : void
 }
 
 class InputView {
-  # context : Context
-  # labelView : TextView
   # errorChecker : TextView
-  + InputView()
+  + InputView(context : Context, attributeSet : AttributeSet)
   + {abstract} setInputText(text : String) : void
   + {abstract} getInputText() : String
-}
-
-class IndexView {
-  + {static} INPUT_VIEW_DATE_BEFORE : int = 0
-  + {static} INPUT_VIEW_DATE_AFTER : int = 1
-  + {static} INPUT_VIEW_CONTENT : int = 2
-  + {static} INPUT_VIEW_CATEGORY : int = 3
-  + {static} INPUT_VIEW_PRICE_UPPER : int = 4
-  + {static} INPUT_VIEW_PRICE_LOWER : int = 5
-  + {static} INPUT_VIEW_SIZE : int = 6
-  - inputViews : InputView[]
-  - contentType : Spinner
-  - paymentType : Spinner
-  - submit : Button
-  - results : ListView
-  - nextPage : Button
-  - currentPage : int
-  - content : Context
-  + IndexView(context : Context)
-  + showMessage(message : String) : void
-  + showWrongInput(ids : ArrayList<Integer>) : void
-  + setCategories(categories : String[]) : void
-  + addResults(payments : ArrayList<Payment>) : void
-  + onClick(v : View) : void
 }
 
 class DateView {
   - {static} simpleDataFormat : SimpleDataFormat = "yyyy-mm-dd"
   - fieldView : EditText
-  + DateView()
+  + DateView(context : Context, attributeSet : AttributeSet)
   + setInputText(text : String) : void
   + getInputText() : String
 }
 
 class ContentView {
   - fieldView : EditText
-  + ContentView()
+  + ContentView(context : Context, attributeSet : AttributeSet)
   + setInputText(text : String) : void
   + getInputText() : String
 }
@@ -85,27 +61,38 @@ class CategoryView {
   - categories : String[]
   - selected : boolean[]
   - fieldView : TextView
-  - selectButton : Button
-  + CategoryView()
+  + CategoryView(context : Context, attributeSet : AttributeSet)
   + setInputText(text : String) : void
   + getInputText() : String
-  - setCategories(names : String[]) : void
-  + onClick(v View) : void
+  + setCategories(names : String[]) : void
 }
 
 class PriceView {
   - fieldView : EditText
-  + PriceView()
+  + PriceView(context : Context, attributeSet : AttributeSet)
   + setInputText(text : String) : void
   + getInputText() : String
 }
 
-class PaymentView {
-  - dateView : TextView
-  - contentView : TextView
-  - categoryView : TextView
-  - priceView : TextView
-  + PaymentView(payment : Payment)
+class IndexView {
+  - {static} PAYMENT_TYPE_VALUES : String[] = {"income", "expense"}
+  - paymentType : Spinner
+  - submit : Button
+  - paymentListView : ListView
+  - payments : ArrayList
+  - nextPage : Button
+  - currentPage : int
+  + IndexView(context : Context, attributeSet : AttributeSet)
+  + showMessage(message : String) : void
+  + showWrongInput(field : String) : void
+  + setCategories(names : String[]) : void
+  + addPayments(payments : ArrayList) : void
+  - fixListViewHeight(listView : ListView) : void
+}
+
+class PaymentListAdapter {
+  - holder : ViewHolder
+  + PaymentListAdapter(context : Context, payments : List)
 }
 
 class Payment {
@@ -113,6 +100,15 @@ class Payment {
   - content : String
   - categories : String[]
   - price : Integer
+  + Payment(date : Date, content : Content, categories : String[], price : Integer, paymentType : String)
+  + setDate(date : Date) : void
+  + getDate() : Date
+  + setContent(content : String) : void
+  + getContent() : String
+  + setCategories(categories : String[]) : void
+  + getCategories() : String[]
+  + setPrice(price : Integer) : void
+  + getPrice() : Integer
 }
 
 class InputChecker {
@@ -138,15 +134,22 @@ class HTTPClient {
   - credential() : String
 }
 
-MainActivity "1" --> "1" RegistrationView
-MainActivity "1" --> "1" IndexView
+MainActivity "1" <--> "1" CreateView
+IndexActivity "1" <--> "1" IndexView
 MainActivity "1" --> "1" InputChecker
+IndexActivity "1" --> "1" InputChecker
 MainActivity "1" --> "1" HTTPClient
-RegistrationView "1" *-- "4" InputView
-IndexView "1" *-- "6" InputView
+IndexActivity "1" --> "1" HTTPClient
+CreateView "1" *-- "1" InputView
+MainActivity <-- InputView
 InputView <|-- DateView
 InputView <|-- ContentView
 InputView <|-- CategoryView
 InputView <|-- PriceView
-IndexView "1" *-- "*" PaymentView
-PaymentView "1" --> "1" Payment
+IndexView "1" -- "1" PeriodView
+IndexView "1" -- "1" ContentView
+IndexView "1" -- "1" CategoryView
+IndexView "1" -- "1" PriceView
+IndexView "1" -- "1" PaymentListAdapter
+IndexView "1" -- "*" Payment
+PaymentListAdapter "1" -- "*" Payment
