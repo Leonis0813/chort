@@ -49,7 +49,7 @@
 登録画面
 ^^^^^^^^
 
-.. image:: images/registration.png
+.. image:: images/create.png
    :alt: 登録画面
    :scale: 80
 
@@ -79,7 +79,7 @@
 カテゴリ選択画面
 """"""""""""""""
 
-.. image:: images/registration_category.png
+.. image:: images/create_categories.png
    :alt: カテゴリ選択画面
    :scale: 35
 
@@ -95,6 +95,10 @@
 検索画面
 ^^^^^^^^
 
+.. image:: images/index.png
+   :alt: 検索画面
+   :scale: 80
+
 - 画面上部に検索フォームが表示されており，以下の条件を入力できる
 
   - 期間
@@ -105,6 +109,7 @@
   - 内容
 
     - 指定した内容を含むか一致する収支情報を検索するかを選択できる
+    - デフォルトでは指定した内容を含むようになっている
 
   - カテゴリ
 
