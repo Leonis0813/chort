@@ -106,8 +106,10 @@ activate IndexActivity
     IndexActivity -> IndexView : addPayments
     IndexView -> PaymentListAdapter : setAdapter
 
-    autonumber stop
-    PaymentListAdapter --> IndexView
+    activate PaymentListAdapter
+      autonumber stop
+      PaymentListAdapter --> IndexView
+    deactivate PaymentListAdapter
 
     autonumber resume
     IndexView -> IndexView : fixListViewHeight
