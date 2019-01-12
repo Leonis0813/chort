@@ -38,46 +38,49 @@ activate IndexActivity
 
     IndexView --> IndexActivity
   deactivate IndexView
-deactivate IndexActivity
 
-autonumber resume
-利用者 -> IndexView : onClick
+  autonumber resume
+  利用者 -> IndexView : onClick
 
-activate IndexView
-  IndexView -> IndexActivity : searchPayments
+  activate IndexView
+    IndexView -> IndexActivity : searchPayments
 
-  activate IndexActivity
-    IndexActivity -> InputChecker : checkDate
+    alt 期間が入力されている
+      IndexActivity -> InputChecker : checkDate
 
-    activate InputChecker
+      activate InputChecker
+        autonumber stop
+        InputChecker --> IndexActivity
+      deactivate InputChecker
+
+      autonumber resume
+      IndexActivity -> IndexView : showWrongInput
+
       autonumber stop
-      InputChecker --> IndexActivity
-    deactivate InputChecker
+      IndexView --> IndexActivity
+    end
 
-    autonumber resume
-    IndexActivity -> InputChecker : checkPrice
+    alt 金額が入力されている
+      IndexActivity -> InputChecker : checkPrice
 
-    activate InputChecker
+      activate InputChecker
+        autonumber stop
+        InputChecker --> IndexActivity
+      deactivate InputChecker
+
+      autonumber resume
+      IndexActivity -> IndexView : showWrongInput
+
       autonumber stop
-      InputChecker --> IndexActivity
-    deactivate InputChecker
+      IndexView --> IndexActivity
+    end
 
     alt 不正な入力がある
       autonumber resume
       IndexActivity -> IndexView : showMessage
 
-      activate IndexView
-        autonumber stop
-        IndexView --> IndexActivity
-      deactivate IndexView
-
-      autonumber resume
-      IndexActivity -> IndexView : showWrongInput
-
-      activate IndexView
-        autonumber stop
-        IndexView --> IndexActivity
-      deactivate IndexView
+      autonumber stop
+      IndexView --> IndexActivity
     end
 
     autonumber resume
@@ -100,68 +103,19 @@ activate IndexView
     destroy HTTPClient
 
     autonumber resume
-    IndexActivity -> IndexView : addResults
+    IndexActivity -> IndexView : addPayments
+    IndexView -> PaymentListAdapter : setAdapter
 
     autonumber stop
-    IndexView --> IndexActivity
+    PaymentListAdapter --> IndexView
 
     autonumber resume
-    IndexActivity -> IndexView : setCurrentPage
+    IndexView -> IndexView : fixListViewHeight
 
     autonumber stop
     IndexView --> IndexActivity
     IndexActivity --> IndexView
-  deactivate IndexActivity
-
-  IndexView --> IndexActivity
-deactivate IndexView
+    IndexView --> IndexActivity
+  deactivate IndexView
 
 IndexActivity --> 利用者
-
-autonumber resume
-利用者 -> IndexView : onClick
-
-activate IndexView
-  IndexView -> IndexActivity : searchPayments
-
-  activate IndexActivity
-    create HTTPClient
-    IndexActivity -> HTTPClient : new
-
-    activate HTTPClient
-      HTTPClient -> HTTPClient : credential
-
-      autonumber stop
-      HTTPClient --> IndexActivity
-
-      autonumber resume
-      IndexActivity ->> HTTPClient : sendRequest
-
-      autonumber stop
-      HTTPClient --> IndexActivity
-    deactivate HTTPClient
-
-    destroy HTTPClient
-
-    autonumber resume
-    IndexActivity -> IndexView : addResults
-
-    autonumber stop
-    IndexView --> IndexActivity
-
-    autonumber resume
-    IndexActivity -> IndexView : getCurrentPage
-
-    autonumber stop
-    IndexView --> IndexActivity
-
-    autonumber resume
-    IndexActivity -> IndexView : setCurrentPage
-
-    autonumber stop
-    IndexView --> IndexActivity
-    IndexActivity --> IndexView
-  deactivate IndexActivity
-
-  IndexView --> IndexActivity
-deactivate IndexView
