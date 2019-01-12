@@ -162,9 +162,11 @@ class InputChecker {
 
 class HTTPClient {
   - {static} host : String
-  - port : String
+  - {static} BASE_PATH : String = "/algieba/api"
+  - {static} PORT : String = "80"
+  - webApiProp : Properties
   - con : HttpUrlConnection
-  - param : JSONObject
+  - payment : JSONObject
   - response : HashMap
   + HTTPClient(context : Context, inputs : String[])
   + HTTPClient(context : Context, query : HashMap)
@@ -186,10 +188,12 @@ InputView <|-- DateView
 InputView <|-- create.ContentView
 InputView <|-- create.CategoryView
 InputView <|-- create.PriceView
+MainActivity <-- create.CategoryView
 IndexView "1" -- "1" PeriodView
 IndexView "1" -- "1" index.ContentView
 IndexView "1" -- "1" index.CategoryView
 IndexView "1" -- "1" index.PriceView
+IndexActivity <-- index.CategoryView
 IndexView "1" -- "1" PaymentListAdapter
 IndexView "1" -- "*" Payment
 PaymentListAdapter "1" -- "*" Payment

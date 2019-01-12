@@ -2,185 +2,166 @@ autonumber
 
 actor 利用者
 
-利用者 -> MainActivity : onOptionsItemSelected
+利用者 -> IndexActivity : onCreate
 
-activate MainActivity
-  MainActivity -> MainActivity : setContentView
-  MainActivity -> MainActivity : getCategories
+activate IndexActivity
+  IndexActivity -> IndexActivity : getCategories
 
   create HTTPClient
-  MainActivity -> HTTPClient : new
+  IndexActivity -> HTTPClient : new
 
   activate HTTPClient
     HTTPClient -> HTTPClient : credential
 
     autonumber stop
-    HTTPClient --> MainActivity
+    HTTPClient --> IndexActivity
 
     autonumber resume
-    MainActivity ->> HTTPClient : sendRequest
+    IndexActivity ->> HTTPClient : sendRequest
 
     autonumber stop
-    HTTPClient --> MainActivity
+    HTTPClient --> IndexActivity
   deactivate HTTPClient
 
   destroy HTTPClient
 
   autonumber resume
-  MainActivity -> IndexView : setCategories
+  IndexActivity -> IndexView : setCategories
 
   activate IndexView
-    IndexView -> CategoryView : setCategories
+    IndexView -> index.CategoryView : setCategories
 
-    activate CategoryView
+    activate index.CategoryView
       autonumber stop
-      CategoryView --> IndexView
-    deactivate CategoryView
+      index.CategoryView --> IndexView
+    deactivate index.CategoryView
 
-    IndexView --> MainActivity
+    IndexView --> IndexActivity
   deactivate IndexView
-deactivate MainActivity
+deactivate IndexActivity
 
 autonumber resume
 利用者 -> IndexView : onClick
 
 activate IndexView
-  IndexView -> MainActivity : searchPayments
+  IndexView -> IndexActivity : searchPayments
 
-  activate MainActivity
-    MainActivity -> InputChecker : checkDate
+  activate IndexActivity
+    IndexActivity -> InputChecker : checkDate
 
     activate InputChecker
       autonumber stop
-      InputChecker --> MainActivity
+      InputChecker --> IndexActivity
     deactivate InputChecker
-
-    alt 日付が不正
-      autonumber resume
-      MainActivity -> IndexView : showMessage
-
-      activate IndexView
-        autonumber stop
-        IndexView --> MainActivity
-      deactivate IndexView
-
-      autonumber resume
-      MainActivity -> IndexView : showWrongInput
-
-      activate IndexView
-        autonumber stop
-        IndexView --> MainActivity
-      deactivate IndexView
-    end
 
     autonumber resume
-    MainActivity -> InputChecker : checkPrice
+    IndexActivity -> InputChecker : checkPrice
 
     activate InputChecker
       autonumber stop
-      InputChecker --> MainActivity
+      InputChecker --> IndexActivity
     deactivate InputChecker
 
-    alt 金額が不正
+    alt 不正な入力がある
       autonumber resume
-      MainActivity -> IndexView : showMessage
+      IndexActivity -> IndexView : showMessage
 
       activate IndexView
         autonumber stop
-        IndexView --> MainActivity
+        IndexView --> IndexActivity
       deactivate IndexView
 
       autonumber resume
-      MainActivity -> IndexView : showWrongInput
+      IndexActivity -> IndexView : showWrongInput
 
       activate IndexView
         autonumber stop
-        IndexView --> MainActivity
+        IndexView --> IndexActivity
       deactivate IndexView
     end
 
     autonumber resume
     create HTTPClient
-    MainActivity -> HTTPClient : new
+    IndexActivity -> HTTPClient : new
 
     activate HTTPClient
       HTTPClient -> HTTPClient : credential
 
       autonumber stop
-      HTTPClient --> MainActivity
+      HTTPClient --> IndexActivity
 
       autonumber resume
-      MainActivity ->> HTTPClient : sendRequest
+      IndexActivity ->> HTTPClient : sendRequest
 
       autonumber stop
-      HTTPClient --> MainActivity
+      HTTPClient --> IndexActivity
     deactivate HTTPClient
 
     destroy HTTPClient
 
     autonumber resume
-    MainActivity -> IndexView : addResults
+    IndexActivity -> IndexView : addResults
 
     autonumber stop
-    IndexView --> MainActivity
+    IndexView --> IndexActivity
 
     autonumber resume
-    MainActivity -> IndexView : setCurrentPage
+    IndexActivity -> IndexView : setCurrentPage
 
     autonumber stop
-    IndexView --> MainActivity
-    MainActivity --> IndexView
-  deactivate MainActivity
+    IndexView --> IndexActivity
+    IndexActivity --> IndexView
+  deactivate IndexActivity
 
-  IndexView --> MainActivity
+  IndexView --> IndexActivity
 deactivate IndexView
 
-MainActivity --> 利用者
+IndexActivity --> 利用者
 
 autonumber resume
 利用者 -> IndexView : onClick
 
 activate IndexView
-  IndexView -> MainActivity : searchPayments
+  IndexView -> IndexActivity : searchPayments
 
-  activate MainActivity
+  activate IndexActivity
     create HTTPClient
-    MainActivity -> HTTPClient : new
+    IndexActivity -> HTTPClient : new
 
     activate HTTPClient
       HTTPClient -> HTTPClient : credential
 
       autonumber stop
-      HTTPClient --> MainActivity
+      HTTPClient --> IndexActivity
 
       autonumber resume
-      MainActivity ->> HTTPClient : sendRequest
+      IndexActivity ->> HTTPClient : sendRequest
 
       autonumber stop
-      HTTPClient --> MainActivity
+      HTTPClient --> IndexActivity
     deactivate HTTPClient
 
     destroy HTTPClient
 
     autonumber resume
-    MainActivity -> IndexView : addResults
+    IndexActivity -> IndexView : addResults
 
     autonumber stop
-    IndexView --> MainActivity
+    IndexView --> IndexActivity
 
     autonumber resume
-    MainActivity -> IndexView : getCurrentPage
+    IndexActivity -> IndexView : getCurrentPage
 
     autonumber stop
-    IndexView --> MainActivity
+    IndexView --> IndexActivity
 
     autonumber resume
-    MainActivity -> IndexView : setCurrentPage
+    IndexActivity -> IndexView : setCurrentPage
 
     autonumber stop
-    IndexView --> MainActivity
-    MainActivity --> IndexView
-  deactivate MainActivity
+    IndexView --> IndexActivity
+    IndexActivity --> IndexView
+  deactivate IndexActivity
 
-  IndexView --> MainActivity
+  IndexView --> IndexActivity
 deactivate IndexView

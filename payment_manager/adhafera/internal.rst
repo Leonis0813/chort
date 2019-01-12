@@ -115,7 +115,7 @@
 収支を登録する
 ^^^^^^^^^^^^^^
 
-.. uml:: umls/seq-registration.uml
+.. uml:: umls/seq-create.uml
 
 1. 利用者がアプリを起動するとonCreateメソッドが実行される
 2. settleメソッドを実行して収支を取得する
