@@ -61,6 +61,7 @@ activate IndexActivity
     end
 
     alt 金額が入力されている
+      autonumber resume
       IndexActivity -> InputChecker : checkPrice
 
       activate InputChecker

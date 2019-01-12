@@ -157,24 +157,23 @@
 
 .. uml:: umls/seq-index.uml
 
-1. 利用者がメニューから「検索」を選択するとonOptionsItemSelectedメソッドが実行される
-2. アプリはsetContentViewメソッドを実行して検索画面に切り替える
-3. アプリはgetCategoriesメソッドを実行してカテゴリ一覧を取得する
-4. カテゴリ情報を取得するためにHTTPClientクラスのインスタンスを作成する
-5. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
-6. sendRequestメソッドを実行してWebAPIを実行し，カテゴリ情報を取得する
-7. setCategoriesメソッドを実行してCategoryViewにカテゴリ情報をセットする
-8. setCategoriesメソッドを実行してダイアログにカテゴリ名をセットする
-9. 利用者が検索ボタンを押下するとonClickメソッドが実行される
-10. searchPaymentsメソッドを実行して収支情報を検索する
-11. 期間が入力されている場合，checkDateメソッドを実行して入力された日付のフォーマットをチェックする
-12. 日付が不正な場合，showWrongInputメソッドを実行してチェックマークを付ける
-13. 金額が入力されている場合，checkPriceメソッドを実行して入力された金額をチェックする
-14. 金額が不正な場合，showWrongInputメソッドを実行してチェックマークを付ける
-15. 不正な入力がある場合，showMessageメソッドを実行してエラーメッセージを表示する
-16. 不正な入力がない場合，収支情報を検索するためのHTTPClientクラスのインスタンスを作成する
-17. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
-18. sendRequestメソッドを実行してWebAPIを実行し，収支情報を検索する
-19. addPaymentsメソッドを実行して取得した収支情報を追加する
-20. setAdapterメソッドを実行して追加した収支情報を画面に表示する
-21. fixListViewHeightメソッドを実行して画面の高さを調整する
+1. 利用者がメニューから「検索」を選択するとonCreateメソッドが実行される
+2. アプリはgetCategoriesメソッドを実行してカテゴリ一覧を取得する
+3. カテゴリ情報を取得するためにHTTPClientクラスのインスタンスを作成する
+4. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
+5. sendRequestメソッドを実行してWebAPIを実行し，カテゴリ情報を取得する
+6. setCategoriesメソッドを実行してCategoryViewにカテゴリ情報をセットする
+7. setCategoriesメソッドを実行してダイアログにカテゴリ名をセットする
+8. 利用者が検索ボタンを押下するとonClickメソッドが実行される
+9. searchPaymentsメソッドを実行して収支情報を検索する
+10. 期間が入力されている場合，checkDateメソッドを実行して入力された日付のフォーマットをチェックする
+11. 日付が不正な場合，showWrongInputメソッドを実行してチェックマークを付ける
+12. 金額が入力されている場合，checkPriceメソッドを実行して入力された金額をチェックする
+13. 金額が不正な場合，showWrongInputメソッドを実行してチェックマークを付ける
+14. 不正な入力がある場合，showMessageメソッドを実行してエラーメッセージを表示する
+15. 不正な入力がない場合，収支情報を検索するためのHTTPClientクラスのインスタンスを作成する
+16. credentialメソッドを実行してWebAPIを利用するためのAuthorizationヘッダーをセットする
+17. sendRequestメソッドを実行してWebAPIを実行し，収支情報を検索する
+18. addPaymentsメソッドを実行して取得した収支情報を追加する
+19. setAdapterメソッドを実行して追加した収支情報を画面に表示する
+20. fixListViewHeightメソッドを実行して画面の高さを調整する
