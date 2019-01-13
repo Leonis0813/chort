@@ -1,3 +1,6 @@
+# 2019/01/13
+- [Adhafera] update version to 3.0.0
+
 # 2019/01/06
 - [Alterf] update version to 3.7.0
 - [Regulus] update version to 4.1.0
