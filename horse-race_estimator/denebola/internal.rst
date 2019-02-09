@@ -152,7 +152,6 @@ entriesテーブル
    "number", "INTEGER", "エントリーの番号",, "○"
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
-   "weight_per", "FLOAT", "斤量/体重",,
    "race_id", "INTEGER", "レース情報の外部キー",,
    "created_at", "DATETIME", "エントリー情報の作成日時", "", "○"
    "updated_at", "DATETIME", "エントリー情報の更新日時", "", "○"
