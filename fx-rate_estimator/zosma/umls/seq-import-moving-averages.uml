@@ -14,10 +14,10 @@ loop for each date
     "import/moving_averages" -> ActiveRecord : execute
   end
 
-  "import/moving_averages" -> CandleStick : where
+  "import/moving_averages" -> MovingAverage : where
 
   autonumber stop
-  "import/moving_averages" <-- CandleStick : 移動平均
+  "import/moving_averages" <-- MovingAverage : 移動平均
 
   alt 移動平均が存在している かつ バックアップファイルでない
     "import/moving_averages" -> "import/moving_averages" : ファイル書き込み
