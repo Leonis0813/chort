@@ -146,6 +146,7 @@ entriesテーブル
 
    "id", "INTEGER", "エントリーのID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
+   "sex", "STRING", "性別",, "○"
    "burden_weight", "FLOAT", "斤量",, "○"
    "jockey", "STRING", "騎手",,
    "number", "INTEGER", "エントリーの番号",, "○"
@@ -186,6 +187,7 @@ featuresテーブル
 
    "id", "INTEGER", "素性のID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
+   "sex", "STRING", "性別",, "○"
    "burden_weight", "FLOAT", "斤量",, "○"
    "direction", "STRING", "左回りか右回りか",, "○"
    "distance", "INTEGER", "コースの距離",, "○"
@@ -194,11 +196,12 @@ featuresテーブル
    "number", "INTEGER", "エントリーの番号",, "○"
    "place", "STRING", "場所",, "○"
    "round", "INTEGER", "ラウンド",, "○"
-   "start_time", "DATETIME", "レース日時",, "○"
+   "month", "INTEGER", "レース月",, "○"
    "track", "STRING", "芝やダートなど，地面の種類",, "○"
    "weather", "STRING", "天候",, "○"
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
+   "weight_per", "FLOAT", "斤量/体重",,
    "race_id", "INTEGER", "レース情報の外部キー",,
    "entry_id", "INTEGER", "エントリー情報の外部キー",,
    "created_at", "DATETIME", "素性の作成日時", "", "○"

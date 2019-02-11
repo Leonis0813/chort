@@ -1,3 +1,6 @@
+# 2019/02/09
+- [Denebola] update version to 1.0.9
+
 # 2019/01/13
 - [Adhafera] update version to 3.0.0
 
