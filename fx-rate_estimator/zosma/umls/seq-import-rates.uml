@@ -2,7 +2,7 @@ autonumber
 
 loop for each month
   alt ファイルが存在する
-    import/rates -> Archive::Tar::Minitar : unpack
+    import/rates -> "Archive::Tar::Minitar" : unpack
   end
 end
 
