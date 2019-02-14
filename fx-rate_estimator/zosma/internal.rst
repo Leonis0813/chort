@@ -106,13 +106,13 @@
      - 開始日時
      - 終了日時
      - 通貨ペア
-     - 期間
+     - 時間枠
      - 始値
      - 終値
      - 高値
      - 安値
 
-   - 1行に1本のローソク足情報が終了日時，期間の順番で記載されている
+   - 1行に1本のローソク足情報が終了日時，時間枠の順番で記載されている
    - ファイルは通貨ペアごとに出力されている
 
 取得したファイル数分，3, 4を繰り返す
@@ -240,7 +240,7 @@ candle_sticksテーブル
    "from", "DATETIME", "ローソク足の開始日時",, "○"
    "to", "DATETIME", "ローソク足の終了日時",, "○"
    "pair", "STRING", "レートのペア",, "○"
-   "period", "STRING", "期間を示すID",, "○"
+   "time_frame", "STRING", "時間枠を示すID",, "○"
    "open", "FLOAT", "始値",, "○"
    "close", "FLOAT", "終値",, "○"
    "high", "FLOAT", "高値",, "○"
@@ -262,8 +262,8 @@ moving_averagesテーブル
    "id", "INTEGER", "移動平均のID", "○", "○"
    "time", "DATETIME", "移動平均を算出した日時",, "○"
    "pair", "STRING", "通貨ペア",, "○"
-   "time_frame", "STRING", "期間を示すID",, "○"
-   "period", "INTEGER", "移動平均値の算出に使用した区間",, "○"
+   "time_frame", "STRING", "時間枠を示すID",, "○"
+   "period", "INTEGER", "移動平均値の算出に使用した期間",, "○"
    "value", "FLOAT", "移動平均値",, "○"
    "created_at", "DATETIME", "作成日時",,"○"
    "updated_at", "DATETIME", "更新日時",,"○"
