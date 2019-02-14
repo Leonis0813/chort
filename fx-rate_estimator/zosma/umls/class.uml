@@ -15,3 +15,11 @@ class CandleStick {
   - high : Float
   - low : Float
 }
+
+class MovingAverage {
+  - time : Datetime
+  - pair : String
+  - time_frame : String
+  - period : Integer
+  - value : Float
+}

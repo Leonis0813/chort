@@ -1,3 +1,6 @@
+# 2019/02/14
+- [Zosma] update version to 3.0.0
+
 # 2019/02/09
 - [Denebola] update version to 1.0.9
 
