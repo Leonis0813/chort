@@ -16,6 +16,7 @@
 - :ref:`den-ext-resource-races`
 - :ref:`den-ext-resource-entries`
 - :ref:`den-ext-resource-results`
+- :ref:`den-ext-resource-horses`
 - :ref:`den-ext-resource-features`
 
 .. _den-ext-resource-races:
@@ -102,6 +103,17 @@
    :widths: 15, 10, 30, 45
 
    "着順", "数値", "レースで何番目にゴールに着いたか", "- 0より大きい整数"
+
+.. _den-ext-resource-horses:
+
+馬
+^^^^
+
+馬を表す
+
+.. csv-table::
+   :header: "属性名", "型", "意味", "備考"
+   :widths: 15, 10, 30, 45
 
 .. _den-ext-resource-features:
 
