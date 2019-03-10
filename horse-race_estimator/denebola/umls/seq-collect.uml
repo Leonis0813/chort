@@ -53,7 +53,7 @@ loop for each date
 
       alt 競走馬情報が存在しない
         alt 競走馬情報ファイルが存在する
-          collect : File : read
+          collect -> File : read
         else
           collect -> HTTPClient : get
 
