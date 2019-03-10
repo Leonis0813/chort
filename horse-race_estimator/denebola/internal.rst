@@ -58,17 +58,19 @@
 2. HTTPClientのgetメソッドを実行してレース情報を取得する
 3. Raceオブジェクトを作成する
 
-レースのエントリー数分4, 5を繰り返す
+レースのエントリー数分4, 5, 6を繰り返す
 
 4. Entryオブジェクトを作成する
 5. Resultオブジェクトを作成する
+6. Horseオブジェクトを作成する
 
-6. RaceオブジェクトをDBに保存する
+7. RaceオブジェクトをDBに保存する
 
-レースのエントリー数分7, 8を繰り返す
+レースのエントリー数分8, 9, 10を繰り返す
 
-7. EntryオブジェクトをDBに保存する
-8. ResultオブジェクトをDBに保存する
+8. EntryオブジェクトをDBに保存する
+9. ResultオブジェクトをDBに保存する
+10. HorseオブジェクトをDBに保存する
 
 - 収集開始日と終了日を指定可能
 
@@ -112,6 +114,7 @@
 - :ref:`den-int-sch-races`
 - :ref:`den-int-sch-entries`
 - :ref:`den-int-sch-results`
+- :ref:`den-int-sch-horses`
 - :ref:`den-int-sch-features`
 
 .. _den-int-sch-races:
@@ -177,6 +180,21 @@ resultsテーブル
    "entry_id", "INTEGER", "エントリー情報の外部キー",,
    "created_at", "DATETIME", "レース結果情報の作成日時", "", "○"
    "updated_at", "DATETIME", "レース結果情報の更新日時", "", "○"
+
+.. _den-int-sch-horses:
+
+horsesテーブル
+^^^^^^^^^^^^^^
+
+馬情報を登録するhorsesテーブルを定義する
+
+.. csv-table::
+   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
+   :widths: 10, 10, 20, 20, 10
+
+   "id", "INTEGER", "馬のID", "○", "○"
+   "created_at", "DATETIME", "馬情報の作成日時", "", "○"
+   "updated_at", "DATETIME", "馬情報の更新日時", "", "○"
 
 .. _den-int-sch-features:
 
