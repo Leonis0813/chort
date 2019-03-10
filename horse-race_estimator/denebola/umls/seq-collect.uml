@@ -1,6 +1,6 @@
 autonumber
 
-loop for each date
+loop 指定された期間内を日付ごとに繰り返し
   alt レースIDファイルが存在する
     collect -> File : read
   else
@@ -63,6 +63,13 @@ loop for each date
           autonumber resume
           collect -> File : write
         end
+        collect -> "Nokogiri::HTML" : parse
+        autonumber stop
+        collect <-- "Nokogiri::HTML" : parsed_html
+
+        autonumber resume
+        collect -> collect : extract_horse_info
+
         create Horse
         collect -> Horse : create!
       end
