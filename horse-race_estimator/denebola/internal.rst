@@ -126,7 +126,7 @@ racesテーブル
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 10
+   :widths: 15, 15, 30, 20, 20
 
    "id", "INTEGER", "レースのID", "○", "○"
    "direction", "STRING", "左回りか右回りか",, "○"
@@ -149,7 +149,7 @@ entriesテーブル
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 20
+   :widths: 15, 15, 30, 20, 20
 
    "id", "INTEGER", "エントリーのID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
@@ -172,7 +172,7 @@ resultsテーブル
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 20
+   :widths: 15, 15, 30, 20, 20
 
    "id", "INTEGER", "レース結果のID", "○", "○"
    "order", "INTEGER", "着順",, "○"
@@ -190,7 +190,7 @@ horsesテーブル
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 20
+   :widths: 15, 15, 30, 20, 20
 
    "id", "INTEGER", "馬のID", "○", "○"
    "created_at", "DATETIME", "馬情報の作成日時", "", "○"
@@ -205,7 +205,7 @@ featuresテーブル
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 20
+   :widths: 15, 15, 30, 20, 20
 
    "id", "INTEGER", "素性のID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
