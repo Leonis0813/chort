@@ -199,7 +199,8 @@ horsesテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 15, 15, 30, 20, 20
 
-   "id", "INTEGER", "競走馬のID", "○", "○"
+   "id", "INTEGER", "内部ID", "○", "○"
+   "horse_id", "STRING", "競走馬のID", "", "○"
    "created_at", "DATETIME", "競走馬情報の作成日時", "", "○"
    "updated_at", "DATETIME", "競走馬情報の更新日時", "", "○"
 
