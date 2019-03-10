@@ -22,6 +22,8 @@ loop for each date
       Race -> Entry : new
       create Result
       Entry -> Result : new
+      create Horse
+      Entry -> Horse : new
     end
 
     collect -> Race : save!
@@ -29,6 +31,7 @@ loop for each date
     loop for each entry
       Race -> Entry : save!
       Entry -> Result : save!
+      Entry -> Horse : save!
     end
 
     autonumber stop
