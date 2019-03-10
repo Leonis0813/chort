@@ -30,7 +30,7 @@
 
 - Horse
 
-  - 馬情報を表すクラス
+  - 競走馬情報を表すクラス
 
 .. _den-int-seq:
 
@@ -208,15 +208,15 @@ resultsテーブル
 horsesテーブル
 ^^^^^^^^^^^^^^
 
-馬情報を登録するhorsesテーブルを定義する
+競走馬情報を登録するhorsesテーブルを定義する
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 15, 15, 30, 20, 20
 
-   "id", "INTEGER", "馬のID", "○", "○"
-   "created_at", "DATETIME", "馬情報の作成日時", "", "○"
-   "updated_at", "DATETIME", "馬情報の更新日時", "", "○"
+   "id", "INTEGER", "競走馬のID", "○", "○"
+   "created_at", "DATETIME", "競走馬情報の作成日時", "", "○"
+   "updated_at", "DATETIME", "競走馬情報の更新日時", "", "○"
 
 .. _den-int-sch-features:
 
