@@ -26,9 +26,9 @@ loop for each date
       collect -> File : write
     end
 
-    collect -> Nokogiri::HTML : parse
+    collect -> "Nokogiri::HTML" : parse
     autonumber stop
-    collect <-- Nokogiri::HTML : parsed_html
+    collect <-- "Nokogiri::HTML" : parsed_html
 
     autonumber resume
     collect -> collect : extract_race_info
