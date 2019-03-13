@@ -1,6 +1,7 @@
 class Race
 class Entry
 class Result
+class Horse
 
 class Race {
   - track : String
@@ -23,5 +24,10 @@ class Result {
   - order : String
 }
 
+class Horse {
+  - horse_id : String
+}
+
 Race "1" -- "1..*" Entry
 Entry "1" -- "1" Result
+Entry "1" -- "1" Horse

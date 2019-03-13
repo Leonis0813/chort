@@ -1,37 +1,78 @@
 autonumber
 
-loop for each date
-  collect -> HTTPClient : get
-
-  autonumber stop
-  collect <-- HTTPClient
-
-  loop for each race_id
-    autonumber resume
+loop 指定された期間内を日付ごとに繰り返し
+  alt レースIDファイルが存在する
+    collect -> File : read
+  else
     collect -> HTTPClient : get
 
     autonumber stop
     collect <-- HTTPClient
 
     autonumber resume
+    collect -> File : write
+  end
+
+  loop レースIDごとに繰り返し
+    alt レース情報ファイルが存在する
+      collect -> File : read
+    else
+      collect -> HTTPClient : get
+
+      autonumber stop
+      collect <-- HTTPClient
+
+      autonumber resume
+      collect -> File : write
+    end
+
+    collect -> "Nokogiri::HTML" : parse
+    autonumber stop
+    collect <-- "Nokogiri::HTML" : parsed_html
+
+    autonumber resume
+    collect -> collect : extract_race_info
+
     create Race
-    collect -> Race : new
-
-    loop for each entry
-      create Entry
-      Race -> Entry : new
-      create Result
-      Entry -> Result : new
-    end
-
-    collect -> Race : save!
-
-    loop for each entry
-      Race -> Entry : save!
-      Entry -> Result : save!
-    end
+    collect -> Race : find_or_create_by!
 
     autonumber stop
-    collect <-- Race
+    collect <-- Race : race
+
+    loop レースのエントリーごとに繰り返し
+      autonumber resume
+      create Entry
+      collect -> Entry : find_or_create_by!
+
+      autonumber stop
+      collect <-- Entry : entry
+
+      autonumber resume
+      create Result
+      collect -> Result : find_or_create_by!
+
+      alt 競走馬情報が存在しない
+        alt 競走馬情報ファイルが存在する
+          collect -> File : read
+        else
+          collect -> HTTPClient : get
+
+          autonumber stop
+          collect <-- HTTPClient
+
+          autonumber resume
+          collect -> File : write
+        end
+        collect -> "Nokogiri::HTML" : parse
+        autonumber stop
+        collect <-- "Nokogiri::HTML" : parsed_html
+
+        autonumber resume
+        collect -> collect : extract_horse_info
+
+        create Horse
+        collect -> Horse : create!
+      end
+    end
   end
 end

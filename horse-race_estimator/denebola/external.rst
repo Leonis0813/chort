@@ -16,6 +16,7 @@
 - :ref:`den-ext-resource-races`
 - :ref:`den-ext-resource-entries`
 - :ref:`den-ext-resource-results`
+- :ref:`den-ext-resource-horses`
 - :ref:`den-ext-resource-features`
 
 .. _den-ext-resource-races:
@@ -103,6 +104,19 @@
 
    "着順", "数値", "レースで何番目にゴールに着いたか", "- 0より大きい整数"
 
+.. _den-ext-resource-horses:
+
+競走馬
+^^^^^^
+
+競走馬を表す
+
+.. csv-table::
+   :header: "属性名", "型", "意味", "備考"
+   :widths: 15, 10, 30, 45
+
+   "競走馬ID", "文字列", "競走馬を一意に示すID", "半角数字"
+
 .. _den-ext-resource-features:
 
 素性
@@ -146,37 +160,56 @@
 リソースを収集する
 ^^^^^^^^^^^^^^^^^^
 
-外部サイトからレースに関する情報を収集してデータベースに登録する．出力はない
+外部サイトからレースに関する情報を収集してデータベースに登録する
 
-入力
-""""
+**スクリプト**
+
+collect.rb
+
+**入力**
 
 - 収集開始日
 
-  - 指定がなければ7日前の日付となる
+  - 指定がなければ実行した日の7日前の日付となる
+  - 日付はyyyy-mm-ddの形式で指定する
 
 - 収集終了日
 
-  - 指定がなければ当日の日付となる
+  - 指定がなければ実行した日付となる
+  - 日付はyyyy-mm-ddの形式で指定する
 
-出力
-""""
+**出力**
 
-- なし
+- レース情報
+- 競走馬情報
+
+**実行例**
+
+  .. code-block:: none
+
+     bundle exec ruby collect.rb --from=2018-01-01 --to=2018-01-31
 
 .. _den-ext-api-aggregate:
 
 リソースを集約する
 ^^^^^^^^^^^^^^^^^^
 
-収集したリソースを集約して素性を生成する．入出力はない
+収集したリソースを集約して素性を生成する
 
-入力
-""""
+**スクリプト**
 
-- なし
+aggregate.rb
 
-出力
-""""
+**入力**
 
 - なし
+
+**出力**
+
+- 素性情報
+
+**実行例**
+
+  .. code-block:: none
+
+     bundle exec ruby aggregate.rb
