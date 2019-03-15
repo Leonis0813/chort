@@ -1,33 +1,52 @@
 class Race
 class Entry
-class Result
 class Horse
+class Feature
 
 class Race {
-  - track : String
   - direction : String
   - distance : int
-  - weather : String
+  - grade : String
   - place : String
   - round : int
   - start_time : Datetime
+  - track : String
+  - weather : String
 }
 
 class Entry {
-  - number : int
   - age : int
   - burden_weight : double
-  - weight : double
-}
-
-class Result {
+  - jockey : String
+  - number : int
   - order : String
+  - sex : String
+  - weight : double
+  - weight_diff : double
 }
 
 class Horse {
   - horse_id : String
 }
 
+class Feature {
+  - age : int
+  - burden_weight : double
+  - direction : String
+  - distance : int
+  - grade : String
+  - month : int
+  - number : int
+  - place : String
+  - round : int
+  - sex : String
+  - track : String
+  - weather : String
+  - weight : double
+  - weight_diff : double
+  - weight_per : double
+}
+
 Race "1" -- "1..*" Entry
-Entry "1" -- "1" Result
 Entry "1" -- "1" Horse
+Race "1" -- "1" Feature

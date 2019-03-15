@@ -125,7 +125,6 @@
    "年齢", "数値", "レース参加時の年齢", ":ref:`den-ext-res-entries` 参照"
    "性別", "文字列", "エントリーの性別", ":ref:`den-ext-res-entries` 参照"
    "斤量", "数値", "エントリーの斤量", ":ref:`den-ext-res-entries` 参照"
-   "騎手", "文字列", "騎手の名前", ":ref:`den-ext-res-entries` 参照"
    "馬番", "数値", "エントリーの番号", ":ref:`den-ext-res-entries` 参照"
    "馬体重", "数値", "エントリー時の馬体重", ":ref:`den-ext-res-entries` 参照"
    "体重の差分", "数値", "前走との馬体重の差分", ":ref:`den-ext-res-entries` 参照"

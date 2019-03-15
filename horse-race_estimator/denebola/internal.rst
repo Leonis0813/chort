@@ -3,11 +3,11 @@
 
 設計仕様では以下を定義する
 
-- :ref:`den-int-cls`
-- :ref:`den-int-seq`
-- :ref:`den-int-sch`
+- :ref:`den-int-class`
+- :ref:`den-int-sequence`
+- :ref:`den-int-schema`
 
-.. _den-int-cls:
+.. _den-int-class:
 
 モジュール構成
 --------------
@@ -18,32 +18,33 @@
 
 - Race
 
-  - レース情報を表すクラス
+  - :ref:`den-ext-res-races` を表すクラス
 
 - Entry
 
-  - エントリー情報を表すクラス
-
-- Result
-
-  - レース結果を表すクラス
+  - :ref:`den-ext-res-entries` を表すクラス
 
 - Horse
 
-  - 競走馬情報を表すクラス
+  - :ref:`den-ext-res-horses` を表すクラス
 
-.. _den-int-seq:
+- Feature
+
+  - :ref:`den-ext-res-features` を表すクラス
+
+.. _den-int-sequence:
 
 シーケンス
 ----------
 
 - :ref:`den-int-seq-collect`
+- :ref:`den-int-seq-extract`
 - :ref:`den-int-seq-aggregate`
 
 .. _den-int-seq-collect:
 
-レース情報を収集する
-^^^^^^^^^^^^^^^^^^^^
+HTMLファイルを収集する
+^^^^^^^^^^^^^^^^^^^^^^
 
 *シーケンス図*
 
