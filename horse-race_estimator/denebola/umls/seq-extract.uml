@@ -12,10 +12,10 @@ loop レースIDごとに繰り返し
   extract <-- "Nokogiri::HTML" : parsed_html
 
   autonumber resume
-  extract -> extract/race : extract_race
+  extract -> "extract/race" : extract_race
 
   autonumber stop
-  extract <-- extract/race : race_attribute
+  extract <-- "extract/race" : race_attribute
 
   autonumber resume
   extract -> Race : find_or_create_by!(race_attribute)
@@ -25,10 +25,10 @@ loop レースIDごとに繰り返し
 
   loop エントリーごとに繰り返し
     autonumber resume
-    extract -> extract/entry : extract_entry
+    extract -> "extract/entry" : extract_entry
 
-    autonumber atop
-    extract -> extract/entry : entry_attribute
+    autonumber stop
+    extract -> "extract/entry" : entry_attribute
 
     autonumber resume
     extract -> Entry : find_or_create_by!(entry_attribute)
@@ -44,10 +44,10 @@ loop レースIDごとに繰り返し
     extract <-- "Nokogiri::HTML" : parsed_html
 
     autonumber resume
-    extract -> extract/horse : extract_horse
+    extract -> "extract/horse" : extract_horse
 
     autonumber stop
-    extract <-- extract/horse : horse_attribute
+    extract <-- "extract/horse" : horse_attribute
 
     autonumber resume
     extract -> Horse : find_or_create_by!(horse_attribute)
