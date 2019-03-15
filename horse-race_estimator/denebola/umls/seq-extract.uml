@@ -50,6 +50,6 @@ loop レースIDごとに繰り返し
     extract <-- extract/horse : horse_attribute
 
     autonumber resume
-    extract -> Horse : find_or_create_by!(horse_attribute))
+    extract -> Horse : find_or_create_by!(horse_attribute)
   end
 end
