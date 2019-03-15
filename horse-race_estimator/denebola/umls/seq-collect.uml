@@ -12,11 +12,23 @@ loop 指定された期間内を日付ごとに繰り返し
     autonumber resume
     collect -> File : write
   end
+end
 
-  loop レースIDごとに繰り返し
-    alt レース情報ファイルが存在する
-      collect -> File : read
-    else
+loop レースIDごとに繰り返し
+  alt レース情報ファイルが存在する
+    collect -> File : read
+  else
+    collect -> HTTPClient : get
+
+    autonumber stop
+    collect <-- HTTPClient
+
+    autonumber resume
+    collect -> File : write
+  end
+
+  loop レースのエントリーごとに繰り返し
+    alt 競走馬情報ファイルが存在しない
       collect -> HTTPClient : get
 
       autonumber stop
@@ -24,18 +36,6 @@ loop 指定された期間内を日付ごとに繰り返し
 
       autonumber resume
       collect -> File : write
-    end
-
-    loop レースのエントリーごとに繰り返し
-      alt 競走馬情報ファイルが存在しない
-        collect -> HTTPClient : get
-
-        autonumber stop
-        collect <-- HTTPClient
-
-        autonumber resume
-        collect -> File : write
-      end
     end
   end
 end
