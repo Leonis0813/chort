@@ -12,11 +12,23 @@ loop 指定された期間内を日付ごとに繰り返し
     autonumber resume
     collect -> File : write
   end
+end
 
-  loop レースIDごとに繰り返し
-    alt レース情報ファイルが存在する
-      collect -> File : read
-    else
+loop レースIDごとに繰り返し
+  alt レース情報ファイルが存在する
+    collect -> File : read
+  else
+    collect -> HTTPClient : get
+
+    autonumber stop
+    collect <-- HTTPClient
+
+    autonumber resume
+    collect -> File : write
+  end
+
+  loop レースのエントリーごとに繰り返し
+    alt 競走馬情報ファイルが存在しない
       collect -> HTTPClient : get
 
       autonumber stop
@@ -24,55 +36,6 @@ loop 指定された期間内を日付ごとに繰り返し
 
       autonumber resume
       collect -> File : write
-    end
-
-    collect -> "Nokogiri::HTML" : parse
-    autonumber stop
-    collect <-- "Nokogiri::HTML" : parsed_html
-
-    autonumber resume
-    collect -> collect : extract_race_info
-
-    create Race
-    collect -> Race : find_or_create_by!
-
-    autonumber stop
-    collect <-- Race : race
-
-    loop レースのエントリーごとに繰り返し
-      autonumber resume
-      create Entry
-      collect -> Entry : find_or_create_by!
-
-      autonumber stop
-      collect <-- Entry : entry
-
-      autonumber resume
-      create Result
-      collect -> Result : find_or_create_by!
-
-      alt 競走馬情報が存在しない
-        alt 競走馬情報ファイルが存在する
-          collect -> File : read
-        else
-          collect -> HTTPClient : get
-
-          autonumber stop
-          collect <-- HTTPClient
-
-          autonumber resume
-          collect -> File : write
-        end
-        collect -> "Nokogiri::HTML" : parse
-        autonumber stop
-        collect <-- "Nokogiri::HTML" : parsed_html
-
-        autonumber resume
-        collect -> collect : extract_horse_info
-
-        create Horse
-        collect -> Horse : create!
-      end
     end
   end
 end
