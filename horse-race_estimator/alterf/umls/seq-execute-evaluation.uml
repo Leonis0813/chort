@@ -1,0 +1,25 @@
+autonumber
+
+actor 利用者
+利用者 -> EvaluationView : 実行ボタン押下
+EvaluationView -> EvaluationsController : execute
+
+create Evaluation
+EvaluationsController -> Evaluation : new
+EvaluationsController --> EvaluationJob : perform_later
+
+autonumber stop
+EvaluationView <- EvaluationsController
+利用者 <- EvaluationView
+
+autonumber resume
+Evaluation <- EvaluationJob : update
+
+autonumber stop
+Evaluation --> EvaluationJob
+
+autonumber resume
+EvaluationJob -> EvaluationMailer : finished
+
+autonumber stop
+EvaluationMailer --> 利用者 : メール通知
