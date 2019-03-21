@@ -78,9 +78,12 @@ FXにおけるレート値を表す
 本システムでは以下の通貨ペアに対応している
 
 - AUDJPY
+- CADJPY
+- CHFJPY
 - EURJPY
 - EURUSD
 - GBPJPY
+- NZDJPY
 - USDJPY
 
 .. _zos-ext-api:
