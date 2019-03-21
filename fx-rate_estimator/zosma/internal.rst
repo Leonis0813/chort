@@ -3,11 +3,11 @@
 
 設計仕様では以下を定義する
 
-- :ref:`zos-int-cls`
-- :ref:`zos-int-seq`
-- :ref:`zos-int-sch`
+- :ref:`zos-int-class`
+- :ref:`zos-int-sequence`
+- :ref:`zos-int-schema`
 
-.. _zos-int-cls:
+.. _zos-int-class:
 
 モジュール構成
 --------------
@@ -28,7 +28,7 @@
 
   - 移動平均を表すクラス
 
-.. _zos-int-seq:
+.. _zos-int-sequence:
 
 シーケンス
 ----------
@@ -152,7 +152,7 @@
 
    - 1日分の全ての通貨ペアの移動平均を日時の順番で1ファイルに出力する
 
-.. _zos-int-sch:
+.. _zos-int-schema:
 
 スキーマ定義
 ------------
