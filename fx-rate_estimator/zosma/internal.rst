@@ -18,15 +18,15 @@
 
 - Rate
 
-  - レートを表すクラス
+  - :ref:`zos-ext-res-rates` を表すクラス
 
 - CandleStick
 
-  - ローソク足を表すクラス
+  - :ref:`zos-ext-res-candle-sticks` を表すクラス
 
 - MovingAverage
 
-  - 移動平均を表すクラス
+  - :ref:`zos-ext-res-moving-averages` を表すクラス
 
 .. _zos-int-sequence:
 
