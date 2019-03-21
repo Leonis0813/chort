@@ -166,7 +166,7 @@ import/candle_sticks.rb
 移動平均を収集する
 ^^^^^^^^^^^^^^^^^^
 
-- 外部ツールから移動平均情報を収集し，データベースに :ref:`zos-ext-resource-moving-averages` を登録する
+- 外部ツールから移動平均情報を収集し，データベースに :ref:`zos-ext-res-moving-averages` を登録する
 - 指定された期間の移動平均を収集する
 
 **スクリプト**
