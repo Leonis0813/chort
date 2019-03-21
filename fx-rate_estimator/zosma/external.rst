@@ -102,10 +102,14 @@ FXにおけるレート値を表す
 レートを収集する
 ^^^^^^^^^^^^^^^^
 
-外部ツールからレート情報を収集し，データベースに :ref:`zos-ext-resource-rates` を登録する．出力はない
+- 外部ツールからレート情報を収集し，データベースに :ref:`zos-ext-resource-rates` を登録する
+- 指定された期間のレートを収集する
 
-入力
-""""
+**スクリプト**
+
+import/rates.rb
+
+**入力**
 
 - 収集開始日
 
@@ -115,20 +119,29 @@ FXにおけるレート値を表す
 
   - 指定がなければ2日前の日付となる
 
-出力
-""""
+**出力**
 
-- なし
+- :ref:`zos-ext-res-rates`
+
+**実行例**
+
+  .. code-block:: none
+
+     bundle exec ruby import/rates.rb --from=2018-01-01 --to=2018-01-31
 
 .. _zos-ext-api-import-candle-sticks:
 
 ローソク足を収集する
 ^^^^^^^^^^^^^^^^^^^^
 
-外部ツールからローソク足情報を収集し，データベースに :ref:`zos-ext-resource-candle-sticks` を登録する．出力はない
+- 外部ツールからローソク足情報を収集し，データベースに :ref:`zos-ext-res-candle-sticks` を登録する
+- 指定された期間のローソク足を収集する
 
-入力
-""""
+**スクリプト**
+
+import/candle_sticks.rb
+
+**入力**
 
 - 収集開始日
 
@@ -138,20 +151,29 @@ FXにおけるレート値を表す
 
   - 指定がなければ2日前の日付となる
 
-出力
-""""
+**出力**
 
-- なし
+- :ref:`zos-ext-res-candle-sticks`
+
+**実行例**
+
+  .. code-block:: none
+
+     bundle exec ruby import/candle_sticks.rb --from=2018-01-01 --to=2018-01-31
 
 .. _zos-ext-api-import-moving-averages:
 
 移動平均を収集する
 ^^^^^^^^^^^^^^^^^^
 
-外部ツールから移動平均情報を収集し，データベースに :ref:`zos-ext-resource-moving-averages` を登録する．出力はない
+- 外部ツールから移動平均情報を収集し，データベースに :ref:`zos-ext-resource-moving-averages` を登録する
+- 指定された期間の移動平均を収集する
 
-入力
-""""
+**スクリプト**
+
+import/moving_averages.rb
+
+**入力**
 
 - 収集開始日
 
@@ -161,7 +183,12 @@ FXにおけるレート値を表す
 
   - 指定がなければ2日前の日付となる
 
-出力
-""""
+**出力**
 
-- なし
+- :ref:`zos-ext-res-moving-averages`
+
+**実行例**
+
+  .. code-block:: none
+
+     bundle exec ruby import/moving_averages.rb --from=2018-01-01 --to=2018-01-31
