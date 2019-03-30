@@ -3,11 +3,11 @@
 
 設計仕様では以下を定義する
 
-- :ref:`zos-int-cls`
-- :ref:`zos-int-seq`
-- :ref:`zos-int-sch`
+- :ref:`zos-int-class`
+- :ref:`zos-int-sequence`
+- :ref:`zos-int-schema`
 
-.. _zos-int-cls:
+.. _zos-int-class:
 
 モジュール構成
 --------------
@@ -18,17 +18,17 @@
 
 - Rate
 
-  - レートを表すクラス
+  - :ref:`zos-ext-res-rates` を表すクラス
 
 - CandleStick
 
-  - ローソク足を表すクラス
+  - :ref:`zos-ext-res-candle-sticks` を表すクラス
 
 - MovingAverage
 
-  - 移動平均を表すクラス
+  - :ref:`zos-ext-res-moving-averages` を表すクラス
 
-.. _zos-int-seq:
+.. _zos-int-sequence:
 
 シーケンス
 ----------
@@ -68,21 +68,6 @@
 6. DBに登録したレートをファイルに出力する
 
    - 1日分の全てのペアのレートを日時の順番で1ファイルに出力する
-
-- 収集開始日と終了日を指定可能
-
-  - 日付はyyyy-mm-ddの形式で指定する
-
-- 指定がない場合は以下に従う
-
-  - 収集開始日: 実行した日の2日前
-  - 収集終了日: 実行した日の2日前
-
-- 実行例
-
-  .. code-block:: none
-
-     bundle exec ruby import/rates.rb --from=2018-01-01 --to=2018-01-31
 
 .. _zos-int-seq-import-candle-sticks:
 
@@ -127,21 +112,6 @@
 
    - 1日分の全てのペアのローソク足を日時の順番で1ファイルに出力する
 
-- 収集開始日と終了日を指定可能
-
-  - 日付はyyyy-mm-ddの形式で指定する
-
-- 指定がない場合は以下に従う
-
-  - 収集開始日: 実行した日の2日前
-  - 収集終了日: 実行した日の2日前
-
-- 実行例
-
-  .. code-block:: none
-
-     bundle exec ruby import/candle_sticks.rb --from=2018-01-01 --to=2018-01-31
-
 .. _zos-int-seq-import-moving-averages:
 
 移動平均を収集する
@@ -182,22 +152,7 @@
 
    - 1日分の全ての通貨ペアの移動平均を日時の順番で1ファイルに出力する
 
-- 収集開始日と終了日を指定可能
-
-  - 日付はyyyy-mm-ddの形式で指定する
-
-- 指定がない場合は以下に従う
-
-  - 収集開始日: 実行した日の2日前
-  - 収集終了日: 実行した日の2日前
-
-- 実行例
-
-  .. code-block:: none
-
-     bundle exec ruby import/moving_averages.rb --from=2018-01-01 --to=2018-01-31
-
-.. _zos-int-sch:
+.. _zos-int-schema:
 
 スキーマ定義
 ------------
