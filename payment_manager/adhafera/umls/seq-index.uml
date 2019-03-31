@@ -1,0 +1,124 @@
+autonumber
+
+actor 利用者
+
+利用者 -> IndexActivity : onCreate
+
+activate IndexActivity
+  IndexActivity -> IndexActivity : getCategories
+
+  create HTTPClient
+  IndexActivity -> HTTPClient : new
+
+  activate HTTPClient
+    HTTPClient -> HTTPClient : credential
+
+    autonumber stop
+    HTTPClient --> IndexActivity
+
+    autonumber resume
+    IndexActivity ->> HTTPClient : sendRequest
+
+    autonumber stop
+    HTTPClient --> IndexActivity
+  deactivate HTTPClient
+
+  destroy HTTPClient
+
+  autonumber resume
+  IndexActivity -> IndexView : setCategories
+
+  activate IndexView
+    IndexView -> index.CategoryView : setCategories
+
+    activate index.CategoryView
+      autonumber stop
+      index.CategoryView --> IndexView
+    deactivate index.CategoryView
+
+    IndexView --> IndexActivity
+  deactivate IndexView
+
+  autonumber resume
+  利用者 -> IndexView : onClick
+
+  activate IndexView
+    IndexView -> IndexActivity : searchPayments
+
+    alt 期間が入力されている
+      IndexActivity -> InputChecker : checkDate
+
+      activate InputChecker
+        autonumber stop
+        InputChecker --> IndexActivity
+      deactivate InputChecker
+
+      autonumber resume
+      IndexActivity -> IndexView : showWrongInput
+
+      autonumber stop
+      IndexView --> IndexActivity
+    end
+
+    alt 金額が入力されている
+      autonumber resume
+      IndexActivity -> InputChecker : checkPrice
+
+      activate InputChecker
+        autonumber stop
+        InputChecker --> IndexActivity
+      deactivate InputChecker
+
+      autonumber resume
+      IndexActivity -> IndexView : showWrongInput
+
+      autonumber stop
+      IndexView --> IndexActivity
+    end
+
+    alt 不正な入力がある
+      autonumber resume
+      IndexActivity -> IndexView : showMessage
+
+      autonumber stop
+      IndexView --> IndexActivity
+    end
+
+    autonumber resume
+    create HTTPClient
+    IndexActivity -> HTTPClient : new
+
+    activate HTTPClient
+      HTTPClient -> HTTPClient : credential
+
+      autonumber stop
+      HTTPClient --> IndexActivity
+
+      autonumber resume
+      IndexActivity ->> HTTPClient : sendRequest
+
+      autonumber stop
+      HTTPClient --> IndexActivity
+    deactivate HTTPClient
+
+    destroy HTTPClient
+
+    autonumber resume
+    IndexActivity -> IndexView : addPayments
+    IndexView -> PaymentListAdapter : setAdapter
+
+    activate PaymentListAdapter
+      autonumber stop
+      PaymentListAdapter --> IndexView
+    deactivate PaymentListAdapter
+
+    autonumber resume
+    IndexView -> IndexView : fixListViewHeight
+
+    autonumber stop
+    IndexView --> IndexActivity
+    IndexActivity --> IndexView
+    IndexView --> IndexActivity
+  deactivate IndexView
+
+IndexActivity --> 利用者

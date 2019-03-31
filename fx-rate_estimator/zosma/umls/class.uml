@@ -9,9 +9,17 @@ class CandleStick {
   - from : Datetime
   - to : Datetime
   - pair : String
-  - period : String
+  - time_frame : String
   - open : Float
   - close : Float
   - high : Float
   - low : Float
+}
+
+class MovingAverage {
+  - time : Datetime
+  - pair : String
+  - time_frame : String
+  - period : Integer
+  - value : Float
 }

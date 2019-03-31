@@ -44,6 +44,8 @@ class Query {
   - price_lower : int
   - page : int
   - per_page : int
+  - sort : String
+  - order : String
   + date_valid?() : void
 }
 

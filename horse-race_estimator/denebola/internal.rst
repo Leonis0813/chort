@@ -3,11 +3,11 @@
 
 設計仕様では以下を定義する
 
-- :ref:`den-int-cls`
-- :ref:`den-int-seq`
-- :ref:`den-int-sch`
+- :ref:`den-int-class`
+- :ref:`den-int-sequence`
+- :ref:`den-int-schema`
 
-.. _den-int-cls:
+.. _den-int-class:
 
 モジュール構成
 --------------
@@ -18,68 +18,95 @@
 
 - Race
 
-  - レース情報を表すクラス
+  - :ref:`den-ext-res-races` を表すクラス
 
 - Entry
 
-  - エントリー情報を表すクラス
+  - :ref:`den-ext-res-entries` を表すクラス
 
-- Result
+- Horse
 
-  - レース結果を表すクラス
+  - :ref:`den-ext-res-horses` を表すクラス
 
-.. _den-int-seq:
+- Feature
+
+  - :ref:`den-ext-res-features` を表すクラス
+
+.. _den-int-sequence:
 
 シーケンス
 ----------
 
 - :ref:`den-int-seq-collect`
+- :ref:`den-int-seq-extract`
 - :ref:`den-int-seq-aggregate`
 
 .. _den-int-seq-collect:
 
-レース情報を収集する
-^^^^^^^^^^^^^^^^^^^^
+HTMLファイルを収集する
+^^^^^^^^^^^^^^^^^^^^^^
 
 *シーケンス図*
 
 .. uml:: umls/seq-collect.uml
 
-指定された期間だけ1〜8を繰り返す
+指定された期間だけ1〜3を繰り返す
 
-1. HTTPClientのgetメソッドを実行してレース一覧を取得する
+指定された日のレースIDファイルが存在すれば1を実行する
 
-取得したレース情報分2〜8を繰り返す
+1. ファイルからレースIDリストを取得する
 
-2. HTTPClientのgetメソッドを実行してレース情報を取得する
-3. Raceオブジェクトを作成する
+そうでなければ2, 3を実行する
 
-レースのエントリー数分4, 5を繰り返す
+2. 外部サイトからレースIDリストを取得する
+3. IDリストをファイルに保存する
 
-4. Entryオブジェクトを作成する
-5. Resultオブジェクトを作成する
+取得したレースIDごとに4〜8を繰り返す
 
-6. RaceオブジェクトをDBに保存する
+指定されたレースIDに対応するファイルが存在すれば4を実行する
+
+4. ファイルからレース情報が書かれたHTMLファイルを読み込む
+
+そうでなければ5, 6を実行する
+
+5. 外部サイトからレース情報を取得する
+6. レース情報が書かれたHTMLファイルを保存する
 
 レースのエントリー数分7, 8を繰り返す
 
-7. EntryオブジェクトをDBに保存する
-8. ResultオブジェクトをDBに保存する
+競走馬情報が存在しなければ7, 8を実行する
 
-- 収集開始日と終了日を指定可能
+7. 外部サイトから競走馬情報を取得する
+8. 競走馬情報が書かれたHTMLファイルを保存する
 
-  - 日付はyyyy-mm-ddの形式で指定する
+.. _den-int-seq-extract:
 
-- 指定がない場合は以下に従う
+競馬情報を抽出する
+^^^^^^^^^^^^^^^^^^
 
-  - 収集開始日: 実行した日の1週間前
-  - 収集終了日: 実行した日
+*シーケンス図*
 
-- 実行例
+.. uml:: umls/seq-extract.uml
 
-  .. code-block:: none
+指定された期間だけ1を繰り返す
 
-     bundle exec ruby collect.rb --from=2018-01-01 --to=2018-01-31
+1. ファイルからレースIDリストを取得する
+
+取得したレースIDごとに2〜11を繰り返す
+
+2. ファイルからレース情報が書かれたHTMLファイルを読み込む
+3. HTMLファイルをパースする
+4. レース情報を抽出する
+5. レース情報をデータベースに登録する
+
+レースのエントリー数分6〜11を繰り返す
+
+6. エントリー情報を抽出する
+7. エントリー情報をデータベースに登録する
+8. 競走馬情報が書かれたHTMLファイルを読み込む
+9. HTMLファイルをパースする
+10. 競走馬情報を抽出する
+11. 競走馬情報をデータベースに登録する
 
 .. _den-int-seq-aggregate:
 
@@ -100,14 +127,14 @@
 5. Resultオブジェクトのfind_byメソッドを実行してFeatureオブジェクトのIDと一致するレース結果情報を取得する
 6. 取得した全ての情報を設定してFeatureオブジェクトをDBに登録する
 
-.. _den-int-sch:
+.. _den-int-schema:
 
 スキーマ定義
 ------------
 
 - :ref:`den-int-sch-races`
 - :ref:`den-int-sch-entries`
-- :ref:`den-int-sch-results`
+- :ref:`den-int-sch-horses`
 - :ref:`den-int-sch-features`
 
 .. _den-int-sch-races:
@@ -119,7 +146,7 @@ racesテーブル
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 10
+   :widths: 15, 15, 30, 20, 20
 
    "id", "INTEGER", "レースのID", "○", "○"
    "direction", "STRING", "左回りか右回りか",, "○"
@@ -142,36 +169,36 @@ entriesテーブル
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 10
+   :widths: 15, 15, 30, 20, 20
 
    "id", "INTEGER", "エントリーのID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
+   "sex", "STRING", "性別",, "○"
    "burden_weight", "FLOAT", "斤量",, "○"
    "jockey", "STRING", "騎手",,
    "number", "INTEGER", "エントリーの番号",, "○"
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
+   "order", "INTEGER", "着順",, "○"
    "race_id", "INTEGER", "レース情報の外部キー",,
    "created_at", "DATETIME", "エントリー情報の作成日時", "", "○"
    "updated_at", "DATETIME", "エントリー情報の更新日時", "", "○"
 
-.. _den-int-sch-results:
+.. _den-int-sch-horses:
 
-resultsテーブル
-^^^^^^^^^^^^^^^
+horsesテーブル
+^^^^^^^^^^^^^^
 
-レース結果情報を登録するresultsテーブルを定義する
+競走馬情報を登録するhorsesテーブルを定義する
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 10
+   :widths: 15, 15, 30, 20, 20
 
-   "id", "INTEGER", "レース結果のID", "○", "○"
-   "order", "INTEGER", "着順",, "○"
-   "race_id", "INTEGER", "レース情報の外部キー",,
-   "entry_id", "INTEGER", "エントリー情報の外部キー",,
-   "created_at", "DATETIME", "レース結果情報の作成日時", "", "○"
-   "updated_at", "DATETIME", "レース結果情報の更新日時", "", "○"
+   "id", "INTEGER", "内部ID", "○", "○"
+   "horse_id", "STRING", "競走馬のID", "", "○"
+   "created_at", "DATETIME", "競走馬情報の作成日時", "", "○"
+   "updated_at", "DATETIME", "競走馬情報の更新日時", "", "○"
 
 .. _den-int-sch-features:
 
@@ -182,23 +209,24 @@ featuresテーブル
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 10
+   :widths: 15, 15, 30, 20, 20
 
    "id", "INTEGER", "素性のID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
+   "sex", "STRING", "性別",, "○"
    "burden_weight", "FLOAT", "斤量",, "○"
    "direction", "STRING", "左回りか右回りか",, "○"
    "distance", "INTEGER", "コースの距離",, "○"
    "grade", "STRING", "グレード",,
-   "jockey", "STRING", "騎手",,
    "number", "INTEGER", "エントリーの番号",, "○"
    "place", "STRING", "場所",, "○"
    "round", "INTEGER", "ラウンド",, "○"
-   "start_time", "DATETIME", "レース日時",, "○"
+   "month", "INTEGER", "レース月",, "○"
    "track", "STRING", "芝やダートなど，地面の種類",, "○"
    "weather", "STRING", "天候",, "○"
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
+   "weight_per", "FLOAT", "斤量/体重",,
    "race_id", "INTEGER", "レース情報の外部キー",,
    "entry_id", "INTEGER", "エントリー情報の外部キー",,
    "created_at", "DATETIME", "素性の作成日時", "", "○"

@@ -1,5 +1,5 @@
-Denebola: レース情報収集モジュール
-==================================
+Denebola: 競馬情報収集モジュール
+================================
 
 Contents:
 
@@ -7,4 +7,5 @@ Contents:
    :maxdepth: 2
 
    requirements
+   external
    internal
