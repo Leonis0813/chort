@@ -14,7 +14,7 @@ pipeline {
             git url: 'https://github.com/Leonis0813/subra.git', branch: params.SUBRA_BRANCH
 
             def version = params.CHORT_VERSION.replaceFirst(/^.+\//, '')
-            sh "sudo CHORT_VERSION=${version} chef-client -z -r chort"
+            sh "sudo CHORT_VERSION=${version} chef-client -z -r sphinx,chort"
           }
         }
       }
