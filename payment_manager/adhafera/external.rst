@@ -13,9 +13,9 @@
 
 本モジュールでは以下のデータを扱う
 
-- :ref:`adh-ext-resource-payment`
+- :ref:`adh-ext-res-payment`
 
-.. _adh-ext-resource-payment:
+.. _adh-ext-res-payment:
 
 収支
 ^^^^
@@ -105,6 +105,11 @@
 
     - 片方が入力されていなければ，最も古い，または新しい収支情報までが対象となる
     - どちらも入力されていなければ，全ての収支情報が対象となる
+    - 入力フォームをクリックするとカレンダーが表示される
+
+      .. image:: images/calendar.png
+         :alt: カレンダー
+         :scale: 30
 
   - 内容
 
