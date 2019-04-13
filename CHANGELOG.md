@@ -1,3 +1,6 @@
+# 2019/04/13
+- [Adhafera] update version to 3.1.0
+
 # 2019/03/28
 - [Zosma] update version to 3.0.3
 
