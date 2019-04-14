@@ -148,7 +148,8 @@ racesテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 15, 15, 30, 20, 20
 
-   "id", "INTEGER", "レースのID", "○", "○"
+   "id", "INTEGER", "内部ID", "○", "○"
+   "race_id", "STRING", "レースのID"",, "○"
    "direction", "STRING", "左回りか右回りか",, "○"
    "distance", "INTEGER", "コースの距離",, "○"
    "grade", "STRING", "グレード",,
@@ -171,7 +172,7 @@ entriesテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 15, 15, 30, 20, 20
 
-   "id", "INTEGER", "エントリーのID", "○", "○"
+   "id", "INTEGER", "内部ID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
    "sex", "STRING", "性別",, "○"
    "burden_weight", "FLOAT", "斤量",, "○"
@@ -211,7 +212,7 @@ featuresテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 15, 15, 30, 20, 20
 
-   "id", "INTEGER", "素性のID", "○", "○"
+   "id", "INTEGER", "内部ID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
    "sex", "STRING", "性別",, "○"
    "burden_weight", "FLOAT", "斤量",, "○"
