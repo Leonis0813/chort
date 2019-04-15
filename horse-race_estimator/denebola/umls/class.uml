@@ -4,6 +4,7 @@ class Horse
 class Feature
 
 class Race {
+  - race_id : String
   - direction : String
   - distance : int
   - grade : String
