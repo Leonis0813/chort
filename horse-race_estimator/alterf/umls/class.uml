@@ -78,21 +78,21 @@ class NetkeibaClient {
 ブラウザ -- EvaluationView
 
 AnalysisView -- AnalysesController
-AnalysesController -> AnalysisJob
-AnalysisJob -> AnalysisMailer
+AnalysesController --> AnalysisJob
+AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
 
 PredictionView -- PredictionsController
-PredictionsController -> PredictionJob
-PredictionJob -> PredictionMailer
-PredictionJob -> NetkeibaClient
+PredictionsController --> PredictionJob
+PredictionJob --> PredictionMailer
+PredictionJob --> NetkeibaClient
 PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
 
 EvaluationView -- EvaluationsController
-EvaluationsController -> EvaluationJob
-EvaluationJob -> EvaluationMailer
-EvaluationJob -> NetkeibaClient
+EvaluationsController --> EvaluationJob
+EvaluationJob --> EvaluationMailer
+EvaluationJob --> NetkeibaClient
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob "1" -- "1" Evaluation
