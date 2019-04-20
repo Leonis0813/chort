@@ -14,6 +14,7 @@ class Analysis
 class Prediction
 class Evaluation
 class NetkeibaClient
+class HTTPClient
 
 class AnalysesController {
   + manage(page : String)
@@ -82,7 +83,7 @@ class Evaluation {
 }
 
 class NetkeibaClient {
-  + get_race_top : Array<String>
+  + get_race_top() : Array<String>
   + get_race(url : String) : Hash<String, Object>
 }
 
