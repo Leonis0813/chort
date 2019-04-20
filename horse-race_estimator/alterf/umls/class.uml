@@ -1,20 +1,6 @@
 class AnalysisView <<Boundary>>
 class PredictionView <<Boundary>>
 class EvaluationView <<Boundary>>
-class AnalysesController
-class PredictionsController
-class EvaluationsController
-class AnalysisJob
-class PredictionJob
-class EvaluationJob
-class AnalysisMailer
-class PredictionMailer
-class EvaluationMailer
-class Analysis
-class Prediction
-class Evaluation
-class NetkeibaClient
-class HTTPClient
 
 class AnalysesController {
   + manage(page : String)
