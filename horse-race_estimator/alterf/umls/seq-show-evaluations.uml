@@ -1,0 +1,11 @@
+autonumber
+
+actor 利用者
+利用者 -> EvaluationView : 分析画面表示
+EvaluationView -> EvaluationsController : manage
+EvaluationsController -> Evaluation : all
+
+autonumber stop
+EvaluationsController <-- Evaluation
+EvaluationView <-- EvaluationsController
+利用者 <-- EvaluationView

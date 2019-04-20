@@ -1,20 +1,20 @@
 class AnalysisView <<Boundary>>
 class PredictionView <<Boundary>>
-class AnalysesController
-class PredictionsController
-class AnalysisJob
-class PredictionJob
-class AnalysisMailer
-class PredictionMailer
-class Analysis
-class Prediction
+class EvaluationView <<Boundary>>
 
 class AnalysesController {
+  + manage(page : String)
   + execute(num_data : Integer, num_tree : Integer, num_feature : Integer)
 }
 
 class PredictionsController {
+  + manage(page : String)
   + execute(model : File, test_data: File)
+}
+
+class EvaluationsController {
+  + manage(page : String)
+  + execute(model : File)
 }
 
 class AnalysisJob {
@@ -22,8 +22,11 @@ class AnalysisJob {
 }
 
 class PredictionJob {
-  + perform(prediction_id: Integer)
-  - generate_test_data(url: String)
+  + perform(prediction_id : Integer)
+}
+
+class EvaluationJob {
+  + perform(evaluation_id : Integer)
 }
 
 class AnalysisMailer {
@@ -34,36 +37,62 @@ class PredictionMailer {
   + finished(prediction : Prediction, is_success : Boolean)
 }
 
+class EvaluationMailer {
+  + finished(evaluation : Evaluation, is_success : Boolean)
+}
+
 class Analysis {
-  - id : int
-  - num_data : int
-  - num_tree : int
-  - num_feature : int
+  - id : Integer
+  - num_data : Integer
+  - num_tree : Integer
+  - num_feature : Integer
+  - state : String
   - created_at : Datetime
   - updated_at : Datetime
-  - state : String
 }
 
 class Prediction {
-  - id : int
+  - id : Integer
   - model : String
   - test_data : String
+  - state : String
   - created_at : Datetime
   - updated_at : Datetime
-  - state : String
 }
 
-ブラウザ -right- AnalysisView
-ブラウザ -down- PredictionView
+class Evaluation {
+  - id : Integer
+  - model : String
+  - state : String
+  - created_at : Datetime
+  - updated_at : Datetime
+}
 
-AnalysisView -right- AnalysesController
-AnalysesController -> AnalysisJob
-AnalysisJob -> AnalysisMailer
+class NetkeibaClient {
+  + get_race_top() : Array<String>
+  + get_race(url : String) : Hash<String, Object>
+}
+
+ブラウザ -- AnalysisView
+ブラウザ -- PredictionView
+ブラウザ -- EvaluationView
+
+AnalysisView -- AnalysesController
+AnalysesController --> AnalysisJob
+AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
 
-PredictionView -right- PredictionsController
-PredictionsController -> PredictionJob
-PredictionJob -> PredictionMailer
+PredictionView -- PredictionsController
+PredictionsController --> PredictionJob
+PredictionJob --> PredictionMailer
+PredictionJob --> NetkeibaClient
 PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
+
+EvaluationView -- EvaluationsController
+EvaluationsController --> EvaluationJob
+EvaluationJob --> EvaluationMailer
+EvaluationJob --> NetkeibaClient
+EvaluationsController "1" -- "1" Evaluation
+EvaluationJob "1" -- "1" Evaluation
