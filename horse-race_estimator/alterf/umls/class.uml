@@ -96,5 +96,3 @@ EvaluationJob -> EvaluationMailer
 EvaluationJob -> NetkeibaClient
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob "1" -- "1" Evaluation
-
-HTTPClient <|-- NetkeibaClient
