@@ -198,6 +198,9 @@ horsesテーブル
 
    "id", "INTEGER", "内部ID", "○", "○"
    "horse_id", "STRING", "競走馬のID", "", "○"
+   "last_race_order", "INTEGER", "1走前の順位",,
+   "second_last_race_order", "INTEGER", "2走前の順位",,
+   "last_race_final_600m_time", "FLOAT", "前走の上り3ハロンタイム",,
    "created_at", "DATETIME", "競走馬情報の作成日時", "", "○"
    "updated_at", "DATETIME", "競走馬情報の更新日時", "", "○"
 
@@ -228,6 +231,9 @@ featuresテーブル
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
    "weight_per", "FLOAT", "斤量/体重",,
+   "last_race_order", "INTEGER", "1走前の順位",,
+   "second_last_race_order", "INTEGER", "2走前の順位",,
+   "last_race_final_600m_time", "FLOAT", "前走の上り3ハロンタイム",,
    "race_id", "INTEGER", "レース情報の外部キー",,
    "entry_id", "INTEGER", "エントリー情報の外部キー",,
    "created_at", "DATETIME", "素性の作成日時", "", "○"
