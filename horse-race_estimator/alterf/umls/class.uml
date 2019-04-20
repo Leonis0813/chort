@@ -13,6 +13,7 @@ class EvaluationMailer
 class Analysis
 class Prediction
 class Evaluation
+class NetkeibaClient
 
 class AnalysesController {
   + manage(page : String)
@@ -35,7 +36,6 @@ class AnalysisJob {
 
 class PredictionJob {
   + perform(prediction_id : Integer)
-  - generate_test_data(url : String)
 }
 
 class EvaluationJob {
@@ -81,6 +81,11 @@ class Evaluation {
   - updated_at : Datetime
 }
 
+class NetkeibaClient {
+  + get_race_top : Array<String>
+  + get_race(url : String) : Hash<String, Object>
+}
+
 ブラウザ -- AnalysisView
 ブラウザ -- PredictionView
 ブラウザ -- EvaluationView
@@ -94,11 +99,15 @@ AnalysisJob "1" -- "1" Analysis
 PredictionView -- PredictionsController
 PredictionsController -> PredictionJob
 PredictionJob -> PredictionMailer
+PredictionJob -> NetkeibaClient
 PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
 
 EvaluationView -- EvaluationsController
 EvaluationsController -> EvaluationJob
 EvaluationJob -> EvaluationMailer
+EvaluationJob -> NetkeibaClient
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob "1" -- "1" Evaluation
+
+HTTPClient <-- NetkeibaClient
