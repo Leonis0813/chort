@@ -1,9 +1,9 @@
 autonumber
 
-aggregate -> Race : pluck
+aggregate -> Entry : pluck
 
 autonumber stop
-aggregate <-- Race
+aggregate <-- Entry
 
 autonumber resume
 aggregate -> Feature : pluck
@@ -25,10 +25,10 @@ loop
   aggregate <-- Entry
 
   autonumber resume
-  aggregate -> Result : find_by
+  aggregate -> Horse : find
 
   autonumber stop
-  aggregate <-- Result
+  aggregate <-- Horse
 
   autonumber resume
   aggregate -> Feature : create!

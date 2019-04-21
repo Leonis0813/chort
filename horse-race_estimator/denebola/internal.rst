@@ -88,7 +88,7 @@ HTMLファイルを収集する
 
 .. uml:: umls/seq-extract.uml
 
-指定された期間だけ1を繰り返す
+指定された期間だけ1〜11を繰り返す
 
 1. ファイルからレースIDリストを取得する
 
@@ -117,14 +117,14 @@ HTMLファイルを収集する
 
 .. uml:: umls/seq-aggregate.uml
 
-1. Raceオブジェクトのpluckメソッドを実行してレース情報登録後の状態のIDを取得する
+1. Entryオブジェクトのpluckメソッドを実行してレース情報登録後の状態のIDを取得する
 2. Featureオブジェクトのpluckメソッドを実行して素性作成済みのレース情報のIDを取得する
 
 シーケンス1, 2で取得したIDの差分だけ以下を繰り返す
 
 3. Raceオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース情報を取得する
 4. Entryオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するエントリー情報を取得する
-5. Resultオブジェクトのfind_byメソッドを実行してFeatureオブジェクトのIDと一致するレース結果情報を取得する
+5. Horseオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致する競走馬情報を取得する
 6. 取得した全ての情報を設定してFeatureオブジェクトをDBに登録する
 
 .. _den-int-schema:
@@ -198,6 +198,9 @@ horsesテーブル
 
    "id", "INTEGER", "内部ID", "○", "○"
    "horse_id", "STRING", "競走馬のID", "", "○"
+   "last_race_order", "INTEGER", "1走前の順位",,
+   "second_last_race_order", "INTEGER", "2走前の順位",,
+   "last_race_final_600m_time", "FLOAT", "前走の上り3ハロンタイム",,
    "created_at", "DATETIME", "競走馬情報の作成日時", "", "○"
    "updated_at", "DATETIME", "競走馬情報の更新日時", "", "○"
 
@@ -228,6 +231,9 @@ featuresテーブル
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
    "weight_per", "FLOAT", "斤量/体重",,
+   "last_race_order", "INTEGER", "1走前の順位",,
+   "second_last_race_order", "INTEGER", "2走前の順位",,
+   "last_race_final_600m_time", "FLOAT", "前走の上り3ハロンタイム",,
    "race_id", "INTEGER", "レース情報の外部キー",,
    "entry_id", "INTEGER", "エントリー情報の外部キー",,
    "created_at", "DATETIME", "素性の作成日時", "", "○"

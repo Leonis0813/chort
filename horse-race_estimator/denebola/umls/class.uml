@@ -1,8 +1,3 @@
-class Race
-class Entry
-class Horse
-class Feature
-
 class Race {
   - race_id : String
   - direction : String
@@ -28,6 +23,9 @@ class Entry {
 
 class Horse {
   - horse_id : String
+  - last_race_order : Integer
+  - second_last_race_order : Integer
+  - last_race_final_600m_time : double
 }
 
 class Feature {
@@ -46,8 +44,13 @@ class Feature {
   - weight : double
   - weight_diff : double
   - weight_per : double
+  - last_race_order : Integer
+  - second_last_race_order : Integer
+  - last_race_final_600m_time : double
 }
 
 Race "1" -- "1..*" Entry
 Entry "1" -- "1" Horse
-Race "1" -- "1" Feature
+Race -- Feature
+Entry -- Feature
+Horse -- Feature
