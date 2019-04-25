@@ -225,8 +225,8 @@ prediction_resultsテーブル
    "id", "INTEGER", "内部ID", "○", "○"
    "prediction_id", "INTEGER", "predictionsテーブルの外部ID", "", "○"
    "number", "INTEGER", "馬番", "", "○"
-   "created_at", "DATETIME", "予測ジョブ情報の作成日時", "", "○"
-   "updated_at", "DATETIME", "予測ジョブ情報の更新日時", "", "○"
+   "created_at", "DATETIME", "予測結果情報の作成日時", "", "○"
+   "updated_at", "DATETIME", "予測結果情報の更新日時", "", "○"
 
 .. _alt-int-sch-evaluations:
 
