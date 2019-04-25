@@ -185,7 +185,7 @@ analysesテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 10, 10, 20, 20, 10
 
-   "id", "INTEGER", "分析ジョブのID", "○", "○"
+   "id", "INTEGER", "内部ID", "○", "○"
    "num_data", "INTEGER", "学習データ数",, "○"
    "num_tree", "INTEGER", "決定木の数",,
    "num_feature", "INTEGER", "特徴量の数",, "○"
@@ -224,7 +224,7 @@ prediction_resultsテーブル
 
    "id", "INTEGER", "内部ID", "○", "○"
    "prediction_id", "INTEGER", "predictionsテーブルの外部ID", "", "○"
-   "number", "INTEGER", "馬番", "", "○"
+   "number", "INTEGER", "1着と予測されたエントリーの馬番", "", "○"
    "created_at", "DATETIME", "予測結果情報の作成日時", "", "○"
    "updated_at", "DATETIME", "予測結果情報の更新日時", "", "○"
 
