@@ -55,6 +55,7 @@ class Prediction {
   - id : Integer
   - model : String
   - test_data : String
+  - results: Array<Integer>
   - state : String
   - created_at : Datetime
   - updated_at : Datetime
