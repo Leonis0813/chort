@@ -19,6 +19,8 @@ class Entry {
   - sex : String
   - weight : double
   - weight_diff : double
+  - distance_diff : double
+  - blank : int
 }
 
 class Horse {
@@ -26,6 +28,11 @@ class Horse {
   - last_race_order : Integer
   - second_last_race_order : Integer
   - last_race_final_600m_time : double
+  - rate_within_third : double
+  - entry_times : int
+  - average_money : double
+  - running_style : String
+  - win_times : int
 }
 
 class Feature {
@@ -43,10 +50,17 @@ class Feature {
   - weather : String
   - weight : double
   - weight_diff : double
+  - distance_diff : double
+  - blank : int
   - weight_per : double
   - last_race_order : Integer
   - second_last_race_order : Integer
   - last_race_final_600m_time : double
+  - rate_within_third : double
+  - entry_times : int
+  - average_money : double
+  - running_style : String
+  - win_times : int
 }
 
 Race "1" -- "1..*" Entry
