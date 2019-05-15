@@ -16,7 +16,6 @@
 - :ref:`den-ext-res-races`
 - :ref:`den-ext-res-entries`
 - :ref:`den-ext-res-horses`
-- :ref:`den-ext-res-horse-results`
 - :ref:`den-ext-res-features`
 
 .. _den-ext-res-races:
@@ -92,6 +91,8 @@
    "馬体重", "数値", "エントリー時の馬体重", "- 0より大きい整数"
    "体重の差分", "数値", "前走との馬体重の差分", "- 小数"
    "着順", "数値", "レースで何番目にゴールに着いたか", "- 0より大きい整数"
+   "上り3ハロンタイム", "数値", "上り3ハロンタイム", "- 0より大きい小数"
+   "賞金", "数値", "獲得賞金", "- 0より大きい整数"
 
 .. _den-ext-res-horses:
 
@@ -111,24 +112,6 @@
      - 先行
      - 差し
      - 追い込み"
-
-.. _den-ext-res-horse-results:
-
-戦績
-^^^^
-
-競走馬の戦績を表す
-
-.. csv-table::
-   :header: "属性名", "型", "意味", "備考"
-   :widths: 15, 10, 30, 45
-
-   "レースID", "文字列", "レースを一意に示すID", ":ref:`den-ext-res-races` 参照"
-   "馬番", "数値", "エントリーの番号", ":ref:`den-ext-res-entries` 参照"
-   "距離", "数値", "コースの距離", ":ref:`den-ext-res-races` 参照"
-   "着順", "数値", "レースで何番目にゴールに着いたか", ":ref:`den-ext-res-entries` 参照"
-   "上り3ハロンタイム", "数値", "上り3ハロンタイム", "- 0より大きい小数"
-   "賞金", "数値", "獲得賞金", "- 0より大きい整数"
 
 .. _den-ext-res-features:
 
