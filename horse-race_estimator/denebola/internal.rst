@@ -174,16 +174,17 @@ entriesテーブル
 
    "id", "INTEGER", "内部ID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
-   "sex", "STRING", "性別",, "○"
    "burden_weight", "FLOAT", "斤量",, "○"
-   "jockey", "STRING", "騎手",,
+   "final_600m_time", "FLOAT", "上り3ハロンタイム",,
+   "jockey", "STRING", "騎手",, "○"
    "number", "INTEGER", "エントリーの番号",, "○"
+   "order", "INTEGER", "着順",, "○"
+   "prize_money", "INTEGER", "獲得賞金",,
+   "sex", "STRING", "性別",, "○"
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
-   "distance_diff", "FLOAT", "平均距離との差/平均距離", "", "○"
-   "blank", "INTEGER", "前回のレースから何日空いたか", "", ""
-   "order", "INTEGER", "着順",, "○"
-   "race_id", "INTEGER", "レース情報の外部キー",,
+   "race_id", "INTEGER", "レースの内部ID",, "○"
+   "horse_id", "INTEGER", "競走馬の内部ID",, "○"
    "created_at", "DATETIME", "エントリー情報の作成日時", "", "○"
    "updated_at", "DATETIME", "エントリー情報の更新日時", "", "○"
 
@@ -200,14 +201,7 @@ horsesテーブル
 
    "id", "INTEGER", "内部ID", "○", "○"
    "horse_id", "STRING", "競走馬のID", "", "○"
-   "last_race_order", "INTEGER", "1走前の順位",,
-   "second_last_race_order", "INTEGER", "2走前の順位",,
-   "last_race_final_600m_time", "FLOAT", "前走の上り3ハロンタイム",,
-   "rate_within_third", "FLOAT", "過去4レースの3着以内に入っていた割合,,
-   "entry_times", "INTEGER", "出場回数", "", "○"
-   "average_money", "FLOAT", 平均賞金獲得額", "", "○"
    "running_style", "STRING", "脚質", "", "○"
-   "win_times", "INTEGER", "勝ち回数", "", "○"
    "created_at", "DATETIME", "競走馬情報の作成日時", "", "○"
    "updated_at", "DATETIME", "競走馬情報の更新日時", "", "○"
 
@@ -224,31 +218,29 @@ featuresテーブル
 
    "id", "INTEGER", "内部ID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
-   "sex", "STRING", "性別",, "○"
+   "average_prize_money", "FLOAT", 馬の平均賞金獲得額", "", "○"
+   "blank", "INTEGER", "前回のレースから何日空いたか",,
    "burden_weight", "FLOAT", "斤量",, "○"
    "direction", "STRING", "左回りか右回りか",, "○"
    "distance", "INTEGER", "コースの距離",, "○"
+   "distance_diff", "FLOAT", "平均距離との差/平均距離", "", "○"
+   "entry_times", "INTEGER", "レースの出場回数", "", "○"
    "grade", "STRING", "グレード",,
+   "last_race_final_600m_time", "FLOAT", "馬の前走の上り3ハロンタイム",,
+   "last_race_order", "INTEGER", "馬の1走前の順位",,
+   "month", "INTEGER", "レース月",, "○"
    "number", "INTEGER", "エントリーの番号",, "○"
    "place", "STRING", "場所",, "○"
+   "rate_within_third", "FLOAT", "馬の過去4レースの3着以内に入っていた割合,,
    "round", "INTEGER", "ラウンド",, "○"
-   "month", "INTEGER", "レース月",, "○"
+   "running_style", "STRING", "馬の脚質", "", "○"
+   "second_last_race_order", "INTEGER", "馬の2走前の順位",,
+   "sex", "STRING", "性別",, "○"
    "track", "STRING", "芝やダートなど，地面の種類",, "○"
    "weather", "STRING", "天候",, "○"
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
    "weight_per", "FLOAT", "斤量/体重",,
-   "distance_diff", "FLOAT", "平均距離との差/平均距離", "", "○"
-   "blank", "INTEGER", "前回のレースから何日空いたか", "", ""
-   "last_race_order", "INTEGER", "馬の1走前の順位",,
-   "second_last_race_order", "INTEGER", "馬の2走前の順位",,
-   "last_race_final_600m_time", "FLOAT", "馬の前走の上り3ハロンタイム",,
-   "rate_within_third", "FLOAT", "馬の過去4レースの3着以内に入っていた割合,,
-   "entry_times", "INTEGER", "レースの出場回数", "", "○"
-   "average_money", "FLOAT", 馬の平均賞金獲得額", "", "○"
-   "running_style", "STRING", "馬の脚質", "", "○"
    "win_times", "INTEGER", "馬の勝ち回数", "", "○"
-   "race_id", "INTEGER", "レース情報の外部キー",,
-   "entry_id", "INTEGER", "エントリー情報の外部キー",,
    "created_at", "DATETIME", "素性の作成日時", "", "○"
    "updated_at", "DATETIME", "素性の更新日時", "", "○"
