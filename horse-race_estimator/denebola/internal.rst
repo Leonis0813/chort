@@ -218,7 +218,7 @@ featuresテーブル
 
    "id", "INTEGER", "内部ID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
-   "average_prize_money", "FLOAT", 馬の平均賞金獲得額", "", "○"
+   "average_prize_money", "FLOAT", "馬の平均賞金獲得額", "", "○"
    "blank", "INTEGER", "前回のレースから何日空いたか",,
    "burden_weight", "FLOAT", "斤量",, "○"
    "direction", "STRING", "左回りか右回りか",, "○"
@@ -231,7 +231,7 @@ featuresテーブル
    "month", "INTEGER", "レース月",, "○"
    "number", "INTEGER", "エントリーの番号",, "○"
    "place", "STRING", "場所",, "○"
-   "rate_within_third", "FLOAT", "馬の過去4レースの3着以内に入っていた割合,,
+   "rate_within_third", "FLOAT", "馬の過去4レースの3着以内に入っていた割合",,
    "round", "INTEGER", "ラウンド",, "○"
    "running_style", "STRING", "馬の脚質", "", "○"
    "second_last_race_order", "INTEGER", "馬の2走前の順位",,
