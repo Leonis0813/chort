@@ -31,9 +31,11 @@ class Horse {
 class Feature {
   - age : int
   - average_prize_money : double
+  - blank : int
   - burden_weight : double
   - direction : String
   - distance : int
+  - distance_diff : double
   - entry_times : int
   - grade : String
   - last_race_final_600m_time : double
@@ -50,8 +52,6 @@ class Feature {
   - weather : String
   - weight : double
   - weight_diff : double
-  - distance_diff : double
-  - blank : int
   - weight_per : double
   - win_times : int
 }
