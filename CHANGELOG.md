@@ -1,3 +1,6 @@
+# 2019/05/17
+- [Denebola] update version to 2.4.0
+
 # 2019/05/11
 - [Alterf] update version to 4.1.0
 
