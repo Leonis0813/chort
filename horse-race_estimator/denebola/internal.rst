@@ -150,7 +150,7 @@ racesテーブル
 
    "id", "INTEGER", "内部ID", "○", "○"
    "race_id", "STRING", "レースのID"",, "○"
-   "direction", "STRING", "左回りか右回りか",, "○"
+   "direction", "STRING", "左回りか右回りか",,
    "distance", "INTEGER", "コースの距離",, "○"
    "grade", "STRING", "グレード",,
    "place", "STRING", "場所",, "○"
@@ -179,7 +179,7 @@ entriesテーブル
    "jockey", "STRING", "騎手",, "○"
    "number", "INTEGER", "エントリーの番号",, "○"
    "order", "INTEGER", "着順",, "○"
-   "prize_money", "INTEGER", "獲得賞金",,
+   "prize_money", "INTEGER", "獲得賞金",, "○"
    "sex", "STRING", "性別",, "○"
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
