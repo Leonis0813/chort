@@ -184,7 +184,7 @@ entriesテーブル
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
    "race_id", "INTEGER", "レースの内部ID",, "○"
-   "horse_id", "INTEGER", "競走馬の内部ID",, "○"
+   "horse_id", "INTEGER", "競走馬の内部ID",,
    "created_at", "DATETIME", "エントリー情報の作成日時", "", "○"
    "updated_at", "DATETIME", "エントリー情報の更新日時", "", "○"
 
@@ -221,7 +221,7 @@ featuresテーブル
    "average_prize_money", "FLOAT", "馬の平均賞金獲得額", "", "○"
    "blank", "INTEGER", "前回のレースから何日空いたか",,
    "burden_weight", "FLOAT", "斤量",, "○"
-   "direction", "STRING", "左回りか右回りか",, "○"
+   "direction", "STRING", "左回りか右回りか",,
    "distance", "INTEGER", "コースの距離",, "○"
    "distance_diff", "FLOAT", "平均距離との差/平均距離", "", "○"
    "entry_times", "INTEGER", "レースの出場回数", "", "○"
