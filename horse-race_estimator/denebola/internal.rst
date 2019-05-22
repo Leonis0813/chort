@@ -178,7 +178,7 @@ entriesテーブル
    "final_600m_time", "FLOAT", "上り3ハロンタイム",,
    "jockey", "STRING", "騎手",, "○"
    "number", "INTEGER", "エントリーの番号",, "○"
-   "order", "INTEGER", "着順",, "○"
+   "order", "STRING", "着順",, "○"
    "prize_money", "INTEGER", "獲得賞金",, "○"
    "sex", "STRING", "性別",, "○"
    "weight", "FLOAT", "体重",,
@@ -219,28 +219,28 @@ featuresテーブル
    "id", "INTEGER", "内部ID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
    "average_prize_money", "FLOAT", "馬の平均賞金獲得額", "", "○"
-   "blank", "INTEGER", "前回のレースから何日空いたか",,
+   "blank", "INTEGER", "前回のレースから何日空いたか",, "○"
    "burden_weight", "FLOAT", "斤量",, "○"
-   "direction", "STRING", "左回りか右回りか",,
+   "direction", "STRING", "左回りか右回りか",, "○"
    "distance", "INTEGER", "コースの距離",, "○"
    "distance_diff", "FLOAT", "平均距離との差/平均距離", "", "○"
    "entry_times", "INTEGER", "レースの出場回数", "", "○"
-   "grade", "STRING", "グレード",,
-   "last_race_final_600m_time", "FLOAT", "馬の前走の上り3ハロンタイム",,
-   "last_race_order", "INTEGER", "馬の1走前の順位",,
+   "grade", "STRING", "グレード",, "○"
+   "last_race_final_600m_time", "FLOAT", "馬の前走の上り3ハロンタイム",, "○"
+   "last_race_order", "STRING", "馬の1走前の順位",, "○"
    "month", "INTEGER", "レース月",, "○"
    "number", "INTEGER", "エントリーの番号",, "○"
    "place", "STRING", "場所",, "○"
-   "rate_within_third", "FLOAT", "馬の過去4レースの3着以内に入っていた割合",,
+   "rate_within_third", "FLOAT", "馬の過去4レースの3着以内に入っていた割合",, "○"
    "round", "INTEGER", "ラウンド",, "○"
    "running_style", "STRING", "馬の脚質", "", "○"
-   "second_last_race_order", "INTEGER", "馬の2走前の順位",,
+   "second_last_race_order", "STRING", "馬の2走前の順位",, "○"
    "sex", "STRING", "性別",, "○"
    "track", "STRING", "芝やダートなど，地面の種類",, "○"
    "weather", "STRING", "天候",, "○"
-   "weight", "FLOAT", "体重",,
-   "weight_diff", "FLOAT", "前走との体重の差分",,
-   "weight_per", "FLOAT", "斤量/体重",,
+   "weight", "FLOAT", "体重",, "○"
+   "weight_diff", "FLOAT", "前走との体重の差分",, "○"
+   "weight_per", "FLOAT", "斤量/体重",, "○"
    "win_times", "INTEGER", "馬の勝ち回数", "", "○"
    "created_at", "DATETIME", "素性の作成日時", "", "○"
    "updated_at", "DATETIME", "素性の更新日時", "", "○"
