@@ -16,7 +16,7 @@ class Entry {
   - final_600m_time : double
   - jockey : String
   - number : int
-  - order : int
+  - order : String
   - prize_money : int
   - sex : String
   - weight : double
@@ -39,14 +39,14 @@ class Feature {
   - entry_times : int
   - grade : String
   - last_race_final_600m_time : double
-  - last_race_order : Integer
+  - last_race_order : String
   - month : int
   - number : int
   - place : String
   - rate_within_third : double
   - round : int
   - running_style : String
-  - second_last_race_order : Integer
+  - second_last_race_order : String
   - sex : String
   - track : String
   - weather : String
