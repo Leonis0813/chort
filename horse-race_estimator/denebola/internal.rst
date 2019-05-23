@@ -150,7 +150,7 @@ racesテーブル
 
    "id", "INTEGER", "内部ID", "○", "○"
    "race_id", "STRING", "レースのID"",, "○"
-   "direction", "STRING", "左回りか右回りか",,
+   "direction", "STRING", "左回りか右回りか",, "○"
    "distance", "INTEGER", "コースの距離",, "○"
    "grade", "STRING", "グレード",,
    "place", "STRING", "場所",, "○"
@@ -226,7 +226,6 @@ featuresテーブル
    "distance_diff", "FLOAT", "平均距離との差/平均距離", "", "○"
    "entry_times", "INTEGER", "レースの出場回数", "", "○"
    "grade", "STRING", "グレード",, "○"
-   "last_race_final_600m_time", "FLOAT", "馬の前走の上り3ハロンタイム",, "○"
    "last_race_order", "STRING", "馬の1走前の順位",, "○"
    "month", "INTEGER", "レース月",, "○"
    "number", "INTEGER", "エントリーの番号",, "○"
