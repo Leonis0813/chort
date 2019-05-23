@@ -39,14 +39,14 @@ class Feature {
   - entry_times : int
   - grade : String
   - last_race_final_600m_time : double
-  - last_race_order : String
+  - last_race_order : int
   - month : int
   - number : int
   - place : String
   - rate_within_third : double
   - round : int
   - running_style : String
-  - second_last_race_order : String
+  - second_last_race_order : int
   - sex : String
   - track : String
   - weather : String
