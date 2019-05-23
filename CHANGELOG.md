@@ -1,3 +1,6 @@
+# 2019/05/23
+- [Denebola] update version to 2.4.5
+
 # 2019/05/22
 - [Denebola] update version to 2.4.4
 
