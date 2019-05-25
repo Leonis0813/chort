@@ -1,6 +1,7 @@
 class AnalysisView <<Boundary>>
 class PredictionView <<Boundary>>
 class EvaluationView <<Boundary>>
+class EvaluationResultView <<Boundary>>
 
 class AnalysesController {
   + manage(page : String)
@@ -14,6 +15,7 @@ class PredictionsController {
 
 class EvaluationsController {
   + manage(page : String)
+  + read(id : Integer)
   + execute(model : File)
 }
 
@@ -33,40 +35,32 @@ class AnalysisMailer {
   + finished(analysis : Analysis, is_success : Boolean)
 }
 
-class PredictionMailer {
-  + finished(prediction : Prediction, is_success : Boolean)
-}
-
-class EvaluationMailer {
-  + finished(evaluation : Evaluation, is_success : Boolean)
-}
-
 class Analysis {
-  - id : Integer
   - num_data : Integer
   - num_tree : Integer
   - num_feature : Integer
   - state : String
-  - created_at : Datetime
-  - updated_at : Datetime
 }
 
 class Prediction {
-  - id : Integer
   - model : String
   - test_data : String
   - results: Array<Integer>
   - state : String
-  - created_at : Datetime
-  - updated_at : Datetime
 }
 
 class Evaluation {
-  - id : Integer
   - model : String
   - state : String
-  - created_at : Datetime
-  - updated_at : Datetime
+  - precision : Double
+  - results : Array<EvaluationResult>
+}
+
+class EvaluationResult {
+  - race_name : String
+  - race_url : String
+  - predictions : Array<Integer>
+  - ground_truth : Integer
 }
 
 class NetkeibaClient {
@@ -78,6 +72,7 @@ class NetkeibaClient {
 ブラウザ -- AnalysisView
 ブラウザ -- PredictionView
 ブラウザ -- EvaluationView
+ブラウザ -- EvaluationResultView
 
 AnalysisView -- AnalysesController
 AnalysesController --> AnalysisJob
@@ -87,14 +82,13 @@ AnalysisJob "1" -- "1" Analysis
 
 PredictionView -- PredictionsController
 PredictionsController --> PredictionJob
-PredictionJob --> PredictionMailer
 PredictionJob --> NetkeibaClient
 PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
 
 EvaluationView -- EvaluationsController
 EvaluationsController --> EvaluationJob
-EvaluationJob --> EvaluationMailer
 EvaluationJob --> NetkeibaClient
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob "1" -- "1" Evaluation
+Evaluation "1" -- "20" EvaluationResult
