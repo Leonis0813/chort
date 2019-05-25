@@ -16,6 +16,7 @@
 - :ref:`alt-ext-res-analysis`
 - :ref:`alt-ext-res-prediction`
 - :ref:`alt-ext-res-evaluation`
+- :ref:`alt-ext-res-eva-result`
 
 .. _alt-ext-res-analysis:
 
@@ -78,17 +79,37 @@
      - 実行中
      - 完了
      - エラー"
+   "精度", "数値(float)", "評価したモデルの予測精度", "- 0以上の小数"
+   "結果", ":ref:`alt-ext-res-eva-result` の配列(array[ :ref:`alt-ext-res-eva-result` ]", ":ref:`alt-ext-res-eva-result` 参照",
+
+.. _alt-ext-res-eva-result:
+
+評価結果
+^^^^^^^^
+
+評価結果を表す
+
+.. csv-table::
+   :header: "属性名", "型", "意味", "備考"
+   :widths: 20, 10, 30, 40
+
+   "レース名", "文字列(string)", "評価したレース名前",
+   "レースURL", "文字列(string)", "評価したレースのURL", "- httpsスキームのURL"
+   "予測結果", "自然数の配列(array[integer])", "1着と予想した馬番の一覧", "- 空配列，または半角数字の要素からなる"
+   "正解", "自然数", "実際に1着となった馬番", "- 半角数字"
 
 .. _alt-ext-ui:
 
 ユーザーインターフェース
 ------------------------
 
-利用者はブラウザからレースの分析や予測を行う
+利用者はブラウザからレースの分析，予測，評価を行う
 
 - レースの分析は :ref:`alt-ext-ui-analysis` で行う
 - レースの予測は :ref:`alt-ext-ui-prediction` で行う
 - モデルの評価は :ref:`alt-ext-ui-evaluation` で行う
+
+  - 評価結果の詳細は :ref:`alt-ext-ui-eva-result` で確認する
 
 .. _alt-ext-ui-analysis:
 
@@ -194,3 +215,18 @@
   - 25ジョブごとにページングされている
   - 実行開始日時の降順でソートされている
   - 実行中のジョブは黄色，完了したジョブの行は緑色，エラーになったジョブは赤色で表示される
+
+.. _alt-ext-ui-eva-detail:
+
+評価結果画面
+^^^^^^^^^^^^
+
+.. image:: images/evaluation_result.png
+   :alt: 評価結果画面
+
+- タイトルの下に精度が表示される
+- テーブルには評価結果が表示されている
+
+  - ランクの高い順番にソートされている
+  - 予測が間違っている行は赤，正しい行は緑色で表示される
+  - 予測結果の内，正解と同じ馬番は緑，それ以外は灰色で表示される
