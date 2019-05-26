@@ -288,11 +288,11 @@ prediction_resultsテーブル
    predictable_id,INTEGER,"- 以下のテーブルの内部ID
 
      - :ref:`alt-int-sch-predictions`
-     - :ref:`alt-int-sch-evaluation-data`",,○
-   predictable_type,STRING,関連モデル名,,○
-   number,INTEGER,1着と予測されたエントリーの馬番,,○
-   created_at,DATETIME,予測結果情報の作成日時,,○
-   updated_at,DATETIME,予測結果情報の更新日時,,○
+     - :ref:`alt-int-sch-evaluation_data`",, "○"
+   "predictable_type", "STRING", "関連モデル名",, "○"
+   "number", "INTEGER", "1着と予測されたエントリーの馬番",, "○"
+   "created_at", "DATETIME", "予測結果情報の作成日時",, "○"
+   "updated_at", "DATETIME", "予測結果情報の更新日時",, "○"
 
 .. _alt-int-sch-evaluations:
 
