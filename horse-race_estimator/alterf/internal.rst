@@ -28,6 +28,10 @@ MVCモデルを利用する
 
     - 予測ジョブの情報を管理するクラス
 
+  - PredictionResult
+
+    - 予測結果を管理するクラス
+
   - Evaluation
 
     - 評価ジョブの情報を管理するクラス
@@ -178,7 +182,7 @@ MVCモデルを利用する
 4. 非同期で評価ジョブを実行する
 5. 外部サイトからレース情報を20件取得する
 
-取得したレースIDごとに6〜9を繰り返す
+取得したレースIDごとに6〜10を繰り返す
 
 6. レースIDを使ってレース情報を外部サイトから取得する
 
@@ -189,7 +193,11 @@ MVCモデルを利用する
 8. 抽出した素性をYAML形式でファイルに出力する
 9. 評価結果情報を作成する
 
-10. 評価ジョブ情報の状態を完了にする
+レースの1着と予測されたエントリーの数だけ10を繰り返す
+
+10. 予測結果情報を作成する
+
+11. 評価ジョブ情報の状態を完了にする
 
 .. _alt-int-seq-show-evaluations:
 
@@ -243,7 +251,7 @@ analysesテーブル
    num_data,INTEGER,学習データ数,,○
    num_tree,INTEGER,決定木の数,,
    num_feature,INTEGER,特徴量の数,,○
-   state,STRING,分析処理の状態,,
+   state,STRING,分析処理の状態,,○
    created_at,DATETIME,分析ジョブ情報の作成日時,,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,,○
 
@@ -259,9 +267,9 @@ predictionsテーブル
    :widths: 10,10,20,20,10
 
    id,INTEGER,内部ID,○,○
-   model,STRING,モデルファイル名,,
-   test_data,STRING,テストデータのファイル名，またはURL,,
-   state,STRING,予測処理の状態,,
+   model,STRING,モデルファイル名,,○
+   test_data,STRING,テストデータのファイル名，またはURL,,○
+   state,STRING,予測処理の状態,,○
    created_at,DATETIME,予測ジョブ情報の作成日時,,○
    updated_at,DATETIME,予測ジョブ情報の更新日時,,○
 
@@ -297,7 +305,7 @@ evaluationsテーブル
    id,INTEGER,内部ID,○,○
    evaluation_id,STRING,評価ジョブのID,,○
    model,STRING,モデルファイル名,,○
-   state,STRING,評価処理の状態,,
+   state,STRING,評価処理の状態,,○
    precision,FLOAT,評価したモデルの精度,,
    created_at,DATETIME,評価ジョブ情報の作成日時,,○
    updated_at,DATETIME,評価ジョブ情報の更新日時,,○

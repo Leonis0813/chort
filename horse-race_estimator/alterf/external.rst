@@ -218,7 +218,7 @@
   - 実行中のジョブは黄色，完了したジョブの行は緑色で表示される
   - ジョブが完了すると行の右側に :ref:`alt-ext-ui-eva-result` を表示するためのボタンが表示される
 
-    - :ref:`alt-ext-ui-result` は別タブに表示される
+    - :ref:`alt-ext-ui-eva-result` は別タブに表示される
 
 .. _alt-ext-ui-eva-result:
 
