@@ -45,8 +45,12 @@ class Analysis {
 class Prediction {
   - model : String
   - test_data : String
-  - results: Array<Integer>
+  - results: Array<PredictionResult>
   - state : String
+}
+
+class PredictionResult {
+  - number : Integer
 }
 
 class Evaluation {
@@ -85,6 +89,7 @@ PredictionsController --> PredictionJob
 PredictionJob --> NetkeibaClient
 PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
+Prediction "1" -- "*" PredictionResult
 
 EvaluationView -- EvaluationsController
 EvaluationsController --> EvaluationJob
@@ -92,3 +97,4 @@ EvaluationJob --> NetkeibaClient
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob "1" -- "1" Evaluation
 Evaluation "1" -- "20" EvaluationResult
+EvaluationResult "1" -- "*" PredictionResult
