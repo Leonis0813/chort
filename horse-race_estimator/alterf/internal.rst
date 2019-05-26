@@ -285,10 +285,10 @@ prediction_resultsテーブル
    :widths: 10,10,20,20,10
 
    id,INTEGER,内部ID,○,○
-   predictable_id,INTEGER,"- 以下のテーブルの内部ID
+   predictable_id,INTEGER,"以下のテーブルの内部ID
 
-     - :ref:`alt-int-sch-predictions`
-     - :ref:`alt-int-sch-evaluation_data`",, "○"
+   - :ref:`alt-int-sch-predictions`
+   - :ref:`alt-int-sch-evaluation_data`",, "○"
    "predictable_type", "STRING", "関連モデル名",, "○"
    "number", "INTEGER", "1着と予測されたエントリーの馬番",, "○"
    "created_at", "DATETIME", "予測結果情報の作成日時",, "○"
