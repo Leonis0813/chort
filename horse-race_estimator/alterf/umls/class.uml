@@ -70,8 +70,9 @@ class Evaluation {
 }
 
 class NetkeibaClient {
-  + get_race_top() : Array<String>
-  + get_race(url : String) : Hash<String, Object>
+  + http_get_race_top() : Array<String>
+  + http_get_race(url : String) : Hash<String, Object>
+  + http_get_horse(url : String) : Hash<String, Object>
 }
 
 ブラウザ -- AnalysisView
