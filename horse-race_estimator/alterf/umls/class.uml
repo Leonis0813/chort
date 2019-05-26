@@ -15,7 +15,7 @@ class PredictionsController {
 
 class EvaluationsController {
   + manage(page : String)
-  + read(id : Integer)
+  + read(evaluation_id : String)
   + execute(model : File)
 }
 
@@ -54,6 +54,7 @@ class PredictionResult {
 }
 
 class Evaluation {
+  - evaluation_id : String
   - model : String
   - state : String
   - precision : Double
