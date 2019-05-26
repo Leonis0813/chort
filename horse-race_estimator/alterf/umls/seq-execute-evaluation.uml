@@ -35,15 +35,10 @@ loop レースIDごとに繰り返し
 
   autonumber resume
   EvaluationJob -> YAML : dump
+  EvaluationJob -> "Evaluation::Result" : create
 end
 
 EvaluationJob -> Evaluation : update
 
 autonumber stop
 EvaluationJob <-- Evaluation
-
-autonumber resume
-EvaluationJob -> EvaluationMailer : finished
-
-autonumber stop
-EvaluationMailer --> 利用者 : メール通知
