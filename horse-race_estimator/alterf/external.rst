@@ -16,7 +16,7 @@
 - :ref:`alt-ext-res-analysis`
 - :ref:`alt-ext-res-prediction`
 - :ref:`alt-ext-res-evaluation`
-- :ref:`alt-ext-res-eva-result`
+- :ref:`alt-ext-res-eva-data`
 
 .. _alt-ext-res-analysis:
 
@@ -82,19 +82,19 @@
    "精度", "数値(float)", "評価したモデルの予測精度", "- 0以上の小数"
    "結果", ":ref:`alt-ext-res-eva-result` の配列(array[ :ref:`alt-ext-res-eva-result` ]", ":ref:`alt-ext-res-eva-result` 参照",
 
-.. _alt-ext-res-eva-result:
+.. _alt-ext-res-eva-data:
 
-評価結果
-^^^^^^^^
+評価データ
+^^^^^^^^^^
 
-評価結果を表す
+評価に利用したデータを表す
 
 .. csv-table::
    :header: "属性名", "型", "意味", "備考"
    :widths: 20, 10, 30, 40
 
    "レース名", "文字列(string)", "評価したレース名前",
-   "レースURL", "文字列(string)", "評価したレースのURL", "- httpsスキームのURL"
+   "URL", "文字列(string)", "評価したレースのURL", "- httpsスキームのURL"
    "予測結果", "自然数の配列(array[integer])", "1着と予想した馬番の一覧", "- 空配列，または半角数字の要素からなる"
    "正解", "自然数", "実際に1着となった馬番", "- 半角数字"
 

@@ -61,10 +61,10 @@ class Evaluation {
   - results : Array<EvaluationResult>
 }
 
-class EvaluationResult {
+class EvaluationData {
   - race_name : String
   - race_url : String
-  - predictions : Array<PredictionResult>
+  - prediction_results : Array<PredictionResult>
   - ground_truth : Integer
 }
 
@@ -97,7 +97,7 @@ EvaluationsController --> EvaluationJob
 EvaluationJob --> NetkeibaClient
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob "1" -- "1" Evaluation
-Evaluation "1" -- "20" EvaluationResult
-EvaluationResult "1" -- "*" PredictionResult
+Evaluation "1" -- "20" EvaluationData
+EvaluationData "1" -- "*" PredictionResult
 
 EvaluationResultView -- EvaluationsController

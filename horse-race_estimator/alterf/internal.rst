@@ -36,9 +36,9 @@ MVCモデルを利用する
 
     - 評価ジョブの情報を管理するクラス
 
-  - EvaluationResult
+  - EvaluationData
 
-    - 評価結果を管理するクラス
+    - 評価データを管理するクラス
 
 - View
 
@@ -234,7 +234,7 @@ MVCモデルを利用する
 - :ref:`alt-int-sch-predictions`
 - :ref:`alt-int-sch-prediction_results`
 - :ref:`alt-int-sch-evaluations`
-- :ref:`alt-int-sch-evaluation_results`
+- :ref:`alt-int-sch-evaluation_data`
 
 .. _alt-int-sch-analyses:
 
@@ -285,8 +285,11 @@ prediction_resultsテーブル
    :widths: 10,10,20,20,10
 
    id,INTEGER,内部ID,○,○
-   prediction_id,INTEGER,predictionsテーブルの外部ID,,○
-   evaluation_result_id,INTEGER,evaluation_resultsテーブルの内部ID,,
+   predictable_id,INTEGER,"- 以下のテーブルの内部ID
+
+     - :ref:`alt-int-sch-predictions`
+     - :ref:`alt-int-sch-evaluation-data`",,○
+   predictable_type,STRING,関連モデル名,,○
    number,INTEGER,1着と予測されたエントリーの馬番,,○
    created_at,DATETIME,予測結果情報の作成日時,,○
    updated_at,DATETIME,予測結果情報の更新日時,,○
@@ -310,12 +313,12 @@ evaluationsテーブル
    created_at,DATETIME,評価ジョブ情報の作成日時,,○
    updated_at,DATETIME,評価ジョブ情報の更新日時,,○
 
-.. _alt-int-sch-evaluation_results:
+.. _alt-int-sch-evaluation_data:
 
-evaluation_resultsテーブル
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+evaluation_dataテーブル
+^^^^^^^^^^^^^^^^^^^^^^^
 
-評価結果情報を登録するevaluation_resultsテーブルを定義する
+評価レース情報を登録するevaluation_dataテーブルを定義する
 
 .. csv-table::
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
