@@ -14,17 +14,30 @@ PredictionView <- PredictionsController
 
 alt URL指定
   autonumber resume
-  PredictionJob -> PredictionJob : generate_test_data
+  PredictionJob -> NetkeibaClient : http_get_race
+
+  autonumber stop
+  PredictionJob <-- NetkeibaClient
+
+  loop レースのエントリーの数だけ繰り返す
+    autonumber resume
+    PredictionJob -> NetkeibaClient : http_get_horse
+
+    autonumber stop
+    PredictionJob <-- NetkeibaClient
+  end
+
+  autonumber resume
+  PredictionJob -> YAML : dump
 end
 
-autonumber resume
-Prediction <- PredictionJob : update
+loop レースのエントリーの数だけ繰り返す
+  alt 1着と予測された
+    PredictionJob -> "Prediction::Result" : create
+  end
+end
+
+PredictionJob -> Prediction : update
 
 autonumber stop
-Prediction --> PredictionJob
-
-autonumber resume
-PredictionJob -> PredictionMailer : finished
-
-autonumber stop
-PredictionMailer --> 利用者 : メール通知
+PredictionJob <-- Prediction

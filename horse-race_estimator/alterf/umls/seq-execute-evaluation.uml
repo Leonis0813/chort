@@ -13,10 +13,34 @@ EvaluationView <- EvaluationsController
 利用者 <- EvaluationView
 
 autonumber resume
-Evaluation <- EvaluationJob : update
+EvaluationJob -> NetkeibaClient : http_get_race_top
 
 autonumber stop
-Evaluation --> EvaluationJob
+EvaluationJob <-- NetkeibaClient
+
+loop レースIDごとに繰り返し
+  autonumber resume
+  EvaluationJob -> NetkeibaClient : http_get_race
+
+  autonumber stop
+  EvaluationJob <-- NetkeibaClient
+
+  loop レースのエントリーの数だけ繰り返す
+    autonumber resume
+    EvaluationJob -> NetkeibaClient : http_get_horse
+
+    autonumber stop
+    EvaluationJob <-- NetkeibaClient
+  end
+
+  autonumber resume
+  EvaluationJob -> YAML : dump
+end
+
+EvaluationJob -> Evaluation : update
+
+autonumber stop
+EvaluationJob <-- Evaluation
 
 autonumber resume
 EvaluationJob -> EvaluationMailer : finished
