@@ -13,20 +13,59 @@
 
 .. http:post:: /dictionaries
 
-   :<json string phrase: :ref:`alg-ext-res-dictionary` のフレーズ参照
-   :<json string condition: :ref:`alg-ext-res-dictionary` の条件参照
-   :<json string categories: :ref:`alg-ext-res-category` の配列
+   - リクエストボディ
 
-   :>json int id: :ref:`alg-ext-res-dictionary` のID参照
-   :>json string phrase: :ref:`alg-ext-res-dictionary` のフレーズ参照
-   :>json string condition: :ref:`alg-ext-res-dictionary` の条件参照
-   :>json object categories: :ref:`alg-ext-res-category` の配列
-      :>json int id: :ref:`alg-ext-res-category` のID参照
-      :>json string name: :ref:`alg-ext-res-category` の名前参照
-      :>json string description: :ref:`alg-ext-res-category` の意味参照
-   :status 201: 辞書の登録に成功
-   :status 400: 辞書の登録に失敗
-      - :ref:`alg-ext-api-common-error` を返す
+     - 必須
+
+       - phrase (string)
+
+         - :ref:`alg-ext-res-dictionary` のフレーズ参照
+
+       - condition (string)
+
+         - :ref:`alg-ext-res-dictionary` の条件参照
+
+       - category_ids (array[integer])
+
+         - :ref:`alg-ext-res-category` のID参照
+
+   - レスポンスボディ
+
+     - id (integer)
+
+       - :ref:`alg-ext-res-dictionary` のID参照
+
+     - phrase (string)
+
+       - :ref:`alg-ext-res-dictionary` のフレーズ参照
+
+     - condition (string)
+
+       - :ref:`alg-ext-res-dictionary` の条件参照
+
+     - categories (array[ :ref:`alg-ext-res-category` ]): 以下の要素の配列
+
+       - id (integer)
+
+         - :ref:`alg-ext-res-category` のID参照
+
+       - name (string)
+
+         - :ref:`alg-ext-res-category` の名前参照
+
+       - description (string)
+
+         - :ref:`alg-ext-res-category` の意味参照
+
+   - ステータスコード
+
+     - 200
+     - 400
+
+       .. csv-table::
+          :header: "エラーコード", "ステータスコード", "意味"
+
+          "duplicate_param_phrase", "400", "登録済みの辞書とフレーズが重複している"
 
    **リクエスト例**
 
