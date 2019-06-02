@@ -15,25 +15,17 @@
 
    :<json string phrase: :ref:`alg-ext-res-dictionary` のフレーズ参照
    :<json string condition: :ref:`alg-ext-res-dictionary` の条件参照
-   :<jsonarr string categories: :ref:`alg-ext-res-dictionary` のカテゴリ参照
+   :<json string categories: :ref:`alg-ext-res-category` の配列
 
-   :response JSONObject:
-      - :ref:`alg-ext-res-dictionary`
-
-        - id
-        - phrase
-        - condition
-        - categories - :ref:`alg-ext-res-category` の配列
-
-          - id
-          - name
-          - description
-
-   :status 201:
-      - 収支の登録に成功
-      - :ref:`alg-ext-res-dictionary` を返す
-   :status 400:
-      - 収支の登録に失敗
+   :>json int id: :ref:`alg-ext-res-dictionary` のID参照
+   :>json string phrase: :ref:`alg-ext-res-dictionary` のフレーズ参照
+   :>json string condition: :ref:`alg-ext-res-dictionary` の条件参照
+   :>json object categories: :ref:`alg-ext-res-category` の配列
+      :>json int id: :ref:`alg-ext-res-category` のID参照
+      :>json string name: :ref:`alg-ext-res-category` の名前参照
+      :>json string description: :ref:`alg-ext-res-category` の意味参照
+   :status 201: 辞書の登録に成功
+   :status 400: 辞書の登録に失敗
       - :ref:`alg-ext-api-common-error` を返す
 
    **リクエスト例**
