@@ -246,8 +246,9 @@ Web API
 .. toctree::
    :maxdepth: 1
 
-   apis/payment
-   apis/category
+   external/api/payment
+   external/api/category
+   external/api/dictionary
 
 共通仕様
 ^^^^^^^^

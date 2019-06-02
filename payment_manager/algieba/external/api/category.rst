@@ -17,7 +17,7 @@
       - 指定しなかった場合は全てのカテゴリを取得する
 
    :responseArray JSONObject:
-      - :ref:`alg-ext-resource-category` の配列
+      - :ref:`alg-ext-res-category` の配列
 
         - id
         - name
@@ -25,7 +25,7 @@
 
    :status 200:
       - カテゴリの検索に成功
-      - :ref:`alg-ext-resource-category` の配列を返す
+      - :ref:`alg-ext-res-category` の配列を返す
    :status 400:
       - カテゴリの検索に失敗
       - :ref:`alg-ext-api-common-error` を返す

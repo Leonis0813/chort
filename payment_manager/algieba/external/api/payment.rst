@@ -24,13 +24,13 @@
    :jsonparam int price: 所持金の増減量
 
    :response JSONObject:
-      - :ref:`alg-ext-resource-payment`
+      - :ref:`alg-ext-res-payment`
 
         - id
         - payment_type
         - date
         - content
-        - categories - :ref:`alg-ext-resource-category` の配列
+        - categories - :ref:`alg-ext-res-category` の配列
 
           - id
           - name
@@ -40,7 +40,7 @@
 
    :status 201:
       - 収支の登録に成功
-      - :ref:`alg-ext-resource-payment` を返す
+      - :ref:`alg-ext-res-payment` を返す
    :status 400:
       - 収支の登録に失敗
       - :ref:`alg-ext-api-common-error` を返す
@@ -90,13 +90,13 @@
 .. http:get:: /payments/[id]
 
    :response JSONObject:
-      - :ref:`alg-ext-resource-payment`
+      - :ref:`alg-ext-res-payment`
 
         - id
         - payment_type
         - date
         - content
-        - categories - :ref:`alg-ext-resource-category` の配列
+        - categories - :ref:`alg-ext-res-category` の配列
 
           - id
           - name
@@ -106,7 +106,7 @@
 
    :status 200:
       - 収支の取得に成功
-      - :ref:`alg-ext-resource-payment` を返す
+      - :ref:`alg-ext-res-payment` を返す
    :status 404:
       - 収支の取得に失敗
       - 存在しないIDを指定
@@ -178,13 +178,13 @@
       - デフォルト asc
 
    :responseArray JSONObject:
-      - :ref:`alg-ext-resource-payment` の配列
+      - :ref:`alg-ext-res-payment` の配列
 
         - id
         - payment_type
         - date
         - content
-        - categories - :ref:`alg-ext-resource-category` の配列
+        - categories - :ref:`alg-ext-res-category` の配列
 
           - id
           - name
@@ -194,7 +194,7 @@
 
    :status 200:
       - 収支の検索に成功
-      - :ref:`alg-ext-resource-payment` の配列を返す
+      - :ref:`alg-ext-res-payment` の配列を返す
    :status 400:
       - 収支の検索に失敗
       - :ref:`alg-ext-api-common-error` を返す
@@ -237,16 +237,16 @@
 .. http:put:: /payments/[id]
 
    :request JSONObject:
-      - 更新する :ref:`alg-ext-resource-payment` の属性と更新値
+      - 更新する :ref:`alg-ext-res-payment` の属性と更新値
 
    :response JSONObject:
-      - :ref:`alg-ext-resource-payment`
+      - :ref:`alg-ext-res-payment`
 
         - id
         - payment_type
         - date
         - content
-        - categories - :ref:`alg-ext-resource-category` の配列
+        - categories - :ref:`alg-ext-res-category` の配列
 
           - id
           - name
@@ -256,7 +256,7 @@
 
    :status 201:
       - 収支の更新に成功
-      - :ref:`alg-ext-resource-payment` を返す
+      - :ref:`alg-ext-res-payment` を返す
    :status 400:
       - 収支の更新に失敗
       - :ref:`alg-ext-api-common-error` を返す
