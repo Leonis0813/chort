@@ -17,55 +17,39 @@
 
      - 必須
 
-       - phrase (string)
+       - phrase
 
-         - :ref:`alg-ext-res-dictionary` のフレーズ参照
+         - :ref:`alg-ext-res-dictionary` のphrase参照
 
-       - condition (string)
+       - condition
 
-         - :ref:`alg-ext-res-dictionary` の条件参照
+         - :ref:`alg-ext-res-dictionary` のcondition参照
 
-       - category_ids (array[integer])
+       - categoriess (array[string])
 
-         - :ref:`alg-ext-res-category` のID参照
+         - :ref:`alg-ext-res-dictionary` のcategories参照
+         - :ref:`alg-ext-res-category` の名前の配列
 
    - レスポンスボディ
 
-     - id (integer)
-
-       - :ref:`alg-ext-res-dictionary` のID参照
-
-     - phrase (string)
-
-       - :ref:`alg-ext-res-dictionary` のフレーズ参照
-
-     - condition (string)
-
-       - :ref:`alg-ext-res-dictionary` の条件参照
-
-     - categories (array[ :ref:`alg-ext-res-category` ]): 以下の要素の配列
-
-       - id (integer)
-
-         - :ref:`alg-ext-res-category` のID参照
-
-       - name (string)
-
-         - :ref:`alg-ext-res-category` の名前参照
-
-       - description (string)
-
-         - :ref:`alg-ext-res-category` の意味参照
+     - :ref:`alg-ext-res-dictionary`
 
    - ステータスコード
 
-     - 200
-     - 400
+     - 成功時
 
-       .. csv-table::
-          :header: "エラーコード", "ステータスコード", "意味"
+       - 201
 
-          "duplicate_param_phrase", "400", "登録済みの辞書とフレーズが重複している"
+     - 失敗時
+
+       - 400
+
+         - 共通エラーに加えて以下のエラーコードを返す
+
+           .. csv-table::
+              :header: "エラーコード", "ステータスコード", "意味"
+
+              "duplicate_param_phrase", "400", "登録済みの辞書とフレーズが重複している"
 
    **リクエスト例**
 
@@ -78,9 +62,7 @@
         "phrase": "コンビニ",
         "condition": "include",
         "categories": [
-          {
-            "name": "食費"
-          }
+          "食費"
         ]
       }
 
@@ -111,64 +93,36 @@
 
 .. http:get:: /dictionaries
 
-   :query payment_type: ``income`` または ``expense``
-   :query date_before: 指定された日付以前の収支を検索する
-   :query date_after: 指定された日付以降の収支を検索する
-   :query content_equal: 内容が完全に一致する収支を検索する
-   :query content_include: 内容が部分的に一致する収支を検索する
-   :query category: カテゴリが一致する収支を検索する
-   :query price_upper: 指定された金額以上の収支を検索する
-   :query price_lower: 指定された金額以下の収支を検索する
-   :query page: 指定したページの収支を返却する
-      - デフォルト 1
-      - 最大ページより大きい数を指定した場合は空配列を返却する
-   :query per_page: 指定した数の収支を返却する
-      - デフォルト 10
-      - 以下の場合，返却する数は指定した数よりも少なくなる可能性がある
+   - リクエストクエリ
 
-        - ``page`` パラメーターで最終ページを指定していた場合
-        - 指定した数の収支情報が登録されていない場合
-   :query sort: 指定したパラメーターで並べ替えて返却する
-      - 以下を指定可能
+     - オプション
 
-        - id
-        - date
-        - price
-      - デフォルト id
-   :query order: 指定した順番で返却する
-      - 以下を指定可能
+       - content
 
-        - asc: 昇順で返却する
-        - desc: 降順で返却する
-      - デフォルト asc
+         - :ref:`alg-ext-res-payment` のcontent参照
+         - フレーズと条件を満たす内容となるような辞書を検索する
 
-   :responseArray JSONObject:
-      - :ref:`alg-ext-resource-payment` の配列
+   - レスポンスボディ
 
-        - id
-        - payment_type
-        - date
-        - content
-        - categories - :ref:`alg-ext-resource-category` の配列
+     - dictionaries
 
-          - id
-          - name
-          - description
+       - :ref:`alg-ext-res-dictionary` の配列
 
-        - price
+   - ステータスコード
 
-   :status 200:
-      - 収支の検索に成功
-      - :ref:`alg-ext-resource-payment` の配列を返す
-   :status 400:
-      - 収支の検索に失敗
-      - :ref:`alg-ext-api-common-error` を返す
+     - 成功時
+
+       - 200
+
+     - 失敗時
+
+       - 400
 
    **リクエスト例**
 
    .. sourcecode:: http
 
-      GET /payments?payment_type=income HTTP/1.1
+      GET /dictionaries?content=コンビニで食べ物購入 HTTP/1.1
 
    **レスポンス例**
 
@@ -177,19 +131,17 @@
       HTTP/1.1 200 OK
       Content-Type: application/json
 
-      [
-        {
-          "id": 1,
-          "payment_type": "income",
-          "date": "1000-01-01",
-          "content": "給料",
-          "categories": [
-            {
+      {
+        "dictionaries": [
+          {
+            "id": 1,
+            "phrase": "コンビニ",
+            "condition": "include",
+            "categories": [
               "id": 1,
-              "name": "給料",
+              "name": "食費",
               "description": null
-            }
-          ],
-          "price": 200000
-        }
-      ]
+            ]
+          }
+        ]
+      }
