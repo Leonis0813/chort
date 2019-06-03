@@ -35,7 +35,7 @@
 
        - categories (array[string])
 
-         - :ref:`alg-ext-res-dictionary` のcategories参照
+         - :ref:`alg-ext-res-payment` のcategories参照
          - :ref:`alg-ext-res-category` の名前の配列
 
        - price
@@ -205,7 +205,7 @@
          - デフォルト 10
          - 以下の場合，返却する数は指定した数よりも少なくなる可能性がある
 
-           - ``page`` パラメーターで最終ページを指定していた場合
+           - pageパラメーターで最終ページを指定していた場合
            - 指定した数の収支情報が登録されていない場合
 
        - sort
@@ -216,7 +216,8 @@
            - id
            - date
            - price
-           - デフォルト id
+
+         - デフォルト id
 
        - order
 
@@ -225,7 +226,8 @@
 
            - asc: 昇順で返却する
            - desc: 降順で返却する
-           - デフォルト asc
+
+         - デフォルト asc
 
    - レスポンスボディ
 
@@ -309,9 +311,9 @@
 
          - :ref:`alg-ext-res-payment` のprice参照
 
-     - レスポンスボディ
+   - レスポンスボディ
 
-       - 更新後の :ref:`alg-ext-res-payment`
+     - 更新後の :ref:`alg-ext-res-payment`
 
    - ステータスコード
 
@@ -401,14 +403,16 @@
 
    - リクエストクエリ
 
-     - interval (string)
+     - 必須
 
-       - 集計間隔
-       - 以下のいずれかを指定可能
+       - interval (string)
 
-         - yearly: 年単位で計算する
-         - monthly: 月単位で計算する
-         - daily: 日単位で計算する
+         - 集計間隔
+         - 以下のいずれかを指定可能
+
+           - yearly: 年単位で計算する
+           - monthly: 月単位で計算する
+           - daily: 日単位で計算する
 
    - レスポンスボディ
 
