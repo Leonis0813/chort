@@ -25,7 +25,7 @@
 
          - :ref:`alg-ext-res-dictionary` のcondition参照
 
-       - categoriess (array[string])
+       - categories (array[string])
 
          - :ref:`alg-ext-res-dictionary` のcategories参照
          - :ref:`alg-ext-res-category` の名前の配列
@@ -138,9 +138,11 @@
             "phrase": "コンビニ",
             "condition": "include",
             "categories": [
-              "id": 1,
-              "name": "食費",
-              "description": null
+              {
+                "id": 1,
+                "name": "食費",
+                "description": null
+              }
             ]
           }
         ]
