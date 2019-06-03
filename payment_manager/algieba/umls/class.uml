@@ -21,6 +21,11 @@ class Api::CategoriesController {
   + index(keyword: String)
 }
 
+class Api::DictionariesController {
+  + create(phrase : String, condition : String, categories : Array<String>)
+  + index(content : String)
+}
+
 class StatisticsController {
 }
 
@@ -28,7 +33,7 @@ class Payment {
   + payment_type : String
   + date : Date
   + content : String
-  + category : Category
+  + categories : Array<Category>
   + price : Fixnum
   + settle(interval : String) : Hash<String, Fixnum>
 }
@@ -54,8 +59,14 @@ class Settlement {
 }
 
 class Category {
-  + name: String
-  + description: String
+  + name : String
+  + description : String
+}
+
+class Dictionary {
+  + phrase : String
+  + condition : String
+  + categories : Array<Category>
 }
 
 Payment_View -right- PaymentsController
@@ -66,6 +77,8 @@ Api::PaymentsController "1" -- "0..*" Payment
 Api::PaymentsController -- Query
 Api::PaymentsController -- Settlement
 Api::CategoriesController "1" -- "0..*" Category
+Api::DictionariesController "1" -- "0..*" Dictionary
 Payment "1..*" -- "1..*" Category
+Dictionary "0..*" -- "1..*" Category
 Statistics_View -right- StatisticsController
 Statistics_View -right- Api::PaymentsController
