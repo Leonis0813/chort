@@ -20,48 +20,62 @@ MVCモデルを利用する
 
 - Model
 
-  - Category: categoriesテーブルを操作するモデル
-  - Payment: paymentsテーブルを操作するモデル
+  - Category
 
-    - settle: 収支を計算するメソッド
+    - categoriesテーブルを操作するモデル
 
-  - Query: 収支検索時のクエリを管理するモデル
+  - Payment
 
-    - date_valid?: 日付を検証するためのメソッド
+    - paymentsテーブルを操作するモデル
 
-  - Settlement: 収支計算時のクエリを管理するモデル
+  - Query
+
+    - 収支検索時のクエリを管理するモデル
+
+  - Settlement
+
+    - 収支計算時のクエリを管理するモデル
+
+  - Dictionary
+
+    - dictionariesテーブルを管理するモデル
 
 - View
 
-  - Payment_View: 収支の登録や表示を行うビュー
+  - Payment_View
 
-    - 認証された利用者が収支の登録・参照を行う
+    - 収支の登録や表示を行うビュー
 
-  - Statistics_View: 統計情報を表示するビュー
+  - Statistics_View
+
+    - 統計情報を表示するビュー
 
 - Controller
 
-  - Api::CategoriesController: カテゴリを処理するコントローラ(WebAPI用コントローラ)
+  - Api::CategoriesController
 
-    - index: カテゴリを検索するメソッド
+    - カテゴリを処理するコントローラー
+    - WebAPI用コントローラー
 
-  - Api::PaymentsController: 収支を処理するコントローラ(WebAPI用コントローラ)
+  - Api::DictionariesController
 
-    - create: 収支を登録するメソッド
-    - show: 収支を取得するメソッド
-    - index: 収支を検索するメソッド
-    - update: 収支を更新するメソッド
-    - destroy: 収支を削除するメソッド
-    - settle: 収支を計算するメソッド
-    - payment_params: Paymentの属性名の配列を返すメソッド
-    - index_params: Queryの属性名の配列を返すメソッド
+    - 辞書を処理するコントローラー
+    - WebAPI用コントローラー
 
-  - PaymentsController: 収支を処理するコントローラ(UI用コントローラ)
+  - Api::PaymentsController
 
-    - index: 収支を検索するメソッド
-    - index_params: Queryの属性名の配列を返すメソッド
+    - 収支を処理するコントローラー
+    - WebAPI用コントローラー
 
-  - StatisticsController: 統計情報を管理するコントローラー(UI用コントローラ)
+  - PaymentsController
+
+    - 収支を処理するコントローラー
+    - UI用コントローラー
+
+  - StatisticsController
+
+    - 統計情報を管理するコントローラー
+    - UI用コントローラー
 
 .. _alg-int-seq:
 
@@ -69,13 +83,11 @@ MVCモデルを利用する
 ----------
 
 - :ref:`alg-int-seq-create-payment`
-- :ref:`alg-int-seq-show-payment`
 - :ref:`alg-int-seq-index-payment`
-- :ref:`alg-int-seq-update-payment`
 - :ref:`alg-int-seq-destroy-payment`
 - :ref:`alg-int-seq-settle-payment`
-- :ref:`alg-int-seq-index-category`
 - :ref:`alg-int-seq-show-stats`
+- :ref:`alg-int-seq-create-dictionary`
 
 .. _alg-int-seq-create-payment:
 
@@ -103,26 +115,6 @@ MVCモデルを利用する
 
      - BadRequestを発生させて，ステータスコード400とエラーコードを返す
 
-.. _alg-int-seq-show-payment:
-
-収支を取得する
-^^^^^^^^^^^^^^
-
-*シーケンス図*
-
-.. uml:: umls/seq-show-payment.uml
-
-1. リクエストを受けると，PaymentsControllerクラスのshowメソッドを実行する
-2. findメソッドでPaymentオブジェクトを取得する
-
-   - 取得に成功した場合
-
-     - ステータスコード200と取得したPaymentオブジェクトを返す
-
-   - 取得に失敗した場合
-
-     - NotFoundを発生させて，ステータスコード404とエラーコードを返す
-
 .. _alg-int-seq-index-payment:
 
 収支を検索する
@@ -143,27 +135,6 @@ MVCモデルを利用する
 4. whereメソッドを実行してPaymentオブジェクトの配列を取得する
 
    - ステータスコード200と取得したPaymentオブジェクトの配列を返す
-
-.. _alg-int-seq-update-payment:
-
-収支を更新する
-^^^^^^^^^^^^^^
-
-*シーケンス図*
-
-.. uml:: umls/seq-update-payment.uml
-
-1. リクエストを受けると，PaymentsControllerクラスのupdateメソッドを実行する
-2. categoryパラメーターが存在する場合は，Categoryクラスのfind_or_create_byメソッドを実行して指定されたカテゴリを取得し，存在しなければ作成する
-3. Paymentクラスのupdateメソッドを実行して収支情報を更新する
-
-   - 不正な値がある場合
-
-     - BadRequestを発生させて，ステータスコード400とエラーコードを返す
-
-   - 不正な値がない場合
-
-     - ステータスコード200と更新したPaymentオブジェクトを返す
 
 .. _alg-int-seq-destroy-payment:
 
@@ -205,20 +176,6 @@ MVCモデルを利用する
 4. settleメソッドを実行して収支を計算する
 
    - ステータスコード200と計算結果を返す
-
-.. _alg-int-seq-index-category:
-
-カテゴリを検索する
-^^^^^^^^^^^^^^^^^^
-
-*シーケンス図*
-
-.. uml:: umls/seq-index-category.uml
-
-1. リクエストを受けると，CategoriesControllerクラスのindexメソッドを実行する
-2. Categoryクラスのwhereメソッドを実行してカテゴリを検索する
-
-   - ステータスコード200とCategoryオブジェクトの配列を返す
 
 .. _alg-int-seq-show-stats:
 

@@ -1,9 +1,0 @@
-autonumber
-
-actor 利用者
-利用者 -> "Api::CategoriesController" : index
-"Api::CategoriesController" -> "Category" : where
-
-autonumber stop
-"Category" --> "Api::CategoriesController"
-"Api::CategoriesController" --> 利用者
