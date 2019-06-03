@@ -17,33 +17,44 @@
 
 .. http:post:: /payments
 
-   :jsonparam string payment_type: ``income`` または ``expense``
-   :jsonparam string date: 所持金の増減があった日時
-   :jsonparam string content: 所持金の増減があった理由など
-   :jsonparam string category: 費目（例：食費，水道光熱費）
-   :jsonparam int price: 所持金の増減量
+   - リクエストボディ
 
-   :response JSONObject:
-      - :ref:`alg-ext-res-payment`
+     - 必須
 
-        - id
-        - payment_type
-        - date
-        - content
-        - categories - :ref:`alg-ext-res-category` の配列
+       - payment_type
 
-          - id
-          - name
-          - description
+         - :ref:`alg-ext-res-payment` のpayment_type参照
 
-        - price
+       - date
 
-   :status 201:
-      - 収支の登録に成功
-      - :ref:`alg-ext-res-payment` を返す
-   :status 400:
-      - 収支の登録に失敗
-      - :ref:`alg-ext-api-common-error` を返す
+         - :ref:`alg-ext-res-payment` のdate参照
+
+       - content
+
+         - :ref:`alg-ext-res-payment` のcontent参照
+
+       - categories (array[string])
+
+         - :ref:`alg-ext-res-dictionary` のcategories参照
+         - :ref:`alg-ext-res-category` の名前の配列
+
+       - price
+
+         - :ref:`alg-ext-res-payment` のprice参照
+
+   - レスポンスボディ
+
+     - :ref:`alg-ext-res-payment`
+
+   - ステータスコード
+
+     - 成功時
+
+       - 201
+
+     - 失敗時
+
+       - 400
 
    **リクエスト例**
 
@@ -56,7 +67,9 @@
         "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
-        "category": "給料",
+        "categories": [
+          "給料"
+        ],
         "price": 200000
       }
 
@@ -89,27 +102,25 @@
 
 .. http:get:: /payments/[id]
 
-   :response JSONObject:
-      - :ref:`alg-ext-res-payment`
+   - パスパラメーター
 
-        - id
-        - payment_type
-        - date
-        - content
-        - categories - :ref:`alg-ext-res-category` の配列
+     - id
 
-          - id
-          - name
-          - description
+       - :ref:`alg-ext-res-payment` のid参照
 
-        - price
+   - レスポンスボディ
 
-   :status 200:
-      - 収支の取得に成功
-      - :ref:`alg-ext-res-payment` を返す
-   :status 404:
-      - 収支の取得に失敗
-      - 存在しないIDを指定
+     - :ref:`alg-ext-res-payment`
+
+   - ステータスコード
+
+     - 成功時
+
+       - 200
+
+     - 失敗時
+
+       - 404
 
    **リクエスト例**
 
@@ -146,58 +157,89 @@
 
 .. http:get:: /payments
 
-   :query payment_type: ``income`` または ``expense``
-   :query date_before: 指定された日付以前の収支を検索する
-   :query date_after: 指定された日付以降の収支を検索する
-   :query content_equal: 内容が完全に一致する収支を検索する
-   :query content_include: 内容が部分的に一致する収支を検索する
-   :query category: カテゴリが一致する収支を検索する
-   :query price_upper: 指定された金額以上の収支を検索する
-   :query price_lower: 指定された金額以下の収支を検索する
-   :query page: 指定したページの収支を返却する
-      - デフォルト 1
-      - 最大ページより大きい数を指定した場合は空配列を返却する
-   :query per_page: 指定した数の収支を返却する
-      - デフォルト 10
-      - 以下の場合，返却する数は指定した数よりも少なくなる可能性がある
+   - リクエストクエリ
 
-        - ``page`` パラメーターで最終ページを指定していた場合
-        - 指定した数の収支情報が登録されていない場合
-   :query sort: 指定したパラメーターで並べ替えて返却する
-      - 以下を指定可能
+     - オプション
 
-        - id
-        - date
-        - price
-      - デフォルト id
-   :query order: 指定した順番で返却する
-      - 以下を指定可能
+       - payment_type
 
-        - asc: 昇順で返却する
-        - desc: 降順で返却する
-      - デフォルト asc
+         - :ref:`alg-ext-res-payment` のpayment_type参照
 
-   :responseArray JSONObject:
-      - :ref:`alg-ext-res-payment` の配列
+       - date_before (string)
 
-        - id
-        - payment_type
-        - date
-        - content
-        - categories - :ref:`alg-ext-res-category` の配列
+         - 指定された日付以前の収支を検索する
 
-          - id
-          - name
-          - description
+       - date_after (string)
 
-        - price
+         - 指定された日付以降の収支を検索する
 
-   :status 200:
-      - 収支の検索に成功
-      - :ref:`alg-ext-res-payment` の配列を返す
-   :status 400:
-      - 収支の検索に失敗
-      - :ref:`alg-ext-api-common-error` を返す
+       - content_equal (string)
+
+         - 内容が完全に一致する収支を検索する
+
+       - content_include (string)
+
+         - 内容が部分的に一致する収支を検索する
+
+       - category (string)
+
+         - カテゴリが一致する収支を検索する
+
+       - price_upper (string)
+
+         - 指定された金額以上の収支を検索する
+
+       - price_lower (string)
+
+         - 指定された金額以下の収支を検索する
+
+       - page (string)
+
+         - 指定したページの収支を返却する
+         - デフォルト 1
+         - 最大ページより大きい数を指定した場合は空配列を返却する
+
+       - per_page (string)
+
+         - 指定した数の収支を返却する
+         - デフォルト 10
+         - 以下の場合，返却する数は指定した数よりも少なくなる可能性がある
+
+           - ``page`` パラメーターで最終ページを指定していた場合
+           - 指定した数の収支情報が登録されていない場合
+
+       - sort
+
+         - 指定したパラメーターで並べ替えて返却する
+         - 以下を指定可能
+
+           - id
+           - date
+           - price
+           - デフォルト id
+
+       - order
+
+         - 指定した順番で返却する
+         - 以下を指定可能
+
+           - asc: 昇順で返却する
+           - desc: 降順で返却する
+           - デフォルト asc
+
+   - レスポンスボディ
+
+     - :ref:`alg-ext-res-payment` の配列
+
+   - ステータスコード
+
+     - 成功時
+
+       - 200
+
+     - 失敗時
+
+       - 400
 
    **リクエスト例**
 
@@ -236,33 +278,51 @@
 
 .. http:put:: /payments/[id]
 
-   :request JSONObject:
-      - 更新する :ref:`alg-ext-res-payment` の属性と更新値
+   - パスパラメーター
 
-   :response JSONObject:
-      - :ref:`alg-ext-res-payment`
+     - id
 
-        - id
-        - payment_type
-        - date
-        - content
-        - categories - :ref:`alg-ext-res-category` の配列
+       - :ref:`alg-ext-res-payment` のid参照
 
-          - id
-          - name
-          - description
+   - リクエストボディ
 
-        - price
+     - オプション
 
-   :status 201:
-      - 収支の更新に成功
-      - :ref:`alg-ext-res-payment` を返す
-   :status 400:
-      - 収支の更新に失敗
-      - :ref:`alg-ext-api-common-error` を返す
-   :status 404:
-      - 収支の更新に失敗
-      - 存在しないIDを指定
+       - payment_type
+
+         - :ref:`alg-ext-res-payment` のpayment_type参照
+
+       - date
+
+         - :ref:`alg-ext-res-payment` のdate参照
+
+       - content
+
+         - :ref:`alg-ext-res-payment` のcontent参照
+
+       - categories
+
+         - :ref:`alg-ext-res-payment` のcategories参照
+         - :ref:`alg-ext-res-category` の名前の配列
+
+       - price
+
+         - :ref:`alg-ext-res-payment` のprice参照
+
+     - レスポンスボディ
+
+       - 更新後の :ref:`alg-ext-res-payment`
+
+   - ステータスコード
+
+     - 成功時
+
+       - 200
+
+     - 失敗時
+
+       - 400
+       - 404
 
    **リクエスト例**
 
@@ -304,10 +364,21 @@
 
 .. http:delete:: /payments/[id]
 
-   :status 204:
-      - 収支の削除に成功
-   :status 404:
-      - 収支の削除に失敗
+   - パスパラメーター
+
+     - id
+
+       - :ref:`alg-ext-res-payment` のid参照
+
+   - ステータスコード
+
+     - 成功時
+
+       - 204
+
+     - 失敗時
+
+       - 404
 
    **リクエスト例**
 
@@ -328,15 +399,38 @@
 
 .. http:get:: /settlement
 
-   :query interval:
-      - 集計間隔
-      - ``yearly``, ``monthly``, ``daily`` のいずれかを指定
+   - リクエストクエリ
 
-   :status 200:
-      - 収支の計算に成功
-   :status 400:
-      - 収支の計算に失敗
-      - :ref:`alg-ext-api-common-error` を返す
+     - interval (string)
+
+       - 集計間隔
+       - 以下のいずれかを指定可能
+
+         - yearly: 年単位で計算する
+         - monthly: 月単位で計算する
+         - daily: 日単位で計算する
+
+   - レスポンスボディ
+
+     - 以下のパラメーターの配列
+
+       - date (string)
+
+         - 集計した期間
+
+       - price (integer)
+
+         - 収支
+
+   - ステータスコード
+
+     - 成功時
+
+       - 200
+
+     - 失敗時
+
+       - 400
 
    **リクエスト例**
 
