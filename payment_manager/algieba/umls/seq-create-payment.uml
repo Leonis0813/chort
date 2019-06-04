@@ -31,8 +31,8 @@ alt 登録に成功
 
   autonumber stop
   "Payment_View" <-- "PaymentsController"
-  利用者 <-- "PaymentsController"
+  利用者 <-- "Payments_View"
 else
   "Payment_View" <-- "Api::PaymentsController" : エラー表示
-  利用者 <-- "Api::PaymentsController"
+  利用者 <-- "Payments_View"
 end
