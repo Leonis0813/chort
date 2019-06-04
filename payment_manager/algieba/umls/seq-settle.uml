@@ -7,11 +7,11 @@ create Settlement
 "Api::PaymentsController" -> "Settlement" : valid?
 
 autonumber stop
-"Settlement" -> "Api::PaymentsController"
+"Api::PaymentsController" <-- "Settlement"
 
 autonumber resume
 "Api::PaymentsController" -> "Payment" : settle
 
 autonumber stop
-"Payment" --> "Api::PaymentsController"
-"Api::PaymentsController" --> 利用者
+"Api::PaymentsController" <-- "Payment"
+利用者 <-- "Api::PaymentsController"
