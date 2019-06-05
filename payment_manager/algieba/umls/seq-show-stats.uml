@@ -18,10 +18,10 @@ autonumber stop
 
 autonumber resume
 利用者 -> "Statistics_View" : グラフをクリック
-"Statistics_View" -> "Api::PaymentController" : settle
+"Statistics_View" -> "Api::PaymentsController" : settle
 "Api::PaymentsController" -> "Payment" : settle
 
 autonumber stop
 "Api::PaymentsController" <-- "Payment"
-"Statistics_View" <-- "Api::PaymentController"
+"Statistics_View" <-- "Api::PaymentsController"
 利用者 <-- "Statistics_View"

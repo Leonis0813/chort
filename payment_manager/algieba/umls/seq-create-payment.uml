@@ -8,14 +8,14 @@ autonumber stop
 "Payment_View" <-- "PaymentsController"
 利用者 <-- "Payment_View"
 
-利用者 -> "Payment_View" : 内容入力フォームからフォーカスを外す
+autonumber resume
+利用者 ->> "Payment_View" : 内容入力フォームからフォーカスを外す
 "Payment_View" -> "Api::DictionariesController" : index
 "Api::DictionariesController" -> "Dictionary" : where
 
 autonumber stop
 "Api::DictionariesController" <-- "Dictionary"
 "Payment_View" <-- "Api::DictionariesController"
-利用者 <-- "Payment_View"
 
 autonumber resume
 利用者 -> "Payment_View" : 登録ボタン押下
@@ -38,6 +38,7 @@ loop カテゴリの数だけ繰り返す
   "Api::PaymentsController" <-- "Category"
 end
 
+autonumber resume
 "Api::PaymentsController" -> "Payment" : save
 
 autonumber stop
@@ -51,8 +52,8 @@ alt 登録に成功
 
   autonumber stop
   "Payment_View" <-- "PaymentsController"
-  利用者 <-- "Payments_View"
+  利用者 <-- "Payment_View"
 else
   "Payment_View" <-- "Api::PaymentsController" : エラー表示
-  利用者 <-- "Payments_View"
+  利用者 <-- "Payment_View"
 end

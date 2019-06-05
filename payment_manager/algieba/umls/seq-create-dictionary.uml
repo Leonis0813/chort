@@ -20,8 +20,8 @@ autonumber stop
 
 alt 登録に成功
   "Payment_View" <-- "Api::DictionariesController"
-  利用者 <-- "Payments_View"
+  利用者 <-- "Payment_View"
 else
   "Payment_View" <-- "Api::DictionariesController" : エラー表示
-  利用者 <-- "Payments_View"
+  利用者 <-- "Payment_View"
 end
