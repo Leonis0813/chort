@@ -6,8 +6,8 @@ actor 利用者
 "Api::PaymentsController" -> "Payment" : destroy
 
 autonumber stop
-"Payment" --> "Api::PaymentsController"
-"Api::PaymentsController" --> "Payment_View"
+"Api::PaymentsController" <-- "Payment"
+"Payment_View" <-- "Api::PaymentsController"
 
 autonumber resume
 "Payment_View" -> "PaymentsController" : index

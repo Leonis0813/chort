@@ -1,8 +1,33 @@
 autonumber
 
 actor 利用者
+利用者 -> "Payment_View" : 管理画面を表示
+"Payment_View" -> "PaymentsController" : index
+
+autonumber stop
+"Payment_View" <-- "PaymentsController"
+利用者 <-- "Payment_View"
+
+利用者 -> "Payment_View" : 内容入力フォームからフォーカスを外す
+"Payment_View" -> "Api::DictionariesController" : index
+"Api::DictionariesController" -> "Dictionary" : where
+
+autonumber stop
+"Api::DictionariesController" <-- "Dictionary"
+"Payment_View" <-- "Api::DictionariesController"
+利用者 <-- "Payment_View"
+
+autonumber resume
 利用者 -> "Payment_View" : 登録ボタン押下
 "Payment_View" -> "Api::PaymentsController" : create
+
+alt 必須パラメーターがない
+  autonumber stop
+  "Payment_View" <-- "Api::PaymentsController"
+  利用者 <-- "Payment_View"
+end
+
+autonumber resume
 create Payment
 "Api::PaymentsController" -> "Payment" : new
 

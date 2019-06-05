@@ -3,10 +3,12 @@ autonumber
 actor 利用者
 利用者 -> "Payment_View" : 登録ボタン押下
 "Payment_View" -> "Api::DictionariesController" : create
-"Api::DictionariesController" -> "Dictionary" : where
 
-autonumber stop
-"Api::DictionariesController" <-- "Dictionary"
+alt 必須パラメーターがない
+  autonumber stop
+  "Payment_View" <-- "Api::DictionariesController"
+  利用者 <-- "Payment_View"
+end
 
 autonumber resume
 create Dictionary
