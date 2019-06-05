@@ -6,18 +6,13 @@ actor 利用者
 create Payment
 "Api::PaymentsController" -> "Payment" : new
 
-autonumber stop
-"Api::PaymentsController" <-- "Payment"
-
 loop カテゴリの数だけ繰り返す
-  autonumber resume
   "Api::PaymentsController" -> "Category" : find_or_create_by
 
   autonumber stop
   "Api::PaymentsController" <-- "Category"
 end
 
-autonumber resume
 "Api::PaymentsController" -> "Payment" : save
 
 autonumber stop
