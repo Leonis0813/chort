@@ -1,12 +1,5 @@
 class AnalysisView <<Boundary>>
 class PredictionView <<Boundary>>
-class AnalysesController
-class PredictionsController
-class AnalysisJob
-class PredictionJob
-class AnalysisMailer
-class Analysis
-class Prediction
 
 class AnalysesController {
   + execute(from : String, to : String, batch_size : Integer)
