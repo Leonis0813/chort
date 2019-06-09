@@ -288,11 +288,11 @@ prediction_resultsテーブル
    predictable_id,INTEGER,"以下のテーブルの内部ID
 
    - :ref:`alt-int-sch-predictions`
-   - :ref:`alt-int-sch-evaluation_data`",, "○"
-   "predictable_type", "STRING", "関連モデル名",, "○"
-   "number", "INTEGER", "1着と予測されたエントリーの馬番",, "○"
-   "created_at", "DATETIME", "予測結果情報の作成日時",, "○"
-   "updated_at", "DATETIME", "予測結果情報の更新日時",, "○"
+   - :ref:`alt-int-sch-evaluation_data`",,○
+   predictable_type,STRING,関連モデル名,,○
+   number,INTEGER,1着と予測されたエントリーの馬番,,○
+   created_at,DATETIME,予測結果情報の作成日時,,○
+   updated_at,DATETIME,予測結果情報の更新日時,,○
 
 .. _alt-int-sch-evaluations:
 
@@ -321,13 +321,13 @@ evaluation_dataテーブル
 評価レース情報を登録するevaluation_dataテーブルを定義する
 
 .. csv-table::
-   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
-   :widths: 10, 10, 20, 20, 10
+   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
+   :widths: 10,10,20,20,10
 
-   "id", "INTEGER", "内部ID", "○", "○"
-   "evaluation_id", "INTEGER", "evaluation_idテーブルの外部ID",, "○"
-   "race_name", "STRING", "評価したレースの名前モデルファイル名",, "○"
-   "race_url", "STRING", "評価したレースのURL",, "○"
-   "ground_truth", "INTEGER", "正解",, "○"
-   "created_at", "DATETIME", "評価ジョブ情報の作成日時", "", "○"
-   "updated_at", "DATETIME", "評価ジョブ情報の更新日時", "", "○"
+   id,INTEGER,内部ID,○,○
+   evaluation_id,INTEGER,evaluationsテーブルの内部ID,,○
+   race_name,STRING,評価したレースの名前モデルファイル名,,○
+   race_url,STRING,評価したレースのURL,,○
+   ground_truth,INTEGER,正解,,○
+   created_at,DATETIME,評価ジョブ情報の作成日時,,○
+   updated_at,DATETIME,評価ジョブ情報の更新日時,,○
