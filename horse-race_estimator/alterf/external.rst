@@ -80,7 +80,7 @@
      - 完了
      - エラー"
    精度,float,評価したモデルの予測精度,- 0以上の小数
-   結果,array[ :ref:`alt-ext-res-eva-result` ], :ref:`alt-ext-res-eva-result` 参照,
+   結果,array[ :ref:`alt-ext-res-eva-data` ], :ref:`alt-ext-res-eva-data` 参照,
 
 .. _alt-ext-res-eva-data:
 
