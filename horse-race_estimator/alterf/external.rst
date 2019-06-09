@@ -60,7 +60,7 @@
      - エラー"
    結果,array[integer],1着と予測された馬番の配列,- 空配列，または1以上の数値の要素
 
-.. _alt-ext-resource-evaluation:
+.. _alt-ext-res-evaluation:
 
 評価ジョブ
 ^^^^^^^^^^
