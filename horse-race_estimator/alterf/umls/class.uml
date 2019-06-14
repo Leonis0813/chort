@@ -15,7 +15,7 @@ class PredictionsController {
 
 class EvaluationsController {
   + manage(page : String)
-  + read(evaluation_id : String)
+  + show(evaluation_id : String)
   + execute(model : File)
 }
 
@@ -32,7 +32,8 @@ class EvaluationJob {
 }
 
 class AnalysisMailer {
-  + finished(analysis : Analysis, is_success : Boolean)
+  + completed(analysis : Analysis)
+  + error(analysis : Analysis)
 }
 
 class Analysis {
@@ -58,7 +59,7 @@ class Evaluation {
   - model : String
   - state : String
   - precision : Double
-  - results : Array<EvaluationResult>
+  - data : Array<EvaluationData>
 }
 
 class EvaluationData {
@@ -72,6 +73,10 @@ class NetkeibaClient {
   + http_get_race_top() : Array<String>
   + http_get_race(url : String) : Hash<String, Object>
   + http_get_horse(url : String) : Hash<String, Object>
+  - race_feature(place : Object, race_data : Object, race_date : String)
+  - entries(race_data : Object)
+  - horse_feature(table : Object)
+  - results(table : Object)
 }
 
 ブラウザ -- AnalysisView
