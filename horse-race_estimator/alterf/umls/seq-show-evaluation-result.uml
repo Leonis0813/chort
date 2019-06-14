@@ -1,0 +1,15 @@
+autonumber
+
+actor 利用者
+note over 利用者
+  評価画面は表示されているものとする
+end note
+
+利用者 -> EvaluationView : 詳細ボタン押下
+EvaluationView -> EvaluationsController : read
+EvaluationsController -> Evaluation : find_by
+
+autonumber stop
+EvaluationsController <-- Evaluation
+EvaluationResultView <-- EvaluationsController
+利用者 <-- EvaluationResultView

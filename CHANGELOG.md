@@ -1,3 +1,6 @@
+# 2019/06/15
+- [Alterf] update version to 4.3.0
+
 # 2019/06/09
 - [Alterf] update version to 4.2.0
 
