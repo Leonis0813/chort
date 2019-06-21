@@ -2,7 +2,7 @@ class AnalysisView <<Boundary>>
 class PredictionView <<Boundary>>
 
 class AnalysesController {
-  + execute(from : String, to : String, batch_size : Integer)
+  + execute(from : String, to : String, pair: String, batch_size : Integer)
 }
 
 class PredictionsController {
@@ -18,13 +18,15 @@ class PredictionJob {
 }
 
 class AnalysisMailer {
-  + finished(analysis : Analysis, is_success : Boolean)
+  + completed(analysis : Analysis)
+  + error(analysis : Analysis)
 }
 
 class Analysis {
   - id : int
   - from : Datetime
   - to : Datetime
+  - pair : String
   - batch_size : int
   - created_at : Datetime
   - updated_at : Datetime
@@ -36,6 +38,7 @@ class Prediction {
   - model : String
   - from : Datetime
   - to : Datetime
+  - pair : String
   - result : String
   - state : String
   - created_at : Datetime
