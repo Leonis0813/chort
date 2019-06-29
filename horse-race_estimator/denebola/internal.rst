@@ -149,7 +149,7 @@ racesテーブル
    :widths: 15, 15, 30, 20, 20
 
    "id", "INTEGER", "内部ID", "○", "○"
-   "race_id", "STRING", "レースのID"",, "○"
+   "race_id", "STRING", "レースのID",, "○"
    "direction", "STRING", "左回りか右回りか",, "○"
    "distance", "INTEGER", "コースの距離",, "○"
    "grade", "STRING", "グレード",,

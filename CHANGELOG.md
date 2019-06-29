@@ -1,3 +1,15 @@
+# 2019/06/23
+- [Regulus] update version to 4.3.0
+
+# 2019/06/15
+- [Alterf] update version to 4.3.0
+
+# 2019/06/09
+- [Alterf] update version to 4.2.0
+
+# 2019/06/08
+- [Regulus] update version to 4.2.0
+
 # 2019/05/29
 - [Alterf] update version to 4.1.2
 
