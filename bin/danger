@@ -3,7 +3,6 @@
 require 'json'
 require 'net/https'
 
-BASE_BRANCH = 'develop'
 GITHUB_URL = "https://api.github.com/repos/Leonis0813/chort/pulls"
 PARSED_URL = URI.parse(GITHUB_URL)
 
@@ -11,15 +10,15 @@ begin
   pull_requests = Net::HTTP.start(PARSED_URL.host, PARSED_URL.port, :use_ssl => true) do |https|
     request = Net::HTTP::Get.new(PARSED_URL)
     request['Authorization'] = "token #{ENV['DANGER_GITHUB_API_TOKEN']}"
-    response = https.request request
+    response = https.request(request)
     JSON.parse(response.body)
+  end
+
+  target_pr = pull_requests.find do |pull_request|
+    ENV['GIT_BRANCH'].end_with?(pull_request['head']['ref'])
   end
 rescue Exception => e
   exit 1
-end
-
-target_pr = pull_requests.find do |pull_request|
-  ENV['GIT_BRANCH'].end_with?(pull_request['head']['ref'])
 end
 
 system "rvm 2.4.4 do env CHANGE_ID=#{target_pr['number']} bundle exec danger"
