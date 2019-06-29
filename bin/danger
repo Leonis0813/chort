@@ -3,8 +3,8 @@
 require 'json'
 require 'net/https'
 
-GITHUB_URL = "https://api.github.com/repos/Leonis0813/chort/pulls"
-PARSED_URL = URI.parse(GITHUB_URL)
+GITHUB_API_URL = "https://api.github.com/repos/Leonis0813/chort/pulls"
+PARSED_URL = URI.parse(GITHUB_API_URL)
 
 begin
   pull_requests = Net::HTTP.start(PARSED_URL.host, PARSED_URL.port, :use_ssl => true) do |https|
