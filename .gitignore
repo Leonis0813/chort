@@ -2,3 +2,6 @@
 */_build
 */_static
 */_templates
+
+.bundle
+vendor

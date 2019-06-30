@@ -14,14 +14,19 @@ FX Rate Estimator: レート予測システム
    boundary Webブラウザ
    entity レート情報
    entity 分析ジョブ
+   entity 予測ジョブ
 
    利用者 -- Webブラウザ
 
    rectangle Regulus {
      control 分析ジョブコントローラー
+     control 予測ジョブコントローラー
      Webブラウザ -- 分析ジョブコントローラー
+     Webブラウザ -- 予測ジョブコントローラー
      分析ジョブコントローラー -- レート情報
+     予測ジョブコントローラー -- レート情報
      分析ジョブコントローラー -- 分析ジョブ
+     予測ジョブコントローラー -- 予測ジョブ
    }
 
    rectangle 外部ツール {

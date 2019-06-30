@@ -1,0 +1,54 @@
+autonumber
+
+actor 利用者
+利用者 -> EvaluationView : 実行ボタン押下
+EvaluationView -> EvaluationsController : execute
+
+create Evaluation
+EvaluationsController -> Evaluation : new
+EvaluationsController --> EvaluationJob : perform_later
+
+autonumber stop
+EvaluationView <- EvaluationsController
+利用者 <- EvaluationView
+
+autonumber resume
+EvaluationJob -> NetkeibaClient : http_get_race_top
+
+autonumber stop
+EvaluationJob <-- NetkeibaClient
+
+loop レースIDごとに繰り返し
+  autonumber resume
+  EvaluationJob -> NetkeibaClient : http_get_race
+
+  autonumber stop
+  EvaluationJob <-- NetkeibaClient
+
+  loop レースのエントリーの数だけ繰り返す
+    autonumber resume
+    EvaluationJob -> NetkeibaClient : http_get_horse
+
+    autonumber stop
+    EvaluationJob <-- NetkeibaClient
+  end
+
+  autonumber resume
+  EvaluationJob -> YAML : dump
+  EvaluationJob -> "Evaluation::Result" : create
+
+  autonumber stop
+  EvaluationJob <-- "Evaluation::Result"
+
+  loop レースのエントリーの数だけ繰り返す
+    alt 1着と予測された
+      autonumber resume
+      EvaluationJob -> "Prediction::Result" : create
+    end
+  end
+end
+
+EvaluationJob -> Evaluation : update
+
+autonumber stop
+EvaluationJob <-- Evaluation

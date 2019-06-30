@@ -1,3 +1,45 @@
+# 2019/06/23
+- [Regulus] update version to 4.3.0
+
+# 2019/06/15
+- [Alterf] update version to 4.3.0
+
+# 2019/06/09
+- [Alterf] update version to 4.2.0
+
+# 2019/06/08
+- [Regulus] update version to 4.2.0
+
+# 2019/05/29
+- [Alterf] update version to 4.1.2
+
+# 2019/05/23
+- [Denebola] update version to 2.4.5
+
+# 2019/05/22
+- [Denebola] update version to 2.4.4
+
+# 2019/05/20
+- [Denebola] update version to 2.4.3
+
+# 2019/05/17
+- [Denebola] update version to 2.4.0
+
+# 2019/05/11
+- [Alterf] update version to 4.1.0
+
+# 2019/04/21
+- [Denebola] update version to 2.3.0
+
+# 2019/04/20
+- [Alterf] update version to 4.0.0
+
+# 2019/04/15
+- [Denebola] update version to 2.2.0
+
+# 2019/04/13
+- [Adhafera] update version to 3.1.0
+
 # 2019/03/28
 - [Zosma] update version to 3.0.3
 

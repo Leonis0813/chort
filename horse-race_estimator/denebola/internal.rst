@@ -88,7 +88,7 @@ HTMLファイルを収集する
 
 .. uml:: umls/seq-extract.uml
 
-指定された期間だけ1を繰り返す
+指定された期間だけ1〜11を繰り返す
 
 1. ファイルからレースIDリストを取得する
 
@@ -117,14 +117,14 @@ HTMLファイルを収集する
 
 .. uml:: umls/seq-aggregate.uml
 
-1. Raceオブジェクトのpluckメソッドを実行してレース情報登録後の状態のIDを取得する
+1. Entryオブジェクトのpluckメソッドを実行してレース情報登録後の状態のIDを取得する
 2. Featureオブジェクトのpluckメソッドを実行して素性作成済みのレース情報のIDを取得する
 
 シーケンス1, 2で取得したIDの差分だけ以下を繰り返す
 
 3. Raceオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するレース情報を取得する
 4. Entryオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致するエントリー情報を取得する
-5. Resultオブジェクトのfind_byメソッドを実行してFeatureオブジェクトのIDと一致するレース結果情報を取得する
+5. Horseオブジェクトのfindメソッドを実行してFeatureオブジェクトのIDと一致する競走馬情報を取得する
 6. 取得した全ての情報を設定してFeatureオブジェクトをDBに登録する
 
 .. _den-int-schema:
@@ -148,7 +148,8 @@ racesテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 15, 15, 30, 20, 20
 
-   "id", "INTEGER", "レースのID", "○", "○"
+   "id", "INTEGER", "内部ID", "○", "○"
+   "race_id", "STRING", "レースのID",, "○"
    "direction", "STRING", "左回りか右回りか",, "○"
    "distance", "INTEGER", "コースの距離",, "○"
    "grade", "STRING", "グレード",,
@@ -171,16 +172,19 @@ entriesテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 15, 15, 30, 20, 20
 
-   "id", "INTEGER", "エントリーのID", "○", "○"
+   "id", "INTEGER", "内部ID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
-   "sex", "STRING", "性別",, "○"
    "burden_weight", "FLOAT", "斤量",, "○"
-   "jockey", "STRING", "騎手",,
+   "final_600m_time", "FLOAT", "上り3ハロンタイム",,
+   "jockey", "STRING", "騎手",, "○"
    "number", "INTEGER", "エントリーの番号",, "○"
+   "order", "STRING", "着順",, "○"
+   "prize_money", "INTEGER", "獲得賞金",, "○"
+   "sex", "STRING", "性別",, "○"
    "weight", "FLOAT", "体重",,
    "weight_diff", "FLOAT", "前走との体重の差分",,
-   "order", "INTEGER", "着順",, "○"
-   "race_id", "INTEGER", "レース情報の外部キー",,
+   "race_id", "INTEGER", "レースの内部ID",, "○"
+   "horse_id", "INTEGER", "競走馬の内部ID",,
    "created_at", "DATETIME", "エントリー情報の作成日時", "", "○"
    "updated_at", "DATETIME", "エントリー情報の更新日時", "", "○"
 
@@ -197,6 +201,7 @@ horsesテーブル
 
    "id", "INTEGER", "内部ID", "○", "○"
    "horse_id", "STRING", "競走馬のID", "", "○"
+   "running_style", "STRING", "脚質", "", "○"
    "created_at", "DATETIME", "競走馬情報の作成日時", "", "○"
    "updated_at", "DATETIME", "競走馬情報の更新日時", "", "○"
 
@@ -211,23 +216,30 @@ featuresテーブル
    :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
    :widths: 15, 15, 30, 20, 20
 
-   "id", "INTEGER", "素性のID", "○", "○"
+   "id", "INTEGER", "内部ID", "○", "○"
    "age", "INTEGER", "年齢",, "○"
-   "sex", "STRING", "性別",, "○"
+   "average_prize_money", "FLOAT", "馬の平均賞金獲得額", "", "○"
+   "blank", "INTEGER", "前回のレースから何日空いたか",, "○"
    "burden_weight", "FLOAT", "斤量",, "○"
    "direction", "STRING", "左回りか右回りか",, "○"
    "distance", "INTEGER", "コースの距離",, "○"
-   "grade", "STRING", "グレード",,
+   "distance_diff", "FLOAT", "平均距離との差/平均距離", "", "○"
+   "entry_times", "INTEGER", "レースの出場回数", "", "○"
+   "grade", "STRING", "グレード",, "○"
+   "last_race_order", "INTEGER", "馬の1走前の順位",, "○"
+   "month", "INTEGER", "レース月",, "○"
    "number", "INTEGER", "エントリーの番号",, "○"
    "place", "STRING", "場所",, "○"
+   "rate_within_third", "FLOAT", "馬の過去4レースの3着以内に入っていた割合",, "○"
    "round", "INTEGER", "ラウンド",, "○"
-   "month", "INTEGER", "レース月",, "○"
+   "running_style", "STRING", "馬の脚質", "", "○"
+   "second_last_race_order", "INTEGER", "馬の2走前の順位",, "○"
+   "sex", "STRING", "性別",, "○"
    "track", "STRING", "芝やダートなど，地面の種類",, "○"
    "weather", "STRING", "天候",, "○"
-   "weight", "FLOAT", "体重",,
-   "weight_diff", "FLOAT", "前走との体重の差分",,
-   "weight_per", "FLOAT", "斤量/体重",,
-   "race_id", "INTEGER", "レース情報の外部キー",,
-   "entry_id", "INTEGER", "エントリー情報の外部キー",,
+   "weight", "FLOAT", "体重",, "○"
+   "weight_diff", "FLOAT", "前走との体重の差分",, "○"
+   "weight_per", "FLOAT", "斤量/体重",, "○"
+   "win_times", "INTEGER", "馬の勝ち回数", "", "○"
    "created_at", "DATETIME", "素性の作成日時", "", "○"
    "updated_at", "DATETIME", "素性の更新日時", "", "○"
