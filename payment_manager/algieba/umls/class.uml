@@ -24,6 +24,8 @@ class Api::CategoriesController {
 class Api::DictionariesController {
   + create(phrase : String, condition : String, categories : Array<String>)
   + index(content : String)
+  - create_params() : Array
+  - index_params() : Array
 }
 
 class StatisticsController {

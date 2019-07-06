@@ -243,6 +243,8 @@ category_dictionaries テーブル
    id,INTEGER,内部ID,○,○
    category_id,INTEGER,categoriesテーブルの内部ID,,○
    dictionary_id,INTEGER,dictionariesテーブルの内部ID,,○
+   created_at,DATETIME,レコードの作成日時,,○
+   updated_at,DATETIME,レコードの更新日時,,○
 
 .. _alg-int-scm-category-payments:
 
@@ -257,6 +259,8 @@ category_payments テーブル
    id,INTEGER,内部ID,○,○
    category_id,INTEGER,categoriesテーブルの内部ID,,○
    payment_id,INTEGER,paymentsテーブルの内部ID,,○
+   created_at,DATETIME,レコードの作成日時,,○
+   updated_at,DATETIME,レコードの更新日時,,○
 
 .. _alg-int-scm-dictionaries:
 
