@@ -1,9 +1,0 @@
-autonumber
-
-actor 利用者
-利用者 -> "Api::PaymentsController" : show
-"Api::PaymentsController" -> "Payment" : find
-
-autonumber stop
-"Payment" --> "Api::PaymentsController"
-"Api::PaymentsController" --> 利用者

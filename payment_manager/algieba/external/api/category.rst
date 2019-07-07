@@ -12,23 +12,28 @@
 
 .. http:get:: /categories
 
-   :query keyword:
-      - keywordを含むカテゴリを検索する
-      - 指定しなかった場合は全てのカテゴリを取得する
+   - リクエストクエリ
 
-   :responseArray JSONObject:
-      - :ref:`alg-ext-resource-category` の配列
+     - オプション
 
-        - id
-        - name
-        - description
+       - keyword (string)
 
-   :status 200:
-      - カテゴリの検索に成功
-      - :ref:`alg-ext-resource-category` の配列を返す
-   :status 400:
-      - カテゴリの検索に失敗
-      - :ref:`alg-ext-api-common-error` を返す
+         - keywordを含むカテゴリを検索する
+         - 指定しなかった場合は全てのカテゴリを取得する
+
+   - レスポンスボディ
+
+     - :ref:`alg-ext-res-category` の配列
+
+   - ステータスコード
+
+     - 成功時
+
+       - 200
+
+     - 失敗時
+
+       - 400
 
    **リクエスト例**
 

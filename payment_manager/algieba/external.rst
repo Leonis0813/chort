@@ -14,10 +14,11 @@
 
 本システムでは以下のリソースを扱う
 
-- :ref:`alg-ext-resource-payment`
-- :ref:`alg-ext-resource-category`
+- :ref:`alg-ext-res-payment`
+- :ref:`alg-ext-res-category`
+- :ref:`alg-ext-res-dictionary`
 
-.. _alg-ext-resource-payment:
+.. _alg-ext-res-payment:
 
 収支リソース
 ^^^^^^^^^^^^
@@ -25,17 +26,22 @@
 所持金の増減を表す
 
 .. csv-table::
-   :header: "入力項目", "型", "意味", "フォーマット", "備考"
-   :widths: 10, 10, 20, 20, 40
+   :header: "属性名", "型", "意味", "備考"
+   :widths: 10, 20, 30, 40
 
-   "ID", "自然数(integer)", "収支情報にユニークに設定された値", "半角数字", "システムによって自動的に付与される。変更不可"
-   "種類", "文字列(string)", "収入, 支出を表す文字列", "``income`` または ``expense``",
-   "日付", "文字列(string)", "所持金の増減があった日時", "yyyy-mm-dd",
-   "内容", "文字列(string)", "所持金の増減があった理由など", "任意の文字列",
-   "カテゴリ", ":ref:`alg-ext-resource-category`", "カテゴリリソースの名前", "任意の文字列",
-   "金額", "自然数(integer)", "所持金の増減量", "半角数字",
+   id,integer,収支情報にユニークに設定されるID,"- 半角数字
+   - システムによって自動的に付与される
+   - 変更不可"
+   payment_type,string,収支情報の種類,"- 以下のいずれか
 
-.. _alg-ext-resource-category:
+     - income: 収入
+     - expense: 支出"
+   date,string,所持金の増減があった日付,- yyyy-mm-dd の形式
+   content,string,所持金の増減があった理由など,- 任意の文字列
+   categories,array[:ref:`alg-ext-res-category` ], :ref:`alg-ext-res-category` を参照,
+   price,integer,所持金の増減量,- 1以上
+
+.. _alg-ext-res-category:
 
 カテゴリリソース
 ^^^^^^^^^^^^^^^^
@@ -43,12 +49,35 @@
 収支のカテゴリを表す
 
 .. csv-table::
-   :header: "入力項目", "型", "意味", "フォーマット", "備考"
-   :widths: 10, 10, 20, 20, 40
+   :header: "属性名", "型", "意味", "備考"
+   :widths: 10, 20, 30, 40
 
-   "ID", "自然数(integer)", "カテゴリ情報にユニークに設定された値", "半角数字", "システムによって自動的に付与される。変更不可"
-   "名前", "文字列(string)", "費目（例：食費，水道光熱費）", "任意の文字列",
-   "意味", "文字列(string)", "どのような収支情報が分類されるかを表す", "任意の文字列",
+   id,integer,カテゴリ情報にユニークに設定されるID,"- 半角数字
+   - システムによって自動的に付与される
+   - 変更不可"
+   name,string,費目（例：食費，水道光熱費）,- 任意の文字列
+   description,string,どのような収支情報が分類されるかを表す,- 任意の文字列
+
+.. _alg-ext-res-dictionary:
+
+辞書リソース
+^^^^^^^^^^^^
+
+収支の辞書を表す． :ref:`alg-ext-res-payment` の内容がどういうカテゴリかをあらかじめ設定しておくことができる
+
+.. csv-table::
+   :header: "属性名", "型", "意味", "備考"
+   :widths: 10, 20, 30, 40
+
+   id,integer,辞書情報にユニークに設定されるID,"- 半角数字
+   - システムによって自動的に付与される
+   - 変更不可"
+   phrase,string,カテゴリを設定したいフレーズ,- 任意の文字列
+   condition,string,内容とカテゴリを紐付けるかどうかを決める条件,"- 以下のいずれか
+
+     - equal: 完全一致するフレーズにカテゴリを設定する
+     - include: 部分一致するフレーズにカテゴリを設定する"
+   categories,array[:ref:`alg-ext-res-category` ], :ref:`alg-ext-res-category` を参照,
 
 .. _alg-ext-ui:
 
@@ -57,20 +86,20 @@
 
 利用者はブラウザから収支の登録や確認、統計情報の確認を行うことができる
 
-- 収支の登録や確認は管理画面で行う
+- 収支の登録や検索，辞書の登録は管理画面で行う
 - 統計情報の確認は統計画面で行う
 
 管理画面
 ^^^^^^^^
 
-.. image:: images/ui_management.png
+.. image:: images/management.png
    :alt: 管理画面
    :scale: 35
 
 - 画面の上部に管理画面と統計画面へのリンクが表示される
-- 画面の左側には収支情報の登録，検索フォームが表示される
+- 画面の左側には収支情報の登録や検索，辞書情報の登録フォームが表示される
 
-  - タブでフォームを切り替えることができ，初期状態では登録フォームが表示される
+  - タブでフォームを切り替えることができ，初期状態では収支情報の登録フォームが表示される
 
 - 画面の右側には収支情報の一覧が表示される
 
@@ -103,6 +132,8 @@
 
     - 「Cancel」ボタンを押下すると，ダイアログが閉じて管理画面に戻る
 
+.. _alg-ext-ui-error:
+
 不正入力エラー
 ''''''''''''''
 
@@ -114,7 +145,7 @@
 登録フォーム仕様
 """"""""""""""""
 
-.. image:: images/ui_register_form.png
+.. image:: images/management_create_payment.png
    :alt: 登録フォーム
    :scale: 50
 
@@ -126,7 +157,7 @@
 検索フォーム仕様
 """"""""""""""""
 
-.. image:: images/ui_search_form.png
+.. image:: images/management_index_payments.png
    :alt: 検索フォーム
    :scale: 50
 
@@ -145,6 +176,26 @@
   - どちらかを指定しなければ，それ以上，または以下の収支情報を全て取得する
 
 - 種類選択フォームでは「収支」，「支出」を選択して特定の種類の収支情報のみを取得する
+
+辞書登録フォーム仕様
+""""""""""""""""""""
+
+.. image:: images/management_create_dictionary.png
+   :alt: 辞書登録フォーム
+   :scale: 50
+
+- フレーズとカテゴリを入力して登録ボタンを押下すると，入力したフレーズとカテゴリで辞書が登録される
+- フレーズ入力フォームではフレーズを指定する
+
+  - 「を含む」を選択すると，入力したフレーズを含む内容を入力した場合に指定したカテゴリを設定する
+  - 「と一致する」を選択すると，入力したフレーズと一致する内容を入力した場合に指定したカテゴリを設定する
+
+- 登録に成功すると以下のダイアログが表示される
+
+  .. image:: images/management_dictionaries_success.png
+     :scale: 50
+
+- 登録に失敗した場合は :ref:`alg-ext-ui-error` が表示される
 
 収支情報一覧画面仕様
 """"""""""""""""""""
@@ -204,8 +255,9 @@ Web API
 .. toctree::
    :maxdepth: 1
 
-   apis/payment
-   apis/category
+   external/api/payment
+   external/api/category
+   external/api/dictionary
 
 共通仕様
 ^^^^^^^^
@@ -231,5 +283,6 @@ Web API
 .. csv-table::
    :header: "エラーコード", "ステータスコード", "意味"
 
-   "absent_param_[属性]", "400", "入力必須の項目がない"
-   "invalid_param_[属性]", "400", "不正値のパラメータがある"
+   absent_param_[属性],400,入力必須の項目がない
+   invalid_param_[属性],400,不正値のパラメータがある
+   not_found,404,パスパラメーターで指定したリソースが存在しない

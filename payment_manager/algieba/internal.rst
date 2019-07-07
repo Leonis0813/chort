@@ -20,48 +20,62 @@ MVCモデルを利用する
 
 - Model
 
-  - Category: categoriesテーブルを操作するモデル
-  - Payment: paymentsテーブルを操作するモデル
+  - Category
 
-    - settle: 収支を計算するメソッド
+    - categoriesテーブルを操作するモデル
 
-  - Query: 収支検索時のクエリを管理するモデル
+  - Payment
 
-    - date_valid?: 日付を検証するためのメソッド
+    - paymentsテーブルを操作するモデル
 
-  - Settlement: 収支計算時のクエリを管理するモデル
+  - Query
+
+    - 収支検索時のクエリを管理するモデル
+
+  - Settlement
+
+    - 収支計算時のクエリを管理するモデル
+
+  - Dictionary
+
+    - dictionariesテーブルを管理するモデル
 
 - View
 
-  - Payment_View: 収支の登録や表示を行うビュー
+  - Payment_View
 
-    - 認証された利用者が収支の登録・参照を行う
+    - 収支の登録や表示を行うビュー
 
-  - Statistics_View: 統計情報を表示するビュー
+  - Statistics_View
+
+    - 統計情報を表示するビュー
 
 - Controller
 
-  - Api::CategoriesController: カテゴリを処理するコントローラ(WebAPI用コントローラ)
+  - Api::CategoriesController
 
-    - index: カテゴリを検索するメソッド
+    - カテゴリを処理するコントローラー
+    - WebAPI用コントローラー
 
-  - Api::PaymentsController: 収支を処理するコントローラ(WebAPI用コントローラ)
+  - Api::DictionariesController
 
-    - create: 収支を登録するメソッド
-    - show: 収支を取得するメソッド
-    - index: 収支を検索するメソッド
-    - update: 収支を更新するメソッド
-    - destroy: 収支を削除するメソッド
-    - settle: 収支を計算するメソッド
-    - payment_params: Paymentの属性名の配列を返すメソッド
-    - index_params: Queryの属性名の配列を返すメソッド
+    - 辞書を処理するコントローラー
+    - WebAPI用コントローラー
 
-  - PaymentsController: 収支を処理するコントローラ(UI用コントローラ)
+  - Api::PaymentsController
 
-    - index: 収支を検索するメソッド
-    - index_params: Queryの属性名の配列を返すメソッド
+    - 収支を処理するコントローラー
+    - WebAPI用コントローラー
 
-  - StatisticsController: 統計情報を管理するコントローラー(UI用コントローラ)
+  - PaymentsController
+
+    - 収支を処理するコントローラー
+    - UI用コントローラー
+
+  - StatisticsController
+
+    - 統計情報を管理するコントローラー
+    - UI用コントローラー
 
 .. _alg-int-seq:
 
@@ -69,13 +83,11 @@ MVCモデルを利用する
 ----------
 
 - :ref:`alg-int-seq-create-payment`
-- :ref:`alg-int-seq-show-payment`
 - :ref:`alg-int-seq-index-payment`
-- :ref:`alg-int-seq-update-payment`
 - :ref:`alg-int-seq-destroy-payment`
 - :ref:`alg-int-seq-settle-payment`
-- :ref:`alg-int-seq-index-category`
 - :ref:`alg-int-seq-show-stats`
+- :ref:`alg-int-seq-create-dictionary`
 
 .. _alg-int-seq-create-payment:
 
@@ -86,42 +98,29 @@ MVCモデルを利用する
 
 .. uml:: umls/seq-create-payment.uml
 
-1. リクエストを受けると，PaymentsControllerクラスのcreateメソッドを実行する
+1. 利用者が管理画面を表示する
+2. ブラウザが管理画面の表示を要求する
+3. 利用者が内容を入力する
+4. 管理画面が辞書情報を検索するAPIを実行する
+5. 入力された内容にマッチする辞書情報を検索する
+6. 利用者がフォームに入力して登録ボタンを押下する
+7. 管理画面が収支情報を登録するAPIを実行する
 
-   - 必須パラメーターがない場合
+必須パラメーターがない場合はエラーを表示して終了する
 
-     - BadRequestを発生させてステータスコード400とエラーコードを返す
+8. 入力されたパラメーターから収支情報を作成する
 
-2. Categoryクラスのfind_or_create_byメソッドを実行してcategoryパラメーターで指定されたカテゴリを取得し，存在しなければ作成する
-3. Paymentクラスのcreateメソッドを実行して収支情報を作成する
+入力されたカテゴリの数だけ9を実行する
 
-   - 作成に成功した場合
+9. カテゴリ情報が登録されていなければ登録し，取得する
 
-     - ステータスコード201と登録したPaymentオブジェクトを返す
+10. 収支情報をDBに登録する
 
-   - 作成に失敗した場合
+登録に成功した場合は11を実行する
 
-     - BadRequestを発生させて，ステータスコード400とエラーコードを返す
+11. 管理画面をリロードする
 
-.. _alg-int-seq-show-payment:
-
-収支を取得する
-^^^^^^^^^^^^^^
-
-*シーケンス図*
-
-.. uml:: umls/seq-show-payment.uml
-
-1. リクエストを受けると，PaymentsControllerクラスのshowメソッドを実行する
-2. findメソッドでPaymentオブジェクトを取得する
-
-   - 取得に成功した場合
-
-     - ステータスコード200と取得したPaymentオブジェクトを返す
-
-   - 取得に失敗した場合
-
-     - NotFoundを発生させて，ステータスコード404とエラーコードを返す
+登録に失敗した場合はエラーを表示して終了する
 
 .. _alg-int-seq-index-payment:
 
@@ -132,38 +131,14 @@ MVCモデルを利用する
 
 .. uml:: umls/seq-index-payment.uml
 
-1. リクエストを受けると，PaymentsControllerクラスのindexメソッドを実行する
-2. パラメーターからQueryクラスのオブジェクトを作成する
-3. valid?メソッドを実行して不正な値がないかチェックする
+1. 利用者がフォームに入力して検索フォームを押下する
+2. クエリを指定して登録画面の再表示を要求する
+3. 入力されたパラメーターからクエリ情報を作成する
+4. クエリ情報が不正でないか確認する
 
-   - 不正な値がある場合
+クエリ情報が不正な場合はエラーを表示して終了する
 
-     - BadRequestを発生させて，ステータスコード400とエラーコードを返す
-
-4. whereメソッドを実行してPaymentオブジェクトの配列を取得する
-
-   - ステータスコード200と取得したPaymentオブジェクトの配列を返す
-
-.. _alg-int-seq-update-payment:
-
-収支を更新する
-^^^^^^^^^^^^^^
-
-*シーケンス図*
-
-.. uml:: umls/seq-update-payment.uml
-
-1. リクエストを受けると，PaymentsControllerクラスのupdateメソッドを実行する
-2. categoryパラメーターが存在する場合は，Categoryクラスのfind_or_create_byメソッドを実行して指定されたカテゴリを取得し，存在しなければ作成する
-3. Paymentクラスのupdateメソッドを実行して収支情報を更新する
-
-   - 不正な値がある場合
-
-     - BadRequestを発生させて，ステータスコード400とエラーコードを返す
-
-   - 不正な値がない場合
-
-     - ステータスコード200と更新したPaymentオブジェクトを返す
+5. クエリを満たす収支情報を検索する
 
 .. _alg-int-seq-destroy-payment:
 
@@ -174,16 +149,10 @@ MVCモデルを利用する
 
 .. uml:: umls/seq-destroy-payment.uml
 
-1. リクエストを受けると，PaymentsControllerクラスのdestroyメソッドを実行する
-2. Paymentクラスのdestroyメソッドを実行して削除する
-
-   - 削除に成功した場合
-
-     - ステータスコード200と取得したPaymentオブジェクトを返す
-
-   - 削除に失敗した場合
-
-     - NotFoundを発生させて，ステータスコード404とエラーコードを返す
+1. 利用者が収支情報を選択して削除ボタンを押下する
+2. 登録画面が収支情報を削除するAPIを実行する
+3. 指定された収支情報が存在すれば削除する
+4. 登録画面をリロードする
 
 .. _alg-int-seq-settle-payment:
 
@@ -194,31 +163,13 @@ MVCモデルを利用する
 
 .. uml:: umls/seq-settle.uml
 
-1. リクエストを受けると，PaymentsControllerクラスのsettleメソッドを実行する
-2. パラメーターからSettlementクラスのオブジェクトを作成する
-3. valid?メソッドを実行して不正な値がないかチェックする
+1. クライアントが収支を計算するAPIを実行する
+2. 指定されたパラメーターから決済情報を作成する
+3. 決済情報が不正でないか確認する
 
-   - "daily", "monthly", "yearly"以外の場合
+決済情報が不正な場合はエラーコードを返して終了する
 
-     - BadRequestを発生させて，ステータスコード400とエラーコードを返す
-
-4. settleメソッドを実行して収支を計算する
-
-   - ステータスコード200と計算結果を返す
-
-.. _alg-int-seq-index-category:
-
-カテゴリを検索する
-^^^^^^^^^^^^^^^^^^
-
-*シーケンス図*
-
-.. uml:: umls/seq-index-category.uml
-
-1. リクエストを受けると，CategoriesControllerクラスのindexメソッドを実行する
-2. Categoryクラスのwhereメソッドを実行してカテゴリを検索する
-
-   - ステータスコード200とCategoryオブジェクトの配列を返す
+4. 収支情報から収支を計算する
 
 .. _alg-int-seq-show-stats:
 
@@ -227,11 +178,28 @@ MVCモデルを利用する
 
 .. uml:: umls/seq-show-stats.uml
 
-1. 利用者が統計情報確認画面にアクセスする
-2. StatisticsControllerのshowメソッドを実行し，画面を表示する
-3. Statistics_ViewがApi::PaymentsControllerのsettleメソッドを実行し，収支をグラフで表示する
-4. 利用者がグラフの棒をクリックする
-5. Statics_ViewがApi::PaymentsControllerのsettleメソッドを実行し，日次の収支を取得する
+1. 利用者が統計画面を表示する
+2. ブラウザが統計画面の表示を要求する
+3. 統計画面が月次で収支を計算するAPIを実行する
+4. 収支情報から収支を計算する
+5. 利用者がグラフをクリックする
+6. 統計画面が日次で収支を計算するAPIを実行する
+7. 収支情報から収支を計算する
+
+.. _alg-int-seq-create-dictionary:
+
+辞書を登録する
+^^^^^^^^^^^^^^
+
+.. uml:: umls/seq-create-dictionary.uml
+
+1. 利用者がフォームに入力して登録ボタンを押下する
+2. 管理画面が辞書情報を登録するAPIを実行する
+
+必須パラメーターがない場合はエラーを表示して終了する
+
+3. 入力されたパラメーターから辞書情報を作成する
+4. 辞書情報をDBに登録する
 
 .. _alg-int-scm:
 
@@ -241,7 +209,9 @@ MVCモデルを利用する
 データベースは下記のテーブルで構成される
 
 - :ref:`alg-int-scm-categories`
-- :ref:`alg-int-scm-categories-payments`
+- :ref:`alg-int-scm-category-dictionaries`
+- :ref:`alg-int-scm-category-payments`
+- :ref:`alg-int-scm-dictionaries`
 - :ref:`alg-int-scm-payments`
 
 .. _alg-int-scm-categories:
@@ -249,44 +219,79 @@ MVCモデルを利用する
 categories テーブル
 ^^^^^^^^^^^^^^^^^^^
 
-カテゴリを登録するcategoriesテーブルを定義する
+カテゴリ情報を登録するcategoriesテーブルを定義する
 
 .. csv-table::
-   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
+   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
 
-   "id", "INTEGER", "categoryオブジェクトのID", "◯", "◯"
-   "name", "STRING", "カテゴリの名前",, "◯"
-   "description", "STRING", "カテゴリの説明",,
-   "created_at", "DATETIME", "カテゴリ情報が登録された日時",, "◯"
-   "updated_at", "DATETIME", "カテゴリ情報が登録 or 更新された日時",, "◯"
+   id,INTEGER,内部ID,○,○
+   name,STRING,カテゴリの名前,,○
+   description,STRING,カテゴリの説明,,
+   created_at,DATETIME,カテゴリ情報の作成日時,,○
+   updated_at,DATETIME,カテゴリ情報の更新日時,,○
 
-.. _alg-int-scm-categories-payments:
+.. _alg-int-scm-category-dictionaries:
 
-categories_payments テーブル
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+category_dictionaries テーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-カテゴリと収支情報を紐づける中間テーブルを定義する
+カテゴリ情報と辞書情報を紐づける中間テーブルを定義する
 
 .. csv-table::
-   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
+   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
 
-   "category_id", "INTEGER", "categoryオブジェクトのID", "◯", "◯"
-   "payment_id", "INTEGER", "paymentオブジェクトのID", "◯", "◯"
+   id,INTEGER,内部ID,○,○
+   category_id,INTEGER,categoriesテーブルの内部ID,,○
+   dictionary_id,INTEGER,dictionariesテーブルの内部ID,,○
+   created_at,DATETIME,レコードの作成日時,,○
+   updated_at,DATETIME,レコードの更新日時,,○
+
+.. _alg-int-scm-category-payments:
+
+category_payments テーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+カテゴリ情報と収支情報を紐づける中間テーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
+
+   id,INTEGER,内部ID,○,○
+   category_id,INTEGER,categoriesテーブルの内部ID,,○
+   payment_id,INTEGER,paymentsテーブルの内部ID,,○
+   created_at,DATETIME,レコードの作成日時,,○
+   updated_at,DATETIME,レコードの更新日時,,○
+
+.. _alg-int-scm-dictionaries:
+
+dictionaries テーブル
+^^^^^^^^^^^^^^^^^^^^^
+
+辞書情報を登録するcategoriesテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
+
+   id,INTEGER,内部ID,○,○
+   phrase,STRING,フレーズ,,○
+   condition,STRING,条件,,○
+   created_at,DATETIME,辞書情報の登録日時,,○
+   updated_at,DATETIME,辞書情報の更新日時,,○
 
 .. _alg-int-scm-payments:
 
 payments テーブル
 ^^^^^^^^^^^^^^^^^
 
-収支を登録するpaymentsテーブルを定義する
+収支情報を登録するpaymentsテーブルを定義する
 
 .. csv-table::
-   :header: "カラム", "型", "内容", "PRIMARY KEY", "NOT NULL"
+   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
 
-   "id", "INTEGER", "paymentオブジェクトのID", "◯", "◯"
-   "payment_type", "STRING", "収入/支出を表すフラグ",, "◯"
-   "date", "DATE", "収入/支出があった日",, "◯"
-   "content", "STRING", "収入/支出の内容",, "◯"
-   "price", "INTEGER", "収入/支出の金額",, "◯"
-   "created_at", "DATETIME", "収支が登録された日時",, "◯"
-   "updated_at", "DATETIME", "収支が登録 or 更新された日時",, "◯"
+   id,INTEGER,内部ID,○,○
+   payment_type,STRING,収支の種類,,○
+   date,DATE,収入/支出があった日,,○
+   content,STRING,収入/支出の内容,,○
+   price,INTEGER,収入/支出の金額,,○
+   created_at,DATETIME,収支情報の登録日時,,○
+   updated_at,DATETIME,収支情報の更新日時,,○
