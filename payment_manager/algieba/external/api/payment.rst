@@ -208,7 +208,7 @@
            - pageパラメーターで最終ページを指定していた場合
            - 指定した数の収支情報が登録されていない場合
 
-       - sort
+       - sort (string)
 
          - 指定したパラメーターで並べ替えて返却する
          - 以下を指定可能
@@ -219,7 +219,7 @@
 
          - デフォルト id
 
-       - order
+       - order (string)
 
          - 指定した順番で返却する
          - 以下を指定可能
@@ -231,7 +231,9 @@
 
    - レスポンスボディ
 
-     - :ref:`alg-ext-res-payment` の配列
+     - payments
+
+       - :ref:`alg-ext-res-payment` の配列
 
    - ステータスコード
 
@@ -256,22 +258,24 @@
       HTTP/1.1 200 OK
       Content-Type: application/json
 
-      [
-        {
-          "id": 1,
-          "payment_type": "income",
-          "date": "1000-01-01",
-          "content": "給料",
-          "categories": [
-            {
-              "id": 1,
-              "name": "給料",
-              "description": null
-            }
-          ],
-          "price": 200000
-        }
-      ]
+      {
+        "payments": [
+          {
+            "id": 1,
+            "payment_type": "income",
+            "date": "1000-01-01",
+            "content": "給料",
+            "categories": [
+              {
+                "id": 1,
+                "name": "給料",
+                "description": null
+              }
+            ],
+            "price": 200000
+          }
+        ]
+      }
 
 .. _alg-ext-api-pay-update:
 
@@ -416,15 +420,17 @@
 
    - レスポンスボディ
 
-     - 以下のパラメーターの配列
+     - settlements
 
-       - date (string)
+       - 以下のパラメーターの配列
 
-         - 集計した期間
+         - date (string)
 
-       - price (integer)
+           - 集計した期間
 
-         - 収支
+         - price (integer)
+
+           - 収支
 
    - ステータスコード
 
@@ -449,9 +455,11 @@
       HTTP/1.1 200 OK
       Content-Type: application/json
 
-      [
-        {
-          "date": "1000-01",
-          "price": 200000
-        }
-      ]
+      {
+        "settlements": [
+          {
+            "date": "1000-01",
+            "price": 200000
+          }
+        ]
+      }
