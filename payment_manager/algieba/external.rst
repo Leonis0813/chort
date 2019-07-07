@@ -286,3 +286,18 @@ Web API
    absent_param_[属性],400,入力必須の項目がない
    invalid_param_[属性],400,不正値のパラメータがある
    not_found,404,パスパラメーターで指定したリソースが存在しない
+
+**レスポンス例**
+
+.. sourcecode:: http
+
+   HTTP/1.1 400 BadRequest
+   Content-Type: application/json
+
+   {
+     "errors": [
+       {
+         "error_code": "absent_param_date"
+       }
+     ]
+   }
