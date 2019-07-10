@@ -23,7 +23,9 @@
 
    - レスポンスボディ
 
-     - :ref:`alg-ext-res-category` の配列
+     - categories
+
+       - :ref:`alg-ext-res-category` の配列
 
    - ステータスコード
 
@@ -48,10 +50,12 @@
       HTTP/1.1 200 OK
       Content-Type: application/json
 
-      [
-        {
-          "id": 1,
-          "name": "食費",
-          "description": "食品や飲料を購入した時に発生する支出"
-        }
-      ]
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "食費",
+            "description": "食品や飲料を購入した時に発生する支出"
+          }
+        ]
+      }
