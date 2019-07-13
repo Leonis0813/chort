@@ -39,6 +39,7 @@ class Prediction {
   - from : Datetime
   - to : Datetime
   - pair : String
+  - means : String
   - result : String
   - state : String
   - created_at : Datetime
