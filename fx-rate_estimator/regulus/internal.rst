@@ -131,17 +131,17 @@ analysesテーブル
 分析ジョブ情報を登録するanalysesテーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
-   :widths: 10,10,20,20,10
+   :header: カラム,型,内容,NOT NULL
+   :widths: 20,20,20,10
 
-   id,INTEGER,内部ID,○,○
-   from,DATETIME,分析対象期間の開始日時,,○
-   to,DATETIME,分析対象期間の終了日時,,○
-   pair,STRING,分析するレートのペア,,○
-   batch_size,INTEGER,バッチサイズ,,○
-   state,STRING,分析の状態,,○
-   created_at,DATETIME,分析ジョブ情報の作成日時,,○
-   updated_at,DATETIME,分析ジョブ情報の更新日時,,○
+   id,INTEGER,内部ID,○
+   from,DATETIME,分析対象期間の開始日時,○
+   to,DATETIME,分析対象期間の終了日時,○
+   pair,STRING,分析するレートのペア,○
+   batch_size,INTEGER,バッチサイズ,○
+   state,STRING,分析の状態,○
+   created_at,DATETIME,分析ジョブ情報の作成日時,○
+   updated_at,DATETIME,分析ジョブ情報の更新日時,○
 
 .. _reg-int-sch-predictions:
 
@@ -151,15 +151,16 @@ predictionsテーブル
 予測ジョブ情報を登録するpredictionsテーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
-   :widths: 10,10,20,20,10
+   :header: カラム,型,内容,NOT NULL
+   :widths: 20,10,20,10
 
-   id,INTEGER,内部ID,○,○
-   model,STRING,モデルファイル名,,○
-   from,DATETIME,予測対象の開始日時,,
-   to,DATETIME,予測対象の終了日時,,
-   pair,STRING,予測するペア,,
-   result,STRING,予測結果,,
-   state,STRING,予測処理の状態,,○
-   created_at,DATETIME,予測ジョブ情報の作成日時,,○
-   updated_at,DATETIME,予測ジョブ情報の更新日時,,○
+   id,INTEGER,内部ID,○
+   model,STRING,モデルファイル名,○
+   from,DATETIME,予測対象の開始日時,
+   to,DATETIME,予測対象の終了日時,
+   pair,STRING,予測するペア,
+   means,STRING,予測の実行方法,○
+   result,STRING,予測結果,
+   state,STRING,予測処理の状態,○
+   created_at,DATETIME,予測ジョブ情報の作成日時,○
+   updated_at,DATETIME,予測ジョブ情報の更新日時,○
