@@ -2,11 +2,17 @@ class AnalysisView <<Boundary>>
 class PredictionView <<Boundary>>
 
 class AnalysesController {
+  + manage(page : Integer)
   + execute(from : String, to : String, pair: String, batch_size : Integer)
 }
 
 class PredictionsController {
+  + manage(page : Integer)
   + execute(model : File)
+  + settings(status : String, model : File)
+  - output_model(dir : String, model : File)
+  - prediction_params()
+  - valid_model?(model : File)
 }
 
 class AnalysisJob {
@@ -14,7 +20,7 @@ class AnalysisJob {
 }
 
 class PredictionJob {
-  + perform(prediction_id: Integer)
+  + perform(prediction_id: Integer, model_dir : String)
 }
 
 class AnalysisMailer {
