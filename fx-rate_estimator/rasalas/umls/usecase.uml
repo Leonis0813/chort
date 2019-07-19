@@ -4,7 +4,7 @@ skinparam packageStyle rect
 actor 利用者
 entity 予測ジョブ
 
-rectangle 予測結果確認アプリ {
+rectangle "Rasalas: 予測結果確認アプリ" {
   利用者 -- (予測結果を確認する)
 }
 
