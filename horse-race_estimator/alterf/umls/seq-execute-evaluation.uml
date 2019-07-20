@@ -12,43 +12,62 @@ autonumber stop
 EvaluationView <- EvaluationsController
 利用者 <- EvaluationView
 
-autonumber resume
-EvaluationJob -> NetkeibaClient : http_get_race_top
-
-autonumber stop
-EvaluationJob <-- NetkeibaClient
-
-loop レースIDごとに繰り返し
+alt Top20 を選択
   autonumber resume
-  EvaluationJob -> NetkeibaClient : http_get_race
+  EvaluationJob -> NetkeibaClient : http_get_race_top
 
   autonumber stop
   EvaluationJob <-- NetkeibaClient
+end
 
-  loop レースのエントリーの数だけ繰り返す
-    autonumber resume
-    EvaluationJob -> NetkeibaClient : http_get_horse
+loop レースIDごとに繰り返し
+  autonumber resume
+  EvaluationJob -> "Denebola::Race" : find_by
 
-    autonumber stop
-    EvaluationJob <-- NetkeibaClient
-  end
+  autonumber stop
+  EvaluationJob <-- "Denebola::Race"
+
+  autonumber resume
+  EvaluationJob -> "Evaluation::Datum" : create
+
+  autonumber stop
+  EvaluationJob <-- "Evaluation::Datum"
+
+  autonumber resume
+  EvaluationJob -> "Denebola::Feature" : where
+
+  autonumber stop
+  EvaluationJob <-- "Denebola::Feature"
 
   autonumber resume
   EvaluationJob -> YAML : dump
-  EvaluationJob -> "Evaluation::Result" : create
+  EvaluationJob ->  "Evaluation::Datum" : find_by
 
   autonumber stop
-  EvaluationJob <-- "Evaluation::Result"
+  EvaluationJob <--  "Evaluation::Datum"
+
+  autonumber resume
+  EvaluationJob -> "Evaluation::Datum" : import_prediction_results
 
   loop レースのエントリーの数だけ繰り返す
     alt 1着と予測された
-      autonumber resume
-      EvaluationJob -> "Prediction::Result" : create
+      "Evaluation::Datum" -> "Prediction::Result" : create
+
+      autonumber stop
+      "Evaluation::Datum" <-- "Prediction::Result"
     end
   end
+
+  EvaluationJob <-- "Evaluation::Datum"
 end
 
-EvaluationJob -> Evaluation : update
+EvaluationJob -> Evaluation : calculate_precision!
+
+autonumber stop
+EvaluationJob -> Evaluation
+
+autonumber resume
+EvaluationJob -> Evaluation : update!
 
 autonumber stop
 EvaluationJob <-- Evaluation
