@@ -6,6 +6,12 @@ EvaluationView -> EvaluationsController : execute
 
 create Evaluation
 EvaluationsController -> Evaluation : new
+EvaluationsController -> Evaluation : save
+
+autonumber stop
+EvaluationsController <-- Evaluation
+
+autonumber resume
 EvaluationsController --> EvaluationJob : perform_later
 
 autonumber stop
@@ -64,7 +70,7 @@ end
 EvaluationJob -> Evaluation : calculate_precision!
 
 autonumber stop
-EvaluationJob -> Evaluation
+EvaluationJob <-- Evaluation
 
 autonumber resume
 EvaluationJob -> Evaluation : update!
