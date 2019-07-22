@@ -23,7 +23,7 @@ class EvaluationsController {
   + show(evaluation_id : String) : void
   - check_invalid_param() : void
   - race_ids() : Array<String>
-  - evaluation_param : Hash<String, Object>
+  - evaluation_param() : Hash<String, Object>
 }
 
 class AnalysisJob {

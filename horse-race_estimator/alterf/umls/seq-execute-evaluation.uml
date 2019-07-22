@@ -33,13 +33,13 @@ alt Top20 を選択
   autonumber stop
   Evaluation <-- NetkeibaClient
 else
+  autonumber resume
   Evaluation -> File : read
 
   autonumber stop
   Evaluation <-- File
 end
 
-autonumber stop
 EvaluationJob <-- Evaluation
 
 loop レースIDごとに繰り返し
