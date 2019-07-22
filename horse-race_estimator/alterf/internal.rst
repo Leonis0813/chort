@@ -181,22 +181,29 @@ MVCモデルを利用する
 3. 評価ジョブ情報を作成する
 4. 評価ジョブにモデルを設定して実行中状態にする
 5. 非同期で評価ジョブを実行する
+6. IDから評価ジョブ情報を取得する
+7. 8, 9を実行して評価用データのIDを取得する
 
-:ref:`alt-ext-ui-evaluation` で Top20 を選択した場合は6を実行する
+:ref:`alt-ext-ui-evaluation` で Top20 を選択した場合は8を実行する
 
-6. 外部サイトからレース情報を20件取得する
+8. 外部サイトからレース情報を20件取得する
 
-取得したレースIDごとに7〜12を繰り返す
+:ref:`alt-ext-ui-evaluation` で Top20 以外を選択した場合は9を実行する
 
-7. レースIDを使ってデータベースからレース情報を取得する
-8. レース情報から評価データを作成する
-9. データベースからレースに紐付く素性を取得する
-10. 抽出した素性をYAML形式でファイルに出力する
-11. 作成した評価データを取得する
-12. 評価データに対する予測結果をファイルから取得する
+9. ファイルからレース情報を取得する
 
-13. 評価結果から精度を計算する
-14. 評価ジョブ情報の状態を完了にする
+取得したレースIDごとに10〜16を繰り返す
+
+10. 11を実行して素性を作成する
+11. レースIDを使ってデータベースからレース情報を取得する
+12. レースIDを使って外部サイトからレース名を取得する
+13. レース情報から評価データを作成する
+14. 抽出した素性をYAML形式でファイルに出力する
+15. 16を実行して評価データに対する予測結果をファイルから取得する
+16. 1着と予測された場合は予測結果データを作成する
+
+17. 評価結果から精度を計算する
+18. 評価ジョブ情報の状態を完了にする
 
 .. _alt-int-seq-show-evaluations:
 
@@ -243,15 +250,15 @@ analysesテーブル
 分析ジョブ情報を登録するanalysesテーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
-   :widths: 10,10,20,20,10
+   :header: カラム,型,内容,NOT NULL
+   :widths: 20,10,30,10
 
-   id,INTEGER,内部ID,○,○
-   num_data,INTEGER,学習データ数,,○
-   num_tree,INTEGER,決定木の数,,
-   num_feature,INTEGER,特徴量の数,,○
-   state,STRING,分析処理の状態,,○
-   created_at,DATETIME,分析ジョブ情報の作成日時,,○
+   id,INTEGER,内部ID,○
+   num_data,INTEGER,学習データ数,○
+   num_tree,INTEGER,決定木の数,
+   num_feature,INTEGER,特徴量の数,○
+   state,STRING,分析処理の状態,○
+   created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,,○
 
 .. _alt-int-sch-predictions:
@@ -262,15 +269,15 @@ predictionsテーブル
 予測ジョブ情報を登録するpredictionsテーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
-   :widths: 10,10,20,20,10
+   :header: カラム,型,内容,NOT NULL
+   :widths: 20,10,30,10
 
-   id,INTEGER,内部ID,○,○
-   model,STRING,モデルファイル名,,○
-   test_data,STRING,テストデータのファイル名，またはURL,,○
-   state,STRING,予測処理の状態,,○
-   created_at,DATETIME,予測ジョブ情報の作成日時,,○
-   updated_at,DATETIME,予測ジョブ情報の更新日時,,○
+   id,INTEGER,内部ID,○
+   model,STRING,モデルファイル名,○
+   test_data,STRING,テストデータのファイル名，またはURL,○
+   state,STRING,予測処理の状態,○
+   created_at,DATETIME,予測ジョブ情報の作成日時,○
+   updated_at,DATETIME,予測ジョブ情報の更新日時,○
 
 .. _alt-int-sch-prediction_results:
 
@@ -280,18 +287,18 @@ prediction_resultsテーブル
 予測結果情報を登録するprediction_resultsテーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
-   :widths: 10,10,20,20,10
+   :header: カラム,型,内容,NOT NULL
+   :widths: 20,10,30,10
 
-   id,INTEGER,内部ID,○,○
+   id,INTEGER,内部ID,○
    predictable_id,INTEGER,"以下のテーブルの内部ID
 
    - :ref:`alt-int-sch-predictions`
-   - :ref:`alt-int-sch-evaluation_data`",,○
-   predictable_type,STRING,関連モデル名,,○
-   number,INTEGER,1着と予測されたエントリーの馬番,,○
-   created_at,DATETIME,予測結果情報の作成日時,,○
-   updated_at,DATETIME,予測結果情報の更新日時,,○
+   - :ref:`alt-int-sch-evaluation_data`",○
+   predictable_type,STRING,関連モデル名,○
+   number,INTEGER,1着と予測されたエントリーの馬番,○
+   created_at,DATETIME,予測結果情報の作成日時,○
+   updated_at,DATETIME,予測結果情報の更新日時,○
 
 .. _alt-int-sch-evaluations:
 
@@ -301,16 +308,17 @@ evaluationsテーブル
 評価ジョブ情報を登録するevaluationsテーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
-   :widths: 10,10,20,20,10
+   :header: カラム,型,内容,NOT NULL
+   :widths: 20,10,30,10
 
-   id,INTEGER,内部ID,○,○
-   evaluation_id,STRING,評価ジョブのID,,○
-   model,STRING,モデルファイル名,,○
-   state,STRING,評価処理の状態,,○
-   precision,FLOAT,評価したモデルの精度,,
-   created_at,DATETIME,評価ジョブ情報の作成日時,,○
-   updated_at,DATETIME,評価ジョブ情報の更新日時,,○
+   id,INTEGER,内部ID,○
+   evaluation_id,STRING,評価ジョブのID,○
+   model,STRING,モデルファイル名,○
+   data_source,STRING,評価データの情報源,○
+   state,STRING,評価処理の状態,○
+   precision,FLOAT,評価したモデルの精度,
+   created_at,DATETIME,評価ジョブ情報の作成日時,○
+   updated_at,DATETIME,評価ジョブ情報の更新日時,○
 
 .. _alt-int-sch-evaluation_data:
 
@@ -320,13 +328,13 @@ evaluation_dataテーブル
 評価レース情報を登録するevaluation_dataテーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
-   :widths: 10,10,20,20,10
+   :header: カラム,型,内容,NOT NULL
+   :widths: 20,10,30,10
 
-   id,INTEGER,内部ID,○,○
-   evaluation_id,INTEGER,evaluationsテーブルの内部ID,,○
-   race_name,STRING,評価したレースの名前モデルファイル名,,○
-   race_url,STRING,評価したレースのURL,,○
-   ground_truth,INTEGER,正解,,○
-   created_at,DATETIME,評価ジョブ情報の作成日時,,○
-   updated_at,DATETIME,評価ジョブ情報の更新日時,,○
+   id,INTEGER,内部ID,○
+   evaluation_id,INTEGER,evaluationsテーブルの内部ID,○
+   race_name,STRING,評価したレースの名前モデルファイル名,○
+   race_url,STRING,評価したレースのURL,○
+   ground_truth,INTEGER,正解,○
+   created_at,DATETIME,評価ジョブ情報の作成日時,○
+   updated_at,DATETIME,評価ジョブ情報の更新日時,○

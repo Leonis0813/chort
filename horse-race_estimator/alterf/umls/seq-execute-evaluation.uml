@@ -18,46 +18,63 @@ autonumber stop
 EvaluationView <- EvaluationsController
 利用者 <- EvaluationView
 
+autonumber resume
+EvaluationJob -> Evaluation : find
+
+autonumber stop
+EvaluationJob <-- Evaluation
+
+autonumber resume
+EvaluationJob -> Evaluation : fetch_data
+
 alt Top20 を選択
-  autonumber resume
-  EvaluationJob -> NetkeibaClient : http_get_race_top
+  Evaluation -> NetkeibaClient : http_get_race_top
 
   autonumber stop
-  EvaluationJob <-- NetkeibaClient
+  Evaluation <-- NetkeibaClient
+else
+  Evaluation -> File : read
+
+  autonumber stop
+  Evaluation <-- File
 end
+
+autonumber stop
+EvaluationJob <-- Evaluation
 
 loop レースIDごとに繰り返し
   autonumber resume
-  EvaluationJob -> "Denebola::Race" : find_by
+  EvaluationJob -> FeatureUtil : create_feature
+  FeatureUtil -> "Denebola::Feature" : where
 
   autonumber stop
-  EvaluationJob <-- "Denebola::Race"
+  FeatureUtil <-- "Denebola::Feature"
+  EvaluationJob <-- FeatureUtil
 
   autonumber resume
-  EvaluationJob -> "Evaluation::Datum" : create
+  EvaluationJob -> NetkeibaClient : http_get_race_name
+
+  autonumber stop
+  EvaluationJob <-- NetkeibaClient
+
+  autonumber resume
+  EvaluationJob -> "Evaluation::Datum" : create!
 
   autonumber stop
   EvaluationJob <-- "Evaluation::Datum"
 
   autonumber resume
-  EvaluationJob -> "Denebola::Feature" : where
-
-  autonumber stop
-  EvaluationJob <-- "Denebola::Feature"
-
-  autonumber resume
   EvaluationJob -> YAML : dump
-  EvaluationJob ->  "Evaluation::Datum" : find_by
 
   autonumber stop
-  EvaluationJob <--  "Evaluation::Datum"
+  EvaluationJob <-- YAML
 
   autonumber resume
   EvaluationJob -> "Evaluation::Datum" : import_prediction_results
 
   loop レースのエントリーの数だけ繰り返す
     alt 1着と予測された
-      "Evaluation::Datum" -> "Prediction::Result" : create
+      "Evaluation::Datum" -> "Prediction::Result" : create!
 
       autonumber stop
       "Evaluation::Datum" <-- "Prediction::Result"
@@ -67,6 +84,7 @@ loop レースIDごとに繰り返し
   EvaluationJob <-- "Evaluation::Datum"
 end
 
+autonumber resume
 EvaluationJob -> Evaluation : calculate_precision!
 
 autonumber stop
