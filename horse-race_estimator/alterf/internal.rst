@@ -251,7 +251,7 @@ analysesテーブル
 
 .. csv-table::
    :header: カラム,型,内容,NOT NULL
-   :widths: 20,10,30,10
+   :widths: 15,10,30,15
 
    id,INTEGER,内部ID,○
    num_data,INTEGER,学習データ数,○
@@ -270,7 +270,7 @@ predictionsテーブル
 
 .. csv-table::
    :header: カラム,型,内容,NOT NULL
-   :widths: 20,10,30,10
+   :widths: 15,10,30,15
 
    id,INTEGER,内部ID,○
    model,STRING,モデルファイル名,○
@@ -288,7 +288,7 @@ prediction_resultsテーブル
 
 .. csv-table::
    :header: カラム,型,内容,NOT NULL
-   :widths: 20,10,30,10
+   :widths: 15,10,30,15
 
    id,INTEGER,内部ID,○
    predictable_id,INTEGER,"以下のテーブルの内部ID
@@ -309,7 +309,7 @@ evaluationsテーブル
 
 .. csv-table::
    :header: カラム,型,内容,NOT NULL
-   :widths: 20,10,30,10
+   :widths: 15,10,30,15
 
    id,INTEGER,内部ID,○
    evaluation_id,STRING,評価ジョブのID,○
@@ -329,7 +329,7 @@ evaluation_dataテーブル
 
 .. csv-table::
    :header: カラム,型,内容,NOT NULL
-   :widths: 20,10,30,10
+   :widths: 15,10,30,15
 
    id,INTEGER,内部ID,○
    evaluation_id,INTEGER,evaluationsテーブルの内部ID,○

@@ -1,3 +1,6 @@
+# 2019/07/22
+- [Alterf] update version to 4.4.0
+
 # 2019/07/15
 - [Regulus] update version to 4.4.0
 
