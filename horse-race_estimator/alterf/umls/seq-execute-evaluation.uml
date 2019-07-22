@@ -6,6 +6,12 @@ EvaluationView -> EvaluationsController : execute
 
 create Evaluation
 EvaluationsController -> Evaluation : new
+EvaluationsController -> Evaluation : save
+
+autonumber stop
+EvaluationsController <-- Evaluation
+
+autonumber resume
 EvaluationsController --> EvaluationJob : perform_later
 
 autonumber stop
@@ -13,42 +19,79 @@ EvaluationView <- EvaluationsController
 利用者 <- EvaluationView
 
 autonumber resume
-EvaluationJob -> NetkeibaClient : http_get_race_top
+EvaluationJob -> Evaluation : find
 
 autonumber stop
-EvaluationJob <-- NetkeibaClient
+EvaluationJob <-- Evaluation
+
+autonumber resume
+EvaluationJob -> Evaluation : fetch_data
+
+alt Top20 を選択
+  Evaluation -> NetkeibaClient : http_get_race_top
+
+  autonumber stop
+  Evaluation <-- NetkeibaClient
+else
+  autonumber resume
+  Evaluation -> File : read
+
+  autonumber stop
+  Evaluation <-- File
+end
+
+EvaluationJob <-- Evaluation
 
 loop レースIDごとに繰り返し
   autonumber resume
-  EvaluationJob -> NetkeibaClient : http_get_race
+  EvaluationJob -> FeatureUtil : create_feature
+  FeatureUtil -> "Denebola::Feature" : where
+
+  autonumber stop
+  FeatureUtil <-- "Denebola::Feature"
+  EvaluationJob <-- FeatureUtil
+
+  autonumber resume
+  EvaluationJob -> NetkeibaClient : http_get_race_name
 
   autonumber stop
   EvaluationJob <-- NetkeibaClient
 
-  loop レースのエントリーの数だけ繰り返す
-    autonumber resume
-    EvaluationJob -> NetkeibaClient : http_get_horse
+  autonumber resume
+  EvaluationJob -> "Evaluation::Datum" : create!
 
-    autonumber stop
-    EvaluationJob <-- NetkeibaClient
-  end
+  autonumber stop
+  EvaluationJob <-- "Evaluation::Datum"
 
   autonumber resume
   EvaluationJob -> YAML : dump
-  EvaluationJob -> "Evaluation::Result" : create
 
   autonumber stop
-  EvaluationJob <-- "Evaluation::Result"
+  EvaluationJob <-- YAML
+
+  autonumber resume
+  EvaluationJob -> "Evaluation::Datum" : import_prediction_results
 
   loop レースのエントリーの数だけ繰り返す
     alt 1着と予測された
-      autonumber resume
-      EvaluationJob -> "Prediction::Result" : create
+      "Evaluation::Datum" -> "Prediction::Result" : create!
+
+      autonumber stop
+      "Evaluation::Datum" <-- "Prediction::Result"
     end
   end
+
+  EvaluationJob <-- "Evaluation::Datum"
 end
 
-EvaluationJob -> Evaluation : update
+autonumber resume
+EvaluationJob -> Evaluation : calculate_precision!
+
+autonumber stop
+EvaluationJob <-- Evaluation
+
+autonumber resume
+EvaluationJob -> Evaluation : update!
 
 autonumber stop
 EvaluationJob <-- Evaluation
