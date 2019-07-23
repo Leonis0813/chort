@@ -22,6 +22,18 @@ loop 指定された期間内を日付ごとに繰り返し
     autonumber stop
     extract <-- Race : race
 
+    autonumber resume
+    extract -> "extract/payoff" : extract_payoff
+
+    autonumber stop
+    extract <-- "extract/payoff" : payoff_attribute
+
+    autonumber resume
+    extract -> Payoff : find_or_create_by!(payoff_attribute)
+
+    autonumber stop
+    extract <-- Payoff : payoff
+
     loop エントリーごとに繰り返し
       autonumber resume
       extract -> "extract/entry" : extract_entry

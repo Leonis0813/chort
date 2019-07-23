@@ -28,6 +28,12 @@ class Horse {
   - running_style : String
 }
 
+class Payoff {
+  - race_id : String
+  - betting_ticket : String
+  - odds : double
+}
+
 class Feature {
   - age : int
   - average_prize_money : double
@@ -38,7 +44,6 @@ class Feature {
   - distance_diff : double
   - entry_times : int
   - grade : String
-  - last_race_final_600m_time : double
   - last_race_order : int
   - month : int
   - number : int
@@ -54,10 +59,12 @@ class Feature {
   - weight_diff : double
   - weight_per : double
   - win_times : int
+  - won : boolean
 }
 
-Race "1" -- "1..*" Entry
-Entry "0..*" -- "1" Horse
+Race "1" -- "1 .. *" Entry
+Race "1" -- "1 .. *" Payoff
+Entry "0 .. *" -- "1" Horse
 Race -- Feature
 Entry -- Feature
 Horse -- Feature
