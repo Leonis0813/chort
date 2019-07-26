@@ -28,9 +28,37 @@
 
   - :ref:`den-ext-res-horses` を表すクラス
 
-- Payoff
+- Win
 
-  - :ref:`den-ext-res-payoffs` を表すクラス`
+  - :ref:`den-ext-res-wins` を表すクラス
+
+- Show
+
+  - :ref:`den-ext-res-shows` を表すクラス
+
+- BracketQuinella
+
+  - :ref:`den-ext-res-bracket-quinellas` を表すクラス
+
+- Quinella
+
+  - :ref:`den-ext-res-quinellas` を表すクラス
+
+- QuinellaPlace
+
+  - :ref:`den-ext-res-quinella-places` を表すクラス
+
+- Exacta
+
+  - :ref:`den-ext-res-exactas` を表すクラス
+
+- Trio
+
+  - :ref:`den-ext-res-trios` を表すクラス
+
+- Trifecta
+
+  - :ref:`den-ext-res-trifectas` を表すクラス
 
 - Feature
 
@@ -103,16 +131,17 @@ HTMLファイルを収集する
 4. レース情報を抽出する
 5. レース情報をデータベースに登録する
 6. 払い戻し情報を抽出する
-7. 払い戻し情報をデータベースに登録する
 
-レースのエントリー数分8〜13を繰り返す
+レースのエントリー数分7〜12を繰り返す
 
-8. エントリー情報を抽出する
-9. エントリー情報をデータベースに登録する
-10. 競走馬情報が書かれたHTMLファイルを読み込む
-11. HTMLファイルをパースする
-12. 競走馬情報を抽出する
-13. 競走馬情報をデータベースに登録する
+7. エントリー情報を抽出する
+8. エントリー情報をデータベースに登録する
+9. 競走馬情報が書かれたHTMLファイルを読み込む
+10. HTMLファイルをパースする
+11. 競走馬情報を抽出する
+12. 競走馬情報をデータベースに登録する
+
+13. 払い戻し情報をデータベースに登録する
 
 .. _den-int-seq-aggregate:
 
@@ -141,7 +170,14 @@ HTMLファイルを収集する
 - :ref:`den-int-sch-races`
 - :ref:`den-int-sch-entries`
 - :ref:`den-int-sch-horses`
-- :ref:`den-int-sch-payoffs`
+- :ref:`den-int-sch-wins`
+- :ref:`den-int-sch-shows`
+- :ref:`den-int-sch-bracket-quinellas`
+- :ref:`den-int-sch-quinellas`
+- :ref:`den-int-sch-quinella-places`
+- :ref:`den-int-sch-exactas`
+- :ref:`den-int-sch-trios`
+- :ref:`den-int-sch-trifectas`
 - :ref:`den-int-sch-features`
 
 .. _den-int-sch-races:
@@ -212,12 +248,12 @@ horsesテーブル
    created_at,DATETIME,競走馬情報の作成日時,○
    updated_at,DATETIME,競走馬情報の更新日時,○
 
-.. _den-int-sch-payoffs:
+.. _den-int-sch-wins:
 
-payoffsテーブル
-^^^^^^^^^^^^^^^
+winsテーブル
+^^^^^^^^^^^^
 
-レースの払い戻し情報を登録するpayoffsテーブルを定義する
+レースの単勝情報を登録するwinsテーブルを定義する
 
 .. csv-table::
    :header: カラム,型,内容,NOT NULL
@@ -225,10 +261,152 @@ payoffsテーブル
 
    id,INTEGER,内部ID,○
    race_id,INTEGER,レースの内部ID,○
-   betting_ticket,STRING,馬券,○
    odds,FLOAT,オッズ,○
-   created_at,DATETIME,払い戻し情報の作成日時,○
-   updated_at,DATETIME,払い戻し情報の更新日時,○
+   favorite,INTEGER,人気,○
+   number,INTEGER,馬番,○
+   created_at,DATETIME,単勝情報の作成日時,○
+   updated_at,DATETIME,単勝情報の更新日時,○
+
+.. _den-int-sch-shows:
+
+showsテーブル
+^^^^^^^^^^^^^
+
+レースの複勝情報を登録するshowsテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   race_id,INTEGER,レースの内部ID,○
+   odds,FLOAT,オッズ,○
+   favorite,INTEGER,人気,○
+   number,INTEGER,馬番,○
+   created_at,DATETIME,複勝情報の作成日時,○
+   updated_at,DATETIME,複勝情報の更新日時,○
+
+.. _den-int-sch-bracket-quinellas:
+
+bracket_quinellasテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+レースの枠連情報を登録するbracket_quinellasテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   race_id,INTEGER,レースの内部ID,○
+   odds,FLOAT,オッズ,○
+   favorite,INTEGER,人気,○
+   bracket_number1,INTEGER,1つ目の枠番,○
+   bracket_number2,INTEGER,2つ目の枠番,○
+   created_at,DATETIME,枠連情報の作成日時,○
+   updated_at,DATETIME,枠連情報の更新日時,○
+
+.. _den-int-sch-quinellas:
+
+quinellasテーブル
+^^^^^^^^^^^^^^^^^
+
+レースの馬連情報を登録するquinellasテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   race_id,INTEGER,レースの内部ID,○
+   odds,FLOAT,オッズ,○
+   favorite,INTEGER,人気,○
+   number1,INTEGER,1つ目の馬番,○
+   number2,INTEGER,2つ目の馬番,○
+   created_at,DATETIME,馬連情報の作成日時,○
+   updated_at,DATETIME,馬連情報の更新日時,○
+
+.. _den-int-sch-quinella-places:
+
+quinella_placesテーブル
+^^^^^^^^^^^^^^^^^^^^^^^
+
+レースのワイド情報を登録するquinella_placesテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   race_id,INTEGER,レースの内部ID,○
+   odds,FLOAT,オッズ,○
+   favorite,INTEGER,人気,○
+   number1,INTEGER,1つ目の馬番,○
+   number2,INTEGER,2つ目の馬番,○
+   created_at,DATETIME,ワイド情報の作成日時,○
+   updated_at,DATETIME,ワイド情報の更新日時,○
+
+.. _den-int-sch-exactas:
+
+exactasテーブル
+^^^^^^^^^^^^^^^
+
+レースの馬単情報を登録するexactasテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   race_id,INTEGER,レースの内部ID,○
+   odds,FLOAT,オッズ,○
+   favorite,INTEGER,人気,○
+   first_place_number,INTEGER,1着の馬番,○
+   second_place_number,INTEGER,2着の馬番,○
+   created_at,DATETIME,馬単情報の作成日時,○
+   updated_at,DATETIME,馬単情報の更新日時,○
+
+.. _den-int-sch-trios:
+
+triosテーブル
+^^^^^^^^^^^^^
+
+レースの三連複情報を登録するtriosテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   race_id,INTEGER,レースの内部ID,○
+   odds,FLOAT,オッズ,○
+   favorite,INTEGER,人気,○
+   number1,INTEGER,1つ目の馬番,○
+   number2,INTEGER,2つ目の馬番,○
+   number3,INTEGER,3つ目の馬番,○
+   created_at,DATETIME,三連複情報の作成日時,○
+   updated_at,DATETIME,三連複情報の更新日時,○
+
+.. _den-int-sch-trifectas:
+
+trifectasテーブル
+^^^^^^^^^^^^^^^^^
+
+レースの三連単情報を登録するtrifectasテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   race_id,INTEGER,レースの内部ID,○
+   odds,FLOAT,オッズ,○
+   favorite,INTEGER,人気,○
+   first_place_number,INTEGER,1着目の馬番,○
+   second_place_number,INTEGER,2着目の馬番,○
+   third_place_number,INTEGER,3着目の馬番,○
+   created_at,DATETIME,三連単情報の作成日時,○
+   updated_at,DATETIME,三連単情報の更新日時,○
 
 .. _den-int-sch-features:
 
