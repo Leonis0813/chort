@@ -32,9 +32,13 @@ alt URL指定
 end
 
 loop レースのエントリーの数だけ繰り返す
-  PredictionJob -> "Prediction::Result" : create
+  PredictionJob -> "Prediction::Result" : create!
+
+  autonumber stop
+  PredictionJob <-- "Prediction::Result"
 end
 
+autonumber resume
 PredictionJob -> Prediction : update
 
 autonumber stop

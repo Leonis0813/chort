@@ -17,6 +17,7 @@
 - :ref:`alt-ext-res-prediction`
 - :ref:`alt-ext-res-evaluation`
 - :ref:`alt-ext-res-eva-data`
+- :ref:`alt-ext-res-pre-result`
 
 .. _alt-ext-res-analysis:
 
