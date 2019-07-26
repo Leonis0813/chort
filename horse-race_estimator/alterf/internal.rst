@@ -139,7 +139,7 @@ MVCモデルを利用する
 
 7. 素性をYAML形式でファイルに出力する
 
-レースの1着と予測されたエントリーの数だけ8を繰り返す
+レースのエントリーの数だけ8を繰り返す
 
 8. 予測結果情報を作成する
 
@@ -200,7 +200,7 @@ MVCモデルを利用する
 13. レース情報から評価データを作成する
 14. 抽出した素性をYAML形式でファイルに出力する
 15. 16を実行して評価データに対する予測結果をファイルから取得する
-16. 1着と予測された場合は予測結果データを作成する
+16. 予測結果データを作成する
 
 17. 評価結果から精度を計算する
 18. 評価ジョブ情報の状態を完了にする
@@ -296,7 +296,8 @@ prediction_resultsテーブル
    - :ref:`alt-int-sch-predictions`
    - :ref:`alt-int-sch-evaluation_data`",○
    predictable_type,STRING,関連モデル名,○
-   number,INTEGER,1着と予測されたエントリーの馬番,○
+   number,INTEGER,エントリーの馬番,○
+   won,TINYINT,1着かどうか,○
    created_at,DATETIME,予測結果情報の作成日時,○
    updated_at,DATETIME,予測結果情報の更新日時,○
 
@@ -316,7 +317,9 @@ evaluationsテーブル
    model,STRING,モデルファイル名,○
    data_source,STRING,評価データの情報源,○
    state,STRING,評価処理の状態,○
-   precision,FLOAT,評価したモデルの精度,
+   precision,FLOAT,評価したモデルの適合度,
+   recall,FLOAT,評価したモデルの再現率,
+   f_measure,FLOAT,評価したモデルのF値,
    created_at,DATETIME,評価ジョブ情報の作成日時,○
    updated_at,DATETIME,評価ジョブ情報の更新日時,○
 
