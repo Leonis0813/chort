@@ -16,7 +16,7 @@
 - :ref:`den-ext-res-races`
 - :ref:`den-ext-res-entries`
 - :ref:`den-ext-res-horses`
-- :ref:`den-ext-res-wins`
+- :ref:`den-ext-res-payoffs`
 - :ref:`den-ext-res-features`
 
 .. _den-ext-res-races:
