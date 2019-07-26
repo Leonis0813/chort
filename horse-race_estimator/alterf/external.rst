@@ -84,7 +84,9 @@
      - 実行中
      - 完了
      - エラー"
-   精度,float,評価したモデルの予測精度,- 0以上の小数
+   適合率,float,評価したモデルの適合率,- 0以上1以下の小数
+   再現率,float,評価したモデルの再現率,- 0以上1以下の小数
+   F値,float,評価したモデルのF値,- 0以上1以下の小数
    結果,array[ :ref:`alt-ext-res-eva-data` ], :ref:`alt-ext-res-eva-data` 参照,
 
 .. _alt-ext-res-eva-data:
@@ -238,7 +240,7 @@
 .. image:: images/evaluation_result.png
    :alt: 評価結果画面
 
-- タイトルの下に精度が表示される
+- タイトルの下にF値が表示される
 - テーブルには評価結果が表示されている
 
   - :ref:`alt-ext-ui-evaluation` で選択した指定方法により以下でソートされている
