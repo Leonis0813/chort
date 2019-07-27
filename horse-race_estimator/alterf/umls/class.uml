@@ -60,6 +60,7 @@ class Prediction {
 
 class PredictionResult {
   - number : Integer
+  - won : Boolean
 }
 
 class Evaluation {
@@ -67,6 +68,8 @@ class Evaluation {
   - model : String
   - state : String
   - precision : Double
+  - recall : Double
+  - f_measure : Double
   - data : Array<EvaluationData>
   + fetch_data() : Array<String>
   + calculate_precision!() : void

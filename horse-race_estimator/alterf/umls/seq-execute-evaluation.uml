@@ -73,12 +73,10 @@ loop レースIDごとに繰り返し
   EvaluationJob -> "Evaluation::Datum" : import_prediction_results
 
   loop レースのエントリーの数だけ繰り返す
-    alt 1着と予測された
-      "Evaluation::Datum" -> "Prediction::Result" : create!
+    "Evaluation::Datum" -> "Prediction::Result" : create!
 
-      autonumber stop
-      "Evaluation::Datum" <-- "Prediction::Result"
-    end
+    autonumber stop
+    "Evaluation::Datum" <-- "Prediction::Result"
   end
 
   EvaluationJob <-- "Evaluation::Datum"

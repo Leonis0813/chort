@@ -17,6 +17,7 @@
 - :ref:`alt-ext-res-prediction`
 - :ref:`alt-ext-res-evaluation`
 - :ref:`alt-ext-res-eva-data`
+- :ref:`alt-ext-res-pre-result`
 
 .. _alt-ext-res-analysis:
 
@@ -59,7 +60,7 @@
      - 実行中
      - 完了
      - エラー"
-   結果,array[integer],1着と予測された馬番の配列,- 空配列，または1以上の数値の要素
+   結果,array[ :ref:`alt-ext-res-pre-result` ],予測結果の配列,
 
 .. _alt-ext-res-evaluation:
 
@@ -84,7 +85,9 @@
      - 実行中
      - 完了
      - エラー"
-   精度,float,評価したモデルの予測精度,- 0以上の小数
+   適合率,float,評価したモデルの適合率,- 0以上1以下の小数
+   再現率,float,評価したモデルの再現率,- 0以上1以下の小数
+   F値,float,評価したモデルのF値,- 0以上1以下の小数
    結果,array[ :ref:`alt-ext-res-eva-data` ], :ref:`alt-ext-res-eva-data` 参照,
 
 .. _alt-ext-res-eva-data:
@@ -100,8 +103,22 @@
 
    レース名,string,評価したレース名前,
    URL,string,評価したレースのURL,- httpsスキームのURL
-   予測結果,array[integer],1着と予想した馬番の一覧,- 空配列，または1以上の数値の要素
+   予測結果,array[ :ref:`alt-ext-res-pre-result` ],予測結果の配列,
    正解,integer,実際に1着となった馬番,- 1以上
+
+.. _alt-ext-res-pre-result:
+
+予測結果
+^^^^^^^^
+
+レースの予測結果を表す
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 20,10,30,40
+
+   馬番,integer,エントリーの馬番,- 1以上
+   予測結果,boolean,1着かどうかを表すラベル,- true または false
 
 .. _alt-ext-ui:
 
@@ -238,7 +255,7 @@
 .. image:: images/evaluation_result.png
    :alt: 評価結果画面
 
-- タイトルの下に精度が表示される
+- タイトルの下にF値が表示される
 - テーブルには評価結果が表示されている
 
   - :ref:`alt-ext-ui-evaluation` で選択した指定方法により以下でソートされている
