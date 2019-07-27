@@ -61,6 +61,27 @@ loop 指定された期間内を日付ごとに繰り返し
       end
 
       autonumber resume
+      extract -> Jockey : find_by
+
+      autonumber stop
+      extract <-- Jockey
+
+      alt 抽出した騎手情報が存在しない
+        autonumber resume
+        extract -> Jockey : create!
+
+        autonumber stop
+        extract <-- Jockey
+      end
+
+      autonumber resume
+      extract -> Jockey : results
+      Jockey -> Entry : <<
+
+      autonumber stop
+      extract <-- Entry
+
+      autonumber resume
       extract -> File : read
 
       autonumber stop
@@ -93,36 +114,11 @@ loop 指定された期間内を日付ごとに繰り返し
       end
 
       autonumber resume
-      extract -> File : read
+      extract -> Horse : results
+      Horse -> Entry : <<
 
       autonumber stop
-      extract <-- File
-
-      autonumber resume
-      extract -> "Nokogiri::HTML" : parse
-
-      autonumber stop
-      extract <-- "Nokogiri::HTML"
-
-      autonumber resume
-      extract -> "extract/jockey" : extract_jockey
-
-      autonumber stop
-      extract <-- "extract/jockey"
-
-      autonumber resume
-      extract -> Jockey : find_by
-
-      autonumber stop
-      extract <-- Jockey
-
-      alt 抽出した騎手情報が存在しない
-        autonumber resume
-        extract -> Jockey : create!
-
-        autonumber stop
-        extract <-- Jockey
-      end
+      extract <-- Entry
     end
 
     autonumber resume

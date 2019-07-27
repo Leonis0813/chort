@@ -67,24 +67,6 @@ loop 指定された期間内を日付ごとに繰り返し
       end
 
       collect <-- CollectUtil
-
-      autonumber resume
-      collect -> CollectUtil : get_jockey_html
-
-      alt 騎手情報ファイルが存在しない
-        CollectUtil -> HTTPClient : get
-
-        autonumber stop
-        CollectUtil <-- HTTPClient
-
-        autonumber resume
-        CollectUtil -> File : write
-
-        autonumber stop
-        CollectUtil <-- File
-      end
-
-      collect <-- CollectUtil
     end
   end
 end
