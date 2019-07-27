@@ -5,7 +5,11 @@ loop 指定された期間内を日付ごとに繰り返し
 
   alt レースIDファイルが存在する
     CollectUtil -> File : read
+
+    autonumber stop
+    CollectUtil <-- File
   else
+    autonumber resume
     CollectUtil -> HTTPClient : get
 
     autonumber stop
@@ -13,9 +17,11 @@ loop 指定された期間内を日付ごとに繰り返し
 
     autonumber resume
     CollectUtil -> File : write
+
+    autonumber stop
+    CollectUtil <-- File
   end
 
-  autonumber stop
   collect <-- CollectUtil
 
   loop レースIDごとに繰り返し
@@ -24,7 +30,11 @@ loop 指定された期間内を日付ごとに繰り返し
 
     alt レース情報ファイルが存在する
       CollectUtil -> File : read
+
+      autonumber stop
+      CollectUtil <-- File
     else
+      autonumber resume
       CollectUtil -> HTTPClient : get
 
       autonumber stop
@@ -32,9 +42,11 @@ loop 指定された期間内を日付ごとに繰り返し
 
       autonumber resume
       CollectUtil -> File : write
+
+      autonumber stop
+      CollectUtil <-- File
     end
 
-    autonumber stop
     collect <-- CollectUtil
 
     loop レースのエントリーごとに繰り返し
@@ -49,9 +61,11 @@ loop 指定された期間内を日付ごとに繰り返し
 
         autonumber resume
         CollectUtil -> File : write
+
+        autonumber stop
+        CollectUtil <-- File
       end
 
-      autonumber stop
       collect <-- CollectUtil
 
       autonumber resume
@@ -65,9 +79,11 @@ loop 指定された期間内を日付ごとに繰り返し
 
         autonumber resume
         CollectUtil -> File : write
+
+        autonumber stop
+        CollectUtil <-- File
       end
 
-      autonumber stop
       collect <-- CollectUtil
     end
   end
