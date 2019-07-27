@@ -203,6 +203,7 @@ HTMLファイルを収集する
 - :ref:`den-int-sch-races`
 - :ref:`den-int-sch-entries`
 - :ref:`den-int-sch-horses`
+- :ref:`den-int-sch-jockeys`
 - :ref:`den-int-sch-wins`
 - :ref:`den-int-sch-shows`
 - :ref:`den-int-sch-bracket-quinellas`
@@ -280,6 +281,22 @@ horsesテーブル
    running_style,STRING,脚質,○
    created_at,DATETIME,競走馬情報の作成日時,○
    updated_at,DATETIME,競走馬情報の更新日時,○
+
+.. _den-int-sch-jockeys:
+
+jockeysテーブル
+^^^^^^^^^^^^^^^
+
+騎手情報を登録するjockeysテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   jockey_id,STRING,騎手のID,○
+   created_at,DATETIME,騎手情報の作成日時,○
+   updated_at,DATETIME,騎手情報の更新日時,○
 
 .. _den-int-sch-wins:
 

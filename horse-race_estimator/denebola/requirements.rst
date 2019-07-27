@@ -7,7 +7,7 @@
 - :ref:`den-req-extract-races`
 - :ref:`den-req-extract-entries`
 - :ref:`den-req-extract-horses`
-- :ref:`den-req-extract-jockies`
+- :ref:`den-req-extract-jockeys`
 - :ref:`den-req-aggregate`
 
 *ユースケース図*
@@ -68,7 +68,7 @@ HTMLファイルを収集する
 2. システムはHTMLファイルを解析して競走馬情報を抽出する
 3. システムは競走馬情報をデータベースに保存する
 
-.. _den-req-extract-jockies:
+.. _den-req-extract-jockeys:
 
 騎手情報を抽出する
 ------------------
