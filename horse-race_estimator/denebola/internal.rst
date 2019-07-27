@@ -18,51 +18,55 @@
 
 - Race
 
-  - :ref:`den-ext-res-races` を表すクラス
+  - :ref:`den-ext-res-race` を表すクラス
 
 - Entry
 
-  - :ref:`den-ext-res-entries` を表すクラス
+  - :ref:`den-ext-res-entry` を表すクラス
 
 - Horse
 
-  - :ref:`den-ext-res-horses` を表すクラス
+  - :ref:`den-ext-res-horse` を表すクラス
+
+- Jockey
+
+  - :ref:`den-ext-res-jockey` を表すクラス
 
 - Win
 
-  - :ref:`den-ext-res-wins` を表すクラス
+  - :ref:`den-ext-res-win` を表すクラス
 
 - Show
 
-  - :ref:`den-ext-res-shows` を表すクラス
+  - :ref:`den-ext-res-show` を表すクラス
 
 - BracketQuinella
 
-  - :ref:`den-ext-res-bracket-quinellas` を表すクラス
+  - :ref:`den-ext-res-bracket-quinella` を表すクラス
 
 - Quinella
 
-  - :ref:`den-ext-res-quinellas` を表すクラス
+  - :ref:`den-ext-res-quinella` を表すクラス
 
 - QuinellaPlace
 
-  - :ref:`den-ext-res-quinella-places` を表すクラス
+  - :ref:`den-ext-res-quinella-place` を表すクラス
 
 - Exacta
 
-  - :ref:`den-ext-res-exactas` を表すクラス
+  - :ref:`den-ext-res-exacta` を表すクラス
 
 - Trio
 
-  - :ref:`den-ext-res-trios` を表すクラス
+  - :ref:`den-ext-res-trio` を表すクラス
 
 - Trifecta
 
-  - :ref:`den-ext-res-trifectas` を表すクラス
+  - :ref:`den-ext-res-trifecta` を表すクラス
 
 - Feature
 
-  - :ref:`den-ext-res-features` を表すクラス
+  - :ref:`den-ext-res-feature` を表すクラス
 
 .. _den-int-sequence:
 
