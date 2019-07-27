@@ -1,41 +1,74 @@
 autonumber
 
 loop 指定された期間内を日付ごとに繰り返し
+  collect -> CollectUtil : get_race_ids
+
   alt レースIDファイルが存在する
-    collect -> File : read
+    CollectUtil -> File : read
   else
-    collect -> HTTPClient : get
+    CollectUtil -> HTTPClient : get
 
     autonumber stop
-    collect <-- HTTPClient
+    CollectUtil <-- HTTPClient
 
     autonumber resume
-    collect -> File : write
+    CollectUtil -> File : write
   end
-end
 
-loop レースIDごとに繰り返し
-  alt レース情報ファイルが存在する
-    collect -> File : read
-  else
-    collect -> HTTPClient : get
+  autonumber stop
+  collect <-- CollectUtil
 
-    autonumber stop
-    collect <-- HTTPClient
-
+  loop レースIDごとに繰り返し
     autonumber resume
-    collect -> File : write
-  end
+    collect -> CollectUtil : get_race_html
 
-  loop レースのエントリーごとに繰り返し
-    alt 競走馬情報ファイルが存在しない
-      collect -> HTTPClient : get
+    alt レース情報ファイルが存在する
+      CollectUtil -> File : read
+    else
+      CollectUtil -> HTTPClient : get
 
       autonumber stop
-      collect <-- HTTPClient
+      CollectUtil <-- HTTPClient
 
       autonumber resume
-      collect -> File : write
+      CollectUtil -> File : write
+    end
+
+    autonumber stop
+    collect <-- CollectUtil
+
+    loop レースのエントリーごとに繰り返し
+      autonumber resume
+      collect -> CollectUtil : get_horse_html
+
+      alt 競走馬情報ファイルが存在しない
+        CollectUtil -> HTTPClient : get
+
+        autonumber stop
+        CollectUtil <-- HTTPClient
+
+        autonumber resume
+        CollectUtil -> File : write
+      end
+
+      autonumber stop
+      collect <-- CollectUtil
+
+      autonumber resume
+      collect -> CollectUtil : get_jockey_html
+
+      alt 騎手情報ファイルが存在しない
+        CollectUtil -> HTTPClient : get
+
+        autonumber stop
+        CollectUtil <-- HTTPClient
+
+        autonumber resume
+        CollectUtil -> File : write
+      end
+
+      autonumber stop
+      collect <-- CollectUtil
     end
   end
 end
