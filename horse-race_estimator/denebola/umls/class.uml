@@ -14,7 +14,6 @@ class Entry {
   - age : int
   - burden_weight : double
   - final_600m_time : double
-  - jockey : String
   - number : int
   - order : String
   - prize_money : int

@@ -253,7 +253,6 @@ entriesテーブル
    age,INTEGER,年齢,○
    burden_weight,FLOAT,斤量,○
    final_600m_time,FLOAT,上り3ハロンタイム,
-   jockey,STRING,騎手,○
    number,INTEGER,エントリーの番号,○
    order,STRING,着順,○
    prize_money,INTEGER,獲得賞金,○
