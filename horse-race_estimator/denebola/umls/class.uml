@@ -28,6 +28,10 @@ class Horse {
   - running_style : String
 }
 
+class Jockey {
+  - jockey_id : String
+}
+
 class Win {
   - race_id : String
   - odds : double
@@ -94,7 +98,6 @@ class Trifecta {
 
 class Feature {
   - age : int
-  - average_prize_money : double
   - blank : int
   - burden_weight : double
   - direction : String
@@ -102,6 +105,10 @@ class Feature {
   - distance_diff : double
   - entry_times : int
   - grade : String
+  - horse_average_prize_money : double
+  - jockey_average_prize_money : double
+  - jockey_win_rate_last_four_races : double
+  - jockey_win_rate : double
   - last_race_order : int
   - month : int
   - number : int
@@ -130,6 +137,8 @@ Race "1" -- "1" Exacta
 Race "1" -- "1" Trio
 Race "1" -- "1" Trifecta
 Entry "0 .. *" -- "1" Horse
+Entry "0 .. *" -- "1" Jockey
 Race -- Feature
 Entry -- Feature
 Horse -- Feature
+Jockey -- Feature
