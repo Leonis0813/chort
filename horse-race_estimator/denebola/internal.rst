@@ -18,51 +18,55 @@
 
 - Race
 
-  - :ref:`den-ext-res-races` を表すクラス
+  - :ref:`den-ext-res-race` を表すクラス
 
 - Entry
 
-  - :ref:`den-ext-res-entries` を表すクラス
+  - :ref:`den-ext-res-entry` を表すクラス
 
 - Horse
 
-  - :ref:`den-ext-res-horses` を表すクラス
+  - :ref:`den-ext-res-horse` を表すクラス
+
+- Jockey
+
+  - :ref:`den-ext-res-jockey` を表すクラス
 
 - Win
 
-  - :ref:`den-ext-res-wins` を表すクラス
+  - :ref:`den-ext-res-win` を表すクラス
 
 - Show
 
-  - :ref:`den-ext-res-shows` を表すクラス
+  - :ref:`den-ext-res-show` を表すクラス
 
 - BracketQuinella
 
-  - :ref:`den-ext-res-bracket-quinellas` を表すクラス
+  - :ref:`den-ext-res-bracket-quinella` を表すクラス
 
 - Quinella
 
-  - :ref:`den-ext-res-quinellas` を表すクラス
+  - :ref:`den-ext-res-quinella` を表すクラス
 
 - QuinellaPlace
 
-  - :ref:`den-ext-res-quinella-places` を表すクラス
+  - :ref:`den-ext-res-quinella-place` を表すクラス
 
 - Exacta
 
-  - :ref:`den-ext-res-exactas` を表すクラス
+  - :ref:`den-ext-res-exacta` を表すクラス
 
 - Trio
 
-  - :ref:`den-ext-res-trios` を表すクラス
+  - :ref:`den-ext-res-trio` を表すクラス
 
 - Trifecta
 
-  - :ref:`den-ext-res-trifectas` を表すクラス
+  - :ref:`den-ext-res-trifecta` を表すクラス
 
 - Feature
 
-  - :ref:`den-ext-res-features` を表すクラス
+  - :ref:`den-ext-res-feature` を表すクラス
 
 .. _den-int-sequence:
 
@@ -82,34 +86,40 @@ HTMLファイルを収集する
 
 .. uml:: umls/seq-collect.uml
 
-指定された期間だけ1〜3を繰り返す
+指定された期間だけ1〜14を繰り返す
 
-指定された日のレースIDファイルが存在すれば1を実行する
+1. レースIDリストを取得するために2〜4を実行する
 
-1. ファイルからレースIDリストを取得する
+指定された日のレースIDファイルが存在すれば2を実行する
 
-そうでなければ2, 3を実行する
+2. ファイルからレースIDリストを取得する
 
-2. 外部サイトからレースIDリストを取得する
-3. IDリストをファイルに保存する
+そうでなければ3, 4を実行する
 
-取得したレースIDごとに4〜8を繰り返す
+3. 外部サイトからレースIDリストを取得する
+4. IDリストをファイルに保存する
 
-指定されたレースIDに対応するファイルが存在すれば4を実行する
+取得したレースIDごとに5〜8を繰り返す
 
-4. ファイルからレース情報が書かれたHTMLファイルを読み込む
+5. レース情報を取得するために5〜7を実行する
 
-そうでなければ5, 6を実行する
+指定されたレースIDに対応するファイルが存在すれば6を実行する
 
-5. 外部サイトからレース情報を取得する
-6. レース情報が書かれたHTMLファイルを保存する
+6. ファイルからレース情報が書かれたHTMLファイルを読み込む
 
-レースのエントリー数分7, 8を繰り返す
+そうでなければ7, 8を実行する
 
-競走馬情報が存在しなければ7, 8を実行する
+7. 外部サイトからレース情報を取得する
+8. レース情報が書かれたHTMLファイルを保存する
 
-7. 外部サイトから競走馬情報を取得する
-8. 競走馬情報が書かれたHTMLファイルを保存する
+レースのエントリー数分9〜11を繰り返す
+
+9. 競走馬情報を取得するために10, 11を実行する
+
+対応する競走馬情報が存在しなければ10, 11を実行する
+
+10. 外部サイトから競走馬情報を取得する
+11. 競走馬情報が書かれたHTMLファイルを保存する
 
 .. _den-int-seq-extract:
 
@@ -120,7 +130,7 @@ HTMLファイルを収集する
 
 .. uml:: umls/seq-extract.uml
 
-指定された期間だけ1〜11を繰り返す
+指定された期間だけ1〜22を繰り返す
 
 1. ファイルからレースIDリストを取得する
 
@@ -129,19 +139,42 @@ HTMLファイルを収集する
 2. ファイルからレース情報が書かれたHTMLファイルを読み込む
 3. HTMLファイルをパースする
 4. レース情報を抽出する
-5. レース情報をデータベースに登録する
-6. 払い戻し情報を抽出する
+5. 抽出したレース情報が登録されているかデータベースを検索する
+
+抽出したレース情報が登録されていない場合は6を実行する
+
+6. レース情報をデータベースに登録する
 
 レースのエントリー数分7〜12を繰り返す
 
 7. エントリー情報を抽出する
-8. エントリー情報をデータベースに登録する
-9. 競走馬情報が書かれたHTMLファイルを読み込む
-10. HTMLファイルをパースする
-11. 競走馬情報を抽出する
-12. 競走馬情報をデータベースに登録する
+8. 抽出したエントリー情報が登録されているかデータベースを検索する
 
-13. 払い戻し情報をデータベースに登録する
+抽出したエントリー情報が登録されていない場合は9を実行する
+
+9. エントリー情報をデータベースに登録する
+
+10. 抽出した騎手情報が登録されているかデータベースを検索する
+
+抽出した騎手情報が登録されていない場合は11を実行する
+
+11. 騎手情報をデータベースに登録する
+
+12. 騎手情報から戦績を取得する
+13. 戦績にエントリーを追加する
+14. 競走馬情報が書かれたHTMLファイルを読み込む
+15. HTMLファイルをパースする
+16. 競走馬情報を抽出する
+17. 抽出した競走馬情報が登録されているかデータベースを検索する
+
+抽出した競走馬情報が登録されていない場合は18を実行する
+
+18. 競走馬情報をデータベースに登録する
+
+19. 競走馬情報から戦績を取得する
+20. 戦績にエントリーを追加する
+21. 払い戻し情報を抽出する
+22. レース情報に払い戻し情報を追加する
 
 .. _den-int-seq-aggregate:
 
@@ -170,6 +203,7 @@ HTMLファイルを収集する
 - :ref:`den-int-sch-races`
 - :ref:`den-int-sch-entries`
 - :ref:`den-int-sch-horses`
+- :ref:`den-int-sch-jockeys`
 - :ref:`den-int-sch-wins`
 - :ref:`den-int-sch-shows`
 - :ref:`den-int-sch-bracket-quinellas`
@@ -219,7 +253,6 @@ entriesテーブル
    age,INTEGER,年齢,○
    burden_weight,FLOAT,斤量,○
    final_600m_time,FLOAT,上り3ハロンタイム,
-   jockey,STRING,騎手,○
    number,INTEGER,エントリーの番号,○
    order,STRING,着順,○
    prize_money,INTEGER,獲得賞金,○
@@ -227,6 +260,7 @@ entriesテーブル
    weight,FLOAT,体重,
    weight_diff,FLOAT,前走との体重の差分,
    race_id,INTEGER,レースの内部ID,○
+   jockey_id,INTEGER,騎手の内部ID,
    horse_id,INTEGER,競走馬の内部ID,
    created_at,DATETIME,エントリー情報の作成日時,○
    updated_at,DATETIME,エントリー情報の更新日時,○
@@ -247,6 +281,22 @@ horsesテーブル
    running_style,STRING,脚質,○
    created_at,DATETIME,競走馬情報の作成日時,○
    updated_at,DATETIME,競走馬情報の更新日時,○
+
+.. _den-int-sch-jockeys:
+
+jockeysテーブル
+^^^^^^^^^^^^^^^
+
+騎手情報を登録するjockeysテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   jockey_id,STRING,騎手のID,○
+   created_at,DATETIME,騎手情報の作成日時,○
+   updated_at,DATETIME,騎手情報の更新日時,○
 
 .. _den-int-sch-wins:
 
@@ -421,7 +471,6 @@ featuresテーブル
 
    id,INTEGER,内部ID,○
    age,INTEGER,年齢,○
-   average_prize_money,FLOAT,馬の平均賞金獲得額,○
    blank,INTEGER,前回のレースから何日空いたか,○
    burden_weight,FLOAT,斤量,○
    direction,STRING,左回りか右回りか,○
@@ -429,6 +478,10 @@ featuresテーブル
    distance_diff,FLOAT,平均距離との差/平均距離,○
    entry_times,INTEGER,レースの出場回数,○
    grade,STRING,グレード,○
+   horse_average_prize_money,FLOAT,馬の平均賞金獲得額,○
+   jockey_average_prize_money,FLOAT,騎手の平均賞金獲得額,○
+   jockey_win_rate,FLOAT,騎手の勝率,○
+   jockey_win_rate_last_four_races,FLOAT,騎手の過去4走の勝率,○
    last_race_order,INTEGER,馬の1走前の順位,○
    month,INTEGER,レース月,○
    number,INTEGER,エントリーの番号,○

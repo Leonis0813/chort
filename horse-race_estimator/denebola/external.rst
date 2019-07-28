@@ -13,13 +13,14 @@
 
 本システムでは以下のリソースを扱う
 
-- :ref:`den-ext-res-races`
-- :ref:`den-ext-res-entries`
-- :ref:`den-ext-res-horses`
-- :ref:`den-ext-res-payoffs`
-- :ref:`den-ext-res-features`
+- :ref:`den-ext-res-race`
+- :ref:`den-ext-res-entry`
+- :ref:`den-ext-res-horse`
+- :ref:`den-ext-res-jockey`
+- :ref:`den-ext-res-payoff`
+- :ref:`den-ext-res-feature`
 
-.. _den-ext-res-races:
+.. _den-ext-res-race:
 
 レース
 ^^^^^^
@@ -79,9 +80,9 @@
      - 雨
      - 小雪
      - 雪"
-   払い戻し, :ref:`den-ext-res-payoffs`,払い戻し情報,
+   払い戻し, :ref:`den-ext-res-payoff`,払い戻し情報,
 
-.. _den-ext-res-entries:
+.. _den-ext-res-entry:
 
 エントリー
 ^^^^^^^^^^
@@ -99,7 +100,6 @@
      - 牡
      - セ"
    斤量,数値,エントリーの斤量,- 0より大きい小数
-   騎手,文字列,騎手の名前,
    馬番,数値,エントリーの番号,- 0より大きい整数
    馬体重,数値,エントリー時の馬体重,- 0より大きい整数
    体重の差分,数値,前走との馬体重の差分,- 小数
@@ -113,7 +113,7 @@
    上り3ハロンタイム,数値,上り3ハロンタイム,- 0より大きい小数
    賞金,数値,獲得賞金,- 0以上の整数
 
-.. _den-ext-res-horses:
+.. _den-ext-res-horse:
 
 競走馬
 ^^^^^^
@@ -132,7 +132,20 @@
      - 差し
      - 追込"
 
-.. _den-ext-res-payoffs:
+.. _den-ext-res-jockey:
+
+騎手
+^^^^
+
+騎手を表す
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 15,10,30,45
+
+   騎手ID,文字列,騎手を一意に示すID,- 半角数字
+
+.. _den-ext-res-payoff:
 
 払い戻し
 ^^^^^^^^
@@ -143,16 +156,16 @@
    :header: 属性名,型,意味,備考
    :widths: 15,10,30,45
 
-   単勝, :ref:`den-ext-res-wins`,単勝情報,
-   複勝, :ref:`den-ext-res-shows`,複勝情報,
-   枠番, :ref:`den-ext-res-bracket-quinellas`,枠番情報,
-   馬番, :ref:`den-ext-res-quinellas`,馬番情報,
-   ワイド, :ref:`den-ext-res-quinella-places`,ワイド情報,
-   馬単, :ref:`den-ext-res-exactas`,馬単情報,
-   三連複, :ref:`den-ext-res-trios`,三連複情報,
-   三連単, :ref:`den-ext-res-trifectas`,三連単情報
+   単勝, :ref:`den-ext-res-win`,単勝情報,
+   複勝, :ref:`den-ext-res-show`,複勝情報,
+   枠番, :ref:`den-ext-res-bracket-quinella`,枠番情報,
+   馬番, :ref:`den-ext-res-quinella`,馬番情報,
+   ワイド, :ref:`den-ext-res-quinella-place`,ワイド情報,
+   馬単, :ref:`den-ext-res-exacta`,馬単情報,
+   三連複, :ref:`den-ext-res-trio`,三連複情報,
+   三連単, :ref:`den-ext-res-trifecta`,三連単情報
 
-.. _den-ext-res-wins:
+.. _den-ext-res-win:
 
 単勝
 ^^^^
@@ -168,7 +181,7 @@
    人気,数値,人気,- 1以上の整数
    馬番,数値,馬番,- 1以上の整数
 
-.. _den-ext-res-shows:
+.. _den-ext-res-show:
 
 複勝
 ^^^^
@@ -184,7 +197,7 @@
    人気,数値,人気,- 1以上の整数
    馬番,数値,馬番,- 1以上の整数
 
-.. _den-ext-res-bracket-quinellas:
+.. _den-ext-res-bracket-quinella:
 
 枠連
 ^^^^
@@ -201,7 +214,7 @@
    枠番1,数値,1つ目の枠番,- 1以上の整数
    枠番2,数値,2つ目の枠番,- 1以上の整数
 
-.. _den-ext-res-quinellas:
+.. _den-ext-res-quinella:
 
 馬連
 ^^^^
@@ -218,7 +231,7 @@
    馬番1,数値,1つ目の馬番,- 1以上の整数
    馬番2,数値,2つ目の馬番,- 1以上の整数
 
-.. _den-ext-res-quinella-places:
+.. _den-ext-res-quinella-place:
 
 ワイド
 ^^^^^^
@@ -235,7 +248,7 @@
    馬番1,数値,1つ目の馬番,- 1以上の整数
    馬番2,数値,2つ目の馬番,- 1以上の整数
 
-.. _den-ext-res-exactas:
+.. _den-ext-res-exacta:
 
 馬単
 ^^^^
@@ -252,7 +265,7 @@
    馬番1,数値,1着目の馬番,- 1以上の整数
    馬番2,数値,2着目の馬番,- 1以上の整数
 
-.. _den-ext-res-trios:
+.. _den-ext-res-trio:
 
 三連複
 ^^^^^^
@@ -270,7 +283,7 @@
    馬番2,数値,2つ目の馬番,- 1以上の整数
    馬番3,数値,3つ目の馬番,- 1以上の整数
 
-.. _den-ext-res-trifectas:
+.. _den-ext-res-trifecta:
 
 三連単
 ^^^^^^
@@ -288,7 +301,7 @@
    馬番2,数値,2着目の馬番,- 1以上の整数
    馬番3,数値,3着目の馬番,- 1以上の整数
 
-.. _den-ext-res-features:
+.. _den-ext-res-feature:
 
 素性
 ^^^^
@@ -299,31 +312,34 @@
    :header: 属性名,型,意味,備考
    :widths: 15,10,30,45
 
-   方向,文字列,レースが左回りか右回りか,- :ref:`den-ext-res-races` 参照
-   距離,数値,コースの距離,- :ref:`den-ext-res-races` 参照
-   グレード,文字列,レースのグレード,- :ref:`den-ext-res-races` 参照
-   場所,文字列,レースの開催場所,- :ref:`den-ext-res-races` 参照
-   ラウンド,数値,その日の何度目のレースか,- :ref:`den-ext-res-races` 参照
-   地面の種類,文字列,コースの地面の種類,- :ref:`den-ext-res-races` 参照
-   天候,文字列,レース開催日の天候,- :ref:`den-ext-res-races` 参照
-   年齢,数値,レース参加時の年齢,- :ref:`den-ext-res-entries` 参照
-   性別,文字列,エントリーの性別,- :ref:`den-ext-res-entries` 参照
-   斤量,数値,エントリーの斤量,- :ref:`den-ext-res-entries` 参照
-   馬番,数値,エントリーの番号,- :ref:`den-ext-res-entries` 参照
-   馬体重,数値,エントリー時の馬体重,- :ref:`den-ext-res-entries` 参照
-   体重の差分,数値,前走との馬体重の差分,- :ref:`den-ext-res-entries` 参照
-   脚質,文字列,馬の脚質,- :ref:`den-ext-res-horses` 参照
+   方向,文字列,レースが左回りか右回りか,- :ref:`den-ext-res-race` 参照
+   距離,数値,コースの距離,- :ref:`den-ext-res-race` 参照
+   グレード,文字列,レースのグレード,- :ref:`den-ext-res-race` 参照
+   場所,文字列,レースの開催場所,- :ref:`den-ext-res-race` 参照
+   ラウンド,数値,その日の何度目のレースか,- :ref:`den-ext-res-race` 参照
+   地面の種類,文字列,コースの地面の種類,- :ref:`den-ext-res-race` 参照
+   天候,文字列,レース開催日の天候,- :ref:`den-ext-res-race` 参照
+   年齢,数値,レース参加時の年齢,- :ref:`den-ext-res-entry` 参照
+   性別,文字列,エントリーの性別,- :ref:`den-ext-res-entry` 参照
+   斤量,数値,エントリーの斤量,- :ref:`den-ext-res-entry` 参照
+   馬番,数値,エントリーの番号,- :ref:`den-ext-res-entry` 参照
+   馬体重,数値,エントリー時の馬体重,- :ref:`den-ext-res-entry` 参照
+   体重の差分,数値,前走との馬体重の差分,- :ref:`den-ext-res-entry` 参照
+   脚質,文字列,馬の脚質,- :ref:`den-ext-res-horse` 参照
    開催月,数値,レースの開催月,- 0より大きい整数
    平均距離との差分,数値,平均距離との差/平均距離,- 0以上の小数
    空き日数,数値,前回のレースから何日空いたか,"- 0以上の整数
    - 前回のレースがない場合は0となる"
    斤量比,数値,斤量/馬体重,- 0より大きい小数
-   前走の着順,数値,馬の1走前の順位,- :ref:`den-ext-res-entries` 参照
-   2走前の着順,数値,馬の2走前の順位,- :ref:`den-ext-res-entries` 参照
-   3着以内の割合,数値,馬の過去4レースの3着以内に入っていた割合,- 0以上の小数
+   前走の着順,数値,馬の1走前の順位,- :ref:`den-ext-res-entry` 参照
+   2走前の着順,数値,馬の2走前の順位,- :ref:`den-ext-res-entry` 参照
+   3着以内の割合,数値,馬の過去4レースの3着以内に入っていた割合,- 0以上1以下の小数
    出場回数,数値,レースの出場回数,- 0以上の整数
-   平均獲得賞金額,数値,馬の平均賞金獲得額,- 0以上の小数
+   馬の平均獲得賞金額,数値,馬の平均賞金獲得額,- 0以上の小数
    勝利数,数値,馬の勝ち回数,- 0以上の整数
+   騎手の勝率,数値,騎手の過去4走の勝率,- 0以上1以下の小数
+   騎手の平均獲得賞金額,数値,騎手の平均賞金獲得額,- 0以上の小数
+   騎手の1着率,数値,騎手の1着率,- 0以上1以下の小数
    ラベル,真偽値,レースに勝ったかどうか,"- true, falseのいずれか"
 
 .. _den-ext-api:
@@ -378,10 +394,11 @@ collect.rb
 
 - HTMLファイルから以下の情報を抽出してデータベースに保存する
 
-  - :ref:`den-ext-res-races`
-  - :ref:`den-ext-res-entries`
-  - :ref:`den-ext-res-horses`
-  - :ref:`den-ext-res-payoffs`
+  - :ref:`den-ext-res-race`
+  - :ref:`den-ext-res-entry`
+  - :ref:`den-ext-res-horse`
+  - :ref:`den-ext-res-jockey`
+  - :ref:`den-ext-res-payoff`
 
 - 指定した期間の競馬情報を抽出する
 
@@ -403,10 +420,11 @@ extract.rb
 
 **出力**
 
-- :ref:`den-ext-res-races`
-- :ref:`den-ext-res-entries`
-- :ref:`den-ext-res-horses`
-- :ref:`den-ext-res-payoffs`
+- :ref:`den-ext-res-race`
+- :ref:`den-ext-res-entry`
+- :ref:`den-ext-res-horse`
+- :ref:`den-ext-res-jockey`
+- :ref:`den-ext-res-payoff`
 
 **実行例**
 
@@ -431,7 +449,7 @@ aggregate.rb
 
 **出力**
 
-- :ref:`den-ext-res-features`
+- :ref:`den-ext-res-feature`
 
 **実行例**
 
