@@ -471,7 +471,6 @@ featuresテーブル
 
    id,INTEGER,内部ID,○
    age,INTEGER,年齢,○
-   average_prize_money,FLOAT,馬の平均賞金獲得額,○
    blank,INTEGER,前回のレースから何日空いたか,○
    burden_weight,FLOAT,斤量,○
    direction,STRING,左回りか右回りか,○
@@ -479,6 +478,10 @@ featuresテーブル
    distance_diff,FLOAT,平均距離との差/平均距離,○
    entry_times,INTEGER,レースの出場回数,○
    grade,STRING,グレード,○
+   horse_average_prize_money,FLOAT,馬の平均賞金獲得額,○
+   jockey_average_prize_money,FLOAT,騎手の平均賞金獲得額,○
+   jockey_win_rate,FLOAT,騎手の勝率,○
+   jockey_win_rate_last_four_races,FLOAT,騎手の過去4走の勝率,○
    last_race_order,INTEGER,馬の1走前の順位,○
    month,INTEGER,レース月,○
    number,INTEGER,エントリーの番号,○
