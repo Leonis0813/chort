@@ -260,6 +260,7 @@ entriesテーブル
    weight,FLOAT,体重,
    weight_diff,FLOAT,前走との体重の差分,
    race_id,INTEGER,レースの内部ID,○
+   jockey_id,INTEGER,騎手の内部ID,
    horse_id,INTEGER,競走馬の内部ID,
    created_at,DATETIME,エントリー情報の作成日時,○
    updated_at,DATETIME,エントリー情報の更新日時,○
