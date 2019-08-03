@@ -6,17 +6,24 @@ class EvaluationResultView <<Boundary>>
 class AnalysesController {
   + manage(page : String)
   + execute(num_data : Integer, num_tree : Integer, num_feature : Integer)
+  - analysis_param_keys() : Array<String>
 }
 
 class PredictionsController {
   + manage(page : String)
   + execute(model : File, test_data: File)
+  - prediction_param_keys() : Array<String>
+  - check_invalid_file_params(attribute : Hash<String, Object>) : void
+  - save_files(prediction_id : Integer) : void
 }
 
 class EvaluationsController {
-  + manage(page : String)
-  + show(evaluation_id : String)
-  + execute(model : File)
+  + manage(page : String) : void
+  + execute(model : File) : void
+  + show(evaluation_id : String) : void
+  - check_invalid_param() : void
+  - race_ids() : Array<String>
+  - evaluation_param() : Hash<String, Object>
 }
 
 class AnalysisJob {
@@ -48,10 +55,12 @@ class Prediction {
   - test_data : String
   - results: Array<PredictionResult>
   - state : String
+  + import_results(result_file : String) : void
 }
 
 class PredictionResult {
   - number : Integer
+  - won : Boolean
 }
 
 class Evaluation {
@@ -59,7 +68,11 @@ class Evaluation {
   - model : String
   - state : String
   - precision : Double
+  - recall : Double
+  - f_measure : Double
   - data : Array<EvaluationData>
+  + fetch_data() : Array<String>
+  + calculate_precision!() : void
 }
 
 class EvaluationData {
@@ -67,16 +80,16 @@ class EvaluationData {
   - race_url : String
   - prediction_results : Array<PredictionResult>
   - ground_truth : Integer
+  + import_prediction_results(result_file : String) : void
 }
 
 class NetkeibaClient {
   + http_get_race_top() : Array<String>
-  + http_get_race(url : String) : Hash<String, Object>
-  + http_get_horse(url : String) : Hash<String, Object>
-  - race_feature(place : Object, race_data : Object, race_date : String)
-  - entries(race_data : Object)
-  - horse_feature(table : Object)
-  - results(table : Object)
+  + http_get_race_name(race_id : String) : String
+}
+
+class FeatureUtil {
+  + {static} create_feature(race_id : String) : Hash<String, Object>
 }
 
 ブラウザ -- AnalysisView
@@ -92,7 +105,6 @@ AnalysisJob "1" -- "1" Analysis
 
 PredictionView -- PredictionsController
 PredictionsController --> PredictionJob
-PredictionJob --> NetkeibaClient
 PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
 Prediction "1" -- "*" PredictionResult
@@ -100,9 +112,10 @@ Prediction "1" -- "*" PredictionResult
 EvaluationView -- EvaluationsController
 EvaluationsController --> EvaluationJob
 EvaluationJob --> NetkeibaClient
+EvaluationJob --> FeatureUtil
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob "1" -- "1" Evaluation
-Evaluation "1" -- "20" EvaluationData
+Evaluation "1" -- "1 .. *" EvaluationData
 EvaluationData "1" -- "*" PredictionResult
 
 EvaluationResultView -- EvaluationsController
