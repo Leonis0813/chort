@@ -53,9 +53,7 @@ alt 登録に成功
   autonumber stop
   "Payment_View" <-- "Api::DictionariesController"
 
-  alt 辞書が登録されている
-    利用者 <-- "Payment_View"
-  else
+  alt 辞書が登録されていない
     autonumber resume
     "Payment_View" -> "Payment_View" : ダイアログを表示
 
