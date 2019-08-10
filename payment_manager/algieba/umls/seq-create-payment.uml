@@ -48,6 +48,29 @@ alt 登録に成功
   "Payment_View" <-- "Api::PaymentsController"
 
   autonumber resume
+  "Payment_View" -> "Api::DictionariesController" : index
+
+  autonumber stop
+  "Payment_View" <-- "Api::DictionariesController"
+
+  alt 辞書が登録されている
+    利用者 <-- "Payment_View"
+  else
+    autonumber resume
+    "Payment_View" -> "Payment_View" : ダイアログを表示
+
+    autonumber stop
+    利用者 <-- "Payment_View"
+
+    autonumber resume
+    利用者 -> "Payment_View" : 登録するボタンを押下
+    "Payment_View" -> "Api::DictionariesController" : create
+
+    autonumber stop
+    "Payment_View" <-- "Api::DictionariesController"
+  end
+
+  autonumber resume
   "Payment_View" -> "PaymentsController" : index
 
   autonumber stop
