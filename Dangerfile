@@ -1,4 +1,4 @@
-#! /usr/local/rvm/rubies/ruby-2.4.4/bin/ruby
+#! /usr/local/rvm/rubies/ruby-2.5.5/bin/ruby
 
 BASE_URL = "#{ENV['JENKINS_URL']}job/#{ENV['JOB_NAME']}/lastSuccessfulBuild/artifact/_build/html"
 

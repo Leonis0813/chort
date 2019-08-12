@@ -1,3 +1,9 @@
+# 2019/08/12
+- [Algieba] update version to 4.2.0
+
+# 2019/08/04
+- [Regulus] update version to 4.4.2
+
 # 2019/07/28
 - [Denebola] update version to 2.6.0
 

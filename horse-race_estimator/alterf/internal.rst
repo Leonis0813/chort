@@ -259,7 +259,7 @@ analysesテーブル
    num_feature,INTEGER,特徴量の数,○
    state,STRING,分析処理の状態,○
    created_at,DATETIME,分析ジョブ情報の作成日時,○
-   updated_at,DATETIME,分析ジョブ情報の更新日時,,○
+   updated_at,DATETIME,分析ジョブ情報の更新日時,○
 
 .. _alt-int-sch-predictions:
 
