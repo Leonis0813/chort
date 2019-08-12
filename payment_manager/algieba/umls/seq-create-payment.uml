@@ -61,7 +61,7 @@ alt 登録に成功
     利用者 <-- "Payment_View"
 
     autonumber resume
-    利用者 -> "Payment_View" : 登録するボタンを押下
+    利用者 -> "Payment_View" : 登録ボタンを押下
     "Payment_View" -> "Api::DictionariesController" : create
 
     autonumber stop
