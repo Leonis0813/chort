@@ -97,10 +97,20 @@
 
      - オプション
 
+       - condition
+
+         - :ref:`alg-ext-res-dictionary` のcondition参照
+         - 条件が一致する辞書を検索する
+
        - content
 
          - :ref:`alg-ext-res-payment` のcontent参照
          - フレーズと条件を満たす内容となるような辞書を検索する
+
+       - phrase
+
+         - :ref:`alg-ext-res-dictionary` のphrase参照
+         - フレーズが一致する辞書を検索する
 
    - レスポンスボディ
 
