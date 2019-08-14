@@ -191,3 +191,26 @@ Web API
     .. sourcecode:: http
 
        GET /regulus/api/predictions HTTP/1.1
+
+エラーコード
+""""""""""""
+
+.. csv-table::
+   :header: エラーコード,ステータスコード,意味
+
+   invalid_param_[属性],400,不正値のパラメータがある
+
+**レスポンス例**
+
+.. sourcecode:: http
+
+   HTTP/1.1 400 BadRequest
+   Content-Type: application/json
+
+   {
+     "errors": [
+       {
+         "error_code": "invalid_param_page"
+       }
+     ]
+   }
