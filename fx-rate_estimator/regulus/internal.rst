@@ -48,6 +48,11 @@ MVCモデルを利用する
 
     - 予測処理を管理するコントローラー
 
+  - Api::PredictionsController
+
+    - 予測処理を管理するコントローラー
+    - WebAPI用コントローラー
+
 .. _reg-int-seq:
 
 シーケンス

@@ -15,6 +15,10 @@ class PredictionsController {
   - valid_model?(model : File)
 }
 
+class Api::PredictionsController {
+  + index(query_parameters : Hash) : void
+}
+
 class AnalysisJob {
   + perform(analysis_id : Integer)
 }
@@ -64,4 +68,5 @@ AnalysisJob "1" -- "1" Analysis
 PredictionView -right- PredictionsController
 PredictionsController -> PredictionJob
 PredictionsController "1" -- "1" Prediction
+Api::PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
