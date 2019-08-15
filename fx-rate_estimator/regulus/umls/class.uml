@@ -17,6 +17,7 @@ class PredictionsController {
 
 class Api::PredictionsController {
   + index(query_parameters : Hash) : void
+  - index_param() : Hash
 }
 
 class AnalysisJob {
