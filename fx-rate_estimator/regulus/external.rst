@@ -5,6 +5,7 @@
 
 - :ref:`reg-ext-resource`
 - :ref:`reg-ext-ui`
+- :ref:`reg-ext-api`
 
 .. _reg-ext-resource:
 
@@ -58,6 +59,7 @@
    :header: 属性名,型,意味,備考
    :widths: 20,10,30,40
 
+   予測ジョブID,文字列,予測ジョブを一意に示すID,- 32文字の英数字
    実行開始日時,日時,予測処理を開始した日時,- 年/月/日 時:分:秒 の形式
    モデル,文字列,入力されたモデルのファイル名,
    開始日時,日時,予測に使用するデータの最初の日時,- 年/月/日 時:分:秒 の形式
@@ -159,3 +161,56 @@
   - 完了したジョブの場合は予測結果がアイコンで表示される
 
     - 実行中の場合は「?」アイコンが表示される
+
+.. _reg-ext-api:
+
+Web API
+-------
+
+以下のAPIを定義する
+
+.. toctree::
+   :maxdepth: 1
+
+   external/api/prediction
+
+共通仕様
+^^^^^^^^
+
+.. _reg-ext-api-common-error:
+
+リクエスト
+""""""""""
+
+- WebAPI のパスには全て先頭に ``/regulus/api`` を付与すること
+
+  - 本API仕様書に記載されているパスは全て上記のパス以下を記載する
+
+  - 例：収支を検索する場合
+
+    .. sourcecode:: http
+
+       GET /regulus/api/predictions HTTP/1.1
+
+エラーコード
+""""""""""""
+
+.. csv-table::
+   :header: エラーコード,ステータスコード,意味
+
+   invalid_param_[属性],400,不正値のパラメータがある
+
+**レスポンス例**
+
+.. sourcecode:: http
+
+   HTTP/1.1 400 BadRequest
+   Content-Type: application/json
+
+   {
+     "errors": [
+       {
+         "error_code": "invalid_param_page"
+       }
+     ]
+   }
