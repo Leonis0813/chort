@@ -74,13 +74,13 @@
           {
             "prediction_id": "60a830b4b980f68ab0828517f806e680",
             "model": "model.zip",
-            "from": "2019-08-01 00:00:00",
-            "to": "2019-08-01 23:59:59",
+            "from": "2019-08-01T00:00:00.000Z",
+            "to": "2019-08-01T23:59:59.000Z",
             "pair": "USDJPY",
             "means": "auto",
             "result": "up",
             "state": "completed",
-            "created_at": "2019-08-02 09:00:00"
+            "created_at": "2019-08-02T09:00:00.000Z"
           }
         ]
       }
