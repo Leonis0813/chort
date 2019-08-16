@@ -44,6 +44,7 @@
      - predictions
 
        - :ref:`reg-ext-res-prediction` の配列
+       - created_atの降順でソートされている
 
    - ステータスコード
 
@@ -72,14 +73,14 @@
         "predictions": [
           {
             "prediction_id": "60a830b4b980f68ab0828517f806e680",
-            "execute_at": "2019-08-02 09:00:00",
             "model": "model.zip",
             "from": "2019-08-01 00:00:00",
             "to": "2019-08-01 23:59:59",
             "pair": "USDJPY",
             "means": "auto",
             "result": "up",
-            "state": "completed"
+            "state": "completed",
+            "created_at": "2019-08-02 09:00:00"
           }
         ]
       }
