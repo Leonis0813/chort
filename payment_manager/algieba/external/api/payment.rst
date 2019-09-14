@@ -8,7 +8,6 @@
 - :ref:`alg-ext-api-pay-index`
 - :ref:`alg-ext-api-pay-update`
 - :ref:`alg-ext-api-pay-delete`
-- :ref:`alg-ext-api-pay-settle`
 
 .. _alg-ext-api-pay-create:
 
@@ -397,69 +396,3 @@
    .. sourcecode:: http
 
       HTTP/1.1 204 No Content
-
-.. _alg-ext-api-pay-settle:
-
-収支を計算する
-^^^^^^^^^^^^^^
-
-.. http:get:: /settlement
-
-   - リクエストクエリ
-
-     - 必須
-
-       - interval (string)
-
-         - 集計間隔
-         - 以下のいずれかを指定可能
-
-           - yearly: 年単位で計算する
-           - monthly: 月単位で計算する
-           - daily: 日単位で計算する
-
-   - レスポンスボディ
-
-     - settlements
-
-       - 以下のパラメーターの配列
-
-         - date (string)
-
-           - 集計した期間
-
-         - price (integer)
-
-           - 収支
-
-   - ステータスコード
-
-     - 成功時
-
-       - 200
-
-     - 失敗時
-
-       - 400
-
-   **リクエスト例**
-
-   .. sourcecode:: http
-
-      GET /settlement?interval=monthly HTTP/1.1
-
-   **レスポンス例**
-
-   .. sourcecode:: http
-
-      HTTP/1.1 200 OK
-      Content-Type: application/json
-
-      {
-        "settlements": [
-          {
-            "date": "1000-01",
-            "price": 200000
-          }
-        ]
-      }
