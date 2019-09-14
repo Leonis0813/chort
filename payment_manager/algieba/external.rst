@@ -86,8 +86,10 @@
 
 利用者はブラウザから収支の登録や確認、統計情報の確認を行うことができる
 
-- 収支の登録や検索，辞書の登録は管理画面で行う
-- 統計情報の確認は統計画面で行う
+- 収支の登録や検索，辞書の登録は :ref:`alg-ext-ui-management` で行う
+- 統計情報の確認は :ref:`alg-ext-ui-statistics` で行う
+
+.. _alg-ext-ui-management:
 
 管理画面
 ^^^^^^^^
@@ -249,19 +251,41 @@
 
 - 内容，カテゴリが長い場合は省略される
 
+.. _alg-ext-ui-statistics:
+
 統計画面
 ^^^^^^^^
 
-.. image:: images/ui_statistics.png
-   :alt: 統計画面
+統計画面では以下の2種類のグラフを表示する
 
-- 管理画面へ遷移するボタンと収支を表すグラフで構成される
+- :ref:`alg-ext-ui-sta-date`
+- :ref:`alg-ext-ui-sta-category`
+
+.. _alg-ext-ui-sta-date:
+
+月別収支
+""""""""
+
+.. image:: images/statistics_date.png
+   :alt: 月別収支
+
 - 月別の収支を表す棒グラフが3年間分表示される
 
   - マウスポインタを棒の上に置くと金額が表示される
   - 横軸のラベルをクリックするとその月の日別の収支のグラフが下に表示される
 
     - 日別の収支の棒グラフも同様に，マウスポインタを棒の上に置くと金額が表示される
+
+.. _alg-ext-ui-sta-category:
+
+カテゴリ別収支
+""""""""""""""
+
+.. image:: images/statistics_category.png
+   :alt: カテゴリ別収支
+
+- カテゴリ別の収支の割合を表す円グラフを表示する
+- 収支・支出それぞれ1つずつグラフを表示する
 
 .. _alg-ext-api:
 
