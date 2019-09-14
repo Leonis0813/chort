@@ -258,16 +258,16 @@
 
 統計画面では以下の2種類のグラフを表示する
 
-- :ref:`alg-ext-ui-sta-date`
+- :ref:`alg-ext-ui-sta-period`
 - :ref:`alg-ext-ui-sta-category`
 
-.. _alg-ext-ui-sta-date:
+.. _alg-ext-ui-sta-period:
 
-月別収支
-""""""""
+期間別収支
+""""""""""
 
-.. image:: images/statistics_date.png
-   :alt: 月別収支
+.. image:: images/statistics_period.png
+   :alt: 期間別収支
 
 - 月別の収支を表す棒グラフが3年間分表示される
 
