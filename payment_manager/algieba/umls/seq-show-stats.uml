@@ -2,26 +2,43 @@ autonumber
 
 actor 利用者
 利用者 -> "Statistics_View" : 統計画面を表示
-"Statistics_View" -> "StatisticsController" : show
+"Statistics_View" -> "StatisticsController" : index
 
 autonumber stop
 "Statistics_View" <-- "StatisticsController"
 
 autonumber resume
-"Statistics_View" -> "Api::PaymentsController" : settle
-"Api::PaymentsController" -> "Payment" : settle
+"Statistics_View" -> "Api::SettlementsController" : period
+"Api::SettlementsController" -> "Settlement" : calculate
 
 autonumber stop
-"Api::PaymentsController" <-- "Payment"
-"Statistics_View" <-- "Api::PaymentsController"
+"Api::SettlementsController" <-- "Settlement"
+"Statistics_View" <-- "Api::SettlementsController"
+
+autonumber resume
+"Statistics_View" -> "Api::SettlementsController" : category
+"Api::SettlementsController" -> "Settlement" : calculate
+
+autonumber stop
+"Api::SettlementsController" <-- "Settlement"
+"Statistics_View" <-- "Api::SettlementsController"
+
+autonumber resume
+"Statistics_View" -> "Api::SettlementsController" : category
+"Api::SettlementsController" -> "Settlement" : calculate
+
+autonumber stop
+"Api::SettlementsController" <-- "Settlement"
+"Statistics_View" <-- "Api::SettlementsController"
+
 利用者 <-- "Statistics_View"
 
 autonumber resume
 利用者 -> "Statistics_View" : グラフをクリック
-"Statistics_View" -> "Api::PaymentsController" : settle
-"Api::PaymentsController" -> "Payment" : settle
+"Statistics_View" -> "Api::SettlementsController" : period
+"Api::SettlementsController" -> "Settlement" : calculate
 
 autonumber stop
-"Api::PaymentsController" <-- "Payment"
-"Statistics_View" <-- "Api::PaymentsController"
+"Api::SettlementsController" <-- "Settlement"
+"Statistics_View" <-- "Api::SettlementsController"
 利用者 <-- "Statistics_View"

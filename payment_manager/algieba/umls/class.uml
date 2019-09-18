@@ -6,15 +6,7 @@ class PaymentsController {
   - index_params() : Array
 }
 
-class Api::PaymentsController {
-  + create(request_parameters : Hash) : void
-  + show(id : String) : void
-  + index(query_parameters : Hash) : void
-  + update(id : String, request_parameters : Hash) : void
-  + destroy(id : String) : void
-  + settle(interval : String) : void
-  - payment_params() : Array
-  - index_params() : Array
+class StatisticsController {
 }
 
 class Api::CategoriesController {
@@ -28,7 +20,20 @@ class Api::DictionariesController {
   - index_params() : Array
 }
 
-class StatisticsController {
+class Api::PaymentsController {
+  + create(request_parameters : Hash) : void
+  + show(id : String) : void
+  + index(query_parameters : Hash) : void
+  + update(id : String, request_parameters : Hash) : void
+  + destroy(id : String) : void
+  - create_params() : Array
+  - index_params() : Array
+}
+
+class Api::SettlementsController {
+  + category(payment_type : String) : void
+  + period(interval : String) : void
+  - check_query_params(query : Settlement, param : String)
 }
 
 class Payment {
@@ -37,7 +42,6 @@ class Payment {
   + content : String
   + categories : Array<Category>
   + price : Fixnum
-  + settle(interval : String) : Hash<String, Fixnum>
 }
 
 class Query {
@@ -57,7 +61,14 @@ class Query {
 }
 
 class Settlement {
+  - aggregation_type : String
   - interval : String
+  - payment_type : String
+  + calculate() : Hash<String, Object>
+  + attributes() : Hash<String, Object>
+  - calculate_by_category() : Array<Object>
+  - calculate_by_period() : Array<Object>
+  - group_by_period() : Hash<String, Fixnum>
 }
 
 class Category {
@@ -79,10 +90,11 @@ PaymentsController "1" -- "0..*" Payment
 PaymentsController -- Query
 Api::PaymentsController "1" -- "0..*" Payment
 Api::PaymentsController -- Query
-Api::PaymentsController -- Settlement
 Api::CategoriesController "1" -- "0..*" Category
 Api::DictionariesController "1" -- "0..*" Dictionary
 Payment "1..*" -- "1..*" Category
 Dictionary "0..*" -- "1..*" Category
 Statistics_View -right- StatisticsController
-Statistics_View -right- Api::PaymentsController
+Statistics_View -right- Api::SettlementsController
+Api::SettlementsController "1" -- "1" Settlement
+Settlement "1" -- "0..*" Payment
