@@ -1,3 +1,6 @@
+# 2019/09/25
+- [Rasalas] create doc
+
 # 2019/09/16
 - [Algieba] update version to 4.3.0
 
