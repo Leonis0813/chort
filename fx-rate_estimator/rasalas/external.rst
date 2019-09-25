@@ -60,6 +60,7 @@ FXの予測結果を表す
 
 .. image:: images/confirm.png
    :alt: 確認画面
+   :scale: 50
 
 - 画面全体に予測結果の一覧が表示される
 
