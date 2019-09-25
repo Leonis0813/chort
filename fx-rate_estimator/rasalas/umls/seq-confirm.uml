@@ -1,0 +1,42 @@
+autonumber
+
+actor 利用者
+
+利用者 -> MainActivity : onCreate
+
+activate MainActivity
+  MainActivity -> MainActivity : searchPredictions
+
+  create HTTPClient
+  MainActivity -> HTTPClient : new
+
+  activate HTTPClient
+    HTTPClient -> HTTPClient : credential
+
+    autonumber stop
+    MainActivity <-- HTTPClient
+
+    autonumber resume
+    MainActivity ->> HTTPClient : sendRequest
+
+    autonumber stop
+    MainActivity <-- HTTPClient
+  deactivate HTTPClient
+
+  destroy HTTPClient
+
+  autonumber resume
+  MainActivity -> PredictionResultView : addPredictions
+
+  activate PredictionResultView
+    PredictionResultView -> PredictionListAdapter : setAdapter
+
+    activate PredictionListAdapter
+      autonumber stop
+      PredictionResultView <-- PredictionListAdapter
+    deactivate PredictionListAdapter
+
+    MainActivity <-- PredictionResultView
+  deactivate PredictionResultView
+
+利用者 <-- MainActivity

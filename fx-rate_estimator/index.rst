@@ -38,7 +38,16 @@ FX Rate Estimator: レート予測システム
      レート情報収集スクリプト -- レート情報
    }
 
+   rectangle Rasalas {
+     boundary 予測結果確認画面
+     control 予測結果確認コントローラー
+     利用者 -- 予測結果確認画面
+     予測結果確認画面 -- 予測結果確認コントローラー
+     予測結果確認コントローラー -- 予測ジョブコントローラー
+   }
+
 - 利用者はWebブラウザからレート情報の分析を実行する
+- 利用者はWebブラウザやAndroidアプリ(Rasalas)から予測結果を確認する
 - レート情報は定期的にスクリプトによって収集される
 
 モジュール一覧
@@ -51,3 +60,4 @@ FX Rate Estimator: レート予測システム
 
    regulus/index
    zosma/index
+   rasalas/index
