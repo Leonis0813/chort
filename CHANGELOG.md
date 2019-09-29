@@ -1,3 +1,6 @@
+# 2019/09/29
+- [Alterf] update version to 4.6.0
+
 # 2019/09/25
 - [Rasalas] create doc
 
