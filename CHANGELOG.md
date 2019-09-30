@@ -1,3 +1,42 @@
+# 2019/09/29
+- [Alterf] update version to 4.6.0
+
+# 2019/09/25
+- [Rasalas] create doc
+
+# 2019/09/16
+- [Algieba] update version to 4.3.0
+
+# 2019/08/16
+- [Regulus] update version to 4.5.0
+
+# 2019/08/12
+- [Algieba] update version to 4.2.0
+
+# 2019/08/04
+- [Regulus] update version to 4.4.2
+
+# 2019/07/28
+- [Denebola] update version to 2.6.0
+
+# 2019/07/27
+- [Alterf] update version to 4.5.0
+
+# 2019/07/26
+- [Denebola] update version to 2.5.0
+
+# 2019/07/22
+- [Alterf] update version to 4.4.0
+
+# 2019/07/15
+- [Regulus] update version to 4.4.0
+
+# 2019/07/11
+- [Algieba] update version to 4.1.0
+
+# 2019/07/06
+- [Algieba] update version to 4.0.0
+
 # 2019/06/23
 - [Regulus] update version to 4.3.0
 

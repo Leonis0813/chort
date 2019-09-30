@@ -14,7 +14,6 @@ class Entry {
   - age : int
   - burden_weight : double
   - final_600m_time : double
-  - jockey : String
   - number : int
   - order : String
   - prize_money : int
@@ -28,9 +27,76 @@ class Horse {
   - running_style : String
 }
 
+class Jockey {
+  - jockey_id : String
+}
+
+class Win {
+  - race_id : String
+  - odds : double
+  - favorite : Integer
+  - number : Integer
+}
+
+class Show {
+  - race_id : String
+  - odds : double
+  - favorite : Integer
+  - number : Integer
+}
+
+class BracketQuinella {
+  - race_id : String
+  - odds : double
+  - favorite : Integer
+  - bracket_number1 : Integer
+  - bracket_number2 : Integer
+}
+
+class Quinella {
+  - race_id : String
+  - odds : double
+  - favorite : Integer
+  - number1 : Integer
+  - number2 : Integer
+}
+
+class QuinellaPlace {
+  - race_id : String
+  - odds : double
+  - favorite : Integer
+  - number1 : Integer
+  - number2 : Integer
+}
+
+class Exacta {
+  - race_id : String
+  - odds : double
+  - favorite : Integer
+  - first_place_number : Integer
+  - second_place_number : Integer
+}
+
+class Trio {
+  - race_id : String
+  - odds : double
+  - favorite : Integer
+  - number1 : Integer
+  - number2 : Integer
+  - number3 : Integer
+}
+
+class Trifecta {
+  - race_id : String
+  - odds : double
+  - favorite : Integer
+  - firts_place_number : Integer
+  - second_place_number : Integer
+  - third_place_number : Integer
+}
+
 class Feature {
   - age : int
-  - average_prize_money : double
   - blank : int
   - burden_weight : double
   - direction : String
@@ -38,7 +104,10 @@ class Feature {
   - distance_diff : double
   - entry_times : int
   - grade : String
-  - last_race_final_600m_time : double
+  - horse_average_prize_money : double
+  - jockey_average_prize_money : double
+  - jockey_win_rate_last_four_races : double
+  - jockey_win_rate : double
   - last_race_order : int
   - month : int
   - number : int
@@ -54,10 +123,21 @@ class Feature {
   - weight_diff : double
   - weight_per : double
   - win_times : int
+  - won : boolean
 }
 
-Race "1" -- "1..*" Entry
-Entry "0..*" -- "1" Horse
+Race "1" -- "1 .. *" Entry
+Race "1" -- "1" Win
+Race "1" -- "3" Show
+Race "1" -- "1" BracketQuinella
+Race "1" -- "1" Quinella
+Race "1" -- "3" QuinellaPlace
+Race "1" -- "1" Exacta
+Race "1" -- "1" Trio
+Race "1" -- "1" Trifecta
+Entry "0 .. *" -- "1" Horse
+Entry "0 .. *" -- "1" Jockey
 Race -- Feature
 Entry -- Feature
 Horse -- Feature
+Jockey -- Feature

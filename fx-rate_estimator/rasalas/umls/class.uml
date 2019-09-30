@@ -1,0 +1,47 @@
+class MainActivity {
+  - {static} LOADER_ID : int = 0
+  + searchPredictions() : void
+}
+
+class PredictionResultView {
+  - predictionListView : ListView
+  - predictions : ArrayList
+  + PredictionResultView(context : Context, attributeSet : AttributeSet)
+  + addPredictions(predictionss : ArrayList) : void
+}
+
+class PredictionListAdapter {
+  - holder : ViewHolder
+  + PredictionListAdapter(context : Context, predictions : List)
+}
+
+class Prediction {
+  - datetime : Datetime
+  - pair : String
+  - result : String
+  + Prediction(datetime : Datetime, pair : String, result : String)
+  + setDatetime(datetime : Datetime) : void
+  + getDatetime() : Datetime
+  + setPair(pair : String) : void
+  + getPair() : String
+  + setResult(result : String) : void
+  + getResult() : String
+}
+
+class HTTPClient {
+  - {static} host : String
+  - {static} BASE_PATH : String = "/regulus/api"
+  - {static} PORT : String = "80"
+  - webApiProp : Properties
+  - con : HttpUrlConnection
+  - response : HashMap
+  + HTTPClient(context : Context)
+  + sendRequest() : HashMap
+  - credential() : String
+}
+
+MainActivity "1" --> "1" HTTPClient
+MainActivity "1" --> "1" PredictionResultView
+PredictionResultView "1" -- "1" PredictionListAdapter
+PredictionResultView "1" -- "*" Prediction
+PredictionListAdapter "1" -- "*" Prediction

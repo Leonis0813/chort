@@ -1,0 +1,15 @@
+left to right direction
+skinparam packageStyle rect
+
+actor 利用者
+entity 予測ジョブ
+
+rectangle "Rasalas: 予測結果確認アプリ" {
+  利用者 -- (予測結果を確認する)
+}
+
+rectangle Regulus {
+  control 予測ジョブコントローラー
+  (予測結果を確認する) -- 予測ジョブコントローラー
+  予測ジョブコントローラー -- 予測ジョブ
+}

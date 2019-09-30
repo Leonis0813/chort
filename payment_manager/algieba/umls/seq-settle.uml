@@ -1,17 +1,17 @@
 autonumber
 
 actor 利用者
-利用者 -> "Api::PaymentsController" : settle
+利用者 -> "Api::SettlementsController" : period
 create Settlement
-"Api::PaymentsController" -> "Settlement" : new
-"Api::PaymentsController" -> "Settlement" : valid?
+"Api::SettlementsController" -> "Settlement" : new
+"Api::SettlementsController" -> "Settlement" : valid?
 
 autonumber stop
-"Settlement" -> "Api::PaymentsController"
+"Api::SettlementsController" <-- "Settlement"
 
 autonumber resume
-"Api::PaymentsController" -> "Payment" : settle
+"Api::SettlementsController" -> "Settlement" : calculate
 
 autonumber stop
-"Payment" --> "Api::PaymentsController"
-"Api::PaymentsController" --> 利用者
+"Api::SettlementsController" <-- "Settlement"
+利用者 <-- "Api::SettlementsController"
