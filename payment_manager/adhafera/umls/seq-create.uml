@@ -9,10 +9,10 @@ activate MainActivity
 
   create HTTPClient
   MainActivity -> HTTPClient : new
-  MainActivity -> HTTPClient : getSettlements
-  MainActivity -> HTTPClient : sendRequest
 
   activate HTTPClient
+    MainActivity -> HTTPClient : getSettlements
+    MainActivity -> HTTPClient : sendRequest
     HTTPClient -> HTTPClient : credential
 
     autonumber stop
@@ -27,10 +27,10 @@ activate MainActivity
 
   create HTTPClient
   MainActivity -> HTTPClient : new
-  MainActivity -> HTTPClient : getCategories
-  MainActivity -> HTTPClient : sendRequest
 
   activate HTTPClient
+    MainActivity -> HTTPClient : getCategories
+    MainActivity -> HTTPClient : sendRequest
     HTTPClient -> HTTPClient : credential
 
     autonumber stop
@@ -47,14 +47,17 @@ activate MainActivity
   deactivate CreateView
 
   利用者 -> create.ContentView : onFocusChange
-  create.ContentView -> MainActivity : getDictionaries
+
+  activate create.ContentView
+    create.ContentView -> MainActivity : getDictionaries
+  deactivate create.ContentView
 
   create HTTPClient
   MainActivity -> HTTPClient : new
-  MainActivity -> HTTPClient : getDictionaries
-  MainActivity -> HTTPClient : sendRequest
 
   activate HTTPClient
+    MainActivity -> HTTPClient : getDictionaries
+    MainActivity -> HTTPClient : sendRequest
     HTTPClient -> HTTPClient : credential
 
     autonumber stop
@@ -85,10 +88,10 @@ activate MainActivity
 
     create HTTPClient
     MainActivity -> HTTPClient : new
-    MainActivity -> HTTPClient : createPayment
-    MainActivity -> HTTPClient : sendRequest
 
     activate HTTPClient
+      MainActivity -> HTTPClient : createPayment
+      MainActivity -> HTTPClient : sendRequest
       HTTPClient -> HTTPClient : credential
 
       autonumber stop
@@ -105,10 +108,10 @@ activate MainActivity
 
     create HTTPClient
     MainActivity -> HTTPClient : new
-    MainActivity -> HTTPClient : getSettlements
-    MainActivity -> HTTPClient : sendRequest
 
     activate HTTPClient
+      MainActivity -> HTTPClient : getSettlements
+      MainActivity -> HTTPClient : sendRequest
       HTTPClient -> HTTPClient : credential
 
       autonumber stop
