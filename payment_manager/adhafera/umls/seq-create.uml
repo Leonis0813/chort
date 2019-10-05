@@ -51,7 +51,7 @@ activate MainActivity
 
   create HTTPClient
   MainActivity -> HTTPClient : new
-  MainActivyty -> HTTPClient : getDictionaries
+  MainActivity -> HTTPClient : getDictionaries
   MainActivity -> HTTPClient : sendRequest
 
   activate HTTPClient
