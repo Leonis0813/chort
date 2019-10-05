@@ -64,6 +64,12 @@ activate MainActivity
   destroy HTTPClient
 
   autonumber resume
+  MainActivity -> CreateView : setCategories
+
+  activate CreateView
+    CreateView -> create.CategoryView : setInputText
+  deactivate CreateView
+
   利用者 -> CreateView : onClick
 
   activate CreateView
