@@ -4,6 +4,7 @@ class MainActivity {
   + noticeError(errorMessage : String, ids : ArrayList) : void
   + settle() : void
   + getCategories() : void
+  + getDictionaries(content : String) : void
 }
 
 class IndexActivity {
@@ -161,17 +162,18 @@ class InputChecker {
 }
 
 class HTTPClient {
-  - {static} host : String
   - {static} BASE_PATH : String = "/algieba/api"
   - {static} PORT : String = "80"
   - webApiProp : Properties
   - con : HttpUrlConnection
-  - payment : JSONObject
   - response : HashMap
-  + HTTPClient(context : Context, inputs : String[])
-  + HTTPClient(context : Context, query : HashMap)
-  + HTTPClient(context : Context, keyword : String)
+  - requestBody : JSONObject
   + HTTPClient(context : Context)
+  + createPayment(inputs : String[]) : void
+  + getPayments(query : HashMap) : void
+  + getCategories() : void
+  + getDictionaries(content : String) : void
+  + getSettlements() : void
   + sendRequest() : HashMap
   - credential() : String
 }

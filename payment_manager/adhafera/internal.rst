@@ -13,7 +13,6 @@
 
 *クラス図*
 
-
 .. uml:: umls/class.uml
 
 - MVCモデルを利用する
