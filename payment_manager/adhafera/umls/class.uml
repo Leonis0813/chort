@@ -164,10 +164,11 @@ class InputChecker {
 class HTTPClient {
   - {static} BASE_PATH : String = "/algieba/api"
   - {static} PORT : String = "80"
-  - webApiProp : Properties
   - con : HttpUrlConnection
   - response : HashMap
   - requestBody : JSONObject
+  - baseUrl : String
+  - credential : String
   + HTTPClient(context : Context)
   + createPayment(inputs : String[]) : void
   + getPayments(query : HashMap) : void
@@ -175,7 +176,6 @@ class HTTPClient {
   + getDictionaries(content : String) : void
   + getSettlements() : void
   + sendRequest() : HashMap
-  - credential() : String
 }
 
 MainActivity "1" <--> "1" CreateView
