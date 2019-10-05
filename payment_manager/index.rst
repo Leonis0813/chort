@@ -24,12 +24,18 @@ PaymentManager: 収支情報管理サービス
    利用者 -- Webブラウザ
 
    rectangle Algieba {
+     boundary 収支情報管理API
+     boundary カテゴリ情報管理API
+     boundary 辞書情報管理API
+     boundary 統計情報管理API
      登録画面 -- 収支情報管理API
      登録画面 -- カテゴリ情報管理API
      登録画面 -- 辞書情報管理API
      登録画面 -- 統計情報管理API
      検索画面 -- 収支情報管理API
      検索画面 -- カテゴリ情報管理API
+     boundary 管理画面
+     boundary 統計画面
      Webブラウザ -- 管理画面
      Webブラウザ -- 統計画面
      収支情報管理API -- データベース
