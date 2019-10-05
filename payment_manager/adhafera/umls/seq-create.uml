@@ -13,7 +13,6 @@ activate MainActivity
   activate HTTPClient
     MainActivity -> HTTPClient : getSettlements
     MainActivity -> HTTPClient : sendRequest
-    HTTPClient -> HTTPClient : credential
 
     autonumber stop
     MainActivity <-- HTTPClient : response
@@ -31,7 +30,6 @@ activate MainActivity
   activate HTTPClient
     MainActivity -> HTTPClient : getCategories
     MainActivity -> HTTPClient : sendRequest
-    HTTPClient -> HTTPClient : credential
 
     autonumber stop
     HTTPClient --> MainActivity : response
@@ -58,7 +56,6 @@ activate MainActivity
   activate HTTPClient
     MainActivity -> HTTPClient : getDictionaries
     MainActivity -> HTTPClient : sendRequest
-    HTTPClient -> HTTPClient : credential
 
     autonumber stop
     MainActivity <-- HTTPClient : response
@@ -92,7 +89,6 @@ activate MainActivity
     activate HTTPClient
       MainActivity -> HTTPClient : createPayment
       MainActivity -> HTTPClient : sendRequest
-      HTTPClient -> HTTPClient : credential
 
       autonumber stop
       HTTPClient --> MainActivity : response
@@ -112,7 +108,6 @@ activate MainActivity
     activate HTTPClient
       MainActivity -> HTTPClient : getSettlements
       MainActivity -> HTTPClient : sendRequest
-      HTTPClient -> HTTPClient : credential
 
       autonumber stop
       HTTPClient --> MainActivity : response
