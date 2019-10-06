@@ -11,184 +11,117 @@ activate MainActivity
   MainActivity -> HTTPClient : new
 
   activate HTTPClient
-    HTTPClient -> HTTPClient : credential
+    MainActivity -> HTTPClient : getSettlements
+    MainActivity -> HTTPClient : sendRequest
 
     autonumber stop
-    HTTPClient --> MainActivity
-
-    autonumber resume
-    MainActivity ->> HTTPClient : sendRequest
-
-    autonumber stop
-    HTTPClient --> MainActivity
+    MainActivity <-- HTTPClient : response
   deactivate HTTPClient
 
   destroy HTTPClient
 
   autonumber resume
   MainActivity -> CreateView : showSettlement
-
-  activate CreateView
-    autonumber stop
-    CreateView --> MainActivity
-  deactivate CreateView
-
-  autonumber resume
   MainActivity -> MainActivity : getCategories
 
   create HTTPClient
   MainActivity -> HTTPClient : new
 
   activate HTTPClient
-    HTTPClient -> HTTPClient : credential
+    MainActivity -> HTTPClient : getCategories
+    MainActivity -> HTTPClient : sendRequest
 
     autonumber stop
-    HTTPClient --> MainActivity
-
-    autonumber resume
-    MainActivity ->> HTTPClient : sendRequest
-
-    autonumber stop
-    HTTPClient --> MainActivity
+    HTTPClient --> MainActivity : response
   deactivate HTTPClient
 
   destroy HTTPClient
 
   autonumber resume
-  MainActivity -> CreateView : setCategories
+  MainActivity -> CreateView : setCategoriesToDialog
 
   activate CreateView
     CreateView -> create.CategoryView : setCategories
-
-    activate create.CategoryView
-      autonumber stop
-      create.CategoryView --> CreateView
-    deactivate create.CategoryView
-
-    CreateView --> MainActivity
   deactivate CreateView
 
+  利用者 -> create.ContentView : onFocusChange
+
+  activate create.ContentView
+    create.ContentView -> MainActivity : getDictionaries
+  deactivate create.ContentView
+
+  create HTTPClient
+  MainActivity -> HTTPClient : new
+
+  activate HTTPClient
+    MainActivity -> HTTPClient : getDictionaries
+    MainActivity -> HTTPClient : sendRequest
+
+    autonumber stop
+    MainActivity <-- HTTPClient : response
+  deactivate HTTPClient
+
+  destroy HTTPClient
+
   autonumber resume
+  MainActivity -> CreateView : setCategoriesToForm
+
+  activate CreateView
+    CreateView -> create.CategoryView : setInputText
+  deactivate CreateView
+
   利用者 -> CreateView : onClick
 
   activate CreateView
     CreateView -> MainActivity : createPayment
     MainActivity -> InputChecker : checkEmpty
 
-    activate InputChecker
-      autonumber stop
-      InputChecker --> MainActivity
-    deactivate InputChecker
-
     alt 空欄がある
-      autonumber resume
       MainActivity -> CreateView : showMessage
-
-      autonumber stop
-      CreateView --> MainActivity
-
-      autonumber resume
       MainActivity -> CreateView : showWrongInput
-
-      autonumber stop
-      CreateView --> MainActivity
     end
 
-    autonumber resume
     MainActivity -> InputChecker : checkDate
-
-    activate InputChecker
-      autonumber stop
-      InputChecker --> MainActivity
-    deactivate InputChecker
-
-    autonumber resume
     MainActivity -> InputChecker : checkPrice
 
-    activate InputChecker
-      autonumber stop
-      InputChecker --> MainActivity
-    deactivate InputChecker
-
     alt 不正な入力がある
-      autonumber resume
       MainActivity -> CreateView : showMessage
-
-      autonumber stop
-      CreateView --> MainActivity
-
-      autonumber resume
       MainActivity -> CreateView : showWrongInput
-
-      autonumber stop
-      CreateView --> MainActivity
     end
 
-    autonumber resume
     create HTTPClient
     MainActivity -> HTTPClient : new
 
     activate HTTPClient
-      HTTPClient -> HTTPClient : credential
+      MainActivity -> HTTPClient : createPayment
+      MainActivity -> HTTPClient : sendRequest
 
       autonumber stop
-      HTTPClient --> MainActivity
-
-      autonumber resume
-      MainActivity ->> HTTPClient : sendRequest
-
-      autonumber stop
-      HTTPClient --> MainActivity
+      HTTPClient --> MainActivity : response
     deactivate HTTPClient
 
     destroy HTTPClient
 
     autonumber resume
     MainActivity -> CreateView : showMessage
-
-    autonumber stop
-    CreateView --> MainActivity
-
-    autonumber resume
     MainActivity -> CreateView : resetField
-
-    autonumber stop
-    CreateView --> MainActivity
-
-    autonumber resume
     MainActivity -> CreateView : setToday
-
-    autonumber stop
-    CreateView --> MainActivity
-
-    autonumber resume
     MainActivity -> MainActivity : settle
 
     create HTTPClient
     MainActivity -> HTTPClient : new
 
     activate HTTPClient
-      HTTPClient -> HTTPClient : credential
+      MainActivity -> HTTPClient : getSettlements
+      MainActivity -> HTTPClient : sendRequest
 
       autonumber stop
-      HTTPClient --> MainActivity
-
-      autonumber resume
-      MainActivity ->> HTTPClient : sendRequest
-
-      autonumber stop
-      HTTPClient --> MainActivity
+      HTTPClient --> MainActivity : response
     deactivate HTTPClient
 
     destroy HTTPClient
 
     autonumber resume
     MainActivity -> CreateView : showSettlement
-
-    autonumber stop
-    CreateView --> MainActivity
-    MainActivity --> CreateView
-    CreateView --> MainActivity
   deactivate CreateView
-
-MainActivity --> 利用者
+deactivate MainActivity
