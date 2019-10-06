@@ -1,3 +1,6 @@
+# 2019/10/06
+- [Adhafera] update version to 3.2.0
+
 # 2019/10/05
 - [Alterf] update version to 4.7.0
 
