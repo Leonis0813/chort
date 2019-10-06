@@ -38,7 +38,7 @@ activate MainActivity
   destroy HTTPClient
 
   autonumber resume
-  MainActivity -> CreateView : setCategories
+  MainActivity -> CreateView : setCategoriesToDialog
 
   activate CreateView
     CreateView -> create.CategoryView : setCategories
@@ -64,7 +64,7 @@ activate MainActivity
   destroy HTTPClient
 
   autonumber resume
-  MainActivity -> CreateView : setCategories
+  MainActivity -> CreateView : setCategoriesToForm
 
   activate CreateView
     CreateView -> create.CategoryView : setInputText

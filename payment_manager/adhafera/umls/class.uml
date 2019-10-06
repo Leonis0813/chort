@@ -32,7 +32,8 @@ class CreateView {
   + showSettlement(settlement : String) : void
   + resetFields() : void
   + resetErrorCheckers() : void
-  + setCategories(categories : String[]) : void
+  + setCategoriesToDialog(categories : String[]) : void
+  + setCategoriesToForm(categories : String[]) : void
   + getLabel(id : int) : String
 }
 
@@ -142,13 +143,9 @@ class Payment {
   - categories : String[]
   - price : Integer
   + Payment(date : Date, content : Content, categories : String[], price : Integer, paymentType : String)
-  + setDate(date : Date) : void
   + getDate() : Date
-  + setContent(content : String) : void
   + getContent() : String
-  + setCategories(categories : String[]) : void
   + getCategories() : String[]
-  + setPrice(price : Integer) : void
   + getPrice() : Integer
 }
 
@@ -157,8 +154,8 @@ class InputChecker {
   - pricePattern : Pattern
   + InputChecker()
   + checkEmpty(inputs : String[]) : ArrayList
-  + checkDate(date : String) : boolean
-  + checkPrice(price : String) : boolean
+  + isValidDate(date : String) : boolean
+  + isValidPrice(price : String) : boolean
 }
 
 class HTTPClient {
