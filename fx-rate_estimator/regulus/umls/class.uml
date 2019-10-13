@@ -4,15 +4,14 @@ class PredictionView <<Boundary>>
 class AnalysesController {
   + manage(page : Integer)
   + execute(from : String, to : String, pair: String, batch_size : Integer)
+  + upload_result(model : File)
 }
 
 class PredictionsController {
   + manage(page : Integer)
   + execute(model : File)
-  + settings(status : String, model : File)
-  - output_model(dir : String, model : File)
+  + settings(auto : Hash)
   - prediction_params()
-  - valid_model?(model : File)
 }
 
 class Api::PredictionsController {
