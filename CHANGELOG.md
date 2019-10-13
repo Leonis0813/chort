@@ -1,3 +1,6 @@
+# 2019/10/12
+- [Regulus] update version to 4.7.0
+
 # 2019/10/06
 - [Adhafera] update version to 3.2.0
 
