@@ -165,7 +165,7 @@
 
 .. image:: images/prediction_form_job.png
    :alt: ジョブ登録フォーム
-   :scale: 25
+   :scale: 50
 
 - モデル選択フォームに予測に利用するファイルを選択する
 - 実行ボタンを押下すると予測を行うジョブが登録される
@@ -182,13 +182,14 @@
 
 .. image:: images/prediction_form_setting_active.png
    :alt: 有効にする場合
-   :scale: 25
+   :scale: 50
 
 - 定期予測に利用するファイルを選択するためのフォームが表示される
 - 設定ボタンを押下すると有効にする設定を行い，以下のダイアログを表示する
 
   .. image:: images/prediction_setting_active_message.png
      :alt: 通知ダイアログ
+     :scale: 25
 
   - どのペアに対して有効にしたかが通知される
 
@@ -197,7 +198,7 @@
 
 .. image:: images/prediction_form_setting_inactive.png
    :alt: 無効にする場合
-   :scale: 25
+   :scale: 50
 
 - 無効にするペアを選択するためのセレクトボックスが表示される
 - 設定ボタンを押下すると無効にする設定を行い，以下のダイアログを表示する
@@ -213,7 +214,7 @@
 
 .. image:: images/prediction_table.png
    :alt: 予測ジョブ一覧
-   :scale: 25
+   :scale: 50
 
 - 25ジョブごとにページングされている
 - 実行開始日時の降順でソートされている
