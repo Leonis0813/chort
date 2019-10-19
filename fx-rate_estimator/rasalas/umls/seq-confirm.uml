@@ -13,7 +13,6 @@ activate MainActivity
   activate HTTPClient
     MainActivity ->> HTTPClient : getPredictions
     MainActivity ->> HTTPClient : sendRequest
-    HTTPClient -> HTTPClient : credential
 
     autonumber stop
     MainActivity <-- HTTPClient : response
@@ -36,7 +35,6 @@ activate MainActivity
   activate HTTPClient
     MainActivity ->> HTTPClient : getPredictions
     MainActivity ->> HTTPClient : sendRequest
-    HTTPClient -> HTTPClient : credential
 
     autonumber stop
     MainActivity <-- HTTPClient : response
@@ -45,6 +43,8 @@ activate MainActivity
   destroy HTTPClient
 
   autonumber resume
+  MainActivity -> PredictionView : getCurrentPair
+  MainActivity -> PredictionView : clearListView
   MainActivity -> PredictionView : addPredictions
 
   activate PredictionView

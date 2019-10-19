@@ -10,9 +10,11 @@ class PredictionView {
   - currentPage : Integer
   - currentPair : String
   + PredictionView(context : Context, attributeSet : AttributeSet)
+  + getCurrentPair() : String
   + showMessage(message : String) :void
   + addPredictions(predictionss : ArrayList) : void
-  + fixListViewHeight(listView : ListView) : void
+  + clearListView() : void
+  - fixListViewHeight(listView : ListView) : void
 }
 
 class PredictionListAdapter {
