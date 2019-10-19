@@ -26,7 +26,7 @@ activate MainActivity
 
   activate PredictionView
     PredictionView -> PredictionListAdapter : setAdapter
-  deactivate PredictionResultView
+  deactivate PredictionView
 
   利用者 -> PredictionView : ペアを選択
   PredictionView -> MainActivity : getPredictions
@@ -49,4 +49,4 @@ activate MainActivity
 
   activate PredictionView
     PredictionView -> PredictionListAdapter : setAdapter
-  deactivate PredictionResultView
+  deactivate PredictionView
