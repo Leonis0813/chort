@@ -1,17 +1,19 @@
 class MainActivity {
   - {static} LOADER_ID : int = 0
-  + searchPredictions() : void
+  + getPredictions(page : String) : void
 }
 
-class PredictionResultView {
+class PredictionView {
   - predictionListView : ListView
-  - predictions : ArrayList
-  + PredictionResultView(context : Context, attributeSet : AttributeSet)
+  - nextButton : Button
+  - currentPage : Integer
+  + PredictionView(context : Context, attributeSet : AttributeSet)
+  + showMessage(message : String) :void
   + addPredictions(predictionss : ArrayList) : void
+  + fixListViewHeight(listView : ListView) : void
 }
 
 class PredictionListAdapter {
-  - holder : ViewHolder
   + PredictionListAdapter(context : Context, predictions : List)
 }
 
@@ -19,12 +21,9 @@ class Prediction {
   - datetime : Datetime
   - pair : String
   - result : String
-  + Prediction(datetime : Datetime, pair : String, result : String)
-  + setDatetime(datetime : Datetime) : void
+  + Prediction(prediction : JSONObject)
   + getDatetime() : Datetime
-  + setPair(pair : String) : void
   + getPair() : String
-  + setResult(result : String) : void
   + getResult() : String
 }
 
@@ -36,12 +35,13 @@ class HTTPClient {
   - con : HttpUrlConnection
   - response : HashMap
   + HTTPClient(context : Context)
+  + getPredictions(page : String, pair : String) : void
   + sendRequest() : HashMap
   - credential() : String
 }
 
 MainActivity "1" --> "1" HTTPClient
-MainActivity "1" --> "1" PredictionResultView
-PredictionResultView "1" -- "1" PredictionListAdapter
-PredictionResultView "1" -- "*" Prediction
+MainActivity "1" --> "1" PredictionView
+PredictionView "1" -- "1" PredictionListAdapter
+PredictionView "1" -- "*" Prediction
 PredictionListAdapter "1" -- "*" Prediction
