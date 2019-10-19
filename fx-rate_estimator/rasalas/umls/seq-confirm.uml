@@ -5,38 +5,26 @@ actor 利用者
 利用者 -> MainActivity : onCreate
 
 activate MainActivity
-  MainActivity -> MainActivity : searchPredictions
+  MainActivity -> MainActivity : getPredictions
 
   create HTTPClient
   MainActivity -> HTTPClient : new
 
   activate HTTPClient
+    MainActivity ->> HTTPClient : getPredictions
+    MainActivity ->> HTTPClient : sendRequest
     HTTPClient -> HTTPClient : credential
 
     autonumber stop
-    MainActivity <-- HTTPClient
-
-    autonumber resume
-    MainActivity ->> HTTPClient : sendRequest
-
-    autonumber stop
-    MainActivity <-- HTTPClient
+    MainActivity <-- HTTPClient : response
   deactivate HTTPClient
 
   destroy HTTPClient
 
   autonumber resume
-  MainActivity -> PredictionResultView : addPredictions
+  MainActivity -> PredictionView : addPredictions
 
-  activate PredictionResultView
-    PredictionResultView -> PredictionListAdapter : setAdapter
-
-    activate PredictionListAdapter
-      autonumber stop
-      PredictionResultView <-- PredictionListAdapter
-    deactivate PredictionListAdapter
-
-    MainActivity <-- PredictionResultView
+  activate PredictionView
+    PredictionView -> PredictionListAdapter : setAdapter
   deactivate PredictionResultView
-
-利用者 <-- MainActivity
+deactivate MainActivity
