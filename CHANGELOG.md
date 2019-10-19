@@ -1,3 +1,6 @@
+# 2019/10/19
+- [Regulus] update version to 4.8.0
+
 # 2019/10/12
 - [Regulus] update version to 4.7.0
 
