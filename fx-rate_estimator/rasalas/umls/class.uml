@@ -32,16 +32,15 @@ class Prediction {
 }
 
 class HTTPClient {
-  - {static} host : String
   - {static} BASE_PATH : String = "/regulus/api"
   - {static} PORT : String = "80"
-  - webApiProp : Properties
   - con : HttpUrlConnection
   - response : HashMap
+  - baseUrl : String
+  - credential : String
   + HTTPClient(context : Context)
   + getPredictions(page : String, pair : String) : void
   + sendRequest() : HashMap
-  - credential() : String
 }
 
 MainActivity "1" --> "1" HTTPClient
