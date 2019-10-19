@@ -1,12 +1,14 @@
 class MainActivity {
   - {static} LOADER_ID : int = 0
-  + getPredictions(page : String) : void
+  + getPredictions(page : String, pair : String) : void
 }
 
 class PredictionView {
+  + {static} DEFAULT_PAIR : String = 'USDJPY'
   - predictionListView : ListView
   - nextButton : Button
   - currentPage : Integer
+  - currentPair : String
   + PredictionView(context : Context, attributeSet : AttributeSet)
   + showMessage(message : String) :void
   + addPredictions(predictionss : ArrayList) : void
