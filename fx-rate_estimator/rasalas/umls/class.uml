@@ -4,12 +4,14 @@ class MainActivity {
 }
 
 class PredictionView {
+  + {static} DEFAULT_PAGE : String = '1'
   + {static} DEFAULT_PAIR : String = 'USDJPY'
   - predictionListView : ListView
   - nextButton : Button
   - currentPage : Integer
   - currentPair : String
   + PredictionView(context : Context, attributeSet : AttributeSet)
+  + setCurrentPair(currentPair : String) : void
   + getCurrentPair() : String
   + showMessage(message : String) :void
   + addPredictions(predictionss : ArrayList) : void

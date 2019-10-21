@@ -45,6 +45,7 @@ activate MainActivity
   autonumber resume
   MainActivity -> PredictionView : getCurrentPair
   MainActivity -> PredictionView : clearListView
+  MainActivity -> PredictionView : setCurrentPair
   MainActivity -> PredictionView : addPredictions
 
   activate PredictionView
