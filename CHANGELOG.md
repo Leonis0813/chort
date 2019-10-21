@@ -1,3 +1,6 @@
+# 2019/10/21
+- [Rasalas] update version to 1.1.0
+
 # 2019/10/20
 - [Regulus] update version to 4.8.1
 

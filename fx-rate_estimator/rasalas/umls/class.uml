@@ -1,17 +1,25 @@
 class MainActivity {
   - {static} LOADER_ID : int = 0
-  + searchPredictions() : void
+  + getPredictions(page : String, pair : String) : void
 }
 
-class PredictionResultView {
+class PredictionView {
+  + {static} DEFAULT_PAGE : String = '1'
+  + {static} DEFAULT_PAIR : String = 'USDJPY'
   - predictionListView : ListView
-  - predictions : ArrayList
-  + PredictionResultView(context : Context, attributeSet : AttributeSet)
+  - nextButton : Button
+  - currentPage : Integer
+  - currentPair : String
+  + PredictionView(context : Context, attributeSet : AttributeSet)
+  + setCurrentPair(currentPair : String) : void
+  + getCurrentPair() : String
+  + showMessage(message : String) :void
   + addPredictions(predictionss : ArrayList) : void
+  + clearListView() : void
+  - fixListViewHeight(listView : ListView) : void
 }
 
 class PredictionListAdapter {
-  - holder : ViewHolder
   + PredictionListAdapter(context : Context, predictions : List)
 }
 
@@ -19,29 +27,26 @@ class Prediction {
   - datetime : Datetime
   - pair : String
   - result : String
-  + Prediction(datetime : Datetime, pair : String, result : String)
-  + setDatetime(datetime : Datetime) : void
+  + Prediction(prediction : JSONObject)
   + getDatetime() : Datetime
-  + setPair(pair : String) : void
   + getPair() : String
-  + setResult(result : String) : void
   + getResult() : String
 }
 
 class HTTPClient {
-  - {static} host : String
   - {static} BASE_PATH : String = "/regulus/api"
   - {static} PORT : String = "80"
-  - webApiProp : Properties
   - con : HttpUrlConnection
   - response : HashMap
+  - baseUrl : String
+  - credential : String
   + HTTPClient(context : Context)
+  + getPredictions(page : String, pair : String) : void
   + sendRequest() : HashMap
-  - credential() : String
 }
 
 MainActivity "1" --> "1" HTTPClient
-MainActivity "1" --> "1" PredictionResultView
-PredictionResultView "1" -- "1" PredictionListAdapter
-PredictionResultView "1" -- "*" Prediction
+MainActivity "1" --> "1" PredictionView
+PredictionView "1" -- "1" PredictionListAdapter
+PredictionView "1" -- "*" Prediction
 PredictionListAdapter "1" -- "*" Prediction
