@@ -1,3 +1,6 @@
+# 2019/11/02
+- [Algieba] update version to 4.3.1
+
 # 2019/10/21
 - [Rasalas] update version to 1.1.0
 
