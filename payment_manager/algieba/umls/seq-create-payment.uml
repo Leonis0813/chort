@@ -4,20 +4,10 @@ actor 利用者
 利用者 -> "Payment_View" : 管理画面を表示
 "Payment_View" -> "PaymentsController" : index
 
-autonumber stop
-"Payment_View" <-- "PaymentsController"
-利用者 <-- "Payment_View"
-
-autonumber resume
 利用者 ->> "Payment_View" : 内容入力フォームからフォーカスを外す
 "Payment_View" -> "Api::DictionariesController" : index
 "Api::DictionariesController" -> "Dictionary" : where
 
-autonumber stop
-"Api::DictionariesController" <-- "Dictionary"
-"Payment_View" <-- "Api::DictionariesController"
-
-autonumber resume
 利用者 -> "Payment_View" : 登録ボタン押下
 "Payment_View" -> "Api::PaymentsController" : create
 
@@ -33,48 +23,27 @@ create Payment
 
 loop カテゴリの数だけ繰り返す
   "Api::PaymentsController" -> "Category" : find_or_create_by
-
-  autonumber stop
-  "Api::PaymentsController" <-- "Category"
 end
 
-autonumber resume
 "Api::PaymentsController" -> "Payment" : save
 
-autonumber stop
-"Api::PaymentsController" <-- "Payment"
-
 alt 登録に成功
+  autonumber stop
   "Payment_View" <-- "Api::PaymentsController"
 
   autonumber resume
   "Payment_View" -> "Api::DictionariesController" : index
 
-  autonumber stop
-  "Payment_View" <-- "Api::DictionariesController"
-
   alt 辞書が登録されていない
-    autonumber resume
     "Payment_View" -> "Payment_View" : ダイアログを表示
 
-    autonumber stop
-    利用者 <-- "Payment_View"
-
-    autonumber resume
     利用者 -> "Payment_View" : 登録ボタンを押下
     "Payment_View" -> "Api::DictionariesController" : create
-
-    autonumber stop
-    "Payment_View" <-- "Api::DictionariesController"
   end
 
-  autonumber resume
   "Payment_View" -> "PaymentsController" : index
-
-  autonumber stop
-  "Payment_View" <-- "PaymentsController"
-  利用者 <-- "Payment_View"
 else
+  autonumber stop
   "Payment_View" <-- "Api::PaymentsController" : エラー表示
   利用者 <-- "Payment_View"
 end
