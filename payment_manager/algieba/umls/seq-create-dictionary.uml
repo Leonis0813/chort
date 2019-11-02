@@ -14,14 +14,3 @@ autonumber resume
 create Dictionary
 "Api::DictionariesController" -> "Dictionary" : new
 "Api::DictionariesController" -> "Dictionary" : save
-
-autonumber stop
-"Api::DictionariesController" <-- "Dictionary"
-
-alt 登録に成功
-  "Payment_View" <-- "Api::DictionariesController"
-  利用者 <-- "Payment_View"
-else
-  "Payment_View" <-- "Api::DictionariesController" : エラー表示
-  利用者 <-- "Payment_View"
-end
