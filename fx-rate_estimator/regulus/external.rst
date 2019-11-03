@@ -175,6 +175,7 @@
 
 .. image:: images/prediction_form_setting.png
    :alt: 定期予測設定フォーム
+   :scale: 50
 
 - 定期予測を有効にする場合と無効にする場合でフォームが異なる
 - 初期状態では有効にする場合のフォームが表示されている
