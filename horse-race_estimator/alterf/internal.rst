@@ -81,15 +81,13 @@ MVCモデルを利用する
 - :ref:`alt-int-seq-show-analyses`
 - :ref:`alt-int-seq-execute-prediction`
 - :ref:`alt-int-seq-show-predictions`
-- :ref:`alt-int-seq-show-pre-result`
 - :ref:`alt-int-seq-execute-evaluation`
 - :ref:`alt-int-seq-show-evaluations`
-- :ref:`alt-int-seq-show-eva-result`
 
 .. _alt-int-seq-execute-analysis:
 
-過去のレースを分析する
-^^^^^^^^^^^^^^^^^^^^^^
+レースを分析する
+^^^^^^^^^^^^^^^^
 
 *シーケンス図*
 
@@ -117,8 +115,8 @@ MVCモデルを利用する
 
 .. _alt-int-seq-execute-prediction:
 
-レース結果を予測する
-^^^^^^^^^^^^^^^^^^^^
+レースを予測する
+^^^^^^^^^^^^^^^^
 
 *シーケンス図*
 
@@ -158,15 +156,6 @@ MVCモデルを利用する
 2. GET /predictions を実行する
 3. 予測ジョブ情報を取得する
 
-.. _alt-int-seq-show-pre-result:
-
-予測結果情報を確認する
-^^^^^^^^^^^^^^^^^^^^^^
-
-*シーケンス図*
-
-- :ref:`alt-int-seq-show-predictions` と同じ
-
 .. _alt-int-seq-execute-evaluation:
 
 モデルを評価する
@@ -194,12 +183,15 @@ MVCモデルを利用する
 
 取得したレースIDごとに10〜16を繰り返す
 
-10. 11を実行して素性を作成する
+10. 素性を作成する
 11. レースIDを使ってデータベースからレース情報を取得する
 12. レースIDを使って外部サイトからレース名を取得する
 13. レース情報から評価データを作成する
 14. 抽出した素性をYAML形式でファイルに出力する
-15. 16を実行して評価データに対する予測結果をファイルから取得する
+15. 評価データに対する予測結果をファイルから取得する
+
+レースのエントリーの数だけ16を繰り返す
+
 16. 予測結果データを作成する
 
 17. 評価結果から精度を計算する
@@ -217,19 +209,9 @@ MVCモデルを利用する
 1. 利用者が評価画面を開く
 2. GET /evaluations を実行する
 3. 評価ジョブ情報を取得する
-
-.. _alt-int-seq-show-eva-result:
-
-評価結果情報を確認する
-^^^^^^^^^^^^^^^^^^^^^^
-
-*シーケンス図*
-
-.. uml:: umls/seq-show-evaluation-result.uml
-
-1. 利用者は詳細ボタンを押下する
-2. GET /evaluations/{evaluation_id} を実行する
-3. 評価ジョブ情報と評価結果情報を取得する
+4. 利用者が詳細ボタンを押下する
+5. GET /evaluations/{evaluation_id} を実行する
+6. evaluation_idから評価結果情報を取得する
 
 .. _alt-int-schema:
 
@@ -257,6 +239,7 @@ analysesテーブル
    num_data,INTEGER,学習データ数,○
    num_tree,INTEGER,決定木の数,
    num_feature,INTEGER,特徴量の数,○
+   num_entry,INTEGER,エントリーの数,
    state,STRING,分析処理の状態,○
    created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,○
