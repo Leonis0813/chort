@@ -237,8 +237,8 @@ analysesテーブル
 
    id,INTEGER,内部ID,○
    num_data,INTEGER,学習データ数,○
-   num_tree,INTEGER,決定木の数,
-   num_feature,INTEGER,特徴量の数,○
+   num_tree,INTEGER,決定木の数,○
+   num_feature,INTEGER,特徴量の数,
    num_entry,INTEGER,エントリーの数,
    state,STRING,分析処理の状態,○
    created_at,DATETIME,分析ジョブ情報の作成日時,○
