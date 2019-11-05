@@ -2,39 +2,55 @@ autonumber
 
 actor 利用者
 利用者 -> EvaluationView : 実行ボタン押下
-EvaluationView -> EvaluationsController : execute
 
-create Evaluation
-EvaluationsController -> Evaluation : new
-EvaluationsController -> Evaluation : save
-EvaluationsController ->> EvaluationJob : perform_later
+activate EvaluationView
+  EvaluationView -> EvaluationsController : execute
 
-autonumber stop
-EvaluationView <-- EvaluationsController
-利用者 <-- EvaluationView
+  activate EvaluationsController
+    create Evaluation
+    EvaluationsController -> Evaluation : new
+    EvaluationsController -> Evaluation : save
+    EvaluationsController ->> EvaluationJob : perform_later
+    activate EvaluationJob
+
+    autonumber stop
+    EvaluationView <-- EvaluationsController
+  deactivate EvaluationsController
+
+  利用者 <-- EvaluationView
+deactivate EvaluationView
 
 autonumber resume
 EvaluationJob -> Evaluation : find
 EvaluationJob -> Evaluation : fetch_data
 
-alt Top20 を選択
-  Evaluation -> NetkeibaClient : http_get_race_top
-else
-  Evaluation -> File : read
-end
+activate Evaluation
+  alt Top20 を選択
+    Evaluation -> NetkeibaClient : http_get_race_top
+  else
+    Evaluation -> File : read
+  end
+deactivate Evaluation
 
 loop レースIDごとに繰り返し
   EvaluationJob -> FeatureUtil : create_feature
-  FeatureUtil -> "Denebola::Feature" : where
+
+  activate FeatureUtil
+    FeatureUtil -> "Denebola::Feature" : where
+  deactivate FeatureUtil
+
   EvaluationJob -> NetkeibaClient : http_get_race_name
   EvaluationJob -> "Evaluation::Datum" : create!
   EvaluationJob -> YAML : dump
   EvaluationJob -> "Evaluation::Datum" : import_prediction_results
 
-  loop レースのエントリーの数だけ繰り返す
-    "Evaluation::Datum" -> "Prediction::Result" : create!
-  end
+  activate "Evaluation::Datum"
+    loop レースのエントリーの数だけ繰り返す
+      "Evaluation::Datum" -> "Prediction::Result" : create!
+    end
+  deactivate "Evaluation::Datum"
 end
 
 EvaluationJob -> Evaluation : calculate_precision!
 EvaluationJob -> Evaluation : update!
+deactivate EvaluationJob
