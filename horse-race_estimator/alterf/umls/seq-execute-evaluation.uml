@@ -7,89 +7,34 @@ EvaluationView -> EvaluationsController : execute
 create Evaluation
 EvaluationsController -> Evaluation : new
 EvaluationsController -> Evaluation : save
+EvaluationsController ->> EvaluationJob : perform_later
 
 autonumber stop
-EvaluationsController <-- Evaluation
-
-autonumber resume
-EvaluationsController --> EvaluationJob : perform_later
-
-autonumber stop
-EvaluationView <- EvaluationsController
-利用者 <- EvaluationView
+EvaluationView <-- EvaluationsController
+利用者 <-- EvaluationView
 
 autonumber resume
 EvaluationJob -> Evaluation : find
-
-autonumber stop
-EvaluationJob <-- Evaluation
-
-autonumber resume
 EvaluationJob -> Evaluation : fetch_data
 
 alt Top20 を選択
   Evaluation -> NetkeibaClient : http_get_race_top
-
-  autonumber stop
-  Evaluation <-- NetkeibaClient
 else
-  autonumber resume
   Evaluation -> File : read
-
-  autonumber stop
-  Evaluation <-- File
 end
 
-EvaluationJob <-- Evaluation
-
 loop レースIDごとに繰り返し
-  autonumber resume
   EvaluationJob -> FeatureUtil : create_feature
   FeatureUtil -> "Denebola::Feature" : where
-
-  autonumber stop
-  FeatureUtil <-- "Denebola::Feature"
-  EvaluationJob <-- FeatureUtil
-
-  autonumber resume
   EvaluationJob -> NetkeibaClient : http_get_race_name
-
-  autonumber stop
-  EvaluationJob <-- NetkeibaClient
-
-  autonumber resume
   EvaluationJob -> "Evaluation::Datum" : create!
-
-  autonumber stop
-  EvaluationJob <-- "Evaluation::Datum"
-
-  autonumber resume
   EvaluationJob -> YAML : dump
-
-  autonumber stop
-  EvaluationJob <-- YAML
-
-  autonumber resume
   EvaluationJob -> "Evaluation::Datum" : import_prediction_results
 
   loop レースのエントリーの数だけ繰り返す
     "Evaluation::Datum" -> "Prediction::Result" : create!
-
-    autonumber stop
-    "Evaluation::Datum" <-- "Prediction::Result"
   end
-
-  EvaluationJob <-- "Evaluation::Datum"
 end
 
-autonumber resume
 EvaluationJob -> Evaluation : calculate_precision!
-
-autonumber stop
-EvaluationJob <-- Evaluation
-
-autonumber resume
 EvaluationJob -> Evaluation : update!
-
-autonumber stop
-EvaluationJob <-- Evaluation

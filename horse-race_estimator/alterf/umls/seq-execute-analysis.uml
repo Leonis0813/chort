@@ -6,19 +6,14 @@ AnalysisView -> AnalysesController : execute
 
 create Analysis
 AnalysesController -> Analysis : new
-AnalysesController --> AnalysisJob : perform_later
+AnalysesController ->> AnalysisJob : perform_later
 
 autonumber stop
-AnalysisView <- AnalysesController
-利用者 <- AnalysisView
+AnalysisView <-- AnalysesController
+利用者 <-- AnalysisView
 
 autonumber resume
 Analysis <- AnalysisJob : update
-
-autonumber stop
-Analysis --> AnalysisJob
-
-autonumber resume
 AnalysisJob -> AnalysisMailer : finished
 
 autonumber stop

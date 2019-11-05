@@ -5,7 +5,6 @@ actor 利用者
 EvaluationView -> EvaluationsController : manage
 EvaluationsController -> Evaluation : all
 
-autonumber stop
-EvaluationsController <-- Evaluation
-EvaluationView <-- EvaluationsController
-利用者 <-- EvaluationView
+利用者 -> EvaluationView : 詳細ボタン押下
+EvaluationView -> EvaluationsController : read
+EvaluationsController -> Evaluation : find_by
