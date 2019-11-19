@@ -227,6 +227,7 @@ racesテーブル
 
    id,INTEGER,内部ID,○
    race_id,STRING,レースのID,○
+   race_name,STRING,レースの名前,○
    direction,STRING,左回りか右回りか,○
    distance,INTEGER,コースの距離,○
    grade,STRING,グレード,
