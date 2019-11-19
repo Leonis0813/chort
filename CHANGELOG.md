@@ -1,5 +1,6 @@
 # 2019/11/19
 - [Alterf] update version to 4.7.1
+- [Denebola] update version to 2.7.0
 
 # 2019/11/04
 - [Regulus] update version to 4.9.0

@@ -1,5 +1,6 @@
 class Race {
   - race_id : String
+  - race_name : String
   - direction : String
   - distance : int
   - grade : String
