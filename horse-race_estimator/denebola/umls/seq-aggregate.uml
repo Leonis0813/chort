@@ -1,19 +1,25 @@
 autonumber
 
 aggregate -> Entry : pluck
-aggregate -> Feature : pluck
 
-loop 差分だけ繰り返す
-  aggregate -> Race : find_by
+loop 取得したエントリーだけ繰り返す
+  aggregate -> Feature : find_by
 
-  opt レース情報が存在する場合
-    aggregate -> Horse : find_by
+  alt 素性が存在する
+    opt operation == 'update' or 'upsert'
+      aggregate -> aggregate : create_feature
+      aggregate -> aggregate : extra_attribute
 
-    opt 競走馬情報が存在する場合
-      aggregate -> Entry : find_by
+      opt 素性の生成に成功
+        aggregate -> Feature : update!
+      end
+    end
+  else
+    opt operation == 'create' or 'upsert'
+      aggregate -> aggregate : create_feature
+      aggregate -> aggregate : extra_attribute
 
-      opt エントリー情報が存在する場合
-        aggregate -> aggregate : extra_attribute
+      opt 素性の生成に成功
         aggregate -> Feature : create!
       end
     end
