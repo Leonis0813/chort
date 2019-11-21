@@ -494,6 +494,18 @@ aggregate.rb
 
     - デフォルト create
 
+  - 更新開始日
+
+    - 指定した更新日以降の競馬情報を対象とする
+    - 指定しなければスクリプト実行日の1ヶ月前となる
+    - 日付はyyyy-mm-ddの形式で指定する
+
+  - 更新終了日
+
+    - 指定した更新日以前の競馬情報を対象とする
+    - 指定しなければスクリプト実行日となる
+    - 日付はyyyy-mm-ddの形式で指定する
+
 **出力**
 
 - :ref:`den-ext-res-feature`
@@ -502,4 +514,4 @@ aggregate.rb
 
   .. code-block:: none
 
-     bundle exec ruby aggregate.rb --operation=upsert
+     bundle exec ruby aggregate.rb --operation=upsert --from=2019-01-01 --to=2019-11-21

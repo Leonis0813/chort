@@ -1,35 +1,21 @@
 autonumber
 
 aggregate -> Entry : pluck
-
-autonumber stop
-aggregate <-- Entry
-
-autonumber resume
 aggregate -> Feature : pluck
 
-autonumber stop
-aggregate <-- Feature
+loop 差分だけ繰り返す
+  aggregate -> Race : find_by
 
-loop
-  autonumber resume
-  aggregate -> Race : find
+  opt レース情報が存在する場合
+    aggregate -> Horse : find_by
 
-  autonumber stop
-  aggregate <-- Race
+    opt 競走馬情報が存在する場合
+      aggregate -> Entry : find_by
 
-  autonumber resume
-  aggregate -> Entry : find
-
-  autonumber stop
-  aggregate <-- Entry
-
-  autonumber resume
-  aggregate -> Horse : find
-
-  autonumber stop
-  aggregate <-- Horse
-
-  autonumber resume
-  aggregate -> Feature : create!
+      opt エントリー情報が存在する場合
+        aggregate -> aggregate : extra_attribute
+        aggregate -> Feature : create!
+      end
+    end
+  end
 end
