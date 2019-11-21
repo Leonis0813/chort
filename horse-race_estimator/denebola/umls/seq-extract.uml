@@ -3,134 +3,71 @@ autonumber
 loop 指定された期間内を日付ごとに繰り返し
   extract -> File : read
 
-  autonumber stop
-  extract <-- File
-
   loop レースIDごとに繰り返し
-    autonumber resume
     extract -> File : read
-
-    autonumber stop
-    extract <-- File
-
-    autonumber resume
     extract -> "Nokogiri::HTML" : parse
-
-    autonumber stop
-    extract <-- "Nokogiri::HTML"
-
-    autonumber resume
     extract -> "extract/race" : extract_race
-
-    autonumber stop
-    extract <-- "extract/race"
-
-    autonumber resume
     extract -> Race : find_by
 
-    autonumber stop
-    extract <-- Race
-
-    alt 抽出したレース情報が存在しない
-      autonumber resume
-      extract -> Race :create!
-
-      autonumber stop
-      extract <-- Race
+    alt 抽出したレース情報が存在する
+      opt operation == 'update' or 'upsert'
+        extract -> Race : update!
+      end
+    else
+      opt operation == 'create' or 'upsert'
+        extract -> Race :create!
+      end
     end
 
     loop エントリーごとに繰り返し
-      autonumber resume
       extract -> "extract/entry" : extract_entry
-
-      autonumber stop
-      extract -> "extract/entry"
-
-      autonumber resume
       extract -> Entry : find_by
 
-      autonumber stop
-      extract <-- Entry
-
-      alt 抽出したエントリー情報が存在しない
-        autonumber resume
-        extract -> Entry : create!
-
-        autonumber stop
-        extract <-- Entry
+      alt 抽出したエントリー情報が存在する
+        opt operation == 'update' or 'upsert'
+          extract -> Entry : update!
+        end
+      else
+        opt operation == 'create' or 'upsert'
+          extract -> Entry : create!
+        end
       end
 
-      autonumber resume
       extract -> Jockey : find_by
 
-      autonumber stop
-      extract <-- Jockey
-
-      alt 抽出した騎手情報が存在しない
-        autonumber resume
-        extract -> Jockey : create!
-
-        autonumber stop
-        extract <-- Jockey
+      alt 抽出した騎手情報が存在する
+        opt operation == 'update' or 'upsert'
+          extract -> Jockey : update!
+        end
+      else
+        opt operation == 'create' or 'upsert'
+          extract -> Jockey : create!
+        end
       end
 
-      autonumber resume
       extract -> Jockey : results
       Jockey -> Entry : <<
 
-      autonumber stop
-      extract <-- Entry
-
-      autonumber resume
       extract -> File : read
-
-      autonumber stop
-      extract <-- File
-
-      autonumber resume
       extract -> "Nokogiri::HTML" : parse
-
-      autonumber stop
-      extract <-- "Nokogiri::HTML"
-
-      autonumber resume
       extract -> "extract/horse" : extract_horse
-
-      autonumber stop
-      extract <-- "extract/horse"
-
-      autonumber resume
       extract -> Horse : find_by
 
-      autonumber stop
-      extract <-- Horse
-
-      alt 抽出した競走馬情報が存在しない
-        autonumber resume
-        extract -> Horse : create!
-
-        autonumber stop
-        extract <-- Horse
+      alt 抽出した競走馬情報が存在する
+        opt operation == 'update' or 'upsert'
+          extract -> Horse : update!
+        end
+      else
+        opt operation == 'create' or 'upsert'
+          extract -> Horse : create!
+        end
       end
 
-      autonumber resume
       extract -> Horse : results
       Horse -> Entry : <<
-
-      autonumber stop
-      extract <-- Entry
     end
 
-    autonumber resume
     extract -> "extract/payoff" : extract_payoff
-
-    autonumber stop
-    extract <-- "extract/payoff"
-
-    autonumber resume
     extract -> Race : create_payoff
-
-    autonumber stop
-    extract <-- Race
   end
 end
