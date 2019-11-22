@@ -8,7 +8,6 @@ loop 取得したエントリーだけ繰り返す
   alt 素性が存在する
     opt operation == 'update' or 'upsert'
       aggregate -> aggregate : create_feature
-      aggregate -> aggregate : extra_attribute
 
       opt 素性の生成に成功
         aggregate -> Feature : update!
@@ -17,7 +16,6 @@ loop 取得したエントリーだけ繰り返す
   else
     opt operation == 'create' or 'upsert'
       aggregate -> aggregate : create_feature
-      aggregate -> aggregate : extra_attribute
 
       opt 素性の生成に成功
         aggregate -> Feature : create!

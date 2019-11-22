@@ -68,7 +68,7 @@ loop 指定された期間内を日付ごとに繰り返し
       extract -> Horse : results
       activate Horse
         Horse -> Entry : <<
-      deactivate Jockey
+      deactivate Horse
     end
 
     extract -> "extract/payoff" : extract_payoff
