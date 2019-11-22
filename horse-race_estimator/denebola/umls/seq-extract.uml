@@ -46,7 +46,9 @@ loop 指定された期間内を日付ごとに繰り返し
       end
 
       extract -> Jockey : results
-      Jockey -> Entry : <<
+      activate Jockey
+        Jockey -> Entry : <<
+      deactivate Jockey
 
       extract -> File : read
       extract -> "Nokogiri::HTML" : parse
@@ -64,7 +66,9 @@ loop 指定された期間内を日付ごとに繰り返し
       end
 
       extract -> Horse : results
-      Horse -> Entry : <<
+      activate Horse
+        Horse -> Entry : <<
+      deactivate Jockey
     end
 
     extract -> "extract/payoff" : extract_payoff
