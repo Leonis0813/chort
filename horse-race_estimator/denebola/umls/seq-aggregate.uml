@@ -1,6 +1,6 @@
 autonumber
 
-aggregate -> Entry : pluck
+aggregate -> Entry : where
 
 loop 取得したエントリーだけ繰り返す
   aggregate -> Feature : find_by

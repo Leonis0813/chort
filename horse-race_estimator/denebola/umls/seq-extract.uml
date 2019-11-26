@@ -1,77 +1,59 @@
 autonumber
 
-loop 指定された期間内を日付ごとに繰り返し
-  extract -> File : read
-
-  loop レースIDごとに繰り返し
+activate extract
+  loop 指定された期間内を日付ごとに繰り返し
     extract -> File : read
-    extract -> "Nokogiri::HTML" : parse
-    extract -> "extract/race" : extract_race
-    extract -> Race : find_by
 
-    alt 抽出したレース情報が存在する
-      opt operation == 'update' or 'upsert'
-        extract -> Race : update!
-      end
-    else
-      opt operation == 'create' or 'upsert'
-        extract -> Race :create!
-      end
-    end
-
-    loop エントリーごとに繰り返し
-      extract -> "extract/entry" : extract_entry
-      extract -> Entry : find_by
-
-      alt 抽出したエントリー情報が存在する
-        opt operation == 'update' or 'upsert'
-          extract -> Entry : update!
-        end
-      else
-        opt operation == 'create' or 'upsert'
-          extract -> Entry : create!
-        end
-      end
-
-      extract -> Jockey : find_by
-
-      alt 抽出した騎手情報が存在する
-        opt operation == 'update' or 'upsert'
-          extract -> Jockey : update!
-        end
-      else
-        opt operation == 'create' or 'upsert'
-          extract -> Jockey : create!
-        end
-      end
-
-      extract -> Jockey : results
-      activate Jockey
-        Jockey -> Entry : <<
-      deactivate Jockey
-
+    loop レースIDごとに繰り返し
       extract -> File : read
       extract -> "Nokogiri::HTML" : parse
-      extract -> "extract/horse" : extract_horse
-      extract -> Horse : find_by
+      extract -> extract : update_race_info
 
-      alt 抽出した競走馬情報が存在する
-        opt operation == 'update' or 'upsert'
-          extract -> Horse : update!
+      activate extract
+        extract -> "extract/race" : extract_race
+        extract -> Race : create_or_update!
+      deactivate extract
+
+      loop エントリーごとに繰り返し
+        extract -> "extract/entry" : extract_entry
+        extract -> extract : update_entry_info
+
+        activate extract
+          extract -> Entry : create_or_update!
+        deactivate extract
+
+        extract -> extract : update_jockey_info
+
+        activate extract
+          extract -> Jockey : create_or_update!
+        deactivate extract
+
+        alt エントリー情報と騎手情報の登録/更新に成功した
+          extract -> Jockey : results
+          activate Jockey
+            Jockey -> Entry : <<
+          deactivate Jockey
         end
-      else
-        opt operation == 'create' or 'upsert'
-          extract -> Horse : create!
+
+        extract -> extract : update_horse_info
+
+        activate extract
+          extract -> File : read
+          extract -> "Nokogiri::HTML" : parse
+          extract -> "extract/horse" : extract_horse
+          extract -> Horse : create_or_update!
+        deactivate extract
+
+        alt エントリー情報と競走馬情報の登録/更新に成功した
+          extract -> Horse : results
+          activate Horse
+            Horse -> Entry : <<
+          deactivate Horse
         end
       end
 
-      extract -> Horse : results
-      activate Horse
-        Horse -> Entry : <<
-      deactivate Horse
+      extract -> "extract/payoff" : extract_payoff
+      extract -> Race : create_or_update_payoff
     end
-
-    extract -> "extract/payoff" : extract_payoff
-    extract -> Race : create_payoff
   end
-end
+deactivate extract
