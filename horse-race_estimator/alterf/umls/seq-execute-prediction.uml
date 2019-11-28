@@ -8,38 +8,18 @@ create Prediction
 PredictionsController -> Prediction : new
 PredictionsController --> PredictionJob : perform_later
 
-autonumber stop
-PredictionView <- PredictionsController
-利用者 <- PredictionView
-
 alt URL指定
-  autonumber resume
   PredictionJob -> NetkeibaClient : http_get_race
 
-  autonumber stop
-  PredictionJob <-- NetkeibaClient
-
   loop レースのエントリーの数だけ繰り返す
-    autonumber resume
     PredictionJob -> NetkeibaClient : http_get_horse
-
-    autonumber stop
-    PredictionJob <-- NetkeibaClient
   end
 
-  autonumber resume
   PredictionJob -> YAML : dump
 end
 
 loop レースのエントリーの数だけ繰り返す
   PredictionJob -> "Prediction::Result" : create!
-
-  autonumber stop
-  PredictionJob <-- "Prediction::Result"
 end
 
-autonumber resume
 PredictionJob -> Prediction : update
-
-autonumber stop
-PredictionJob <-- Prediction

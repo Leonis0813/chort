@@ -4,8 +4,3 @@ actor 利用者
 利用者 -> PredictionView : 予測画面表示
 PredictionView -> PredictionsController : manage
 PredictionsController -> Prediction : all
-
-autonumber stop
-PredictionsController <-- Prediction
-PredictionView <-- PredictionsController
-利用者 <-- PredictionView
