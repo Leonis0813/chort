@@ -1,54 +1,86 @@
+class ApplicationRecord {
+  + {static} operation
+  + {static} create_or_update!(record : Object, attribute : Hash) : Object
+  + {static} creatable?() : Boolean
+  + {static} updatable?() : Boolean
+  + {static} log_attribute() : Hash
+}
+
 class Race {
   - race_id : String
   - race_name : String
   - direction : String
-  - distance : int
+  - distance : Integer
   - grade : String
   - place : String
-  - round : int
+  - round : Integer
   - start_time : Datetime
   - track : String
   - weather : String
+  + {static} create_or_update!(attribute : Hash) : Race
+  + {static} log_attribute() : Hash
+  + month() : Integer
+  + create_or_update_payoff(attribute : Hash) : void
 }
 
 class Entry {
-  - age : int
-  - burden_weight : double
-  - final_600m_time : double
-  - number : int
+  - age : Integer
+  - burden_weight : Double
+  - final_600m_time : Double
+  - number : Integer
   - order : String
-  - prize_money : int
+  - prize_money : Integer
   - sex : String
-  - weight : double
-  - weight_diff : double
+  - weight : Double
+  - weight_diff : Double
+  + {static} create_or_update!(attribute : Hash) : Entry
+  + {static} log_attribute() : Hash
+  + weight_per() : Double
+  + won() : Boolean
 }
 
 class Horse {
   - horse_id : String
   - running_style : String
+  + {static} create_or_update!(attribute : Hash) : Horse
+  + {static} log_attribute() : Hash
+  + average_prize_money(time : Datetime) : Double
+  + entry_times(time : Datetime) : Integer
+  + last_race_order(time : Datetime) : Integer
+  + rate_within_third(time : Datetime) : Double
+  + second_last_race_order(time : Datetime) : Integer
+  + win_times(time : Datetime) : Integer
+  + results_before(time : Datetime) : Array<Entry>
 }
 
 class Jockey {
   - jockey_id : String
+  + {static} create_or_update!(attribute : Hash) : Jockey
+  + {static} log_attribute() : Hash
+  + average_prize_money(time : Datetime) : Double
+  + win_rate(time : Datetime) : Double
+  + win_rate_last_four_races(time : Datetime) : Double
+  - entry_times(time : Datetime) : Integer
+  - results_before(time : Datetime) : Array<Entry>
 }
 
 class Win {
   - race_id : String
-  - odds : double
+  - odds : Double
   - favorite : Integer
   - number : Integer
 }
 
 class Show {
   - race_id : String
-  - odds : double
+  - odds : Double
   - favorite : Integer
   - number : Integer
 }
 
 class BracketQuinella {
   - race_id : String
-  - odds : double
+  - odds : Double
   - favorite : Integer
   - bracket_number1 : Integer
   - bracket_number2 : Integer
@@ -56,7 +88,7 @@ class BracketQuinella {
 
 class Quinella {
   - race_id : String
-  - odds : double
+  - odds : Double
   - favorite : Integer
   - number1 : Integer
   - number2 : Integer
@@ -64,7 +96,7 @@ class Quinella {
 
 class QuinellaPlace {
   - race_id : String
-  - odds : double
+  - odds : Double
   - favorite : Integer
   - number1 : Integer
   - number2 : Integer
@@ -72,15 +104,16 @@ class QuinellaPlace {
 
 class Exacta {
   - race_id : String
-  - odds : double
+  - odds : Double
   - favorite : Integer
   - first_place_number : Integer
   - second_place_number : Integer
+  + {static} table_name() : String
 }
 
 class Trio {
   - race_id : String
-  - odds : double
+  - odds : Double
   - favorite : Integer
   - number1 : Integer
   - number2 : Integer
@@ -89,44 +122,59 @@ class Trio {
 
 class Trifecta {
   - race_id : String
-  - odds : double
+  - odds : Double
   - favorite : Integer
   - firts_place_number : Integer
   - second_place_number : Integer
   - third_place_number : Integer
+  + {static} table_name() : String
 }
 
 class Feature {
-  - age : int
-  - blank : int
-  - burden_weight : double
+  - age : Integer
+  - blank : Integer
+  - burden_weight : Double
   - direction : String
-  - distance : int
-  - distance_diff : double
-  - entry_times : int
+  - distance : Integer
+  - distance_diff : Double
+  - entry_times : Integer
   - grade : String
-  - horse_average_prize_money : double
-  - jockey_average_prize_money : double
-  - jockey_win_rate_last_four_races : double
-  - jockey_win_rate : double
-  - last_race_order : int
-  - month : int
-  - number : int
+  - horse_average_prize_money : Double
+  - jockey_average_prize_money : Double
+  - jockey_win_rate_last_four_races : Double
+  - jockey_win_rate : Double
+  - last_race_order : Integer
+  - month : Integer
+  - number : Integer
   - place : String
-  - rate_within_third : double
-  - round : int
+  - rate_within_third : Double
+  - round : Integer
   - running_style : String
-  - second_last_race_order : int
+  - second_last_race_order : Integer
   - sex : String
   - track : String
   - weather : String
-  - weight : double
-  - weight_diff : double
-  - weight_per : double
-  - win_times : int
-  - won : boolean
+  - weight : Double
+  - weight_diff : Double
+  - weight_per : Double
+  - win_times : Integer
+  - won : Boolean
+  - set_default_value() : void
 }
 
+ApplicationRecord <|-- Race
+ApplicationRecord <|-- Entry
+ApplicationRecord <|-- Horse
+ApplicationRecord <|-- Jockey
+ApplicationRecord <|-- Win
+ApplicationRecord <|-- Show
+ApplicationRecord <|-- BracketQuinella
+ApplicationRecord <|-- Quinella
+ApplicationRecord <|-- QuinellaPlace
+ApplicationRecord <|-- Exacta
+ApplicationRecord <|-- Trio
+ApplicationRecord <|-- Trifecta
+ApplicationRecord <|-- Feature
 Race "1" -- "1 .. *" Entry
 Race "1" -- "1" Win
 Race "1" -- "3" Show
