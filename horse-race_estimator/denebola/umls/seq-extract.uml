@@ -1,136 +1,59 @@
 autonumber
 
-loop 指定された期間内を日付ごとに繰り返し
-  extract -> File : read
-
-  autonumber stop
-  extract <-- File
-
-  loop レースIDごとに繰り返し
-    autonumber resume
+activate extract
+  loop 指定された期間内を日付ごとに繰り返し
     extract -> File : read
 
-    autonumber stop
-    extract <-- File
-
-    autonumber resume
-    extract -> "Nokogiri::HTML" : parse
-
-    autonumber stop
-    extract <-- "Nokogiri::HTML"
-
-    autonumber resume
-    extract -> "extract/race" : extract_race
-
-    autonumber stop
-    extract <-- "extract/race"
-
-    autonumber resume
-    extract -> Race : find_by
-
-    autonumber stop
-    extract <-- Race
-
-    alt 抽出したレース情報が存在しない
-      autonumber resume
-      extract -> Race :create!
-
-      autonumber stop
-      extract <-- Race
-    end
-
-    loop エントリーごとに繰り返し
-      autonumber resume
-      extract -> "extract/entry" : extract_entry
-
-      autonumber stop
-      extract -> "extract/entry"
-
-      autonumber resume
-      extract -> Entry : find_by
-
-      autonumber stop
-      extract <-- Entry
-
-      alt 抽出したエントリー情報が存在しない
-        autonumber resume
-        extract -> Entry : create!
-
-        autonumber stop
-        extract <-- Entry
-      end
-
-      autonumber resume
-      extract -> Jockey : find_by
-
-      autonumber stop
-      extract <-- Jockey
-
-      alt 抽出した騎手情報が存在しない
-        autonumber resume
-        extract -> Jockey : create!
-
-        autonumber stop
-        extract <-- Jockey
-      end
-
-      autonumber resume
-      extract -> Jockey : results
-      Jockey -> Entry : <<
-
-      autonumber stop
-      extract <-- Entry
-
-      autonumber resume
+    loop レースIDごとに繰り返し
       extract -> File : read
-
-      autonumber stop
-      extract <-- File
-
-      autonumber resume
       extract -> "Nokogiri::HTML" : parse
+      extract -> extract : update_race_info
 
-      autonumber stop
-      extract <-- "Nokogiri::HTML"
+      activate extract
+        extract -> "extract/race" : extract_race
+        extract -> Race : create_or_update!
+      deactivate extract
 
-      autonumber resume
-      extract -> "extract/horse" : extract_horse
+      loop エントリーごとに繰り返し
+        extract -> "extract/entry" : extract_entry
+        extract -> extract : update_entry_info
 
-      autonumber stop
-      extract <-- "extract/horse"
+        activate extract
+          extract -> Entry : create_or_update!
+        deactivate extract
 
-      autonumber resume
-      extract -> Horse : find_by
+        extract -> extract : update_jockey_info
 
-      autonumber stop
-      extract <-- Horse
+        activate extract
+          extract -> Jockey : create_or_update!
+        deactivate extract
 
-      alt 抽出した競走馬情報が存在しない
-        autonumber resume
-        extract -> Horse : create!
+        alt エントリー情報と騎手情報の登録/更新に成功した
+          extract -> Jockey : results
+          activate Jockey
+            Jockey -> Entry : <<
+          deactivate Jockey
+        end
 
-        autonumber stop
-        extract <-- Horse
+        extract -> extract : update_horse_info
+
+        activate extract
+          extract -> File : read
+          extract -> "Nokogiri::HTML" : parse
+          extract -> "extract/horse" : extract_horse
+          extract -> Horse : create_or_update!
+        deactivate extract
+
+        alt エントリー情報と競走馬情報の登録/更新に成功した
+          extract -> Horse : results
+          activate Horse
+            Horse -> Entry : <<
+          deactivate Horse
+        end
       end
 
-      autonumber resume
-      extract -> Horse : results
-      Horse -> Entry : <<
-
-      autonumber stop
-      extract <-- Entry
+      extract -> "extract/payoff" : extract_payoff
+      extract -> Race : create_or_update_payoff
     end
-
-    autonumber resume
-    extract -> "extract/payoff" : extract_payoff
-
-    autonumber stop
-    extract <-- "extract/payoff"
-
-    autonumber resume
-    extract -> Race : create_payoff
-
-    autonumber stop
-    extract <-- Race
   end
-end
+deactivate extract

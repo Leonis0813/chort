@@ -1,35 +1,25 @@
 autonumber
 
-aggregate -> Entry : pluck
+aggregate -> Entry : where
 
-autonumber stop
-aggregate <-- Entry
+loop 取得したエントリーだけ繰り返す
+  aggregate -> Feature : find_by
 
-autonumber resume
-aggregate -> Feature : pluck
+  alt 素性が存在する
+    opt operation == 'update' or 'upsert'
+      aggregate -> aggregate : create_feature
 
-autonumber stop
-aggregate <-- Feature
+      opt 素性の生成に成功
+        aggregate -> Feature : update!
+      end
+    end
+  else
+    opt operation == 'create' or 'upsert'
+      aggregate -> aggregate : create_feature
 
-loop
-  autonumber resume
-  aggregate -> Race : find
-
-  autonumber stop
-  aggregate <-- Race
-
-  autonumber resume
-  aggregate -> Entry : find
-
-  autonumber stop
-  aggregate <-- Entry
-
-  autonumber resume
-  aggregate -> Horse : find
-
-  autonumber stop
-  aggregate <-- Horse
-
-  autonumber resume
-  aggregate -> Feature : create!
+      opt 素性の生成に成功
+        aggregate -> Feature : create!
+      end
+    end
+  end
 end
