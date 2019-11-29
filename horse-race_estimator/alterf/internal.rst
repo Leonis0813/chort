@@ -1,4 +1,4 @@
-設計仕様
+1;95;0c設計仕様
 ========
 
 設計仕様では以下を定義する
@@ -339,7 +339,8 @@ evaluation_dataテーブル
 
    id,INTEGER,内部ID,○
    evaluation_id,INTEGER,evaluationsテーブルの内部ID,○
-   race_name,STRING,評価したレースの名前モデルファイル名,○
+   race_id,STRING,評価したレースのID,○
+   race_name,STRING,評価したレースの名前,○
    race_url,STRING,評価したレースのURL,○
    ground_truth,INTEGER,正解,○
    created_at,DATETIME,評価ジョブ情報の作成日時,○

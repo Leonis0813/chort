@@ -76,6 +76,7 @@ class Evaluation {
 }
 
 class "Evaluation::Datum" {
+  - race_id : String
   - race_name : String
   - race_url : String
   - prediction_results : Array<PredictionResult>
