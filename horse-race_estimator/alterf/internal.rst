@@ -36,7 +36,7 @@ MVCモデルを利用する
 
     - 評価ジョブの情報を管理するクラス
 
-  - EvaluationData
+  - Evaluation::Datum
 
     - 評価データを管理するクラス
 
