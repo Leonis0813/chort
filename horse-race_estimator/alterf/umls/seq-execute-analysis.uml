@@ -16,11 +16,11 @@ activate AnalysisView
     AnalysisView <-- AnalysesController
   deactivate AnalysesController
 
-  利用者 <-- AnalysisView
+  利用者 <-- AnalysisView : ジョブ登録完了通知
 deactivate AnalysisView
 
 autonumber resume
-Analysis <- AnalysisJob : update
+AnalysisJob -> Analysis : update
 AnalysisJob -> AnalysisMailer : finished
 deactivate AnalysisJob
 

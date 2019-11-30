@@ -1,3 +1,16 @@
+# 2019/11/30
+- [Alterf] update version to 4.9.0
+
+# 2019/11/29
+- [Denebola] update version to 2.8.0
+
+# 2019/11/21
+- [Alterf] update version to 4.8.0
+
+# 2019/11/19
+- [Alterf] update version to 4.7.1
+- [Denebola] update version to 2.7.0
+
 # 2019/11/04
 - [Regulus] update version to 4.9.0
 

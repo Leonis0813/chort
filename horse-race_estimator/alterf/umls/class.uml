@@ -71,12 +71,13 @@ class Evaluation {
   - precision : Double
   - recall : Double
   - f_measure : Double
-  - data : Array<EvaluationData>
+  - data : Array<"Evaluation::Datum">
   + fetch_data() : Array<String>
   + calculate_precision!() : void
 }
 
-class EvaluationData {
+class "Evaluation::Datum" {
+  - race_id : String
   - race_name : String
   - race_url : String
   - prediction_results : Array<PredictionResult>
@@ -86,7 +87,6 @@ class EvaluationData {
 
 class NetkeibaClient {
   + http_get_race_top() : Array<String>
-  + http_get_race_name(race_id : String) : String
 }
 
 class FeatureUtil {
@@ -116,7 +116,7 @@ EvaluationJob --> NetkeibaClient
 EvaluationJob --> FeatureUtil
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob "1" -- "1" Evaluation
-Evaluation "1" -- "1 .. *" EvaluationData
-EvaluationData "1" -- "*" PredictionResult
+Evaluation "1" -- "1 .. *" "Evaluation::Datum"
+"Evaluation::Datum" "1" -- "*" PredictionResult
 
 EvaluationResultView -- EvaluationsController

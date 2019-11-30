@@ -20,7 +20,6 @@ activate PredictionView
 deactivate PredictionView
 
 alt URL指定
-  autonumber resume
   PredictionJob -> NetkeibaClient : http_get_race
 
   loop レースのエントリーの数だけ繰り返す

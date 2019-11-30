@@ -22,7 +22,7 @@ deactivate EvaluationView
 
 autonumber resume
 EvaluationJob -> Evaluation : find
-EvaluationJob -> Evaluation : fetch_data
+EvaluationJob -> Evaluation : fetch_data!
 
 activate Evaluation
   alt Top20 を選択
@@ -30,17 +30,20 @@ activate Evaluation
   else
     Evaluation -> File : read
   end
+
+  loop レースIDごとに繰り返し
+    Evaluation -> "Denebola::Race" : find_by
+    Evaluation -> "Evaluation::Datum" : create!
+  end
 deactivate Evaluation
 
-loop レースIDごとに繰り返し
+loop 評価データごとに繰り返し
   EvaluationJob -> FeatureUtil : create_feature
 
   activate FeatureUtil
     FeatureUtil -> "Denebola::Feature" : where
   deactivate FeatureUtil
 
-  EvaluationJob -> NetkeibaClient : http_get_race_name
-  EvaluationJob -> "Evaluation::Datum" : create!
   EvaluationJob -> YAML : dump
   EvaluationJob -> "Evaluation::Datum" : import_prediction_results
 
