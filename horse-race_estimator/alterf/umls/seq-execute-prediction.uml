@@ -2,13 +2,25 @@ autonumber
 
 actor 利用者
 利用者 -> PredictionView : 実行ボタン押下
-PredictionView -> PredictionsController : execute
 
-create Prediction
-PredictionsController -> Prediction : new
-PredictionsController --> PredictionJob : perform_later
+activate PredictionView
+  PredictionView -> PredictionsController : execute
+
+  activate PredictionsController
+    create Prediction
+    PredictionsController -> Prediction : new
+    PredictionsController ->> PredictionJob : perform_later
+    activate PredictionJob
+
+    autonumber stop
+    PredictionView <-- PredictionsController
+  deactivate PredictionsController
+
+  利用者 <-- PredictionView
+deactivate PredictionView
 
 alt URL指定
+  autonumber resume
   PredictionJob -> NetkeibaClient : http_get_race
 
   loop レースのエントリーの数だけ繰り返す
@@ -23,3 +35,4 @@ loop レースのエントリーの数だけ繰り返す
 end
 
 PredictionJob -> Prediction : update
+deactivate PredictionJob

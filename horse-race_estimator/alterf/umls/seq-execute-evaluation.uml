@@ -2,14 +2,27 @@ autonumber
 
 actor 利用者
 利用者 -> EvaluationView : 実行ボタン押下
-EvaluationView -> EvaluationsController : execute
 
-create Evaluation
-EvaluationsController -> Evaluation : new
-EvaluationsController -> Evaluation : save
-EvaluationsController --> EvaluationJob : perform_later
+activate EvaluationView
+  EvaluationView -> EvaluationsController : execute
+
+  activate EvaluationsController
+    create Evaluation
+    EvaluationsController -> Evaluation : new
+    EvaluationsController -> Evaluation : save
+    EvaluationsController ->> EvaluationJob : perform_later
+    activate EvaluationJob
+
+    autonumber stop
+    EvaluationView <-- EvaluationsController
+  deactivate EvaluationsController
+
+  利用者 <-- EvaluationView
+deactivate EvaluationView
+
+autonumber resume
 EvaluationJob -> Evaluation : find
-EvaluationJob -> Evaluation : fetch_data
+EvaluationJob -> Evaluation : fetch_data!
 
 activate Evaluation
   alt Top20 を選択
@@ -43,3 +56,4 @@ end
 
 EvaluationJob -> Evaluation : calculate_precision!
 EvaluationJob -> Evaluation : update!
+deactivate EvaluationJob
