@@ -1,38 +1,49 @@
 autonumber
 
-loop 指定された期間内を日付ごとに繰り返し
-  collect -> CollectUtil : get_race_ids
+actor 利用者
+利用者 -> Collector : work!
 
-  activate CollectUtil
-    alt レースIDファイルが存在する
-      CollectUtil -> File : read
-    else
-      CollectUtil -> HTTPClient : get
-      CollectUtil -> File : write
-    end
-  deactivate CollectUtil
+activate Collector
+  create collector
+  Collector -> collector : new
+  Collector -> collector : remove_empty_files
 
-  loop レースIDごとに繰り返し
-    collect -> CollectUtil : get_race_html
+  loop 指定された期間内を日付ごとに繰り返し
+    Collector -> collector : fetch_race_ids
 
-    activate CollectUtil
-      alt レース情報ファイルが存在する
-        CollectUtil -> File : read
+    activate collector
+      alt レースIDファイルが存在する
+        collector -> File : read
       else
-        CollectUtil -> HTTPClient : get
-        CollectUtil -> File : write
+        collector -> NetkeibaClient : http_get_race_ids
+        collector -> File : write
       end
-    deactivate CollectUtil
+    deactivate collector
 
-    loop レースのエントリーごとに繰り返し
-      collect -> CollectUtil : get_horse_html
+    loop レースIDごとに繰り返し
+      Collector -> collector : fetch_race
 
-      activate CollectUtil
-        alt 競走馬情報ファイルが存在しない
-          CollectUtil -> HTTPClient : get
-          CollectUtil -> File : write
+      activate collector
+        alt レース情報ファイルが存在する
+          collector -> File : read
+        else
+          collector -> NetkeibaClient : http_get_race
+          collector -> File : write
         end
-      deactivate CollectUtil
+      deactivate collector
+
+      Collector -> "Nokogiri::HTML" : parse
+
+      loop レースのエントリーごとに繰り返し
+        Collector -> collector : fetch_horse
+
+        activate collector
+          alt 競走馬情報ファイルが存在しない
+            collector -> NetkeibaClient : http_get_horse
+            collector -> File : write
+          end
+        deactivate collector
+      end
     end
   end
-end
+deactivate Collector

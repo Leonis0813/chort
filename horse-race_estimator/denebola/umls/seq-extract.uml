@@ -1,6 +1,14 @@
 autonumber
 
-activate extract
+actor 利用者
+利用者 -> Extractor : work!
+
+Extractor -> ArgumentUtil : check_operation
+
+create Extractor
+Extractor -> Extractor : new
+
+activate Extractor
   loop 指定された期間内を日付ごとに繰り返し
     extract -> File : read
 

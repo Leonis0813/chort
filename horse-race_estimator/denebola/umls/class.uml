@@ -159,6 +159,7 @@ class Feature {
   - weight_per : Double
   - win_times : Integer
   - won : Boolean
+  + {static} create_or_update!(attribute : Hash) : Feature
   - set_default_value() : void
 }
 
