@@ -4,45 +4,47 @@ actor 利用者
 利用者 -> Collector : work!
 
 activate Collector
-  create collector
-  Collector -> collector : new
-  Collector -> collector : remove_empty_files
+  Collector -> Collector : new
+
+  activate Collector
+    Collector -> Collector : remove_empty_files
+  deactivate Collector
 
   loop 指定された期間内を日付ごとに繰り返し
-    Collector -> collector : fetch_race_ids
+    Collector -> Collector : fetch_race_ids
 
-    activate collector
+    activate Collector
       alt レースIDファイルが存在する
-        collector -> File : read
+        Collector -> File : read
       else
-        collector -> NetkeibaClient : http_get_race_ids
-        collector -> File : write
+        Collector -> NetkeibaClient : http_get_race_ids
+        Collector -> File : write
       end
-    deactivate collector
+    deactivate Collector
 
     loop レースIDごとに繰り返し
-      Collector -> collector : fetch_race
+      Collector -> Collector : fetch_race
 
-      activate collector
+      activate Collector
         alt レース情報ファイルが存在する
-          collector -> File : read
+          Collector -> File : read
         else
-          collector -> NetkeibaClient : http_get_race
-          collector -> File : write
+          Collector -> NetkeibaClient : http_get_race
+          Collector -> File : write
         end
-      deactivate collector
+      deactivate Collector
 
       Collector -> "Nokogiri::HTML" : parse
 
       loop レースのエントリーごとに繰り返し
-        Collector -> collector : fetch_horse
+        Collector -> Collector : fetch_horse
 
-        activate collector
+        activate Collector
           alt 競走馬情報ファイルが存在しない
             collector -> NetkeibaClient : http_get_horse
             collector -> File : write
           end
-        deactivate collector
+        deactivate Collector
       end
     end
   end
