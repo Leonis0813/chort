@@ -1,59 +1,75 @@
 autonumber
 
-activate extract
+actor 利用者
+利用者 -> Extractor : work!
+
+activate Extractor
+  Extractor -> ArgumentUtil : check_operation
+  Extractor -> Extractor : new
+
   loop 指定された期間内を日付ごとに繰り返し
-    extract -> File : read
+    Extractor -> Extractor : fetch_race_ids
+
+    activate Extractor
+      alt ファイルが存在する
+        Extractor -> File : read
+      end
+    deactivate Extractor
 
     loop レースIDごとに繰り返し
-      extract -> File : read
-      extract -> "Nokogiri::HTML" : parse
-      extract -> extract : update_race_info
+      Extractor -> Extractor : fetch_race
 
-      activate extract
-        extract -> "extract/race" : extract_race
-        extract -> Race : create_or_update!
-      deactivate extract
+      activate Extractor
+        alt ファイルが存在する
+          Extractor -> File : read
+        end
+      deactivate Extractor
+
+      Extractor -> "Nokogiri::HTML" : parse
+      Extractor -> Extractor : update_race_info
+
+      activate Extractor
+        Extractor -> "extract/race" : extract_race
+        Extractor -> Race : create_or_update!
+      deactivate Extractor
 
       loop エントリーごとに繰り返し
-        extract -> "extract/entry" : extract_entry
-        extract -> extract : update_entry_info
+        Extractor -> Extractor : update_entry_info
 
-        activate extract
-          extract -> Entry : create_or_update!
-        deactivate extract
+        activate Extractor
+          Extractor -> "extract/entry" : extract_entry
+          Extractor -> Entry : create_or_update!
+          Extractor -> Race : find_by
+          Extractor -> Extractor : update_jockey_info
+          Extractor -> Jockey : create_or_update!
 
-        extract -> extract : update_jockey_info
+          alt エントリー情報と騎手情報の登録/更新に成功した
+            Extractor -> Jockey : results
+            activate Jockey
+              Jockey -> Entry : <<
+            deactivate Jockey
+          end
 
-        activate extract
-          extract -> Jockey : create_or_update!
-        deactivate extract
+          Extractor -> Extractor : update_horse_info
 
-        alt エントリー情報と騎手情報の登録/更新に成功した
-          extract -> Jockey : results
-          activate Jockey
-            Jockey -> Entry : <<
-          deactivate Jockey
-        end
+          alt ファイルが存在する
+            Extractor -> File : read
+            Extractor -> "Nokogiri::HTML" : parse
+            Extractor -> "extract/horse" : extract_horse
+            Extractor -> Horse : create_or_update!
+          end
 
-        extract -> extract : update_horse_info
-
-        activate extract
-          extract -> File : read
-          extract -> "Nokogiri::HTML" : parse
-          extract -> "extract/horse" : extract_horse
-          extract -> Horse : create_or_update!
-        deactivate extract
-
-        alt エントリー情報と競走馬情報の登録/更新に成功した
-          extract -> Horse : results
-          activate Horse
-            Horse -> Entry : <<
-          deactivate Horse
-        end
+          alt エントリー情報と競走馬情報の登録/更新に成功した
+            Extractor -> Horse : results
+            activate Horse
+              Horse -> Entry : <<
+            deactivate Horse
+          end
+        deactivate Extractor
       end
 
-      extract -> "extract/payoff" : extract_payoff
-      extract -> Race : create_or_update_payoff
+      Extractor -> "extract/payoff" : extract_payoff
+      Extractor -> Race : create_or_update_payoff
     end
   end
-deactivate extract
+deactivate Extractor

@@ -1,3 +1,34 @@
+class Collector {
+  + {static} work!()
+  + initialize(logger : Logger)
+  + fetch_race_ids(date : Date) : Array<String>
+  + fetch_race(race_id : String) : String
+  + fetch_horse(horse_id : String) : String
+  + remove_empty_files() : void
+}
+
+class Extractor {
+  + {static} work!()
+  + initialize(logger : Logger)
+  + fetch_race_ids(date : Date)
+  + fetch_race(race_id : String) : String
+  + fetch_horse(horse_id : String) : String
+  + update_race_info(html : String, race_id : String) : Race
+  + update_entry_info(html : String, race_id : String) : void
+  + update_jockey_info(jockey_id : String, race_id : String) : Jockey
+  + update_horse_info(horse_id : String) : Horse
+  + handle_active_record_error(log_attribute : Hash
+}
+
+class Aggregator {
+  + {static} work!()
+  + initialize(logger : Logger)
+  + create_feature(entry : Entry) : void
+  - base_log_attribute() : Hash
+  - create_feature_attribute(entry : Entry) : Hash
+  - extra_attribute(entry : Entry) : Hash
+}
+
 class ApplicationRecord {
   + {static} operation
   + {static} create_or_update!(record : Object, attribute : Hash) : Object
@@ -159,9 +190,43 @@ class Feature {
   - weight_per : Double
   - win_times : Integer
   - won : Boolean
+  + {static} create_or_update!(attribute : Hash) : Feature
   - set_default_value() : void
 }
 
+class ArgumentUtil <<module>> {
+  + {static} logger
+  + {static} from(default : Date) : Date
+  + {static} to(default : Date) : Date
+  + {static} operation(default : String) : String
+  + {static} check_operation(operation : String) : void
+  + {static} included(klass : Class) : void
+}
+
+class DenebolaLogger {
+  + initialize(file_path : String)
+}
+
+class NetkeibaClient {
+  + initialize(logger : Logger)
+  + http_get_race_ids(date : Date) : Array<String>
+  + http_get_race(race_id : String) : String
+  + http_get_horse(horse_id : String) : String
+}
+
+Collector "1" -- "1" DenebolaLogger
+Collector "1" -- "1" NetkeibaClient
+Collector ..> ArgumentUtil : <<include>>
+Extractor "1" -- "1" DenebolaLogger
+Extractor --> Race
+Extractor --> Entry
+Extractor --> Horse
+Extractor --> Jockey
+Extractor ..> ArgumentUtil : <<include>>
+Aggregator "1" -- "1" DenebolaLogger
+Aggregator --> Entry
+Aggregator --> Feature
+Aggregator ..> ArgumentUtil : <<include>>
 ApplicationRecord <|-- Race
 ApplicationRecord <|-- Entry
 ApplicationRecord <|-- Horse
@@ -186,7 +251,3 @@ Race "1" -- "1" Trio
 Race "1" -- "1" Trifecta
 Entry "0 .. *" -- "1" Horse
 Entry "0 .. *" -- "1" Jockey
-Race -- Feature
-Entry -- Feature
-Horse -- Feature
-Jockey -- Feature

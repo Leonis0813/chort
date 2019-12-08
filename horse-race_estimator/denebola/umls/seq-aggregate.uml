@@ -1,25 +1,23 @@
 autonumber
 
-aggregate -> Entry : where
+actor 利用者
+利用者 -> Aggregator : work!
 
-loop 取得したエントリーだけ繰り返す
-  aggregate -> Feature : find_by
+activate Aggregator
+  Aggregator -> ArgumentUtil : check_operation
+  Aggregator -> Aggregator : new
+  Aggregator -> Entry : where
 
-  alt 素性が存在する
-    opt operation == 'update' or 'upsert'
-      aggregate -> aggregate : create_feature
+  loop 取得したエントリーだけ繰り返す
+    Aggregator -> Aggregator : create_feature
 
-      opt 素性の生成に成功
-        aggregate -> Feature : update!
+    activate Aggregator
+      Aggregator -> Aggregator : create_feature_attribute
+      Aggregator -> Aggregator : extra_attribute
+
+      alt 素性の生成に成功
+        Aggregator -> Feature : create_or_update!
       end
-    end
-  else
-    opt operation == 'create' or 'upsert'
-      aggregate -> aggregate : create_feature
-
-      opt 素性の生成に成功
-        aggregate -> Feature : create!
-      end
-    end
+    deactivate Aggregator
   end
-end
+deactivate Aggregator
