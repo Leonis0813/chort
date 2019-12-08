@@ -194,7 +194,7 @@ class Feature {
   - set_default_value() : void
 }
 
-class ArgumentUtil {
+class ArgumentUtil <<module>> {
   + {static} logger
   + {static} from(default : Date) : Date
   + {static} to(default : Date) : Date
@@ -224,10 +224,7 @@ Extractor --> Horse
 Extractor --> Jockey
 Extractor ..> ArgumentUtil : <<include>>
 Aggregator "1" -- "1" DenebolaLogger
-Aggregator --> Race
 Aggregator --> Entry
-Aggregator --> Horse
-Aggregator --> Jockey
 Aggregator --> Feature
 Aggregator ..> ArgumentUtil : <<include>>
 ApplicationRecord <|-- Race
