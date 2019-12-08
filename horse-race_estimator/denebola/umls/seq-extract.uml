@@ -31,17 +31,40 @@ activate Extractor
       Extractor -> extractor : update_race_info
 
       activate extractor
-        extract -> "extract/race" : extract_race
-        extract -> Race : create_or_update!
+        extractor -> "extract/race" : extract_race
+        extractor -> Race : create_or_update!
+
+        activate Race
+          Race -> Race : find_by
+          create race
+          Race -> race : new
+
+          autonumber stop
+          extractor <-- Race : race
+        deactivate Race
+
+        Extractor <-- extractor : race
       deactivate extractor
 
+      autonumber resume
       loop エントリーごとに繰り返し
         Extractor -> extractor : update_entry_info
 
         activate extractor
           extractor -> "extract/entry" : extract_entry
           extractor -> Entry : create_or_update!
+
+          activate Entry
+            Entry -> Entry : find_by
+            create entry
+            Entry -> entry : new
+
+            autonumber stop
+            extractor <-- Entry : entry
+          deactivate Entry
+
           extractor -> Race : find_by
+
           extractor -> extractor : update_jockey_info
           extractor -> Jockey : create_or_update!
 
