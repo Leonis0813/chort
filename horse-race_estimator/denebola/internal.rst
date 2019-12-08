@@ -16,6 +16,18 @@
 
 .. uml:: umls/class.uml
 
+- Collector
+
+  - 収集処理を実行するクラス
+
+- Extractor
+
+  - 抽出処理を実行するクラス
+
+- Aggregator
+
+  - 集約処理を実行するクラス
+
 - ApplicationRecord
 
   - 全てのクラスの共通処理を集めた抽象クラス
@@ -71,6 +83,18 @@
 - Feature
 
   - :ref:`den-ext-res-feature` を表すクラス
+
+- ArgumentUtil
+
+  - 引数で受け取ったパラメーターを取得するクラス
+
+- DenebolaLogger
+
+  - ロガークラス
+
+- NetkeibaClient
+
+  - 競馬情報をサーバーから取得するクラス
 
 .. _den-int-sequence:
 
