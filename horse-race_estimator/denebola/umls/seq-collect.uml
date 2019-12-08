@@ -41,8 +41,8 @@ activate Collector
 
         activate Collector
           alt 競走馬情報ファイルが存在しない
-            collector -> NetkeibaClient : http_get_horse
-            collector -> File : write
+            Collector -> NetkeibaClient : http_get_horse
+            Collector -> File : write
           end
         deactivate Collector
       end

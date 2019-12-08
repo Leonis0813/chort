@@ -1,5 +1,5 @@
 class Collector {
-  + {static} work!
+  + {static} work!()
   + initialize(logger : Logger)
   + fetch_race_ids(date : Date) : Array<String>
   + fetch_race(race_id : String) : String
@@ -8,7 +8,7 @@ class Collector {
 }
 
 class Extractor {
-  + {static} work!
+  + {static} work!()
   + initialize(logger : Logger)
   + fetch_race_ids(date : Date)
   + fetch_race(race_id : String) : String
@@ -21,7 +21,7 @@ class Extractor {
 }
 
 class Aggregator {
-  + {static} work!
+  + {static} work!()
   + initialize(logger : Logger)
   + create_feature(entry : Entry) : void
   - base_log_attribute() : Hash
