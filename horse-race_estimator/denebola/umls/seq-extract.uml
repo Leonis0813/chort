@@ -5,7 +5,7 @@ actor 利用者
 
 activate Extractor
   Extractor -> ArgumentUtil : check_operation
-  Extractor -> extractor : new
+  Extractor -> Extractor : new
 
   loop 指定された期間内を日付ごとに繰り返し
     Extractor -> Extractor : fetch_race_ids
@@ -31,7 +31,7 @@ activate Extractor
       activate Extractor
         Extractor -> "extract/race" : extract_race
         Extractor -> Race : create_or_update!
-      deactivate extractor
+      deactivate Extractor
 
       loop エントリーごとに繰り返し
         Extractor -> Extractor : update_entry_info
