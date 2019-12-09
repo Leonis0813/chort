@@ -1,3 +1,6 @@
+# 2019/12/09
+- [Regulus] update version to 4.9.2
+
 # 2019/12/08
 - [Denebola] update version to 2.8.2
 
