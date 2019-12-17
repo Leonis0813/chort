@@ -30,9 +30,15 @@ alt URL指定
   PredictionJob -> YAML : dump
 end
 
-loop レースのエントリーの数だけ繰り返す
-  PredictionJob -> "Prediction::Result" : create!
-end
+alt モデルのエントリー数と等しい
+  PredictionJob -> ApplicationJob : execute_script
 
-PredictionJob -> Prediction : update
+  loop レースのエントリーの数だけ繰り返す
+    PredictionJob -> "Prediction::Result" : create!
+  end
+
+  PredictionJob -> Prediction : update!
+else
+  PredictionJob -> Prediction : update!
+end
 deactivate PredictionJob

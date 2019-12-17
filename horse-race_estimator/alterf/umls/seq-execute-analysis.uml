@@ -21,7 +21,8 @@ deactivate AnalysisView
 
 autonumber resume
 AnalysisJob -> Analysis : update
-AnalysisJob -> AnalysisMailer : finished
+AnalysisJob -> YAML : dump
+AnalysisJob -> AnalysisMailer : completed
 deactivate AnalysisJob
 
 activate AnalysisMailer

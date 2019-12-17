@@ -7,14 +7,23 @@ activate EvaluationView
   EvaluationView -> EvaluationsController : execute
 
   activate EvaluationsController
-    create Evaluation
-    EvaluationsController -> Evaluation : new
-    EvaluationsController -> Evaluation : save
-    EvaluationsController ->> EvaluationJob : perform_later
-    activate EvaluationJob
+    EvaluationController -> EvaluationController : check_invalid_param
 
-    autonumber stop
-    EvaluationView <-- EvaluationsController
+    opt 不正なパラメーターがない
+      create Evaluation
+      EvaluationsController -> Evaluation : new
+      EvaluationsController -> Evaluation : save
+
+      opt ファイル or テキストを選択した場合
+        EvaluationController -> File : puts
+      end
+
+      EvaluationsController ->> EvaluationJob : perform_later
+      activate EvaluationJob
+
+      autonumber stop
+      EvaluationView <-- EvaluationsController
+    end
   deactivate EvaluationsController
 
   利用者 <-- EvaluationView
@@ -27,6 +36,8 @@ EvaluationJob -> Evaluation : fetch_data!
 activate Evaluation
   alt Top20 を選択
     Evaluation -> NetkeibaClient : http_get_race_top
+  else ランダムを選択
+    Evaluation -> "Denebola::Race" : where
   else
     Evaluation -> File : read
   end
