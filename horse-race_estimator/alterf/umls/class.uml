@@ -19,7 +19,7 @@ class PredictionsController {
 
 class EvaluationsController {
   + manage(page : String) : Object
-  + execute(model : File) : Object
+  + execute(model : File, data_source : String, data : Object) : Object
   + show(evaluation_id : String) : Object
   - check_invalid_param() : void
   - race_ids() : Array<String>
@@ -44,6 +44,7 @@ class AnalysisMailer {
 }
 
 class Analysis {
+  - analysis_id : String
   - num_data : Integer
   - num_tree : Integer
   - num_feature : Integer
