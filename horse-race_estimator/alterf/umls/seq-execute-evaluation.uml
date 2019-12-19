@@ -56,9 +56,12 @@ loop 評価データごとに繰り返し
   deactivate FeatureUtil
 
   EvaluationJob -> YAML : dump
+  EvaluationJob -> ApplicationJob : execute_script
   EvaluationJob -> "Evaluation::Datum" : import_prediction_results
 
   activate "Evaluation::Datum"
+    "Evaluation::Datum" -> YAML : load_file
+
     loop レースのエントリーの数だけ繰り返す
       "Evaluation::Datum" -> "Prediction::Result" : create!
     end

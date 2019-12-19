@@ -20,6 +20,7 @@ activate AnalysisView
 deactivate AnalysisView
 
 autonumber resume
+AnalysisJob -> ApplicationJob : execute_script
 AnalysisJob -> Analysis : update
 AnalysisJob -> YAML : dump
 AnalysisJob -> AnalysisMailer : completed

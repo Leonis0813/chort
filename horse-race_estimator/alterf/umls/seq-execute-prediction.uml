@@ -7,8 +7,11 @@ activate PredictionView
   PredictionView -> PredictionsController : execute
 
   activate PredictionsController
+    PredictionsController -> PredictionsController : check_invalid_file_params
+
     create Prediction
     PredictionsController -> Prediction : new
+    PredictionsController -> PredictionsController : save_files
     PredictionsController ->> PredictionJob : perform_later
     activate PredictionJob
 
@@ -30,7 +33,7 @@ alt URL指定
   PredictionJob -> YAML : dump
 end
 
-alt モデルのエントリー数と等しい
+opt (エントリー数不定モデル) or (エントリー数固定モデル and モデルのエントリー数と等しい)
   PredictionJob -> ApplicationJob : execute_script
 
   loop レースのエントリーの数だけ繰り返す
@@ -38,7 +41,6 @@ alt モデルのエントリー数と等しい
   end
 
   PredictionJob -> Prediction : update!
-else
-  PredictionJob -> Prediction : update!
 end
+
 deactivate PredictionJob
