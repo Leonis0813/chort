@@ -1,35 +1,23 @@
 autonumber
 
-aggregate -> Entry : pluck
+actor 利用者
+利用者 -> Aggregator : work!
 
-autonumber stop
-aggregate <-- Entry
+activate Aggregator
+  Aggregator -> ArgumentUtil : check_operation
+  Aggregator -> Aggregator : new
+  Aggregator -> Entry : where
 
-autonumber resume
-aggregate -> Feature : pluck
+  loop 取得したエントリーだけ繰り返す
+    Aggregator -> Aggregator : create_feature
 
-autonumber stop
-aggregate <-- Feature
+    activate Aggregator
+      Aggregator -> Aggregator : create_feature_attribute
+      Aggregator -> Aggregator : extra_attribute
 
-loop
-  autonumber resume
-  aggregate -> Race : find
-
-  autonumber stop
-  aggregate <-- Race
-
-  autonumber resume
-  aggregate -> Entry : find
-
-  autonumber stop
-  aggregate <-- Entry
-
-  autonumber resume
-  aggregate -> Horse : find
-
-  autonumber stop
-  aggregate <-- Horse
-
-  autonumber resume
-  aggregate -> Feature : create!
-end
+      alt 素性の生成に成功
+        Aggregator -> Feature : create_or_update!
+      end
+    deactivate Aggregator
+  end
+deactivate Aggregator

@@ -1,136 +1,75 @@
 autonumber
 
-loop 指定された期間内を日付ごとに繰り返し
-  extract -> File : read
+actor 利用者
+利用者 -> Extractor : work!
 
-  autonumber stop
-  extract <-- File
+activate Extractor
+  Extractor -> ArgumentUtil : check_operation
+  Extractor -> Extractor : new
 
-  loop レースIDごとに繰り返し
-    autonumber resume
-    extract -> File : read
+  loop 指定された期間内を日付ごとに繰り返し
+    Extractor -> Extractor : fetch_race_ids
 
-    autonumber stop
-    extract <-- File
+    activate Extractor
+      alt ファイルが存在する
+        Extractor -> File : read
+      end
+    deactivate Extractor
 
-    autonumber resume
-    extract -> "Nokogiri::HTML" : parse
+    loop レースIDごとに繰り返し
+      Extractor -> Extractor : fetch_race
 
-    autonumber stop
-    extract <-- "Nokogiri::HTML"
+      activate Extractor
+        alt ファイルが存在する
+          Extractor -> File : read
+        end
+      deactivate Extractor
 
-    autonumber resume
-    extract -> "extract/race" : extract_race
+      Extractor -> "Nokogiri::HTML" : parse
+      Extractor -> Extractor : update_race_info
 
-    autonumber stop
-    extract <-- "extract/race"
+      activate Extractor
+        Extractor -> "extract/race" : extract_race
+        Extractor -> Race : create_or_update!
+      deactivate Extractor
 
-    autonumber resume
-    extract -> Race : find_by
+      loop エントリーごとに繰り返し
+        Extractor -> Extractor : update_entry_info
 
-    autonumber stop
-    extract <-- Race
+        activate Extractor
+          Extractor -> "extract/entry" : extract_entry
+          Extractor -> Entry : create_or_update!
+          Extractor -> Race : find_by
+          Extractor -> Extractor : update_jockey_info
+          Extractor -> Jockey : create_or_update!
 
-    alt 抽出したレース情報が存在しない
-      autonumber resume
-      extract -> Race :create!
+          alt エントリー情報と騎手情報の登録/更新に成功した
+            Extractor -> Jockey : results
+            activate Jockey
+              Jockey -> Entry : <<
+            deactivate Jockey
+          end
 
-      autonumber stop
-      extract <-- Race
+          Extractor -> Extractor : update_horse_info
+
+          alt ファイルが存在する
+            Extractor -> File : read
+            Extractor -> "Nokogiri::HTML" : parse
+            Extractor -> "extract/horse" : extract_horse
+            Extractor -> Horse : create_or_update!
+          end
+
+          alt エントリー情報と競走馬情報の登録/更新に成功した
+            Extractor -> Horse : results
+            activate Horse
+              Horse -> Entry : <<
+            deactivate Horse
+          end
+        deactivate Extractor
+      end
+
+      Extractor -> "extract/payoff" : extract_payoff
+      Extractor -> Race : create_or_update_payoff
     end
-
-    loop エントリーごとに繰り返し
-      autonumber resume
-      extract -> "extract/entry" : extract_entry
-
-      autonumber stop
-      extract -> "extract/entry"
-
-      autonumber resume
-      extract -> Entry : find_by
-
-      autonumber stop
-      extract <-- Entry
-
-      alt 抽出したエントリー情報が存在しない
-        autonumber resume
-        extract -> Entry : create!
-
-        autonumber stop
-        extract <-- Entry
-      end
-
-      autonumber resume
-      extract -> Jockey : find_by
-
-      autonumber stop
-      extract <-- Jockey
-
-      alt 抽出した騎手情報が存在しない
-        autonumber resume
-        extract -> Jockey : create!
-
-        autonumber stop
-        extract <-- Jockey
-      end
-
-      autonumber resume
-      extract -> Jockey : results
-      Jockey -> Entry : <<
-
-      autonumber stop
-      extract <-- Entry
-
-      autonumber resume
-      extract -> File : read
-
-      autonumber stop
-      extract <-- File
-
-      autonumber resume
-      extract -> "Nokogiri::HTML" : parse
-
-      autonumber stop
-      extract <-- "Nokogiri::HTML"
-
-      autonumber resume
-      extract -> "extract/horse" : extract_horse
-
-      autonumber stop
-      extract <-- "extract/horse"
-
-      autonumber resume
-      extract -> Horse : find_by
-
-      autonumber stop
-      extract <-- Horse
-
-      alt 抽出した競走馬情報が存在しない
-        autonumber resume
-        extract -> Horse : create!
-
-        autonumber stop
-        extract <-- Horse
-      end
-
-      autonumber resume
-      extract -> Horse : results
-      Horse -> Entry : <<
-
-      autonumber stop
-      extract <-- Entry
-    end
-
-    autonumber resume
-    extract -> "extract/payoff" : extract_payoff
-
-    autonumber stop
-    extract <-- "extract/payoff"
-
-    autonumber resume
-    extract -> Race : create_payoff
-
-    autonumber stop
-    extract <-- Race
   end
-end
+deactivate Extractor

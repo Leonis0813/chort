@@ -4,23 +4,23 @@ class EvaluationView <<Boundary>>
 class EvaluationResultView <<Boundary>>
 
 class AnalysesController {
-  + manage(page : String)
-  + execute(num_data : Integer, num_tree : Integer, num_feature : Integer)
+  + manage(page : String) : Object
+  + execute(num_data : Integer, num_tree : Integer, num_feature : Integer, num_entry : Integer) : Object
   - analysis_param_keys() : Array<String>
 }
 
 class PredictionsController {
-  + manage(page : String)
-  + execute(model : File, test_data: File)
+  + manage(page : String) : Object
+  + execute(model : File, test_data: File) : Object
   - prediction_param_keys() : Array<String>
   - check_invalid_file_params(attribute : Hash<String, Object>) : void
   - save_files(prediction_id : Integer) : void
 }
 
 class EvaluationsController {
-  + manage(page : String) : void
-  + execute(model : File) : void
-  + show(evaluation_id : String) : void
+  + manage(page : String) : Object
+  + execute(model : File) : Object
+  + show(evaluation_id : String) : Object
   - check_invalid_param() : void
   - race_ids() : Array<String>
   - evaluation_param() : Hash<String, Object>
@@ -47,6 +47,7 @@ class Analysis {
   - num_data : Integer
   - num_tree : Integer
   - num_feature : Integer
+  - num_entry : Integer
   - state : String
 }
 
@@ -70,12 +71,13 @@ class Evaluation {
   - precision : Double
   - recall : Double
   - f_measure : Double
-  - data : Array<EvaluationData>
+  - data : Array<"Evaluation::Datum">
   + fetch_data() : Array<String>
   + calculate_precision!() : void
 }
 
-class EvaluationData {
+class "Evaluation::Datum" {
+  - race_id : String
   - race_name : String
   - race_url : String
   - prediction_results : Array<PredictionResult>
@@ -85,7 +87,6 @@ class EvaluationData {
 
 class NetkeibaClient {
   + http_get_race_top() : Array<String>
-  + http_get_race_name(race_id : String) : String
 }
 
 class FeatureUtil {
@@ -115,7 +116,7 @@ EvaluationJob --> NetkeibaClient
 EvaluationJob --> FeatureUtil
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob "1" -- "1" Evaluation
-Evaluation "1" -- "1 .. *" EvaluationData
-EvaluationData "1" -- "*" PredictionResult
+Evaluation "1" -- "1 .. *" "Evaluation::Datum"
+"Evaluation::Datum" "1" -- "*" PredictionResult
 
 EvaluationResultView -- EvaluationsController

@@ -2,17 +2,18 @@ class AnalysisView <<Boundary>>
 class PredictionView <<Boundary>>
 
 class AnalysesController {
-  + manage(page : Integer)
-  + execute(from : String, to : String, pair: String, batch_size : Integer)
+  + manage(page : Integer) : Object
+  + execute(from : String, to : String, pair: String, batch_size : Integer) : Object
+  + upload_result(model : File) : Object
+  - execute_params() : Hash
 }
 
 class PredictionsController {
-  + manage(page : Integer)
-  + execute(model : File)
-  + settings(status : String, model : File)
-  - output_model(dir : String, model : File)
-  - prediction_params()
-  - valid_model?(model : File)
+  + manage(page : Integer) : Object
+  + execute(model : File) : Object
+  + settings(auto : Hash) : Object
+  - execute_params() : Hash
+  - configs() : Array
 }
 
 class Api::PredictionsController {

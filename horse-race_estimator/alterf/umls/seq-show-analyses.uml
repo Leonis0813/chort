@@ -4,8 +4,3 @@ actor 利用者
 利用者 -> AnalysisView : 分析画面表示
 AnalysisView -> AnalysesController : manage
 AnalysesController -> Analysis : all
-
-autonumber stop
-AnalysesController <-- Analysis
-AnalysisView <-- AnalysesController
-利用者 <-- AnalysisView

@@ -234,13 +234,13 @@ categories テーブル
 カテゴリ情報を登録するcategoriesテーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
+   :header: カラム,型,内容,NOT NULL
 
-   id,INTEGER,内部ID,○,○
-   name,STRING,カテゴリの名前,,○
-   description,STRING,カテゴリの説明,,
-   created_at,DATETIME,カテゴリ情報の作成日時,,○
-   updated_at,DATETIME,カテゴリ情報の更新日時,,○
+   id,INTEGER,内部ID,○
+   name,STRING,カテゴリの名前,○
+   description,STRING,カテゴリの説明,
+   created_at,DATETIME,カテゴリ情報の作成日時,○
+   updated_at,DATETIME,カテゴリ情報の更新日時,○
 
 .. _alg-int-scm-category-dictionaries:
 
@@ -250,13 +250,13 @@ category_dictionaries テーブル
 カテゴリ情報と辞書情報を紐づける中間テーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
+   :header: カラム,型,内容,NOT NULL
 
-   id,INTEGER,内部ID,○,○
-   category_id,INTEGER,categoriesテーブルの内部ID,,○
-   dictionary_id,INTEGER,dictionariesテーブルの内部ID,,○
-   created_at,DATETIME,レコードの作成日時,,○
-   updated_at,DATETIME,レコードの更新日時,,○
+   id,INTEGER,内部ID,○
+   category_id,INTEGER,categoriesテーブルの内部ID,○
+   dictionary_id,INTEGER,dictionariesテーブルの内部ID,○
+   created_at,DATETIME,レコードの作成日時,○
+   updated_at,DATETIME,レコードの更新日時,○
 
 .. _alg-int-scm-category-payments:
 
@@ -266,13 +266,13 @@ category_payments テーブル
 カテゴリ情報と収支情報を紐づける中間テーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
+   :header: カラム,型,内容,NOT NULL
 
-   id,INTEGER,内部ID,○,○
-   category_id,INTEGER,categoriesテーブルの内部ID,,○
-   payment_id,INTEGER,paymentsテーブルの内部ID,,○
-   created_at,DATETIME,レコードの作成日時,,○
-   updated_at,DATETIME,レコードの更新日時,,○
+   id,INTEGER,内部ID,○
+   category_id,INTEGER,categoriesテーブルの内部ID,○
+   payment_id,INTEGER,paymentsテーブルの内部ID,○
+   created_at,DATETIME,レコードの作成日時,○
+   updated_at,DATETIME,レコードの更新日時,○
 
 .. _alg-int-scm-dictionaries:
 
@@ -282,13 +282,13 @@ dictionaries テーブル
 辞書情報を登録するcategoriesテーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
+   :header: カラム,型,内容,NOT NULL
 
-   id,INTEGER,内部ID,○,○
-   phrase,STRING,フレーズ,,○
-   condition,STRING,条件,,○
-   created_at,DATETIME,辞書情報の登録日時,,○
-   updated_at,DATETIME,辞書情報の更新日時,,○
+   id,INTEGER,内部ID,○
+   phrase,STRING,フレーズ,○
+   condition,STRING,条件,○
+   created_at,DATETIME,辞書情報の登録日時,○
+   updated_at,DATETIME,辞書情報の更新日時,○
 
 .. _alg-int-scm-payments:
 
@@ -298,12 +298,12 @@ payments テーブル
 収支情報を登録するpaymentsテーブルを定義する
 
 .. csv-table::
-   :header: カラム,型,内容,PRIMARY KEY,NOT NULL
+   :header: カラム,型,内容,NOT NULL
 
-   id,INTEGER,内部ID,○,○
-   payment_type,STRING,収支の種類,,○
-   date,DATE,収入/支出があった日,,○
-   content,STRING,収入/支出の内容,,○
-   price,INTEGER,収入/支出の金額,,○
-   created_at,DATETIME,収支情報の登録日時,,○
-   updated_at,DATETIME,収支情報の更新日時,,○
+   id,INTEGER,内部ID,○
+   payment_type,STRING,収支の種類,○
+   date,DATE,収入/支出があった日,○
+   content,STRING,収入/支出の内容,○
+   price,INTEGER,収入/支出の金額,○
+   created_at,DATETIME,収支情報の登録日時,○
+   updated_at,DATETIME,収支情報の更新日時,○

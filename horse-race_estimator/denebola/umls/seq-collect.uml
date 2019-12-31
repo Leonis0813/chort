@@ -1,72 +1,51 @@
 autonumber
 
-loop 指定された期間内を日付ごとに繰り返し
-  collect -> CollectUtil : get_race_ids
+actor 利用者
+利用者 -> Collector : work!
 
-  alt レースIDファイルが存在する
-    CollectUtil -> File : read
+activate Collector
+  Collector -> Collector : new
 
-    autonumber stop
-    CollectUtil <-- File
-  else
-    autonumber resume
-    CollectUtil -> HTTPClient : get
+  activate Collector
+    Collector -> Collector : remove_empty_files
+  deactivate Collector
 
-    autonumber stop
-    CollectUtil <-- HTTPClient
+  loop 指定された期間内を日付ごとに繰り返し
+    Collector -> Collector : fetch_race_ids
 
-    autonumber resume
-    CollectUtil -> File : write
-
-    autonumber stop
-    CollectUtil <-- File
-  end
-
-  collect <-- CollectUtil
-
-  loop レースIDごとに繰り返し
-    autonumber resume
-    collect -> CollectUtil : get_race_html
-
-    alt レース情報ファイルが存在する
-      CollectUtil -> File : read
-
-      autonumber stop
-      CollectUtil <-- File
-    else
-      autonumber resume
-      CollectUtil -> HTTPClient : get
-
-      autonumber stop
-      CollectUtil <-- HTTPClient
-
-      autonumber resume
-      CollectUtil -> File : write
-
-      autonumber stop
-      CollectUtil <-- File
-    end
-
-    collect <-- CollectUtil
-
-    loop レースのエントリーごとに繰り返し
-      autonumber resume
-      collect -> CollectUtil : get_horse_html
-
-      alt 競走馬情報ファイルが存在しない
-        CollectUtil -> HTTPClient : get
-
-        autonumber stop
-        CollectUtil <-- HTTPClient
-
-        autonumber resume
-        CollectUtil -> File : write
-
-        autonumber stop
-        CollectUtil <-- File
+    activate Collector
+      alt レースIDファイルが存在する
+        Collector -> File : read
+      else
+        Collector -> NetkeibaClient : http_get_race_ids
+        Collector -> File : write
       end
+    deactivate Collector
 
-      collect <-- CollectUtil
+    loop レースIDごとに繰り返し
+      Collector -> Collector : fetch_race
+
+      activate Collector
+        alt レース情報ファイルが存在する
+          Collector -> File : read
+        else
+          Collector -> NetkeibaClient : http_get_race
+          Collector -> File : write
+        end
+      deactivate Collector
+
+      Collector -> "Nokogiri::HTML" : parse
+
+      loop レースのエントリーごとに繰り返し
+        Collector -> Collector : fetch_horse
+
+        activate Collector
+          alt 競走馬情報ファイルが存在しない
+            Collector -> NetkeibaClient : http_get_horse
+            Collector -> File : write
+          end
+        deactivate Collector
+      end
     end
   end
-end
+deactivate Collector

@@ -1,3 +1,52 @@
+# 2019/12/09
+- [Regulus] update version to 4.9.2
+
+# 2019/12/08
+- [Denebola] update version to 2.8.2
+
+# 2019/12/01
+- [Alterf] update version to 4.10.0
+
+# 2019/11/30
+- [Alterf] update version to 4.9.0
+
+# 2019/11/29
+- [Denebola] update version to 2.8.0
+
+# 2019/11/21
+- [Alterf] update version to 4.8.0
+
+# 2019/11/19
+- [Alterf] update version to 4.7.1
+- [Denebola] update version to 2.7.0
+
+# 2019/11/04
+- [Regulus] update version to 4.9.0
+
+# 2019/11/02
+- [Algieba] update version to 4.3.1
+
+# 2019/10/21
+- [Rasalas] update version to 1.1.0
+
+# 2019/10/20
+- [Regulus] update version to 4.8.1
+
+# 2019/10/19
+- [Regulus] update version to 4.8.0
+
+# 2019/10/12
+- [Regulus] update version to 4.7.0
+
+# 2019/10/06
+- [Adhafera] update version to 3.2.0
+
+# 2019/10/05
+- [Alterf] update version to 4.7.0
+
+# 2019/10/03
+- [Regulus] update version to 4.6.0
+
 # 2019/09/29
 - [Alterf] update version to 4.6.0
 

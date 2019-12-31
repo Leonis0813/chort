@@ -4,6 +4,7 @@ class MainActivity {
   + noticeError(errorMessage : String, ids : ArrayList) : void
   + settle() : void
   + getCategories() : void
+  + getDictionaries(content : String) : void
 }
 
 class IndexActivity {
@@ -31,7 +32,8 @@ class CreateView {
   + showSettlement(settlement : String) : void
   + resetFields() : void
   + resetErrorCheckers() : void
-  + setCategories(categories : String[]) : void
+  + setCategoriesToDialog(categories : String[]) : void
+  + setCategoriesToForm(categories : String[]) : void
   + getLabel(id : int) : String
 }
 
@@ -141,13 +143,9 @@ class Payment {
   - categories : String[]
   - price : Integer
   + Payment(date : Date, content : Content, categories : String[], price : Integer, paymentType : String)
-  + setDate(date : Date) : void
   + getDate() : Date
-  + setContent(content : String) : void
   + getContent() : String
-  + setCategories(categories : String[]) : void
   + getCategories() : String[]
-  + setPrice(price : Integer) : void
   + getPrice() : Integer
 }
 
@@ -156,24 +154,25 @@ class InputChecker {
   - pricePattern : Pattern
   + InputChecker()
   + checkEmpty(inputs : String[]) : ArrayList
-  + checkDate(date : String) : boolean
-  + checkPrice(price : String) : boolean
+  + isValidDate(date : String) : boolean
+  + isValidPrice(price : String) : boolean
 }
 
 class HTTPClient {
-  - {static} host : String
   - {static} BASE_PATH : String = "/algieba/api"
   - {static} PORT : String = "80"
-  - webApiProp : Properties
   - con : HttpUrlConnection
-  - payment : JSONObject
   - response : HashMap
-  + HTTPClient(context : Context, inputs : String[])
-  + HTTPClient(context : Context, query : HashMap)
-  + HTTPClient(context : Context, keyword : String)
+  - requestBody : JSONObject
+  - baseUrl : String
+  - credential : String
   + HTTPClient(context : Context)
+  + createPayment(inputs : String[]) : void
+  + getPayments(query : HashMap) : void
+  + getCategories() : void
+  + getDictionaries(content : String) : void
+  + getSettlements() : void
   + sendRequest() : HashMap
-  - credential() : String
 }
 
 MainActivity "1" <--> "1" CreateView

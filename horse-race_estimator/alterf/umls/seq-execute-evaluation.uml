@@ -2,94 +2,58 @@ autonumber
 
 actor 利用者
 利用者 -> EvaluationView : 実行ボタン押下
-EvaluationView -> EvaluationsController : execute
 
-create Evaluation
-EvaluationsController -> Evaluation : new
-EvaluationsController -> Evaluation : save
+activate EvaluationView
+  EvaluationView -> EvaluationsController : execute
 
-autonumber stop
-EvaluationsController <-- Evaluation
+  activate EvaluationsController
+    create Evaluation
+    EvaluationsController -> Evaluation : new
+    EvaluationsController -> Evaluation : save
+    EvaluationsController ->> EvaluationJob : perform_later
+    activate EvaluationJob
 
-autonumber resume
-EvaluationsController --> EvaluationJob : perform_later
+    autonumber stop
+    EvaluationView <-- EvaluationsController
+  deactivate EvaluationsController
 
-autonumber stop
-EvaluationView <- EvaluationsController
-利用者 <- EvaluationView
+  利用者 <-- EvaluationView
+deactivate EvaluationView
 
 autonumber resume
 EvaluationJob -> Evaluation : find
+EvaluationJob -> Evaluation : fetch_data!
 
-autonumber stop
-EvaluationJob <-- Evaluation
-
-autonumber resume
-EvaluationJob -> Evaluation : fetch_data
-
-alt Top20 を選択
-  Evaluation -> NetkeibaClient : http_get_race_top
-
-  autonumber stop
-  Evaluation <-- NetkeibaClient
-else
-  autonumber resume
-  Evaluation -> File : read
-
-  autonumber stop
-  Evaluation <-- File
-end
-
-EvaluationJob <-- Evaluation
-
-loop レースIDごとに繰り返し
-  autonumber resume
-  EvaluationJob -> FeatureUtil : create_feature
-  FeatureUtil -> "Denebola::Feature" : where
-
-  autonumber stop
-  FeatureUtil <-- "Denebola::Feature"
-  EvaluationJob <-- FeatureUtil
-
-  autonumber resume
-  EvaluationJob -> NetkeibaClient : http_get_race_name
-
-  autonumber stop
-  EvaluationJob <-- NetkeibaClient
-
-  autonumber resume
-  EvaluationJob -> "Evaluation::Datum" : create!
-
-  autonumber stop
-  EvaluationJob <-- "Evaluation::Datum"
-
-  autonumber resume
-  EvaluationJob -> YAML : dump
-
-  autonumber stop
-  EvaluationJob <-- YAML
-
-  autonumber resume
-  EvaluationJob -> "Evaluation::Datum" : import_prediction_results
-
-  loop レースのエントリーの数だけ繰り返す
-    "Evaluation::Datum" -> "Prediction::Result" : create!
-
-    autonumber stop
-    "Evaluation::Datum" <-- "Prediction::Result"
+activate Evaluation
+  alt Top20 を選択
+    Evaluation -> NetkeibaClient : http_get_race_top
+  else
+    Evaluation -> File : read
   end
 
-  EvaluationJob <-- "Evaluation::Datum"
+  loop レースIDごとに繰り返し
+    Evaluation -> "Denebola::Race" : find_by
+    Evaluation -> "Evaluation::Datum" : create!
+  end
+deactivate Evaluation
+
+loop 評価データごとに繰り返し
+  EvaluationJob -> FeatureUtil : create_feature
+
+  activate FeatureUtil
+    FeatureUtil -> "Denebola::Feature" : where
+  deactivate FeatureUtil
+
+  EvaluationJob -> YAML : dump
+  EvaluationJob -> "Evaluation::Datum" : import_prediction_results
+
+  activate "Evaluation::Datum"
+    loop レースのエントリーの数だけ繰り返す
+      "Evaluation::Datum" -> "Prediction::Result" : create!
+    end
+  deactivate "Evaluation::Datum"
 end
 
-autonumber resume
 EvaluationJob -> Evaluation : calculate_precision!
-
-autonumber stop
-EvaluationJob <-- Evaluation
-
-autonumber resume
 EvaluationJob -> Evaluation : update!
-
-autonumber stop
-EvaluationJob <-- Evaluation
+deactivate EvaluationJob
