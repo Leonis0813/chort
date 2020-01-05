@@ -6,24 +6,26 @@ class EvaluationResultView <<Boundary>>
 class AnalysesController {
   + manage(page : String) : Object
   + execute(num_data : Integer, num_tree : Integer, num_feature : Integer, num_entry : Integer) : Object
-  - analysis_param_keys() : Array<String>
+  - execute_params() : Hash<String, Object>
 }
 
 class PredictionsController {
   + manage(page : String) : Object
   + execute(model : File, test_data: File) : Object
-  - prediction_param_keys() : Array<String>
-  - check_invalid_file_params(attribute : Hash<String, Object>) : void
+  - execute_params() : Hash<String, Object>
+  - check_invalid_file_params() : void
   - save_files(prediction_id : Integer) : void
 }
 
 class EvaluationsController {
   + manage(page : String) : Object
-  + execute(model : File, data_source : String, data : Object) : Object
+  + execute(model : File, data_source : String, num_data : Integer, data : Object) : Object
   + show(evaluation_id : String) : Object
   - check_invalid_param() : void
+  - user_specified_data? : Boolean
+  - num_data() : Integer
   - race_ids() : Array<String>
-  - evaluation_param() : Hash<String, Object>
+  - execute_param() : Hash<String, Object>
 }
 
 class AnalysisJob {
@@ -57,6 +59,7 @@ class Prediction {
   - test_data : String
   - results: Array<PredictionResult>
   - state : String
+  + set_analysis!() : void
   + import_results(result_file : String) : void
 }
 
@@ -68,13 +71,22 @@ class PredictionResult {
 class Evaluation {
   - evaluation_id : String
   - model : String
+  - data_source : String
+  - num_data : Integer
+  - data : Array<"Evaluation::Datum">
   - state : String
   - precision : Double
   - recall : Double
   - f_measure : Double
-  - data : Array<"Evaluation::Datum">
+  + set_analysis!() : void
   + fetch_data() : Array<String>
-  + calculate_precision!() : void
+  + calculate!() : void
+  - remote?() : Boolean
+  - set_default_num_data() : void
+  - sample_race_ids() : Array<String>
+  - true_positive() : Double
+  - false_positive() : Double
+  - false_negative() : Double
 }
 
 class "Evaluation::Datum" {
@@ -88,10 +100,28 @@ class "Evaluation::Datum" {
 
 class NetkeibaClient {
   + http_get_race_top() : Array<String>
+  + http_get_race(path : String) : Hash<String, Object>
+  + http_get_horse(path : String) : Hash<String, Object>
+  + http_get_jockey(path : String) : Hash<String, Object>
+  - send_request(path : String) : Object
+}
+
+class FeatureExtractor <<module>> {
+  + extract_race(place : Object, race_data : Object, race_date : Object) : Hash<String, Object>
+  + extract_entries(race_data : Object) : Hash<String, Object>
+  + extract_horse(table : Object) : Hash<String, Object>
+  + extract_horse_results(table : Object) : Hash<String, Object>
+  + extract_jockey_results(table : Object) : Hash<String, Object>
 }
 
 class FeatureUtil {
-  + {static} create_feature(race_id : String) : Hash<String, Object>
+  + {static} create_feature_from_netkeiba(race_path : String) : Hash<String, Object>
+  + {static} create_feature_from_denebola(race_id : String) : Hash<String, Object>
+}
+
+class ModelUtil <<module>> {
+  + unzip_model(zip_path : String, output_dir : String) : void
+  + read_analysis_id(metadata_file : String) : String
 }
 
 ブラウザ -- AnalysisView
@@ -104,20 +134,28 @@ AnalysesController --> AnalysisJob
 AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
+Analysis "1" -- "0 .. *" Prediction
+Analysis "1" -- "0 .. *" Evaluation
 
 PredictionView -- PredictionsController
 PredictionsController --> PredictionJob
 PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
+PredictionJob --> FeatureUtil
+PredictionJob ..> ModelUtil : <<include>>
 Prediction "1" -- "*" PredictionResult
+Prediction ..> ModelUtil : <<include>>
 
 EvaluationView -- EvaluationsController
 EvaluationsController --> EvaluationJob
-EvaluationJob --> NetkeibaClient
-EvaluationJob --> FeatureUtil
 EvaluationsController "1" -- "1" Evaluation
+EvaluationJob --> FeatureUtil
+EvaluationJob ..> ModelUtil : <<include>>
 EvaluationJob "1" -- "1" Evaluation
 Evaluation "1" -- "1 .. *" "Evaluation::Datum"
 "Evaluation::Datum" "1" -- "*" PredictionResult
 
 EvaluationResultView -- EvaluationsController
+
+FeatureUtil --> NetkeibaClient
+NetkeibaClient ..> FeatureExtractor : <<include>>
