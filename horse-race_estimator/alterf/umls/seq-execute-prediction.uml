@@ -12,6 +12,7 @@ activate PredictionView
 
     create Prediction
     PredictionsController -> Prediction : new
+    PredictionsController -> Prediction : save
     PredictionsController -> PredictionsController : save_files
     PredictionsController ->> PredictionJob : perform_later
     activate PredictionJob
@@ -77,7 +78,7 @@ activate Prediction
   Prediction -> YAML : load_file
 
   loop レースのエントリーの数だけ繰り返す
-    PredictionJob -> "Prediction::Result" : create!
+    Prediction -> "Prediction::Result" : create!
   end
 deactivate Prediction
 
