@@ -23,7 +23,7 @@ deactivate AnalysisView
 
 autonumber resume
 AnalysisJob -> Analysis : find
-AnalysisJob -> ApplicationJob : execute_script
+AnalysisJob -> AnalysesJob : execute_script
 AnalysisJob -> YAML : load_file
 AnalysisJob -> Analysis : update
 AnalysisJob -> YAML : dump

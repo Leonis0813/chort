@@ -7,16 +7,16 @@ activate EvaluationView
   EvaluationView -> EvaluationsController : execute
 
   activate EvaluationsController
-    EvaluationController -> EvaluationController : check_absent_param
-    EvaluationController -> EvaluationController : check_invalid_param
+    EvaluationsController -> EvaluationsController : check_absent_param
+    EvaluationsController -> EvaluationsController : check_invalid_param
 
     create Evaluation
     EvaluationsController -> Evaluation : new
     EvaluationsController -> Evaluation : save
-    EvaluationController -> File : write
+    EvaluationsController -> File : write
 
     opt ファイル or テキストを選択した場合
-      EvaluationController -> File : puts
+      EvaluationsController -> File : puts
     end
 
     EvaluationsController ->> EvaluationJob : perform_later
@@ -68,7 +68,7 @@ loop 評価データごとに繰り返し
   deactivate FeatureUtil
 
   EvaluationJob -> YAML : dump
-  EvaluationJob -> ApplicationJob : execute_script
+  EvaluationJob -> EvaluationJob : execute_script
   EvaluationJob -> "Evaluation::Datum" : import_prediction_results
 
   activate "Evaluation::Datum"

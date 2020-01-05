@@ -71,7 +71,7 @@ else
 end
 
 PredictionJob -> YAML : dump
-PredictionJob -> ApplicationJob : execute_script
+PredictionJob -> PredictionJob : execute_script
 PredictionJob -> Prediction : import_results
 
 activate Prediction
