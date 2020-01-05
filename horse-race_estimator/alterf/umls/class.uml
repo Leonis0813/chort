@@ -4,23 +4,23 @@ class EvaluationView <<Boundary>>
 class EvaluationResultView <<Boundary>>
 
 class AnalysesController {
-  + manage(page : String) : Object
-  + execute(num_data : Integer, num_tree : Integer, num_feature : Integer, num_entry : Integer) : Object
+  + manage(request : Object) : Object
+  + execute(request : Object) : Object
   - execute_params() : Hash<String, Object>
 }
 
 class PredictionsController {
-  + manage(page : String) : Object
-  + execute(model : File, test_data: File) : Object
+  + manage(request : Object) : Object
+  + execute(request : Object) : Object
   - execute_params() : Hash<String, Object>
   - check_invalid_file_params() : void
   - save_files(prediction_id : Integer) : void
 }
 
 class EvaluationsController {
-  + manage(page : String) : Object
-  + execute(model : File, data_source : String, num_data : Integer, data : Object) : Object
-  + show(evaluation_id : String) : Object
+  + manage(request : Object) : Object
+  + execute(request : Object) : Object
+  + show(request : Object) : Object
   - check_invalid_param() : void
   - user_specified_data? : Boolean
   - num_data() : Integer
@@ -79,7 +79,7 @@ class Evaluation {
   - recall : Double
   - f_measure : Double
   + set_analysis!() : void
-  + fetch_data() : Array<String>
+  + fetch_data!() : Array<String>
   + calculate!() : void
   - remote?() : Boolean
   - set_default_num_data() : void
@@ -153,6 +153,7 @@ EvaluationJob --> FeatureUtil
 EvaluationJob ..> ModelUtil : <<include>>
 EvaluationJob "1" -- "1" Evaluation
 Evaluation "1" -- "1 .. *" "Evaluation::Datum"
+Evaluation ..> ModelUtil : <<include>>
 "Evaluation::Datum" "1" -- "*" PredictionResult
 
 EvaluationResultView -- EvaluationsController

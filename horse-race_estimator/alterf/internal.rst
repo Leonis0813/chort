@@ -72,6 +72,24 @@ MVCモデルを利用する
 
     - 評価処理を管理するコントローラー
 
+- Library
+
+  - FeatureExtractor
+
+    - HTMLファイルから素性を抽出するモジュール
+
+  - FeatureUtil
+
+    - レース情報から素性を生成するクラス
+
+  - ModelUtil
+
+    - 指定されたモデルを操作するモジュール
+
+  - NetkaibaClient
+
+    - 外部サイトから情報を取得するためのHTTPクライアント
+
 .. _alt-int-sequence:
 
 シーケンス
