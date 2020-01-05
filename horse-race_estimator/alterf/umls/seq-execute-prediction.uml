@@ -7,6 +7,7 @@ activate PredictionView
   PredictionView -> PredictionsController : execute
 
   activate PredictionsController
+    PredictionsController -> PredictionsController : check_absent_params
     PredictionsController -> PredictionsController : check_invalid_file_params
 
     create Prediction
@@ -22,25 +23,63 @@ activate PredictionView
   利用者 <-- PredictionView
 deactivate PredictionView
 
+autonumber resume
+PredictionJob -> Prediction : find
+PredictionJob -> ModelUtil : unzip_model
+PredictionJob -> Prediction : set_analysis!
+
+activate Prediction
+  Prediction -> ModelUtil : read_analysis_id
+  Prediction -> Analysis : find_by
+  Prediction -> Prediction : update!
+deactivate Prediction
+
 alt URL指定
-  autonumber resume
-  PredictionJob -> NetkeibaClient : http_get_race
+  PredictionJob -> FeatureUtil : create_feature_from_netkeiba
 
-  loop レースのエントリーの数だけ繰り返す
-    PredictionJob -> NetkeibaClient : http_get_horse
-  end
+  activate FeatureUtil
+    create NetkeibaClient
+    FeatureUtil -> NetkeibaClient : new
+    FeatureUtil -> NetkeibaClient : http_get_race
 
-  PredictionJob -> YAML : dump
+    activate NetkeibaClient
+      NetkeibaClient -> NetkeibaClient : send_request
+      NetkeibaClient -> FeatureExtractor : extract_entries
+      NetkeibaClient -> FeatureExtractor : extract_race
+    deactivate NetkeibaClient
+
+    loop レースのエントリーの数だけ繰り返す
+      FeatureUtil -> NetkeibaClient : http_get_horse
+
+      activate NetkeibaClient
+        NetkeibaClient -> NetkeibaClient : send_request
+        NetkeibaClient -> FeatureExtractor : extract_horse_results
+        NetkeibaClient -> FeatureExtractor : extract_horse
+      deactivate NetkeibaClient
+
+      FeatureUtil -> NetkeibaClient : http_get_jockey
+
+      activate NetkeibaClient
+        NetkeibaClient -> NetkeibaClient : send_request
+        NetkeibaClient -> FeatureExtractor : extract_jockey_results
+      deactivate NetkeibaClient
+    end
+  deactivate FeatureUtil
+else
+  PredictionJob -> YAML : load_file
 end
 
-opt (エントリー数不定モデル) or (エントリー数固定モデル and モデルのエントリー数と等しい)
-  PredictionJob -> ApplicationJob : execute_script
+PredictionJob -> YAML : dump
+PredictionJob -> ApplicationJob : execute_script
+PredictionJob -> Prediction : import_results
+
+activate Prediction
+  Prediction -> YAML : load_file
 
   loop レースのエントリーの数だけ繰り返す
     PredictionJob -> "Prediction::Result" : create!
   end
+deactivate Prediction
 
-  PredictionJob -> Prediction : update!
-end
-
+PredictionJob -> Prediction : update!
 deactivate PredictionJob
