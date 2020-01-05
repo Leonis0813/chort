@@ -22,7 +22,7 @@ class EvaluationsController {
   + execute(request : Object) : Object
   + show(request : Object) : Object
   - check_invalid_param() : void
-  - user_specified_data? : Boolean
+  - user_specified_data?() : Boolean
   - num_data() : Integer
   - race_ids() : Array<String>
   - execute_param() : Hash<String, Object>
