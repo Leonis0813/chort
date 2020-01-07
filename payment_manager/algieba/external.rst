@@ -17,6 +17,7 @@
 - :ref:`alg-ext-res-payment`
 - :ref:`alg-ext-res-category`
 - :ref:`alg-ext-res-dictionary`
+- :ref:`alg-ext-res-tag`
 
 .. _alg-ext-res-payment:
 
@@ -78,6 +79,24 @@
      - equal: 完全一致するフレーズにカテゴリを設定する
      - include: 部分一致するフレーズにカテゴリを設定する"
    categories,array[:ref:`alg-ext-res-category` ], :ref:`alg-ext-res-category` を参照,
+
+.. _alg-ext-res-tag:
+
+タグリソース
+^^^^^^^^^^^^
+
+:ref:`alg-ext-res-payment` に設定するタグを表す．複数のタグを設定することができる
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 10,20,30,40
+
+   tag_id,string,タグを一意に示すID,"- 32文字の英数字
+   - 以下の文字からなる
+
+     - 0〜9
+     - a〜f"
+   name,string,タグ名,- 最大10文字
 
 .. _alg-ext-ui:
 
