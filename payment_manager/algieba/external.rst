@@ -39,7 +39,8 @@
      - expense: 支出"
    date,string,所持金の増減があった日付,- yyyy-mm-dd の形式
    content,string,所持金の増減があった理由など,- 任意の文字列
-   categories,array[:ref:`alg-ext-res-category` ], :ref:`alg-ext-res-category` を参照,
+   categories,array[ :ref:`alg-ext-res-category` ], :ref:`alg-ext-res-category` を参照,
+   tags,array[ :ref:`alg-ext-res-tag` ], :ref:`alg-ext-res-tag` を参照,- 空配列の設定可
    price,integer,所持金の増減量,- 1以上
 
 .. _alg-ext-res-category:
@@ -95,7 +96,9 @@
    - 以下の文字からなる
 
      - 0〜9
-     - a〜f"
+     - a〜f
+
+   - システムによって自動設定される"
    name,string,タグ名,"- 最大10文字
    - カンマは利用不可"
 

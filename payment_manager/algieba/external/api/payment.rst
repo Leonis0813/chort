@@ -37,6 +37,11 @@
          - :ref:`alg-ext-res-payment` のcategories参照
          - :ref:`alg-ext-res-category` の名前の配列
 
+       - tags (array[string])
+
+         - :ref:`alg-ext-res-payment` のtags参照
+         - :ref:`alg-ext-res-tag` のタグ名の配列
+
        - price
 
          - :ref:`alg-ext-res-payment` のprice参照
@@ -69,6 +74,9 @@
         "categories": [
           "給料"
         ],
+        "tags": [
+          "給料"
+        ],
         "price": 200000
       }
 
@@ -89,6 +97,12 @@
             "id": 1,
             "name": "給料",
             "description": null
+          }
+        ],
+        "tags": [
+          {
+            "tag_id": "2d44e728b365a0c8f91987c39117cc08",
+            "name": "給料"
           }
         ],
         "price": 200000
@@ -144,6 +158,12 @@
             "id": 1,
             "name": "給料",
             "description": null
+          }
+        ],
+        "tags": [
+          {
+            "tag_id": "2d44e728b365a0c8f91987c39117cc08",
+            "name": "給料"
           }
         ],
         "price": 200000
@@ -271,6 +291,12 @@
                 "description": null
               }
             ],
+            "tags": [
+              {
+                "tag_id": "2d44e728b365a0c8f91987c39117cc08",
+                "name": "給料"
+              }
+            ],
             "price": 200000
           }
         ]
@@ -357,6 +383,12 @@
             "id": 1,
             "name": "給料",
             "description": null
+          }
+        ],
+        "tags": [
+          {
+            "tag_id": "2d44e728b365a0c8f91987c39117cc08",
+            "name": "給料"
           }
         ],
         "price": 200000
