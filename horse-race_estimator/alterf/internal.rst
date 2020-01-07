@@ -309,6 +309,7 @@ analysesテーブル
    :widths: 15,10,30,15
 
    id,INTEGER,内部ID,○
+   analysis_id,STRING,分析ジョブのID,○
    num_data,INTEGER,学習データ数,○
    num_tree,INTEGER,決定木の数,○
    num_feature,INTEGER,特徴量の数,
@@ -332,6 +333,7 @@ predictionsテーブル
    model,STRING,モデルファイル名,○
    test_data,STRING,テストデータのファイル名，またはURL,○
    state,STRING,予測処理の状態,○
+   analysis_id,INTEGER,分析ジョブの内部ID,
    created_at,DATETIME,予測ジョブ情報の作成日時,○
    updated_at,DATETIME,予測ジョブ情報の更新日時,○
 
@@ -372,10 +374,12 @@ evaluationsテーブル
    evaluation_id,STRING,評価ジョブのID,○
    model,STRING,モデルファイル名,○
    data_source,STRING,評価データの情報源,○
+   num_data,INTEGER,評価データ数,○
    state,STRING,評価処理の状態,○
    precision,FLOAT,評価したモデルの適合度,
    recall,FLOAT,評価したモデルの再現率,
    f_measure,FLOAT,評価したモデルのF値,
+   analysis_id,INTEGER,分析ジョブの内部ID,
    created_at,DATETIME,評価ジョブ情報の作成日時,○
    updated_at,DATETIME,評価ジョブ情報の更新日時,○
 
