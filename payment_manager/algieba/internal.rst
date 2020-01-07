@@ -40,13 +40,17 @@ MVCモデルを利用する
 
     - dictionariesテーブルを管理するモデル
 
+  - Tag
+
+    - tagsテーブルを管理するモデル
+
 - View
 
-  - Payment_View
+  - PaymentView
 
     - 収支の登録や表示を行うビュー
 
-  - Statistics_View
+  - StatisticsView
 
     - 統計情報を表示するビュー
 
