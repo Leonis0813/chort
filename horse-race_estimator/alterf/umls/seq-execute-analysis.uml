@@ -7,6 +7,8 @@ activate AnalysisView
   AnalysisView -> AnalysesController : execute
 
   activate AnalysesController
+    AnalysesController -> AnalysesController : check_absent_param
+
     create Analysis
     AnalysesController -> Analysis : new
     AnalysesController ->> AnalysisJob : perform_later
@@ -20,11 +22,18 @@ activate AnalysisView
 deactivate AnalysisView
 
 autonumber resume
+AnalysisJob -> Analysis : find
+AnalysisJob -> AnalysesJob : execute_script
+AnalysisJob -> YAML : load_file
 AnalysisJob -> Analysis : update
-AnalysisJob -> AnalysisMailer : finished
-deactivate AnalysisJob
+AnalysisJob -> YAML : dump
+AnalysisJob -> AnalysisMailer : completed
 
 activate AnalysisMailer
   autonumber stop
   利用者 <-- AnalysisMailer : メール通知
 deactivate AnalysisMailer
+
+autonumber resume
+AnalysisJob -> Analysis : update
+deactivate AnalysisJob

@@ -7,9 +7,18 @@ activate EvaluationView
   EvaluationView -> EvaluationsController : execute
 
   activate EvaluationsController
+    EvaluationsController -> EvaluationsController : check_absent_param
+    EvaluationsController -> EvaluationsController : check_invalid_param
+
     create Evaluation
     EvaluationsController -> Evaluation : new
     EvaluationsController -> Evaluation : save
+    EvaluationsController -> File : write
+
+    opt ファイル or テキストを選択した場合
+      EvaluationsController -> File : puts
+    end
+
     EvaluationsController ->> EvaluationJob : perform_later
     activate EvaluationJob
 
@@ -22,10 +31,23 @@ deactivate EvaluationView
 
 autonumber resume
 EvaluationJob -> Evaluation : find
+EvaluationJob -> ModelUtil : unzip_model
+EvaluationJob -> Evaluation : set_analysis!
+
+activate Evaluation
+  Evaluation -> ModelUtil : read_analysis_id
+  Evaluation -> Analysis : find_by
+  Evaluation -> Evaluation : update!
+deactivate Evaluation
+
 EvaluationJob -> Evaluation : fetch_data!
 
 activate Evaluation
-  alt Top20 を選択
+  alt ランダムを選択
+    Evaluation -> Evaluation : sample_race_ids
+  else Top20 を選択
+    create NetkeibaClient
+    Evaluation -> NetkeibaClient : new
     Evaluation -> NetkeibaClient : http_get_race_top
   else
     Evaluation -> File : read
@@ -33,27 +55,31 @@ activate Evaluation
 
   loop レースIDごとに繰り返し
     Evaluation -> "Denebola::Race" : find_by
+    Evaluation -> "Denebola::Feature" : find_by
     Evaluation -> "Evaluation::Datum" : create!
   end
 deactivate Evaluation
 
 loop 評価データごとに繰り返し
-  EvaluationJob -> FeatureUtil : create_feature
+  EvaluationJob -> FeatureUtil : create_feature_from_denebola
 
   activate FeatureUtil
     FeatureUtil -> "Denebola::Feature" : where
   deactivate FeatureUtil
 
   EvaluationJob -> YAML : dump
+  EvaluationJob -> EvaluationJob : execute_script
   EvaluationJob -> "Evaluation::Datum" : import_prediction_results
 
   activate "Evaluation::Datum"
+    "Evaluation::Datum" -> YAML : load_file
+
     loop レースのエントリーの数だけ繰り返す
       "Evaluation::Datum" -> "Prediction::Result" : create!
     end
   deactivate "Evaluation::Datum"
 end
 
-EvaluationJob -> Evaluation : calculate_precision!
+EvaluationJob -> Evaluation : calculate!
 EvaluationJob -> Evaluation : update!
 deactivate EvaluationJob
