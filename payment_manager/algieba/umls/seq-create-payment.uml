@@ -1,49 +1,48 @@
 autonumber
 
 actor 利用者
-利用者 -> "Payment_View" : 管理画面を表示
-"Payment_View" -> "PaymentsController" : index
+利用者 -> "PaymentView" : 管理画面を表示
+"PaymentView" -> "PaymentsController" : index
 
-利用者 ->> "Payment_View" : 内容入力フォームからフォーカスを外す
+利用者 ->> "PaymentView" : 内容入力フォームからフォーカスを外す
 "Payment_View" -> "Api::DictionariesController" : index
 "Api::DictionariesController" -> "Dictionary" : where
 
-利用者 -> "Payment_View" : 登録ボタン押下
-"Payment_View" -> "Api::PaymentsController" : create
+利用者 -> "PaymentView" : 登録ボタン押下
+"PaymentView" -> "Api::PaymentsController" : create
+"Api::PaymentsController" -> "Api::PaymentsController" : check_absent_param
 
-alt 必須パラメーターがない
-  autonumber stop
-  "Payment_View" <-- "Api::PaymentsController"
-  利用者 <-- "Payment_View"
-end
-
-autonumber resume
 create Payment
 "Api::PaymentsController" -> "Payment" : new
 
 loop カテゴリの数だけ繰り返す
-  "Api::PaymentsController" -> "Category" : find_or_create_by
+  "Api::PaymentsController" -> "Category" : find_or_initialize_by
+end
+
+loop タグの数だけ繰り返す
+  "Api::PaymentsController" -> "Tag" : find_or_initialize_by
 end
 
 "Api::PaymentsController" -> "Payment" : save
 
 alt 登録に成功
   autonumber stop
-  "Payment_View" <-- "Api::PaymentsController"
+  "PaymentView" <-- "Api::PaymentsController"
 
   autonumber resume
-  "Payment_View" -> "Api::DictionariesController" : index
+  "PaymentView" -> "Api::DictionariesController" : index
 
   alt 辞書が登録されていない
-    "Payment_View" -> "Payment_View" : ダイアログを表示
+    "PaymentView" -> "PaymentView" : ダイアログを表示
 
-    利用者 -> "Payment_View" : 登録ボタンを押下
-    "Payment_View" -> "Api::DictionariesController" : create
+    利用者 -> "PaymentView" : 登録ボタンを押下
+    "PaymentView" -> "Api::DictionariesController" : create
+    note right: 辞書を登録する参照
   end
 
-  "Payment_View" -> "PaymentsController" : index
+  "PaymentView" -> "PaymentsController" : index
 else
   autonumber stop
-  "Payment_View" <-- "Api::PaymentsController" : エラー表示
-  利用者 <-- "Payment_View"
+  "PaymentView" <-- "Api::PaymentsController" : エラー表示
+  利用者 <-- "PaymentView"
 end
