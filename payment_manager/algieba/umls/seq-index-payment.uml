@@ -12,7 +12,7 @@ autonumber stop
 
 alt クエリが不正
   "PaymentView" <-- "PaymentsController"
-  利用者 <-- "Payment_View" : エラー表示
+  利用者 <-- "PaymentView" : エラー表示
 end
 
 autonumber resume

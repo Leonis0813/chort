@@ -5,7 +5,7 @@ actor 利用者
 "PaymentView" -> "PaymentsController" : index
 
 利用者 ->> "PaymentView" : 内容入力フォームからフォーカスを外す
-"Payment_View" -> "Api::DictionariesController" : index
+"PaymentView" -> "Api::DictionariesController" : index
 "Api::DictionariesController" -> "Dictionary" : where
 
 利用者 -> "PaymentView" : 登録ボタン押下
