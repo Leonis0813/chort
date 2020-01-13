@@ -218,8 +218,8 @@ MVCモデルを利用する
 - :ref:`alg-int-scm-category-payments`
 - :ref:`alg-int-scm-dictionaries`
 - :ref:`alg-int-scm-payments`
+- :ref:`alg-int-scm-payment-tags`
 - :ref:`alg-int-scm-tags`
-- :ref:`alg-int-scm-tag-payments`
 
 .. _alg-int-scm-categories:
 
@@ -303,6 +303,22 @@ payments テーブル
    created_at,DATETIME,収支情報の登録日時,○
    updated_at,DATETIME,収支情報の更新日時,○
 
+.. _alg-int-scm-payment-tags:
+
+payment_tags テーブル
+^^^^^^^^^^^^^^^^^^^^^
+
+タグ情報と収支情報を紐づける中間テーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+
+   id,INTEGER,内部ID,○
+   payment_id,INTEGER,paymentsテーブルの内部ID,○
+   tag_id,INTEGER,tagsテーブルの内部ID,○
+   created_at,DATETIME,レコードの作成日時,○
+   updated_at,DATETIME,レコードの更新日時,○
+
 .. _alg-int-scm-tags:
 
 tags テーブル
@@ -318,19 +334,3 @@ tags テーブル
    name,STRING,タグ名,○
    created_at,DATETIME,タグ情報の登録日時,○
    updated_at,DATETIME,タグ情報の更新日時,○
-
-.. _alg-int-scm-tag-payments:
-
-tag_payments テーブル
-^^^^^^^^^^^^^^^^^^^^^
-
-タグ情報と収支情報を紐づける中間テーブルを定義する
-
-.. csv-table::
-   :header: カラム,型,内容,NOT NULL
-
-   id,INTEGER,内部ID,○
-   tag_id,INTEGER,tagsテーブルの内部ID,○
-   payment_id,INTEGER,paymentsテーブルの内部ID,○
-   created_at,DATETIME,レコードの作成日時,○
-   updated_at,DATETIME,レコードの更新日時,○

@@ -3,7 +3,9 @@ class StatisticsView <<Boundary>>
 
 class PaymentsController {
   + index(request : Object) : Object
-  - index_params() : Array
+  - index_param() : Hash<String, Object>
+  - scope_param() : Hash<String, Object>
+  - per_page() : Integer
 }
 
 class StatisticsController {
@@ -26,7 +28,7 @@ class Api::PaymentsController {
   + index(request : Object) : Object
   + update(request : Object) : Object
   + destroy(request : Object) : Object
-  - create_params() : Array
+  - create_params() : Hash<String, Object>
   - index_params() : Array
 }
 
@@ -50,6 +52,7 @@ class Query {
   - content_equal : String
   - content_include : String
   - category : String
+  - tag : String
   - price_upper : Integer
   - price_lower : Integer
   - page : Integer
@@ -57,6 +60,8 @@ class Query {
   - sort : String
   - order : String
   + date_valid?() : void
+  + period_valid?() : void
+  + attributes() : Hash<String, Object>
 }
 
 class Settlement {
@@ -78,7 +83,6 @@ class Category {
 class Dictionary {
   + phrase : String
   + condition : String
-  + categories : Array<Category>
 }
 
 class Tag {
