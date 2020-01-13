@@ -1,8 +1,8 @@
 autonumber
 
 actor 利用者
-利用者 -> "Payment_View" : 検索ボタン押下
-"Payment_View" -> "PaymentsController" : index
+利用者 -> "PaymentView" : 検索ボタン押下
+"PaymentView" -> "PaymentsController" : index
 create Query
 "PaymentsController" -> "Query" : new
 "PaymentsController" -> "Query" : valid?
@@ -11,8 +11,8 @@ autonumber stop
 "PaymentsController" <-- "Query"
 
 alt クエリが不正
-  "Payment_View" <-- "PaymentsController"
-  利用者 <-- "Payment_View" : エラー表示
+  "PaymentView" <-- "PaymentsController"
+  利用者 <-- "PaymentView" : エラー表示
 end
 
 autonumber resume

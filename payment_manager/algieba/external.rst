@@ -17,6 +17,7 @@
 - :ref:`alg-ext-res-payment`
 - :ref:`alg-ext-res-category`
 - :ref:`alg-ext-res-dictionary`
+- :ref:`alg-ext-res-tag`
 
 .. _alg-ext-res-payment:
 
@@ -38,7 +39,8 @@
      - expense: 支出"
    date,string,所持金の増減があった日付,- yyyy-mm-dd の形式
    content,string,所持金の増減があった理由など,- 任意の文字列
-   categories,array[:ref:`alg-ext-res-category` ], :ref:`alg-ext-res-category` を参照,
+   categories,array[ :ref:`alg-ext-res-category` ], :ref:`alg-ext-res-category` を参照,
+   tags,array[ :ref:`alg-ext-res-tag` ], :ref:`alg-ext-res-tag` を参照,- 空配列の設定可
    price,integer,所持金の増減量,- 1以上
 
 .. _alg-ext-res-category:
@@ -78,6 +80,28 @@
      - equal: 完全一致するフレーズにカテゴリを設定する
      - include: 部分一致するフレーズにカテゴリを設定する"
    categories,array[:ref:`alg-ext-res-category` ], :ref:`alg-ext-res-category` を参照,
+
+.. _alg-ext-res-tag:
+
+タグリソース
+^^^^^^^^^^^^
+
+:ref:`alg-ext-res-payment` に設定するタグを表す．複数のタグを設定することができる
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 10,20,30,40
+
+   tag_id,string,タグを一意に示すID,"- 32文字の英数字
+   - 以下の文字からなる
+
+     - 0〜9
+     - a〜f
+
+   - システムによって自動設定される
+   - 変更不可"
+   name,string,タグ名,"- 最大10文字
+   - カンマは利用不可"
 
 .. _alg-ext-ui:
 
@@ -151,15 +175,17 @@
    :alt: 登録フォーム
    :scale: 50
 
-- 日付，内容，カテゴリ，金額，種類を入力して登録ボタンを押下すると，フォームに入力した内容で収支情報が登録される
+- 日付，内容，カテゴリ，タグ，金額，種類を入力して登録ボタンを押下すると，フォームに入力した内容で収支情報が登録される
 
-  - 入力項目は全て必須項目
+  - 入力項目はタグ以外は必須項目
   - 内容入力フォームからフォーカスを外すと入力された内容から辞書を検索し，該当するものがあればカテゴリ入力フォームにカテゴリを設定する
 
     - 複数該当した場合の優先度は以下の順番
 
       - 条件が「一致する」の辞書
       - フレーズの文字数が長い辞書
+
+  - タグ入力フォームにはカンマ区切りで複数設定可能
 
 - 登録成功後，辞書を登録するためのダイアログが表示される
 
@@ -196,6 +222,18 @@
   - 「を含む」を選択すると，指定した言葉を内容に含む収支情報を検索する
   - 「と一致する」を選択すると，指定した言葉と内容が完全一致する収支情報を検索する
 
+- タグ入力フォームではタグを指定する
+
+  - 直接入力不可
+  - ダイアログからタグを選択することで指定する
+
+    .. image:: images/management_index_tags_dialog.png
+       :alt: タグ選択ダイアログ
+       :scale: 50
+
+    - 「OK」ボタンを押下するとタグ入力フォームに選択したタグがカンマ区切りで表示される
+    - 「Cancel」ボタンを押下するとダイアログを閉じる
+
 - 金額入力フォームでは金額の範囲を指定する
 
   - どちらかを指定しなければ，それ以上，または以下の収支情報を全て取得する
@@ -225,7 +263,7 @@
 収支情報一覧画面仕様
 """"""""""""""""""""
 
-.. image:: images/ui_payment_list.png
+.. image:: images/management_payment_list.png
    :scale: 50
 
 - 収支情報はページングされており，全件数と下記ページへのリンクが表示されている
@@ -254,7 +292,7 @@
   - 「はい」ボタンを押下すると対応する収支情報が削除される
   - 「いいえ」ボタンを押下すると削除せずに管理画面に戻る
 
-- 内容，カテゴリが長い場合は省略される
+- 内容，カテゴリ，タグが長い場合は省略される
 
 .. _alg-ext-ui-statistics:
 

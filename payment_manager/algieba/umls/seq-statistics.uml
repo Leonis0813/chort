@@ -1,0 +1,44 @@
+autonumber
+
+actor 利用者
+利用者 -> "StatisticsView" : 統計画面を表示
+"StatisticsView" -> "StatisticsController" : index
+
+autonumber stop
+"StatisticsView" <-- "StatisticsController"
+
+autonumber resume
+"StatisticsView" -> "Api::SettlementsController" : period
+"Api::SettlementsController" -> "Settlement" : calculate
+
+autonumber stop
+"Api::SettlementsController" <-- "Settlement"
+"StatisticsView" <-- "Api::SettlementsController"
+
+autonumber resume
+"StatisticsView" -> "Api::SettlementsController" : category
+"Api::SettlementsController" -> "Settlement" : calculate
+
+autonumber stop
+"Api::SettlementsController" <-- "Settlement"
+"StatisticsView" <-- "Api::SettlementsController"
+
+autonumber resume
+"StatisticsView" -> "Api::SettlementsController" : category
+"Api::SettlementsController" -> "Settlement" : calculate
+
+autonumber stop
+"Api::SettlementsController" <-- "Settlement"
+"StatisticsView" <-- "Api::SettlementsController"
+
+利用者 <-- "StatisticsView"
+
+autonumber resume
+利用者 -> "StatisticsView" : グラフをクリック
+"StatisticsView" -> "Api::SettlementsController" : period
+"Api::SettlementsController" -> "Settlement" : calculate
+
+autonumber stop
+"Api::SettlementsController" <-- "Settlement"
+"StatisticsView" <-- "Api::SettlementsController"
+利用者 <-- "StatisticsView"

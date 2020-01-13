@@ -1,38 +1,40 @@
-class Payment_View <<Boundary>>
-class Statistics_View <<Boundary>>
+class PaymentView <<Boundary>>
+class StatisticsView <<Boundary>>
 
 class PaymentsController {
-  + index(query_parameters : Hash) : void
-  - index_params() : Array
+  + index(request : Object) : Object
+  - index_param() : Hash<String, Object>
+  - scope_param() : Hash<String, Object>
+  - per_page() : Integer
 }
 
 class StatisticsController {
 }
 
 class Api::CategoriesController {
-  + index(keyword: String)
+  + index(request : Object) : Object
 }
 
 class Api::DictionariesController {
-  + create(phrase : String, condition : String, categories : Array<String>)
-  + index(content : String)
+  + create(request : Object) : Object
+  + index(request : Object) : Object
   - create_params() : Array
   - index_params() : Array
 }
 
 class Api::PaymentsController {
-  + create(request_parameters : Hash) : void
-  + show(id : String) : void
-  + index(query_parameters : Hash) : void
-  + update(id : String, request_parameters : Hash) : void
-  + destroy(id : String) : void
-  - create_params() : Array
+  + create(request : Object) : Object
+  + show(request : Object) : Object
+  + index(request : Object) : Object
+  + update(request : Object) : Object
+  + destroy(request : Object) : Object
+  - create_params() : Hash<String, Object>
   - index_params() : Array
 }
 
 class Api::SettlementsController {
-  + category(payment_type : String) : void
-  + period(interval : String) : void
+  + category(request : Object) : Object
+  + period(request : Object) : Object
   - check_query_params(query : Settlement, param : String)
 }
 
@@ -40,7 +42,6 @@ class Payment {
   + payment_type : String
   + date : Date
   + content : String
-  + categories : Array<Category>
   + price : Fixnum
 }
 
@@ -51,13 +52,16 @@ class Query {
   - content_equal : String
   - content_include : String
   - category : String
-  - price_upper : int
-  - price_lower : int
-  - page : int
-  - per_page : int
+  - tag : String
+  - price_upper : Integer
+  - price_lower : Integer
+  - page : Integer
+  - per_page : Integer
   - sort : String
   - order : String
   + date_valid?() : void
+  + period_valid?() : void
+  + attributes() : Hash<String, Object>
 }
 
 class Settlement {
@@ -79,22 +83,34 @@ class Category {
 class Dictionary {
   + phrase : String
   + condition : String
-  + categories : Array<Category>
 }
 
-Payment_View -right- PaymentsController
-Payment_View -right- Api::PaymentsController
-Payment_View -right- Api::CategoriesController
-Payment_View -right- Api::DictionariesController
-PaymentsController "1" -- "0..*" Payment
+class Tag {
+  + tag_id : String
+  + name : String
+}
+
+ブラウザ -- PaymentView
+ブラウザ -- StatisticsView
+
+アプリケーション -- Api::PaymentsController
+アプリケーション -- Api::CategoriesController
+アプリケーション -- Api::SettlementsController
+
+PaymentView -- PaymentsController
+PaymentView -- Api::PaymentsController
+PaymentView -- Api::CategoriesController
+PaymentView -- Api::DictionariesController
+PaymentsController "1" -- "0 .. *" Payment
 PaymentsController -- Query
-Api::PaymentsController "1" -- "0..*" Payment
+Api::PaymentsController "1" -- "0 .. *" Payment
 Api::PaymentsController -- Query
-Api::CategoriesController "1" -- "0..*" Category
-Api::DictionariesController "1" -- "0..*" Dictionary
-Payment "1..*" -- "1..*" Category
-Dictionary "0..*" -- "1..*" Category
-Statistics_View -right- StatisticsController
-Statistics_View -right- Api::SettlementsController
+Api::CategoriesController "1" -- "0 .. *" Category
+Api::DictionariesController "1" -- "0 .. *" Dictionary
+Payment "1 .. *" -- "1 .. *" Category
+Payment "1 .. *" -- "0 .. *" Tag
+Dictionary "0 .. *" -- "1 .. *" Category
+StatisticsView -- StatisticsController
+StatisticsView -- Api::SettlementsController
 Api::SettlementsController "1" -- "1" Settlement
 Settlement "1" -- "0..*" Payment
