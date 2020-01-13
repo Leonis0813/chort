@@ -263,7 +263,7 @@
 収支情報一覧画面仕様
 """"""""""""""""""""
 
-.. image:: images/ui_payment_list.png
+.. image:: images/management_payment_list.png
    :scale: 50
 
 - 収支情報はページングされており，全件数と下記ページへのリンクが表示されている
