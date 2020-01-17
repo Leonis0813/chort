@@ -17,6 +17,11 @@ begin
   target_pr = pull_requests.find do |pull_request|
     ENV['GIT_BRANCH'].end_with?(pull_request['head']['ref'])
   end
+
+  if target_pr.nil?
+    puts 'Pull Request Not Created'
+    exit 0
+  end
 rescue Exception => e
   exit 1
 end
