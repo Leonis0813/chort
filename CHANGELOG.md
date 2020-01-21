@@ -1,5 +1,11 @@
+# 2020/01/21
+- [Alterf] update version to 4.11.1
+
 # 2020/01/13
 - [Algieba] update version to 4.4.0
+
+# 2020/01/07
+- [Alterf] update version to 4.11.0
 
 # 2019/12/09
 - [Regulus] update version to 4.9.2
