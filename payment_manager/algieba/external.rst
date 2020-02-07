@@ -28,7 +28,7 @@
 
 .. csv-table::
    :header: 属性名,型,意味,備考
-   :widths: 10,20,30,40
+   :widths: 10,30,30,30
 
    payment_id,string,収支を一意に示すID,"- 32文字の英数字
    - 以下の文字からなる
