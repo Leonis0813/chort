@@ -232,6 +232,7 @@ categories テーブル
    :header: カラム,型,内容,NOT NULL
 
    id,INTEGER,内部ID,○
+   category_id,STRING,カテゴリを一意に示すID,○
    name,STRING,カテゴリの名前,○
    description,STRING,カテゴリの説明,
    created_at,DATETIME,カテゴリ情報の作成日時,○
@@ -280,6 +281,7 @@ dictionaries テーブル
    :header: カラム,型,内容,NOT NULL
 
    id,INTEGER,内部ID,○
+   dictionary_id,STRING,辞書を一意に示すID,○
    phrase,STRING,フレーズ,○
    condition,STRING,条件,○
    created_at,DATETIME,辞書情報の登録日時,○
@@ -296,6 +298,7 @@ payments テーブル
    :header: カラム,型,内容,NOT NULL
 
    id,INTEGER,内部ID,○
+   payment_id,STRING,収支を一意に示すID,○
    payment_type,STRING,収支の種類,○
    date,DATE,収入/支出があった日,○
    content,STRING,収入/支出の内容,○

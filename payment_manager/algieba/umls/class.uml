@@ -39,6 +39,7 @@ class Api::SettlementsController {
 }
 
 class Payment {
+  + payment_id : String
   + payment_type : String
   + date : Date
   + content : String
@@ -76,11 +77,13 @@ class Settlement {
 }
 
 class Category {
+  + category_id : String
   + name : String
   + description : String
 }
 
 class Dictionary {
+  + dictionary_id : String
   + phrase : String
   + condition : String
 }
