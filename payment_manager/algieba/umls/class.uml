@@ -28,6 +28,8 @@ class Api::PaymentsController {
   + index(request : Object) : Object
   + update(request : Object) : Object
   + destroy(request : Object) : Object
+  - check_request_payment() : void
+  - payment() : Payment
   - create_params() : Hash<String, Object>
   - index_params() : Array
 }
