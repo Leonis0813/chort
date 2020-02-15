@@ -1,12 +1,16 @@
 要求仕様
 ========
 
-本システムは以下の６つの機能をWebAPIとして提供する
+本システムは以下の機能を提供する
 
 - :ref:`alg-req-create-payment`
 - :ref:`alg-req-index-payments`
 - :ref:`alg-req-delete-payment`
+- :ref:`alg-req-index-categories`
 - :ref:`alg-req-create-dictionary`
+- :ref:`alg-req-index-dictionaries`
+- :ref:`alg-req-assign-tag`
+- :ref:`alg-req-index-tags`
 - :ref:`alg-req-statistics`
 
 *ユースケース図*
@@ -91,7 +95,7 @@
 2. システムは受け取った条件を満たす辞書情報をデータベースから取得する
 3. システムは取得した辞書情報を利用者に表示する
 
-.. _alg-req-assign-tags:
+.. _alg-req-assign-tag:
 
 タグを設定する
 --------------

@@ -1,0 +1,32 @@
+autonumber
+
+actor 利用者
+利用者 -> "TagView" : 設定ボタン押下
+"TagView" -> "Api::TagsController" : assign_payments
+"Api::TagsController" -> "Api::TagsController" : check_request_tag
+
+alt タグが存在しない
+  autonumber stop
+  "TagView" <-- "Api::TagsController"
+  利用者 <-- "TagView"
+end
+
+"Api::TagsController" -> "Api::TagsController" : check_absent_params
+
+alt 必須パラメーターがない
+  autonumber stop
+  "TagView" <-- "Api::TagsController"
+  利用者 <-- "TagView"
+end
+
+autonumber resume
+"Api::TagsController" -> "Payment" : where
+
+alt 不正なパラメーターがある
+  autonumber stop
+  "TagView" <-- "Api::TagsController"
+  利用者 <-- "TagView"
+end
+
+autonumber resume
+"Api::TagsController" -> "Tag" : update

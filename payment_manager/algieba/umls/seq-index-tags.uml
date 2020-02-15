@@ -1,0 +1,17 @@
+autonumber
+
+actor 利用者
+利用者 -> "TagView" : 検索ボタン押下
+"TagView" -> "TagsController" : index
+create Query::Tag
+"TagsController" -> "Query::Tag" : new
+"TagsController" -> "Query::Tag" : valid?
+
+alt クエリが不正
+  autonumber stop
+  "TagView" <-- "TagsController"
+  利用者 <-- "TagView" : エラー表示
+end
+
+autonumber resume
+"TagsController" -> "Tag" : where
