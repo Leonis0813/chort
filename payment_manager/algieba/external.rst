@@ -137,6 +137,7 @@
       - :ref:`alg-ext-res-payment`
       - :ref:`alg-ext-res-category`
       - :ref:`alg-ext-res-dictionary`
+      - :ref:`alg-ext-res-tag`
 
     - デフォルトでは :ref:`alg-ext-res-payment` を登録する画面が表示される
 
@@ -161,6 +162,7 @@
   - :ref:`alg-ext-res-payment`
   - :ref:`alg-ext-res-category`
   - :ref:`alg-ext-res-dictionary`
+  - :ref:`alg-ext-res-tag`
 
 - 画面左部にはリソースの登録や検索を行うためのフォームが表示される
 
@@ -424,7 +426,7 @@
 
   - 説明
 
-.. _alg-ext-ui-man-category:
+.. _alg-ext-ui-man-dictionary:
 
 辞書管理画面
 """"""""""""
@@ -503,6 +505,77 @@
 
   - フレーズ
   - カテゴリ
+
+.. _alg-ext-ui-man-tag:
+
+タグ管理画面
+""""""""""""
+
+- :ref:`alg-ext-res-tag` の設定や検索を行うことができる
+
+設定フォーム
+''''''''''''
+
+.. image:: images/management_tag_assign.png
+   :alt: 設定フォーム
+   :scale: 50
+
+- 以下の入力フォームが表示されている
+
+  - 内容
+
+    - 必須項目
+    - 以下の条件を指定可能
+
+      - 「を含む」: 入力された文字列を含む内容に対してタグを設定する
+      - 「と一致する」: 入力された文字列と一致する内容に対してタグを設定する
+
+  - タグ
+
+    - 必須項目
+
+- 設定ボタンを押下するとフォームに入力した内容で条件を満たす :ref:`alg-ext-res-payment` にタグが登録される
+
+  - 設定に成功した場合は画面が更新される
+  - 設定に失敗した場合はエラーを表示する
+
+    - :ref:`alg-ext-ui-man-com-error` 参照
+
+検索フォーム
+''''''''''''
+
+.. image:: images/management_tag_index.png
+   :alt: 検索フォーム
+   :scale: 50
+
+- 以下の入力フォームが表示されている
+
+  - 名前
+
+    - 指定した文字列を名前に含む :ref:`alg-ext-res-tag` を検索する
+
+- 検索ボタンを押下すると，検索条件を満たす :ref:`alg-ext-res-tag` が :ref:`alg-ext-ui-man-tag-table` に表示される
+
+.. _alg-ext-ui-man-tag-table:
+
+一覧画面
+''''''''
+
+.. image:: images/management_tag_table.png
+   :scale: 50
+
+- テーブルはページングされている
+
+  - デフォルトでは名前でソートされた :ref:`alg-ext-res-tag` が50件表示される
+  - テキストボックスに表示件数を入力することで変更可能
+
+- テーブル上部に全件数と下記ページへのリンクが表示されている
+
+  - 先頭ページ
+  - 最終ページ
+  - 次ページ
+  - 前ページ
+  - 表示中のページから前後4ページ
 
 .. _alg-ext-ui-statistics:
 
