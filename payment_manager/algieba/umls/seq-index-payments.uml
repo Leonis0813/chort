@@ -3,7 +3,7 @@ autonumber
 actor 利用者
 利用者 -> "PaymentView" : 検索ボタン押下
 "PaymentView" -> "PaymentsController" : index
-create Query::Payment
+create "Query::Payment"
 "PaymentsController" -> "Query::Payment" : new
 "PaymentsController" -> "Query::Payment" : valid?
 

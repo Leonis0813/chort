@@ -12,5 +12,6 @@ alt 収支が存在しない
   利用者 <-- "PaymentView"
 end
 
+autonumber resume
 "Api::PaymentsController" -> "Payment" : destroy
 "PaymentView" -> "PaymentsController" : index

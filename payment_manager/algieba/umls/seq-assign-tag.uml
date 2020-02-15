@@ -11,6 +11,7 @@ alt タグが存在しない
   利用者 <-- "TagView"
 end
 
+autonumber resume
 "Api::TagsController" -> "Api::TagsController" : check_absent_params
 
 alt 必須パラメーターがない
