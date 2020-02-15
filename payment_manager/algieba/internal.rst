@@ -24,21 +24,38 @@ MVCモデルを利用する
 
     - categoriesテーブルを操作するモデル
 
+  - Dictionary
+
+    - dictionariesテーブルを管理するモデル
+
   - Payment
 
     - paymentsテーブルを操作するモデル
 
   - Query
 
-    - 収支検索時のクエリを管理するモデル
+    - クエリを管理するモデル
+    - 以下のサブクラスを持つ
+
+      - Payment
+
+        - 収支検索時のクエリを管理する
+
+      - Category
+
+        - カテゴリ検索時のクエリを管理する
+
+      - Dictionary
+
+        - 辞書検索時のクエリを管理する
+
+      - Tag
+
+        - タグ検索時のクエリを管理する
 
   - Settlement
 
     - 収支計算時のクエリを管理するモデル
-
-  - Dictionary
-
-    - dictionariesテーブルを管理するモデル
 
   - Tag
 
@@ -46,13 +63,30 @@ MVCモデルを利用する
 
 - View
 
-  - PaymentView
+  - ManagementView
 
-    - 収支の登録や表示を行うビュー
+    - 管理画面を表すビュー
+    - 以下のサブビューを持つ
+
+      - PaymentView
+
+        - 収支情報を管理するビュー
+
+      - CategoryView
+
+        - カテゴリ情報を管理するビュー
+
+      - DictionaryView
+
+        - 辞書情報を管理するビュー
+
+      - TagView
+
+        - タグ情報を管理するビュー
 
   - StatisticsView
 
-    - 統計情報を表示するビュー
+    - 統計画面を表すビュー
 
 - Controller
 
@@ -71,9 +105,29 @@ MVCモデルを利用する
     - 収支を処理するコントローラー
     - WebAPI用コントローラー
 
+  - Api::TagsController
+
+    - タグを処理するコントローラー
+    - WebAPI用コントローラー
+
+  - CategoriesController
+
+    - カテゴリを処理するコントローラー
+    - UI用コントローラー
+
+  - DictionariesController
+
+    - 辞書を処理するコントローラー
+    - UI用コントローラー
+
   - PaymentsController
 
     - 収支を処理するコントローラー
+    - UI用コントローラー
+
+  - TagsController
+
+    - タグを処理するコントローラー
     - UI用コントローラー
 
   - StatisticsController

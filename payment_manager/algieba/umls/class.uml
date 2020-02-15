@@ -1,7 +1,32 @@
+class ManagementView <<Boundary>>
 class PaymentView <<Boundary>>
+class CategoryView <<Boundary>>
+class DictionaryView <<Boundary>>
+class TagView <<Boundary>>
 class StatisticsView <<Boundary>>
 
 class PaymentsController {
+  + index(request : Object) : Object
+  - index_param() : Hash<String, Object>
+  - scope_param() : Hash<String, Object>
+  - per_page() : Integer
+}
+
+class CategoriesController {
+  + index(request : Object) : Object
+  - index_param() : Hash<String, Object>
+  - scope_param() : Hash<String, Object>
+  - per_page() : Integer
+}
+
+class DictionariesController {
+  + index(request : Object) : Object
+  - index_param() : Hash<String, Object>
+  - scope_param() : Hash<String, Object>
+  - per_page() : Integer
+}
+
+class TagsController {
   + index(request : Object) : Object
   - index_param() : Hash<String, Object>
   - scope_param() : Hash<String, Object>
@@ -95,27 +120,55 @@ class Tag {
   + name : String
 }
 
-ブラウザ -- PaymentView
+ブラウザ -- ManagementView
 ブラウザ -- StatisticsView
 
 アプリケーション -- Api::PaymentsController
 アプリケーション -- Api::CategoriesController
 アプリケーション -- Api::SettlementsController
 
+ManagementView -- PaymentView
+ManagementView -- CategoryView
+ManagementView -- DictionaryView
+ManagementView -- TagView
+
 PaymentView -- PaymentsController
 PaymentView -- Api::PaymentsController
-PaymentView -- Api::CategoriesController
 PaymentView -- Api::DictionariesController
+
+CategoryView -- CategoriesController
+
+DictionaryView -- DictionariesController
+DictionaryView -- Api::DictionariesController
+
+TagView -- TagsController
+TagView -- Api::TagsController
+
 PaymentsController "1" -- "0 .. *" Payment
-PaymentsController -- Query
+PaymentsController -- Query::Payment
 Api::PaymentsController "1" -- "0 .. *" Payment
-Api::PaymentsController -- Query
+Api::PaymentsController -- Query::Payment
+
+CategoriesController "1" -- "0 .. *" Category
+CategoriesController -- Query::Category
 Api::CategoriesController "1" -- "0 .. *" Category
+Api::CategoriesController -- Query::Category
+
+DictionariesController "1" -- "0 .. *" Dictionary
+DictionariesController -- Query::Dictionary
 Api::DictionariesController "1" -- "0 .. *" Dictionary
+Api::DictionariesController -- Query::Dictionary
+
+TagsController "1" -- "0 .. *" Tag
+TagsController -- Query::Tag
+Api::TagsController "1" -- "1" Tag
+Api::TagsController "1" -- "1 .. *" Payment
+
 Payment "1 .. *" -- "1 .. *" Category
 Payment "1 .. *" -- "0 .. *" Tag
 Dictionary "0 .. *" -- "1 .. *" Category
+
 StatisticsView -- StatisticsController
 StatisticsView -- Api::SettlementsController
 Api::SettlementsController "1" -- "1" Settlement
-Settlement "1" -- "0..*" Payment
+Settlement "1" -- "0 .. *" Payment
