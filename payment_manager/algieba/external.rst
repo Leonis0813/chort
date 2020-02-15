@@ -626,6 +626,7 @@ Web API
    external/api/payment
    external/api/category
    external/api/dictionary
+   external/api/tag
    external/api/settlement
 
 共通仕様
