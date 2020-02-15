@@ -59,21 +59,38 @@ class Api::PaymentsController {
   - index_params() : Array
 }
 
+class Api::TagsController {
+  + assign_payments(request : Object) : Object
+  - check_request_tag() : void
+  - tag() : Tag
+  - assign_payments_params() : Hash<String, Object>
+}
+
 class Api::SettlementsController {
   + category(request : Object) : Object
   + period(request : Object) : Object
   - check_query_params(query : Settlement, param : String)
 }
 
-class Payment {
-  + payment_id : String
-  + payment_type : String
-  + date : Date
-  + content : String
-  + price : Fixnum
+class Query::Category {
+  - name_include : String
+  - page : Integer
+  - per_page : Integer
+  - sort : String
+  - order : String
+  + attributes() : Hash<String, Object>
 }
 
-class Query {
+class Query::Dictionary {
+  - phrase_include : String
+  - page : Integer
+  - per_page : Integer
+  - sort : String
+  - order : String
+  + attributes() : Hash<String, Object>
+}
+
+class Query::Payment {
   - payment_type : String
   - date_before : String
   - date_after : String
@@ -89,6 +106,15 @@ class Query {
   - order : String
   + date_valid?() : void
   + period_valid?() : void
+  + attributes() : Hash<String, Object>
+}
+
+class Query::Tag {
+  - name_include : String
+  - page : Integer
+  - per_page : Integer
+  - sort : String
+  - order : String
   + attributes() : Hash<String, Object>
 }
 
@@ -113,6 +139,14 @@ class Dictionary {
   + dictionary_id : String
   + phrase : String
   + condition : String
+}
+
+class Payment {
+  + payment_id : String
+  + payment_type : String
+  + date : Date
+  + content : String
+  + price : Fixnum
 }
 
 class Tag {
