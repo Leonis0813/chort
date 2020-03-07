@@ -1,9 +1,25 @@
 class ManagementView <<Boundary>>
-class PaymentView <<Boundary>>
 class CategoryView <<Boundary>>
 class DictionaryView <<Boundary>>
+class PaymentView <<Boundary>>
 class TagView <<Boundary>>
 class StatisticsView <<Boundary>>
+
+class ApplicationController {
+  + check_absent_param(request_param : Hash<String, Object>, required_param_keys : Array) : void
+}
+
+class CategoriesController {
+  + index(request : Object) : Object
+  - index_param() : Hash<String, Object>
+  - scope_param() : Hash<String, Object>
+}
+
+class DictionariesController {
+  + index(request : Object) : Object
+  - index_param() : Hash<String, Object>
+  - scope_param() : Hash<String, Object>
+}
 
 class PaymentsController {
   + index(request : Object) : Object
@@ -12,18 +28,7 @@ class PaymentsController {
   - per_page() : Integer
 }
 
-class CategoriesController {
-  + index(request : Object) : Object
-  - index_param() : Hash<String, Object>
-  - scope_param() : Hash<String, Object>
-  - per_page() : Integer
-}
-
-class DictionariesController {
-  + index(request : Object) : Object
-  - index_param() : Hash<String, Object>
-  - scope_param() : Hash<String, Object>
-  - per_page() : Integer
+class StatisticsController {
 }
 
 class TagsController {
@@ -31,9 +36,6 @@ class TagsController {
   - index_param() : Hash<String, Object>
   - scope_param() : Hash<String, Object>
   - per_page() : Integer
-}
-
-class StatisticsController {
 }
 
 class Api::CategoriesController {
@@ -60,37 +62,51 @@ class Api::PaymentsController {
 }
 
 class Api::TagsController {
+  + create(request : Object) : Object
   + assign_payments(request : Object) : Object
   - check_request_tag() : void
   - tag() : Tag
+  - create_params() : Hash<String, Object>
   - assign_payments_params() : Hash<String, Object>
 }
 
 class Api::SettlementsController {
   + category(request : Object) : Object
   + period(request : Object) : Object
-  - check_query_params(query : Settlement, param : String)
+  - check_query_params(query : Settlement, param : String) : void
 }
 
-class Query::Category {
+class Category {
+  + category_id : String
+  + name : String
+  + description : String
+}
+
+class CategoryQuery {
   - name_include : String
-  - page : Integer
-  - per_page : Integer
-  - sort : String
-  - order : String
   + attributes() : Hash<String, Object>
 }
 
-class Query::Dictionary {
+class Dictionary {
+  + dictionary_id : String
+  + phrase : String
+  + condition : String
+}
+
+class DictionaryQuery {
   - phrase_include : String
-  - page : Integer
-  - per_page : Integer
-  - sort : String
-  - order : String
   + attributes() : Hash<String, Object>
 }
 
-class Query::Payment {
+class Payment {
+  + payment_id : String
+  + payment_type : String
+  + date : Date
+  + content : String
+  + price : Fixnum
+}
+
+class PaymentQuery {
   - payment_type : String
   - date_before : String
   - date_after : String
@@ -100,17 +116,13 @@ class Query::Payment {
   - tag : String
   - price_upper : Integer
   - price_lower : Integer
-  - page : Integer
-  - per_page : Integer
   - sort : String
-  - order : String
   + date_valid?() : void
   + period_valid?() : void
   + attributes() : Hash<String, Object>
 }
 
-class Query::Tag {
-  - name_include : String
+class Query {
   - page : Integer
   - per_page : Integer
   - sort : String
@@ -129,29 +141,14 @@ class Settlement {
   - group_by_period() : Hash<String, Fixnum>
 }
 
-class Category {
-  + category_id : String
-  + name : String
-  + description : String
-}
-
-class Dictionary {
-  + dictionary_id : String
-  + phrase : String
-  + condition : String
-}
-
-class Payment {
-  + payment_id : String
-  + payment_type : String
-  + date : Date
-  + content : String
-  + price : Fixnum
-}
-
 class Tag {
   + tag_id : String
   + name : String
+}
+
+class TagQuery {
+  - name_include : String
+  + attributes() : Hash<String, Object>
 }
 
 ブラウザ -- ManagementView
@@ -166,41 +163,56 @@ ManagementView -- CategoryView
 ManagementView -- DictionaryView
 ManagementView -- TagView
 
-PaymentView -- PaymentsController
-PaymentView -- Api::PaymentsController
-PaymentView -- Api::DictionariesController
+ApplicationController <|-- CategoriesController
+ApplicationController <|-- DictionariesController
+ApplicationController <|-- PaymentsController
+ApplicationController <|-- TagsController
+ApplicationController <|-- Api::CategoriesController
+ApplicationController <|-- Api::DictionariesController
+ApplicationController <|-- Api::PaymentsController
+ApplicationController <|-- Api::SettlementsController
+ApplicationController <|-- Api::TagsController
 
 CategoryView -- CategoriesController
 
 DictionaryView -- DictionariesController
 DictionaryView -- Api::DictionariesController
 
+PaymentView -- PaymentsController
+PaymentView -- Api::PaymentsController
+PaymentView -- Api::DictionariesController
+
 TagView -- TagsController
 TagView -- Api::TagsController
 
-PaymentsController "1" -- "0 .. *" Payment
-PaymentsController -- Query::Payment
-Api::PaymentsController "1" -- "0 .. *" Payment
-Api::PaymentsController -- Query::Payment
-
 CategoriesController "1" -- "0 .. *" Category
-CategoriesController -- Query::Category
+CategoriesController -- CategoryQuery
 Api::CategoriesController "1" -- "0 .. *" Category
-Api::CategoriesController -- Query::Category
+Api::CategoriesController -- CategoryQuery
 
 DictionariesController "1" -- "0 .. *" Dictionary
-DictionariesController -- Query::Dictionary
+DictionariesController -- DictionaryQuery
 Api::DictionariesController "1" -- "0 .. *" Dictionary
-Api::DictionariesController -- Query::Dictionary
+Api::DictionariesController -- DictionaryQuery
+
+PaymentsController "1" -- "0 .. *" Payment
+PaymentsController -- PaymentQuery
+Api::PaymentsController "1" -- "0 .. *" Payment
+Api::PaymentsController -- PaymentQuery
 
 TagsController "1" -- "0 .. *" Tag
-TagsController -- Query::Tag
+TagsController -- TagQuery
 Api::TagsController "1" -- "1" Tag
 Api::TagsController "1" -- "1 .. *" Payment
 
 Payment "1 .. *" -- "1 .. *" Category
 Payment "1 .. *" -- "0 .. *" Tag
 Dictionary "0 .. *" -- "1 .. *" Category
+
+Query <|-- CategoryQuery
+Query <|-- DictionaryQuery
+Query <|-- PaymentQuery
+Query <|-- TagQuery
 
 StatisticsView -- StatisticsController
 StatisticsView -- Api::SettlementsController
