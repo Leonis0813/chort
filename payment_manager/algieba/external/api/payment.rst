@@ -11,7 +11,7 @@
 
 .. _alg-ext-api-pay-create:
 
-収支を登録する
+収支を作成する
 ^^^^^^^^^^^^^^
 
 .. http:post:: /payments
