@@ -146,6 +146,7 @@ MVCモデルを利用する
 - :ref:`alg-int-seq-index-categories`
 - :ref:`alg-int-seq-create-dictionary`
 - :ref:`alg-int-seq-index-dictionaries`
+- :ref:`alg-int-seq-create-tag`
 - :ref:`alg-int-seq-assign-tag`
 - :ref:`alg-int-seq-index-tags`
 - :ref:`alg-int-seq-statistics`
@@ -288,6 +289,22 @@ MVCモデルを利用する
 クエリ情報が不正な場合はエラーを表示して終了する
 
 5. クエリを満たす辞書情報を検索する
+
+.. _alg-int-seq-create-tag:
+
+タグを登録する
+^^^^^^^^^^^^^^
+
+.. uml:: umls/seq-create-tag.uml
+
+1. 利用者がタグ情報をフォームに入力して登録ボタンを押下する
+2. 管理画面がタグ情報を登録するAPIを実行する
+3. 必須パラメーターが指定されているかチェックする
+
+必須パラメーターがない場合はエラーを表示して終了する
+
+4. 指定されたパラメーターからタグ情報を作成する
+5. タグ情報をデータベースに登録する
 
 .. _alg-int-seq-assign-tag:
 
