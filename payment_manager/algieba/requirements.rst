@@ -9,6 +9,7 @@
 - :ref:`alg-req-index-categories`
 - :ref:`alg-req-create-dictionary`
 - :ref:`alg-req-index-dictionaries`
+- :ref:`alg-req-create-tag`
 - :ref:`alg-req-assign-tag`
 - :ref:`alg-req-index-tags`
 - :ref:`alg-req-statistics`
@@ -94,6 +95,19 @@
 1. 利用者は条件を指定してシステムに辞書情報の検索を要求する
 2. システムは受け取った条件を満たす辞書情報をデータベースから取得する
 3. システムは取得した辞書情報を利用者に表示する
+
+.. _alg-req-create-tag:
+
+タグを登録する
+--------------
+
+- 入力された情報をもとにタグ情報をデータベースに登録する
+
+*ユースケースシナリオ*
+
+1. 利用者はシステムにタグ情報の登録を要求する
+2. システムは受け取った情報をもとにタグ情報をデータベースに登録する
+3. システムは登録が完了したことを利用者に通知する
 
 .. _alg-req-assign-tag:
 
