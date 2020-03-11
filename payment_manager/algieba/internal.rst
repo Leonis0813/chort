@@ -37,19 +37,19 @@ MVCモデルを利用する
     - クエリを管理するモデル
     - 以下のサブクラスを持つ
 
-      - Payment
-
-        - 収支検索時のクエリを管理する
-
-      - Category
+      - CategoryQuery
 
         - カテゴリ検索時のクエリを管理する
 
-      - Dictionary
+      - DictionaryQuery
 
         - 辞書検索時のクエリを管理する
 
-      - Tag
+      - PaymentQuery
+
+        - 収支検索時のクエリを管理する
+
+      - TagQuery
 
         - タグ検索時のクエリを管理する
 
@@ -68,10 +68,6 @@ MVCモデルを利用する
     - 管理画面を表すビュー
     - 以下のサブビューを持つ
 
-      - PaymentView
-
-        - 収支情報を管理するビュー
-
       - CategoryView
 
         - カテゴリ情報を管理するビュー
@@ -79,6 +75,10 @@ MVCモデルを利用する
       - DictionaryView
 
         - 辞書情報を管理するビュー
+
+      - PaymentView
+
+        - 収支情報を管理するビュー
 
       - TagView
 

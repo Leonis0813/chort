@@ -3,9 +3,9 @@ autonumber
 actor 利用者
 利用者 -> "DictionaryView" : 検索ボタン押下
 "DictionaryView" -> "DictionariesController" : index
-create "Query::Dictionary"
-"DictionariesController" -> "Query::Dictionary" : new
-"DictionariesController" -> "Query::Dictionary" : valid?
+create "DictionaryQuery"
+"DictionariesController" -> "DictionaryQuery" : new
+"DictionariesController" -> "DictionaryQuery" : valid?
 
 alt クエリが不正
   autonumber stop

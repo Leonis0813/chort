@@ -3,9 +3,9 @@ autonumber
 actor 利用者
 利用者 -> "CategoryView" : 検索ボタン押下
 "CategoryView" -> "CategoriesController" : index
-create "Query::Category"
-"CategoriesController" -> "Query::Category" : new
-"CategoriesController" -> "Query::Category" : valid?
+create "CategoryQuery"
+"CategoriesController" -> "CategoryQuery" : new
+"CategoriesController" -> "CategoryQuery" : valid?
 
 alt クエリが不正
   autonumber stop
