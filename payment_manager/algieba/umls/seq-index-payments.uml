@@ -3,12 +3,12 @@ autonumber
 actor 利用者
 利用者 -> "PaymentView" : 検索ボタン押下
 "PaymentView" -> "PaymentsController" : index
-create Query
-"PaymentsController" -> "Query" : new
-"PaymentsController" -> "Query" : valid?
+create "PaymentQuery"
+"PaymentsController" -> "PaymentQuery" : new
+"PaymentsController" -> "PaymentQuery" : valid?
 
 autonumber stop
-"PaymentsController" <-- "Query"
+"PaymentsController" <-- "PaymentQuery"
 
 alt クエリが不正
   "PaymentView" <-- "PaymentsController"

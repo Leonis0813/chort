@@ -12,6 +12,13 @@ actor 利用者
 "PaymentView" -> "Api::PaymentsController" : create
 "Api::PaymentsController" -> "Api::PaymentsController" : check_absent_param
 
+alt 必須パラメーターがない
+  autonumber stop
+  "PaymentView" <-- "Api::PaymentsController"
+  利用者 <-- "PaymentView"
+end
+
+autonumber resume
 create Payment
 "Api::PaymentsController" -> "Payment" : new
 
@@ -31,6 +38,7 @@ alt 登録に成功
 
   autonumber resume
   "PaymentView" -> "Api::DictionariesController" : index
+  note right: 辞書を検索する参照
 
   alt 辞書が登録されていない
     "PaymentView" -> "PaymentView" : ダイアログを表示

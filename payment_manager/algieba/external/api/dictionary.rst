@@ -8,7 +8,7 @@
 
 .. _alg-ext-api-dic-create:
 
-辞書を登録する
+辞書を作成する
 ^^^^^^^^^^^^^^
 
 .. http:post:: /dictionaries

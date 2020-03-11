@@ -1,14 +1,14 @@
 autonumber
 
 actor 利用者
-利用者 -> "PaymentView" : 登録ボタン押下
-"PaymentView" -> "Api::DictionariesController" : create
+利用者 -> "DictionaryView" : 登録ボタン押下
+"DictionaryView" -> "Api::DictionariesController" : create
 "Api::DictionariesController" -> "Api::DictionariesController" : check_absent_params
 
 alt 必須パラメーターがない
   autonumber stop
-  "PaymentView" <-- "Api::DictionariesController"
-  利用者 <-- "PaymentView"
+  "DictionaryView" <-- "Api::DictionariesController"
+  利用者 <-- "DictionaryView"
 end
 
 autonumber resume
@@ -23,6 +23,6 @@ end
 
 alt パラメーターが不正 or 同じ辞書が登録済み
   autonumber stop
-  "PaymentView" <-- "Api::DictionariesController"
-  利用者 <-- "PaymentView"
+  "DictionaryView" <-- "Api::DictionariesController"
+  利用者 <-- "DictionaryView"
 end

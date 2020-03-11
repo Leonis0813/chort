@@ -1,0 +1,17 @@
+autonumber
+
+actor 利用者
+利用者 -> "CategoryView" : 検索ボタン押下
+"CategoryView" -> "CategoriesController" : index
+create "CategoryQuery"
+"CategoriesController" -> "CategoryQuery" : new
+"CategoriesController" -> "CategoryQuery" : valid?
+
+alt クエリが不正
+  autonumber stop
+  "CategoryView" <-- "CategoriesController"
+  利用者 <-- "CategoryView" : エラー表示
+end
+
+autonumber resume
+"CategoriesController" -> "Category" : where

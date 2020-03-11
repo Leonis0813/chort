@@ -1,3 +1,6 @@
+# 2020/03/07
+- [Algieba] update version to 4.5.0
+
 # 2020/02/09
 - [Algieba] update version to 4.4.1
 
