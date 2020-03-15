@@ -21,6 +21,7 @@ class EvaluationsController {
   + manage(request : Object) : Object
   + execute(request : Object) : Object
   + show(request : Object) : Object
+  + download_data(request: Object) : Object
   - check_invalid_param() : void
   - user_specified_data?() : Boolean
   - num_data() : Integer
@@ -52,6 +53,7 @@ class Analysis {
   - num_feature : Integer
   - num_entry : Integer
   - state : String
+  - performed_at : Datetime
 }
 
 class Prediction {
@@ -59,6 +61,7 @@ class Prediction {
   - test_data : String
   - results: Array<PredictionResult>
   - state : String
+  - performed_at : Datetime
   + set_analysis!() : void
   + import_results(result_file : String) : void
 }
@@ -78,6 +81,7 @@ class Evaluation {
   - precision : Double
   - recall : Double
   - f_measure : Double
+  - performed_at : Datetime
   + set_analysis!() : void
   + fetch_data!() : Array<String>
   + calculate!() : void
