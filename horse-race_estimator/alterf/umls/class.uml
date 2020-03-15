@@ -3,6 +3,10 @@ class PredictionView <<Boundary>>
 class EvaluationView <<Boundary>>
 class EvaluationResultView <<Boundary>>
 
+class ApplicationController {
+  + remove_old_files() : void
+}
+
 class AnalysesController {
   + manage(request : Object) : Object
   + execute(request : Object) : Object
@@ -134,6 +138,7 @@ class ModelUtil <<module>> {
 ブラウザ -- EvaluationResultView
 
 AnalysisView -- AnalysesController
+ApplicationController <|-- AnalysesController
 AnalysesController --> AnalysisJob
 AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
@@ -142,6 +147,7 @@ Analysis "1" -- "0 .. *" Prediction
 Analysis "1" -- "0 .. *" Evaluation
 
 PredictionView -- PredictionsController
+ApplicationController <|-- PredictionsController
 PredictionsController --> PredictionJob
 PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
@@ -151,6 +157,7 @@ Prediction "1" -- "*" PredictionResult
 Prediction ..> ModelUtil : <<include>>
 
 EvaluationView -- EvaluationsController
+ApplicationController <|-- EvaluationsController
 EvaluationsController --> EvaluationJob
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob --> FeatureUtil
