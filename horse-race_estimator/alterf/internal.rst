@@ -322,6 +322,7 @@ analysesテーブル
    num_feature,INTEGER,特徴量の数,
    num_entry,INTEGER,エントリーの数,
    state,STRING,分析処理の状態,○
+   performed_at,DATETIME,分析ジョブの実行開始日時,
    created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,○
 
@@ -340,6 +341,7 @@ predictionsテーブル
    model,STRING,モデルファイル名,○
    test_data,STRING,テストデータのファイル名，またはURL,○
    state,STRING,予測処理の状態,○
+   performed_at,DATETIME,分析ジョブの実行開始日時,
    analysis_id,INTEGER,分析ジョブの内部ID,
    created_at,DATETIME,予測ジョブ情報の作成日時,○
    updated_at,DATETIME,予測ジョブ情報の更新日時,○
@@ -386,6 +388,7 @@ evaluationsテーブル
    precision,FLOAT,評価したモデルの適合度,
    recall,FLOAT,評価したモデルの再現率,
    f_measure,FLOAT,評価したモデルのF値,
+   performed_at,DATETIME,分析ジョブの実行開始日時,
    analysis_id,INTEGER,分析ジョブの内部ID,
    created_at,DATETIME,評価ジョブ情報の作成日時,○
    updated_at,DATETIME,評価ジョブ情報の更新日時,○
