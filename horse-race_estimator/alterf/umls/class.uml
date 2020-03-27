@@ -33,6 +33,22 @@ class EvaluationsController {
   - execute_param() : Hash<String, Object>
 }
 
+class Api::AnalysesController {
+  + index(request : Object) : Object
+  - index_params() : Hash<String, Object>
+}
+
+class Api::PredictionsController {
+  + index(request : Object) : Object
+  - index_params() : Hash<String, Object>
+}
+
+class Api::EvaluationsController {
+  + index(request : Object) : Object
+  + show(request : Object) : Object
+  - index_param() : Hash<String, Object>
+}
+
 class AnalysisJob {
   + perform(analysis_id : Integer)
 }
@@ -138,18 +154,24 @@ class ModelUtil <<module>> {
 ブラウザ -- EvaluationResultView
 
 AnalysisView -- AnalysesController
+AnalysisView -- Api::AnalysesController
 ApplicationController <|-- AnalysesController
+ApplicationController <|-- Api::AnalysesController
 AnalysesController --> AnalysisJob
 AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
+Api::AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
 Analysis "1" -- "0 .. *" Prediction
 Analysis "1" -- "0 .. *" Evaluation
 
 PredictionView -- PredictionsController
+PredictionView -- Api::PredictionsController
 ApplicationController <|-- PredictionsController
+ApplicationController <|-- Api::PredictionsController
 PredictionsController --> PredictionJob
 PredictionsController "1" -- "1" Prediction
+Api::PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
 PredictionJob --> FeatureUtil
 PredictionJob ..> ModelUtil : <<include>>
@@ -157,9 +179,12 @@ Prediction "1" -- "*" PredictionResult
 Prediction ..> ModelUtil : <<include>>
 
 EvaluationView -- EvaluationsController
+EvaluationView -- Api::EvaluationsController
 ApplicationController <|-- EvaluationsController
+ApplicationController <|-- Api::EvaluationsController
 EvaluationsController --> EvaluationJob
 EvaluationsController "1" -- "1" Evaluation
+Api::EvaluationsController "1" -- "1" Evaluation
 EvaluationJob --> FeatureUtil
 EvaluationJob ..> ModelUtil : <<include>>
 EvaluationJob "1" -- "1" Evaluation

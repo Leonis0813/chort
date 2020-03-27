@@ -72,6 +72,21 @@ MVCモデルを利用する
 
     - 評価処理を管理するコントローラー
 
+  - Api::AnalysesController
+
+    - 分析処理を管理するコントローラー
+    - WebAPI用コントローラー
+
+  - Api::PredictionsController
+
+    - 予測処理を管理するコントローラー
+    - WebAPI用コントローラー
+
+  - Api::EvaluationsController
+
+    - 評価処理を管理するコントローラー
+    - WebAPI用コントローラー
+
 - Library
 
   - FeatureExtractor
