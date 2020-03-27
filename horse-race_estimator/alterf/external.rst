@@ -5,6 +5,7 @@
 
 - :ref:`alt-ext-resource`
 - :ref:`alt-ext-ui`
+- :ref:`alt-ext-api`
 
 .. _alt-ext-resource:
 
@@ -60,6 +61,11 @@
    :header: 属性名,型,意味,備考
    :widths: 20,10,30,40
 
+   予測ジョブID,string,予測ジョブを一意に示すID,"- 32文字の英数字
+   - 以下の文字からなる
+
+     - 0〜9
+     - a〜f"
    実行開始日時,string,予測を開始した日時,- 年/月/日 時:分:秒 の形式
    モデル,string,入力されたモデルのファイル名,
    テストデータ,string,予測するレースデータのファイル名，またはURL,
@@ -321,3 +327,59 @@
     - 予測結果の内，正解と同じ馬番は緑，それ以外は灰色で表示される
 
   - 予測が完了していない評価データの行は黄色で表示される
+
+.. _alt-ext-api:
+
+Web API
+-------
+
+以下のAPIを定義する
+
+.. toctree::
+   :maxdepth: 1
+
+   external/api/analysis
+   external/api/prediction
+   external/api/evaluation
+
+共通仕様
+^^^^^^^^
+
+.. _alt-ext-api-common-error:
+
+リクエスト
+""""""""""
+
+- WebAPI のパスには全て先頭に ``/alterf/api`` を付与すること
+
+  - 本API仕様書に記載されているパスは全て上記のパス以下を記載する
+
+  - 例：分析ジョブを検索する場合
+
+    .. sourcecode:: http
+
+       GET /alterf/api/analyses HTTP/1.1
+
+エラーコード
+""""""""""""
+
+.. csv-table::
+   :header: "エラーコード", "ステータスコード", "意味"
+
+   invalid_param_[属性],400,不正値のパラメータがある
+   not_found,404,パスパラメーターで指定したリソースが存在しない
+
+**レスポンス例**
+
+.. sourcecode:: http
+
+   HTTP/1.1 400 BadRequest
+   Content-Type: application/json
+
+   {
+     "errors": [
+       {
+         "error_code": "invalid_param_page"
+       }
+     ]
+   }
