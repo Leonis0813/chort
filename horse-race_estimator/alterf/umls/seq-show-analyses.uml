@@ -12,13 +12,13 @@ activate AnalysisView
   deactivate AnalysesController
 
   loop 3秒間隔
-    AnalysisView -> Api::AnalysesController : index
+    AnalysisView -> "Api::AnalysesController" : index
 
-    activate Api::AnalysesController
-      Api::AnalysesController -> Analysis : all
+    activate "Api::AnalysesController"
+      "Api::AnalysesController" -> Analysis : all
 
       autonumber stop
-      AnalysisView <-- Api::AnalysesController : 画面を更新
-    deactivate Api::AnalysesController
+      AnalysisView <-- "Api::AnalysesController" : 画面を更新
+    deactivate "Api::AnalysesController"
   end
 deactivate AnalysisView
