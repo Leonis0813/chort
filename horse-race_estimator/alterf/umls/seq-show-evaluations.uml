@@ -10,15 +10,37 @@ activate EvaluationView
     EvaluationsController -> EvaluationsController : remove_old_files
     EvaluationsController -> Evaluation : all
   deactivate EvaluationsController
+
+  loop 3秒間隔
+    EvaluationView -> Api::EvaluationsController : index
+
+    activate Api::EvaluationsController
+      Api::EvaluationsController -> Evaluation : all
+
+      autonumber stop
+      EvaluationView <-- Api::EvaluationsController : 画面を更新
+    deactivate Api::EvaluationsController
+  end
 deactivate EvaluationView
 
 利用者 -> EvaluationView : 詳細ボタン押下
 
-activate EvaluationView
-  EvaluationView -> EvaluationsController : read
+activate EvaluationResultView
+  EvaluationResultView -> EvaluationsController : show
 
   activate EvaluationsController
     EvaluationsController -> EvaluationsController : remove_old_files
     EvaluationsController -> Evaluation : find_by
   deactivate EvaluationsController
-deactivate EvaluationView
+
+  loop 3秒間隔
+    EvaluationResultView -> Api::EvaluationsController : show
+
+    activate Api::EvaluationsController
+      Api::EvaluationsController -> Evaluation : find_by
+
+      autonumber stop
+      EvaluationResultView <-- Api::EvaluationsController : 画面を更新
+    deactivate Api::EvaluationsController
+  end
+deactivate EvaluationResultView
