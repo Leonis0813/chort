@@ -3,6 +3,10 @@ class PredictionView <<Boundary>>
 class EvaluationView <<Boundary>>
 class EvaluationResultView <<Boundary>>
 
+class ApplicationController {
+  + remove_old_files() : void
+}
+
 class AnalysesController {
   + manage(request : Object) : Object
   + execute(request : Object) : Object
@@ -21,6 +25,7 @@ class EvaluationsController {
   + manage(request : Object) : Object
   + execute(request : Object) : Object
   + show(request : Object) : Object
+  + download_data(request: Object) : Object
   - check_invalid_param() : void
   - user_specified_data?() : Boolean
   - num_data() : Integer
@@ -52,6 +57,7 @@ class Analysis {
   - num_feature : Integer
   - num_entry : Integer
   - state : String
+  - performed_at : Datetime
 }
 
 class Prediction {
@@ -59,6 +65,7 @@ class Prediction {
   - test_data : String
   - results: Array<PredictionResult>
   - state : String
+  - performed_at : Datetime
   + set_analysis!() : void
   + import_results(result_file : String) : void
 }
@@ -78,6 +85,7 @@ class Evaluation {
   - precision : Double
   - recall : Double
   - f_measure : Double
+  - performed_at : Datetime
   + set_analysis!() : void
   + fetch_data!() : Array<String>
   + calculate!() : void
@@ -130,6 +138,7 @@ class ModelUtil <<module>> {
 ブラウザ -- EvaluationResultView
 
 AnalysisView -- AnalysesController
+ApplicationController <|-- AnalysesController
 AnalysesController --> AnalysisJob
 AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
@@ -138,6 +147,7 @@ Analysis "1" -- "0 .. *" Prediction
 Analysis "1" -- "0 .. *" Evaluation
 
 PredictionView -- PredictionsController
+ApplicationController <|-- PredictionsController
 PredictionsController --> PredictionJob
 PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
@@ -147,6 +157,7 @@ Prediction "1" -- "*" PredictionResult
 Prediction ..> ModelUtil : <<include>>
 
 EvaluationView -- EvaluationsController
+ApplicationController <|-- EvaluationsController
 EvaluationsController --> EvaluationJob
 EvaluationsController "1" -- "1" Evaluation
 EvaluationJob --> FeatureUtil

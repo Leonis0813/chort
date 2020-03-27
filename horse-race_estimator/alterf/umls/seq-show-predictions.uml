@@ -2,5 +2,12 @@ autonumber
 
 actor 利用者
 利用者 -> PredictionView : 予測画面表示
-PredictionView -> PredictionsController : manage
-PredictionsController -> Prediction : all
+
+activate PredictionView
+  PredictionView -> PredictionsController : manage
+
+  activate PredictionsController
+    PredictionsController -> PredictionsController : remove_old_files
+    PredictionsController -> Prediction : all
+  deactivate PredictionsController
+deactivate PredictionView

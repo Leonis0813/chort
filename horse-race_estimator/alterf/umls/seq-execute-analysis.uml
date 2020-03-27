@@ -7,6 +7,7 @@ activate AnalysisView
   AnalysisView -> AnalysesController : execute
 
   activate AnalysesController
+    AnalysesController -> AnalysesController : remove_old_files
     AnalysesController -> AnalysesController : check_absent_param
 
     create Analysis
@@ -23,7 +24,7 @@ deactivate AnalysisView
 
 autonumber resume
 AnalysisJob -> Analysis : find
-AnalysisJob -> AnalysesJob : execute_script
+AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> YAML : load_file
 AnalysisJob -> Analysis : update
 AnalysisJob -> YAML : dump

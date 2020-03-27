@@ -2,5 +2,12 @@ autonumber
 
 actor 利用者
 利用者 -> AnalysisView : 分析画面表示
-AnalysisView -> AnalysesController : manage
-AnalysesController -> Analysis : all
+
+activate AnalysisView
+  AnalysisView -> AnalysesController : manage
+
+  activate AnalysesController
+    AnalysesController -> AnalysesController : remove_old_files
+    AnalysesController -> Analysis : all
+  deactivate AnalysesController
+deactivate AnalysisView
