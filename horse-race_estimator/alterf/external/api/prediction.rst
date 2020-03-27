@@ -59,7 +59,7 @@
             "model": "model.zip",
             "test_data": "test_data.yml",
             "state": "completed",
-            "results: [
+            "results": [
               {
                 "number": 1,
                 "won": false
