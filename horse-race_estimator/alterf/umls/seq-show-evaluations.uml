@@ -28,16 +28,17 @@ autonumber resume
 
 activate EvaluationView
   EvaluationView -> EvaluationsController : show
-  deactivate EvaluationView
+deactivate EvaluationView
 
-  activate EvaluationsController
-    EvaluationsController -> EvaluationsController : remove_old_files
-    EvaluationsController -> Evaluation : find_by
+activate EvaluationsController
+  EvaluationsController -> EvaluationsController : remove_old_files
+  EvaluationsController -> Evaluation : find_by
 
-    autonumber stop
-    EvaluationResultView <-- EvaluationsController : 画面を表示
-  deactivate EvaluationsController
+  autonumber stop
+  EvaluationResultView <-- EvaluationsController : 画面を表示
+deactivate EvaluationsController
 
+activate EvaluationResultView
   loop 3秒間隔
     autonumber resume
     EvaluationResultView -> "Api::EvaluationsController" : show
