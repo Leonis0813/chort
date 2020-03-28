@@ -23,17 +23,22 @@ activate EvaluationView
   end
 deactivate EvaluationView
 
+autonumber resume
 利用者 -> EvaluationView : 詳細ボタン押下
 
-activate EvaluationResultView
-  EvaluationResultView -> EvaluationsController : show
+activate EvaluationView
+  EvaluationView -> EvaluationsController : show
 
   activate EvaluationsController
     EvaluationsController -> EvaluationsController : remove_old_files
     EvaluationsController -> Evaluation : find_by
+
+    autonumber stop
+    EvaluationResultView <-- EvaluationsController : 画面を表示
   deactivate EvaluationsController
 
   loop 3秒間隔
+    autonumber resume
     EvaluationResultView -> "Api::EvaluationsController" : show
 
     activate "Api::EvaluationsController"
