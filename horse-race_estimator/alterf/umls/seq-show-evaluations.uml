@@ -28,6 +28,7 @@ autonumber resume
 
 activate EvaluationView
   EvaluationView -> EvaluationsController : show
+  deactivate EvaluationView
 
   activate EvaluationsController
     EvaluationsController -> EvaluationsController : remove_old_files
