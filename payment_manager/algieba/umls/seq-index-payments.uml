@@ -1,0 +1,23 @@
+autonumber
+
+actor 利用者
+利用者 -> "PaymentView" : 検索ボタン押下
+"PaymentView" -> "PaymentsController" : index
+create "PaymentQuery"
+"PaymentsController" -> "PaymentQuery" : new
+"PaymentsController" -> "PaymentQuery" : valid?
+
+autonumber stop
+"PaymentsController" <-- "PaymentQuery"
+
+alt クエリが不正
+  "PaymentView" <-- "PaymentsController"
+  利用者 <-- "PaymentView" : エラー表示
+end
+
+autonumber resume
+"PaymentsController" -> "Payment" : where
+
+autonumber stop
+"PaymentsController" <-- "Payment"
+利用者 <-- "PaymentsController"

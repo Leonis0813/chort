@@ -24,31 +24,69 @@ MVCモデルを利用する
 
     - categoriesテーブルを操作するモデル
 
+  - Dictionary
+
+    - dictionariesテーブルを管理するモデル
+
   - Payment
 
     - paymentsテーブルを操作するモデル
 
   - Query
 
-    - 収支検索時のクエリを管理するモデル
+    - クエリを管理するモデル
+    - 以下のサブクラスを持つ
+
+      - CategoryQuery
+
+        - カテゴリ検索時のクエリを管理する
+
+      - DictionaryQuery
+
+        - 辞書検索時のクエリを管理する
+
+      - PaymentQuery
+
+        - 収支検索時のクエリを管理する
+
+      - TagQuery
+
+        - タグ検索時のクエリを管理する
 
   - Settlement
 
     - 収支計算時のクエリを管理するモデル
 
-  - Dictionary
+  - Tag
 
-    - dictionariesテーブルを管理するモデル
+    - tagsテーブルを管理するモデル
 
 - View
 
-  - Payment_View
+  - ManagementView
 
-    - 収支の登録や表示を行うビュー
+    - 管理画面を表すビュー
+    - 以下のサブビューを持つ
 
-  - Statistics_View
+      - CategoryView
 
-    - 統計情報を表示するビュー
+        - カテゴリ情報を管理するビュー
+
+      - DictionaryView
+
+        - 辞書情報を管理するビュー
+
+      - PaymentView
+
+        - 収支情報を管理するビュー
+
+      - TagView
+
+        - タグ情報を管理するビュー
+
+  - StatisticsView
+
+    - 統計画面を表すビュー
 
 - Controller
 
@@ -67,9 +105,29 @@ MVCモデルを利用する
     - 収支を処理するコントローラー
     - WebAPI用コントローラー
 
+  - Api::TagsController
+
+    - タグを処理するコントローラー
+    - WebAPI用コントローラー
+
+  - CategoriesController
+
+    - カテゴリを処理するコントローラー
+    - UI用コントローラー
+
+  - DictionariesController
+
+    - 辞書を処理するコントローラー
+    - UI用コントローラー
+
   - PaymentsController
 
     - 収支を処理するコントローラー
+    - UI用コントローラー
+
+  - TagsController
+
+    - タグを処理するコントローラー
     - UI用コントローラー
 
   - StatisticsController
@@ -83,11 +141,15 @@ MVCモデルを利用する
 ----------
 
 - :ref:`alg-int-seq-create-payment`
-- :ref:`alg-int-seq-index-payment`
+- :ref:`alg-int-seq-index-payments`
 - :ref:`alg-int-seq-destroy-payment`
-- :ref:`alg-int-seq-settle-payment`
-- :ref:`alg-int-seq-show-stats`
+- :ref:`alg-int-seq-index-categories`
 - :ref:`alg-int-seq-create-dictionary`
+- :ref:`alg-int-seq-index-dictionaries`
+- :ref:`alg-int-seq-create-tag`
+- :ref:`alg-int-seq-assign-tag`
+- :ref:`alg-int-seq-index-tags`
+- :ref:`alg-int-seq-statistics`
 
 .. _alg-int-seq-create-payment:
 
@@ -105,43 +167,48 @@ MVCモデルを利用する
 5. 入力された内容にマッチする辞書情報を検索する
 6. 利用者がフォームに入力して登録ボタンを押下する
 7. 管理画面が収支情報を登録するAPIを実行する
+8. 必須パラメーターが指定されているかチェックする
 
 必須パラメーターがない場合はエラーを表示して終了する
 
-8. 入力されたパラメーターから収支情報を作成する
+9. 入力されたパラメーターから収支情報を作成する
 
-入力されたカテゴリの数だけ9を実行する
+入力されたカテゴリの数だけ10を実行する
 
-9. カテゴリ情報が登録されていなければ登録し，取得する
+10. カテゴリ情報を取得する．なければオブジェクトを作成する
 
-10. 収支情報をDBに登録する
+入力されたカテゴリの数だけ11を実行する
 
-登録に成功した場合は11〜15を実行する
+11. タグ情報を取得する．なければオブジェクトを作成する
 
-11. 登録された収支情報で辞書情報を検索する
+12. 収支情報をデータベースに登録する
 
-該当する辞書情報が登録されていない場合は12〜14を実行する
+登録に成功した場合は13〜17を実行する
 
-12. 辞書情報を登録するためのダイアログを表示する
-13. 利用者が登録ボタンを押下する
-14. WebAPIを利用して辞書情報を登録する
+13. 登録された収支情報で辞書情報を検索する
 
-15. 管理画面をリロードする
+該当する辞書情報が登録されていない場合は14〜16を実行する
+
+14. 辞書情報を登録するためのダイアログを表示する
+15. 利用者が登録ボタンを押下する
+16. 管理画面が辞書情報を登録するAPIを実行する
+
+17. 管理画面をリロードする
 
 登録に失敗した場合はエラーを表示して終了する
 
-.. _alg-int-seq-index-payment:
+.. _alg-int-seq-index-payments:
 
 収支を検索する
 ^^^^^^^^^^^^^^
 
 *シーケンス図*
 
-.. uml:: umls/seq-index-payment.uml
+.. uml:: umls/seq-index-payments.uml
 
-1. 利用者がフォームに入力して検索フォームを押下する
-2. クエリを指定して登録画面の再表示を要求する
-3. 入力されたパラメーターからクエリ情報を作成する
+1. 利用者が検索条件をフォームに入力して検索ボタンを押下する
+2. クエリを指定して管理画面の再表示を要求する
+3. 指定されたパラメーターからクエリ情報を作成する
 4. クエリ情報が不正でないか確認する
 
 クエリ情報が不正な場合はエラーを表示して終了する
@@ -158,36 +225,136 @@ MVCモデルを利用する
 .. uml:: umls/seq-destroy-payment.uml
 
 1. 利用者が収支情報を選択して削除ボタンを押下する
-2. 登録画面が収支情報を削除するAPIを実行する
-3. 指定された収支情報が存在すれば削除する
-4. 登録画面をリロードする
+2. 管理画面が収支情報を削除するAPIを実行する
+3. 指定された収支情報が存在するかチェックする
 
-.. _alg-int-seq-settle-payment:
+指定された収支情報が存在しない場合はエラーを表示して終了する
 
-収支を計算する
+4. 指定された収支情報を削除する
+5. 管理画面をリロードする
+
+.. _alg-int-seq-index-categories:
+
+カテゴリを検索する
+^^^^^^^^^^^^^^^^^^
+
+*シーケンス図*
+
+.. uml:: umls/seq-index-categories.uml
+
+1. 利用者が検索条件をフォームに入力して検索ボタンを押下する
+2. クエリを指定して管理画面の再表示を要求する
+3. 指定されたパラメーターからクエリ情報を作成する
+4. クエリ情報が不正でないか確認する
+
+クエリ情報が不正な場合はエラーを表示して終了する
+
+5. クエリを満たすカテゴリ情報を検索する
+
+.. _alg-int-seq-create-dictionary:
+
+辞書を登録する
+^^^^^^^^^^^^^^
+
+.. uml:: umls/seq-create-dictionary.uml
+
+1. 利用者が辞書情報をフォームに入力して登録ボタンを押下する
+2. 管理画面が辞書情報を登録するAPIを実行する
+3. 必須パラメーターが指定されているかチェックする
+
+必須パラメーターがない場合はエラーを表示して終了する
+
+4. 指定されたパラメーターから辞書情報を作成する
+
+指定されたカテゴリ名の数だけ5を実行する
+
+5. データベースからカテゴリ情報を取得する．なければオブジェクトを作成する
+
+6. 辞書情報をデータベースに登録する
+
+.. _alg-int-seq-index-dictionaries:
+
+辞書を検索する
 ^^^^^^^^^^^^^^
 
 *シーケンス図*
 
-.. uml:: umls/seq-settle.uml
+.. uml:: umls/seq-index-dictionaries.uml
 
-1. クライアントが期間別に収支を計算するAPIを実行する
-2. 指定されたパラメーターから決済情報を作成する
-3. 決済情報が不正でないか確認する
+1. 利用者が検索条件をフォームに入力して検索ボタンを押下する
+2. クエリを指定して管理画面の再表示を要求する
+3. 指定されたパラメーターからクエリ情報を作成する
+4. クエリ情報が不正でないか確認する
 
-決済情報が不正な場合はエラーコードを返して終了する
+クエリ情報が不正な場合はエラーを表示して終了する
 
-4. 収支情報から収支を計算する
+5. クエリを満たす辞書情報を検索する
 
-.. _alg-int-seq-show-stats:
+.. _alg-int-seq-create-tag:
+
+タグを登録する
+^^^^^^^^^^^^^^
+
+.. uml:: umls/seq-create-tag.uml
+
+1. 利用者がタグ情報をフォームに入力して登録ボタンを押下する
+2. 管理画面がタグ情報を登録するAPIを実行する
+3. 必須パラメーターが指定されているかチェックする
+
+必須パラメーターがない場合はエラーを表示して終了する
+
+4. 指定されたパラメーターからタグ情報を作成する
+5. タグ情報をデータベースに登録する
+
+.. _alg-int-seq-assign-tag:
+
+タグを設定する
+^^^^^^^^^^^^^^
+
+*シーケンス図*
+
+.. uml:: umls/seq-assign-tag.uml
+
+1. 利用者が設定する収支とタグ情報を入力して設定ボタンを押下する
+2. 管理画面がタグを設定するAPIを実行する
+3. 指定されたタグが存在するかチェックする
+
+指定されたタグが存在しない場合はエラーを表示して終了する
+
+4. 必須パラメーターが指定されているかチェックする
+
+必須パラメーターがない場合はエラーを表示して終了する
+
+5. 指定された条件を満たす収支情報を検索する
+6. 取得した収支情報にタグを設定する
+
+.. _alg-int-seq-index-tags:
+
+タグを検索する
+^^^^^^^^^^^^^^
+
+*シーケンス図*
+
+.. uml:: umls/seq-index-tags.uml
+
+1. 利用者が検索条件をフォームに入力して検索ボタンを押下する
+2. クエリを指定して管理画面の再表示を要求する
+3. 指定されたパラメーターからクエリ情報を作成する
+4. クエリ情報が不正でないか確認する
+
+クエリ情報が不正な場合はエラーを表示して終了する
+
+5. クエリを満たすタグ情報を検索する
+
+.. _alg-int-seq-statistics:
 
 統計情報を表示する
 ^^^^^^^^^^^^^^^^^^
 
-.. uml:: umls/seq-show-stats.uml
+.. uml:: umls/seq-statistics.uml
 
 1. 利用者が統計画面を表示する
-2. ブラウザが統計画面の表示を要求する
+2. 統計画面が統計情報の表示を要求する
 3. 統計画面が期間別に収支を計算するAPIを実行する
 4. 収支情報から収支を計算する
 5. 統計画面がカテゴリ別に収入の割合を計算するAPIを実行する
@@ -197,21 +364,6 @@ MVCモデルを利用する
 9. 利用者がグラフをクリックする
 10. 統計画面が期間別に収支を計算するAPIを実行する
 11. 収支情報から収支を計算する
-
-.. _alg-int-seq-create-dictionary:
-
-辞書を登録する
-^^^^^^^^^^^^^^
-
-.. uml:: umls/seq-create-dictionary.uml
-
-1. 利用者がフォームに入力して登録ボタンを押下する
-2. 管理画面が辞書情報を登録するAPIを実行する
-
-必須パラメーターがない場合はエラーを表示して終了する
-
-3. 入力されたパラメーターから辞書情報を作成する
-4. 辞書情報をDBに登録する
 
 .. _alg-int-scm:
 
@@ -225,6 +377,8 @@ MVCモデルを利用する
 - :ref:`alg-int-scm-category-payments`
 - :ref:`alg-int-scm-dictionaries`
 - :ref:`alg-int-scm-payments`
+- :ref:`alg-int-scm-payment-tags`
+- :ref:`alg-int-scm-tags`
 
 .. _alg-int-scm-categories:
 
@@ -237,6 +391,7 @@ categories テーブル
    :header: カラム,型,内容,NOT NULL
 
    id,INTEGER,内部ID,○
+   category_id,STRING,カテゴリを一意に示すID,
    name,STRING,カテゴリの名前,○
    description,STRING,カテゴリの説明,
    created_at,DATETIME,カテゴリ情報の作成日時,○
@@ -285,6 +440,7 @@ dictionaries テーブル
    :header: カラム,型,内容,NOT NULL
 
    id,INTEGER,内部ID,○
+   dictionary_id,STRING,辞書を一意に示すID,
    phrase,STRING,フレーズ,○
    condition,STRING,条件,○
    created_at,DATETIME,辞書情報の登録日時,○
@@ -301,9 +457,42 @@ payments テーブル
    :header: カラム,型,内容,NOT NULL
 
    id,INTEGER,内部ID,○
+   payment_id,STRING,収支を一意に示すID,
    payment_type,STRING,収支の種類,○
    date,DATE,収入/支出があった日,○
    content,STRING,収入/支出の内容,○
    price,INTEGER,収入/支出の金額,○
    created_at,DATETIME,収支情報の登録日時,○
    updated_at,DATETIME,収支情報の更新日時,○
+
+.. _alg-int-scm-payment-tags:
+
+payment_tags テーブル
+^^^^^^^^^^^^^^^^^^^^^
+
+タグ情報と収支情報を紐づける中間テーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+
+   id,INTEGER,内部ID,○
+   payment_id,INTEGER,paymentsテーブルの内部ID,○
+   tag_id,INTEGER,tagsテーブルの内部ID,○
+   created_at,DATETIME,レコードの作成日時,○
+   updated_at,DATETIME,レコードの更新日時,○
+
+.. _alg-int-scm-tags:
+
+tags テーブル
+^^^^^^^^^^^^^
+
+タグ情報を登録するtagsテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+
+   id,INTEGER,内部ID,○
+   tag_id,STRING,タグを一意に示すID,
+   name,STRING,タグ名,○
+   created_at,DATETIME,タグ情報の登録日時,○
+   updated_at,DATETIME,タグ情報の更新日時,○

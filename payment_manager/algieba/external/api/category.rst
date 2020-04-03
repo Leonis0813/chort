@@ -53,7 +53,7 @@
       {
         "categories": [
           {
-            "id": 1,
+            "category_id": "2d44e728b365a0c8f91987c39117cc08",
             "name": "食費",
             "description": "食品や飲料を購入した時に発生する支出"
           }

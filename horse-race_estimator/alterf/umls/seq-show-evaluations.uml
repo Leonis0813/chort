@@ -2,9 +2,23 @@ autonumber
 
 actor 利用者
 利用者 -> EvaluationView : 評価画面表示
-EvaluationView -> EvaluationsController : manage
-EvaluationsController -> Evaluation : all
+
+activate EvaluationView
+  EvaluationView -> EvaluationsController : manage
+
+  activate EvaluationsController
+    EvaluationsController -> EvaluationsController : remove_old_files
+    EvaluationsController -> Evaluation : all
+  deactivate EvaluationsController
+deactivate EvaluationView
 
 利用者 -> EvaluationView : 詳細ボタン押下
-EvaluationView -> EvaluationsController : read
-EvaluationsController -> Evaluation : find_by
+
+activate EvaluationView
+  EvaluationView -> EvaluationsController : read
+
+  activate EvaluationsController
+    EvaluationsController -> EvaluationsController : remove_old_files
+    EvaluationsController -> Evaluation : find_by
+  deactivate EvaluationsController
+deactivate EvaluationView

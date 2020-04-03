@@ -1,17 +1,17 @@
 autonumber
 
 actor 利用者
-利用者 -> "Payment_View" : 削除ボタン押下
-"Payment_View" -> "Api::PaymentsController" : destroy
-"Api::PaymentsController" -> "Payment" : destroy
+利用者 -> "PaymentView" : 削除ボタン押下
 
-autonumber stop
-"Api::PaymentsController" <-- "Payment"
-"Payment_View" <-- "Api::PaymentsController"
+"PaymentView" -> "Api::PaymentsController" : destroy
+"Api::PaymentsController" -> "Api::PaymentsController" : check_request_payment
+
+alt 収支が存在しない
+  autonumber stop
+  "PaymentView" <-- "Api::PaymentsController"
+  利用者 <-- "PaymentView"
+end
 
 autonumber resume
-"Payment_View" -> "PaymentsController" : index
-
-autonumber stop
-"Payment_View" <-- "PaymentsController"
-利用者 <-- "Payment_View"
+"Api::PaymentsController" -> "Payment" : destroy
+"PaymentView" -> "PaymentsController" : index

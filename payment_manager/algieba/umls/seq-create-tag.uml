@@ -1,0 +1,23 @@
+autonumber
+
+actor 利用者
+利用者 -> "TagView" : 登録ボタン押下
+"TagView" -> "Api::TagsController" : create
+"Api::TagsController" -> "Api::TagsController" : check_absent_params
+
+alt 必須パラメーターがない
+  autonumber stop
+  "TagView" <-- "Api::TagsController"
+  利用者 <-- "TagView"
+end
+
+autonumber resume
+create Tag
+"Api::TagsController" -> "Tag" : new
+"Api::TagsController" -> "Tag" : save
+
+alt パラメーターが不正 or 同じタグが登録済み
+  autonumber stop
+  "TagView" <-- "Api::TagsController"
+  利用者 <-- "TagView"
+end

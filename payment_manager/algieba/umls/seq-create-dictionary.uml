@@ -1,16 +1,28 @@
 autonumber
 
 actor 利用者
-利用者 -> "Payment_View" : 登録ボタン押下
-"Payment_View" -> "Api::DictionariesController" : create
+利用者 -> "DictionaryView" : 登録ボタン押下
+"DictionaryView" -> "Api::DictionariesController" : create
+"Api::DictionariesController" -> "Api::DictionariesController" : check_absent_params
 
 alt 必須パラメーターがない
   autonumber stop
-  "Payment_View" <-- "Api::DictionariesController"
-  利用者 <-- "Payment_View"
+  "DictionaryView" <-- "Api::DictionariesController"
+  利用者 <-- "DictionaryView"
 end
 
 autonumber resume
 create Dictionary
 "Api::DictionariesController" -> "Dictionary" : new
+
+loop カテゴリ名の数だけ繰り返す
+  "Api::DictionariesController" -> "Category" : find_or_initialize_by
+end
+
 "Api::DictionariesController" -> "Dictionary" : save
+
+alt パラメーターが不正 or 同じ辞書が登録済み
+  autonumber stop
+  "DictionaryView" <-- "Api::DictionariesController"
+  利用者 <-- "DictionaryView"
+end

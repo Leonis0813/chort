@@ -8,7 +8,7 @@
 
 .. _alg-ext-api-dic-create:
 
-辞書を登録する
+辞書を作成する
 ^^^^^^^^^^^^^^
 
 .. http:post:: /dictionaries
@@ -74,12 +74,12 @@
       Content-Type: application/json
 
       {
-        "id": 1,
+        "dictionary_id": "2d44e728b365a0c8f91987c39117cc08",
         "phrase": "コンビニ",
         "condition": "include",
         "categories": [
           {
-            "id": 1,
+            "category_id": "2d44e728b365a0c8f91987c39117cc08",
             "name": "食費",
             "description": null
           }
@@ -144,12 +144,12 @@
       {
         "dictionaries": [
           {
-            "id": 1,
+            "dictionary_id": "2d44e728b365a0c8f91987c39117cc08",
             "phrase": "コンビニ",
             "condition": "include",
             "categories": [
               {
-                "id": 1,
+                "category_id": "2d44e728b365a0c8f91987c39117cc08",
                 "name": "食費",
                 "description": null
               }

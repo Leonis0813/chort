@@ -7,8 +7,14 @@ activate PredictionView
   PredictionView -> PredictionsController : execute
 
   activate PredictionsController
+    PredictionsController -> PredictionsController : remove_old_files
+    PredictionsController -> PredictionsController : check_absent_params
+    PredictionsController -> PredictionsController : check_invalid_file_params
+
     create Prediction
     PredictionsController -> Prediction : new
+    PredictionsController -> Prediction : save
+    PredictionsController -> PredictionsController : save_files
     PredictionsController ->> PredictionJob : perform_later
     activate PredictionJob
 
@@ -19,20 +25,63 @@ activate PredictionView
   利用者 <-- PredictionView
 deactivate PredictionView
 
+autonumber resume
+PredictionJob -> Prediction : find
+PredictionJob -> ModelUtil : unzip_model
+PredictionJob -> Prediction : set_analysis!
+
+activate Prediction
+  Prediction -> ModelUtil : read_analysis_id
+  Prediction -> Analysis : find_by
+  Prediction -> Prediction : update!
+deactivate Prediction
+
 alt URL指定
-  autonumber resume
-  PredictionJob -> NetkeibaClient : http_get_race
+  PredictionJob -> FeatureUtil : create_feature_from_netkeiba
+
+  activate FeatureUtil
+    create NetkeibaClient
+    FeatureUtil -> NetkeibaClient : new
+    FeatureUtil -> NetkeibaClient : http_get_race
+
+    activate NetkeibaClient
+      NetkeibaClient -> NetkeibaClient : send_request
+      NetkeibaClient -> FeatureExtractor : extract_entries
+      NetkeibaClient -> FeatureExtractor : extract_race
+    deactivate NetkeibaClient
+
+    loop レースのエントリーの数だけ繰り返す
+      FeatureUtil -> NetkeibaClient : http_get_horse
+
+      activate NetkeibaClient
+        NetkeibaClient -> NetkeibaClient : send_request
+        NetkeibaClient -> FeatureExtractor : extract_horse_results
+        NetkeibaClient -> FeatureExtractor : extract_horse
+      deactivate NetkeibaClient
+
+      FeatureUtil -> NetkeibaClient : http_get_jockey
+
+      activate NetkeibaClient
+        NetkeibaClient -> NetkeibaClient : send_request
+        NetkeibaClient -> FeatureExtractor : extract_jockey_results
+      deactivate NetkeibaClient
+    end
+  deactivate FeatureUtil
+else
+  PredictionJob -> YAML : load_file
+end
+
+PredictionJob -> YAML : dump
+PredictionJob -> PredictionJob : execute_script
+PredictionJob -> Prediction : import_results
+
+activate Prediction
+  Prediction -> YAML : load_file
 
   loop レースのエントリーの数だけ繰り返す
-    PredictionJob -> NetkeibaClient : http_get_horse
+    Prediction -> "Prediction::Result" : create!
   end
+deactivate Prediction
 
-  PredictionJob -> YAML : dump
-end
-
-loop レースのエントリーの数だけ繰り返す
-  PredictionJob -> "Prediction::Result" : create!
-end
-
-PredictionJob -> Prediction : update
+PredictionJob -> Prediction : update!
 deactivate PredictionJob

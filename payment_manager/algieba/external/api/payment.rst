@@ -11,7 +11,7 @@
 
 .. _alg-ext-api-pay-create:
 
-収支を登録する
+収支を作成する
 ^^^^^^^^^^^^^^
 
 .. http:post:: /payments
@@ -41,6 +41,13 @@
 
          - :ref:`alg-ext-res-payment` のprice参照
 
+     - オプション
+
+       - tags (array[string])
+
+         - :ref:`alg-ext-res-payment` のtags参照
+         - :ref:`alg-ext-res-tag` のタグ名の配列
+
    - レスポンスボディ
 
      - :ref:`alg-ext-res-payment`
@@ -69,6 +76,9 @@
         "categories": [
           "給料"
         ],
+        "tags": [
+          "給料"
+        ],
         "price": 200000
       }
 
@@ -80,15 +90,21 @@
       Content-Type: application/json
 
       {
-        "id": 1,
+        "payment_id": "2d44e728b365a0c8f91987c39117cc08",
         "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
         "categories": [
           {
-            "id": 1,
+            "category_id": "2d44e728b365a0c8f91987c39117cc08",
             "name": "給料",
             "description": null
+          }
+        ],
+        "tags": [
+          {
+            "tag_id": "2d44e728b365a0c8f91987c39117cc08",
+            "name": "給料"
           }
         ],
         "price": 200000
@@ -99,11 +115,11 @@
 収支を取得する
 ^^^^^^^^^^^^^^
 
-.. http:get:: /payments/[id]
+.. http:get:: /payments/[payment_id]
 
    - パスパラメーター
 
-     - id
+     - payment_id
 
        - :ref:`alg-ext-res-payment` のid参照
 
@@ -125,7 +141,7 @@
 
    .. sourcecode:: http
 
-      GET /payments/1 HTTP/1.1
+      GET /payments/2d44e728b365a0c8f91987c39117cc08 HTTP/1.1
 
    **レスポンス例**
 
@@ -135,15 +151,21 @@
       Content-Type: application/json
 
       {
-        "id": 1,
+        "paymnet_id": "2d44e728b365a0c8f91987c39117cc08",
         "payment_type": "income",
         "date": "1000-01-01",
         "content": "給料",
         "categories": [
           {
-            "id": 1,
+            "category_id": "2d44e728b365a0c8f91987c39117cc08",
             "name": "給料",
             "description": null
+          }
+        ],
+        "tags": [
+          {
+            "tag_id": "2d44e728b365a0c8f91987c39117cc08",
+            "name": "給料"
           }
         ],
         "price": 200000
@@ -212,11 +234,11 @@
          - 指定したパラメーターで並べ替えて返却する
          - 以下を指定可能
 
-           - id
+           - payment_id
            - date
            - price
 
-         - デフォルト id
+         - デフォルト payment_id
 
        - order (string)
 
@@ -260,15 +282,21 @@
       {
         "payments": [
           {
-            "id": 1,
+            "payment_id": "2d44e728b365a0c8f91987c39117cc08",
             "payment_type": "income",
             "date": "1000-01-01",
             "content": "給料",
             "categories": [
               {
-                "id": 1,
+                "category_id": "2d44e728b365a0c8f91987c39117cc08",
                 "name": "給料",
                 "description": null
+              }
+            ],
+            "tags": [
+              {
+                "tag_id": "2d44e728b365a0c8f91987c39117cc08",
+                "name": "給料"
               }
             ],
             "price": 200000
@@ -281,13 +309,13 @@
 収支を更新する
 ^^^^^^^^^^^^^^
 
-.. http:put:: /payments/[id]
+.. http:put:: /payments/[payment_id]
 
    - パスパラメーター
 
-     - id
+     - payment_id
 
-       - :ref:`alg-ext-res-payment` のid参照
+       - :ref:`alg-ext-res-payment` のpayment_id参照
 
    - リクエストボディ
 
@@ -309,6 +337,11 @@
 
          - :ref:`alg-ext-res-payment` のcategories参照
          - :ref:`alg-ext-res-category` の名前の配列
+
+       - tags
+
+         - :ref:`alg-ext-res-payment` のtags参照
+         - :ref:`alg-ext-res-tag` の名前の配列
 
        - price
 
@@ -333,7 +366,7 @@
 
    .. sourcecode:: http
 
-      PUT /payments/1 HTTP/1.1
+      PUT /payments/2d44e728b365a0c8f91987c39117cc08 HTTP/1.1
       Content-Type: application/json
 
       {
@@ -348,15 +381,21 @@
       Content-Type: application/json
 
       {
-        "id": 1,
+        "payment_id": "2d44e728b365a0c8f91987c39117cc08",
         "payment_type": "income",
         "date": "1000-01-02",
         "content": "給料",
         "categories": [
           {
-            "id": 1,
+            "category_id": "2d44e728b365a0c8f91987c39117cc08",
             "name": "給料",
             "description": null
+          }
+        ],
+        "tags": [
+          {
+            "tag_id": "2d44e728b365a0c8f91987c39117cc08",
+            "name": "給料"
           }
         ],
         "price": 200000
@@ -367,13 +406,13 @@
 収支を削除する
 ^^^^^^^^^^^^^^
 
-.. http:delete:: /payments/[id]
+.. http:delete:: /payments/[payment_id]
 
    - パスパラメーター
 
-     - id
+     - payment_id
 
-       - :ref:`alg-ext-res-payment` のid参照
+       - :ref:`alg-ext-res-payment` のpayment_id参照
 
    - ステータスコード
 
@@ -389,7 +428,7 @@
 
    .. sourcecode:: http
 
-      DELETE /payments/1 HTTP/1.1
+      DELETE /payments/2d44e728b365a0c8f91987c39117cc08 HTTP/1.1
 
    **レスポンス例**
 
