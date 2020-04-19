@@ -1,3 +1,6 @@
+# 2020/04/19
+- [Algieba] update version to 4.5.2
+
 # 2020/03/22
 - [Alterf] update version to 4.12.0
 
