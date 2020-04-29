@@ -10,4 +10,15 @@ activate AnalysisView
     AnalysesController -> AnalysesController : remove_old_files
     AnalysesController -> Analysis : all
   deactivate AnalysesController
+
+  loop 5秒間隔
+    AnalysisView -> AnalysesController : manage
+
+    activate AnalysesController
+      AnalysesController -> Analysis : all
+
+      autonumber stop
+      AnalysisView <-- AnalysesController : 画面を更新
+    deactivate AnalysesController
+  end
 deactivate AnalysisView

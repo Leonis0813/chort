@@ -10,15 +10,44 @@ activate EvaluationView
     EvaluationsController -> EvaluationsController : remove_old_files
     EvaluationsController -> Evaluation : all
   deactivate EvaluationsController
+
+  loop 5秒間隔
+    EvaluationView -> EvaluationsController : manage
+
+    activate EvaluationsController
+      EvaluationsController -> Evaluation : all
+
+      autonumber stop
+      EvaluationView <-- EvaluationsController : 画面を更新
+    deactivate EvaluationsController
+  end
 deactivate EvaluationView
 
+autonumber resume
 利用者 -> EvaluationView : 詳細ボタン押下
 
 activate EvaluationView
-  EvaluationView -> EvaluationsController : read
-
-  activate EvaluationsController
-    EvaluationsController -> EvaluationsController : remove_old_files
-    EvaluationsController -> Evaluation : find_by
-  deactivate EvaluationsController
+  EvaluationView -> EvaluationsController : show
 deactivate EvaluationView
+
+activate EvaluationsController
+  EvaluationsController -> EvaluationsController : remove_old_files
+  EvaluationsController -> Evaluation : find_by
+
+  autonumber stop
+  EvaluationResultView <-- EvaluationsController : 画面を表示
+deactivate EvaluationsController
+
+activate EvaluationResultView
+  loop 5秒間隔
+    autonumber resume
+    EvaluationResultView -> EvaluationsController : show
+
+    activate EvaluationsController
+      EvaluationsController -> Evaluation : find_by
+
+      autonumber stop
+      EvaluationResultView <-- EvaluationsController : 画面を更新
+    deactivate EvaluationsController
+  end
+deactivate EvaluationResultView
