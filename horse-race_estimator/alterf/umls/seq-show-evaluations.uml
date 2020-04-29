@@ -11,15 +11,15 @@ activate EvaluationView
     EvaluationsController -> Evaluation : all
   deactivate EvaluationsController
 
-  loop 3秒間隔
-    EvaluationView -> "Api::EvaluationsController" : index
+  loop 5秒間隔
+    EvaluationView -> EvaluationsController : manage
 
-    activate "Api::EvaluationsController"
-      "Api::EvaluationsController" -> Evaluation : all
+    activate EvaluationsController
+      EvaluationsController -> Evaluation : all
 
       autonumber stop
-      EvaluationView <-- "Api::EvaluationsController" : 画面を更新
-    deactivate "Api::EvaluationsController"
+      EvaluationView <-- EvaluationsController : 画面を更新
+    deactivate EvaluationsController
   end
 deactivate EvaluationView
 
@@ -39,15 +39,15 @@ activate EvaluationsController
 deactivate EvaluationsController
 
 activate EvaluationResultView
-  loop 3秒間隔
+  loop 5秒間隔
     autonumber resume
-    EvaluationResultView -> "Api::EvaluationsController" : show
+    EvaluationResultView -> EvaluationsController : show
 
-    activate "Api::EvaluationsController"
-      "Api::EvaluationsController" -> Evaluation : find_by
+    activate EvaluationsController
+      EvaluationsController -> Evaluation : find_by
 
       autonumber stop
-      EvaluationResultView <-- "Api::EvaluationsController" : 画面を更新
-    deactivate "Api::EvaluationsController"
+      EvaluationResultView <-- EvaluationsController : 画面を更新
+    deactivate EvaluationsController
   end
 deactivate EvaluationResultView

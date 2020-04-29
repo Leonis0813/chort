@@ -11,14 +11,14 @@ activate PredictionView
     PredictionsController -> Prediction : all
   deactivate PredictionsController
 
-  loop 3秒間隔
-    PredictionView -> "Api::PredictionsController" : index
+  loop 5秒間隔
+    PredictionView -> PredictionsController : manage
 
-    activate "Api::PredictionsController"
-      "Api::PredictionsController" -> Prediction : all
+    activate PredictionsController
+      PredictionsController -> Prediction : all
 
       autonumber stop
-      PredictionView <-- "Api::PredictionsController" : 画面を更新
-    deactivate "Api::PredictionsController"
+      PredictionView <-- PredictionsController : 画面を更新
+    deactivate PredictionsController
   end
 deactivate PredictionView
