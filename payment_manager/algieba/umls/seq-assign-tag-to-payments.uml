@@ -11,8 +11,12 @@ activate "PaymentView"
 
     activate "Api::PaymentsController"
       "Api::PaymentsController" -> "Api::PaymentsController" : check_request_payment
+
+      autonumber stop
+      "PaymentView" <-- "Api::PaymentsController"
     deactivate "Api::PaymentsController"
 
+    autonumber resume
     "PaymentView" -> "Api::PaymentsController" : update
 
     activate "Api::PaymentsController"
@@ -23,9 +27,11 @@ activate "PaymentView"
       end
 
       "Api::PaymentsController" -> "Payment" : update
+
+      autonumber stop
+      "PaymentView" <-- "Api::PaymentsController"
     deactivate "Api::PaymentsController"
   end
 
-  autonumber stop
   利用者 <-- "PaymentView"
 deactivate "PaymentView"
