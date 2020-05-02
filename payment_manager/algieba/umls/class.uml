@@ -176,25 +176,26 @@ PaymentView -- Api::DictionariesController
 TagView -- TagsController
 TagView -- Api::TagsController
 
-CategoriesController "1" -- "0 .. *" Category
+CategoriesController -> Category
 CategoriesController -- CategoryQuery
-Api::CategoriesController "1" -- "0 .. *" Category
+Api::CategoriesController -> Category
 Api::CategoriesController -- CategoryQuery
 
-DictionariesController "1" -- "0 .. *" Dictionary
+DictionariesController -> Dictionary
 DictionariesController -- DictionaryQuery
-Api::DictionariesController "1" -- "0 .. *" Dictionary
+Api::DictionariesController -> Dictionary
 Api::DictionariesController -- DictionaryQuery
 
-PaymentsController "1" -- "0 .. *" Payment
+PaymentsController -> Payment
 PaymentsController -- PaymentQuery
-Api::PaymentsController "1" -- "0 .. *" Payment
+Api::PaymentsController -> Payment
+Api::PaymentsController -> Category
+Api::PaymentsController -> Tag
 Api::PaymentsController -- PaymentQuery
 
-TagsController "1" -- "0 .. *" Tag
+TagsController -> Tag
 TagsController -- TagQuery
-Api::TagsController "1" -- "1" Tag
-Api::TagsController "1" -- "1 .. *" Payment
+Api::TagsController -> Tag
 
 Payment "1 .. *" -- "1 .. *" Category
 Payment "1 .. *" -- "0 .. *" Tag
