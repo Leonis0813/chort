@@ -64,11 +64,7 @@ class Api::PaymentsController {
 
 class Api::TagsController {
   + create(request : Object) : Object
-  + assign_payments(request : Object) : Object
-  - check_request_tag() : void
-  - request_tag() : Tag
   - create_params() : Hash<String, Object>
-  - assign_payments_params() : Hash<String, Object>
 }
 
 class Api::SettlementsController {

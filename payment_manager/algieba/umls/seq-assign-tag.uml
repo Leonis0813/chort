@@ -1,33 +1,31 @@
 autonumber
 
 actor 利用者
-利用者 -> "TagView" : 設定ボタン押下
-"TagView" -> "Api::TagsController" : assign_payments
-"Api::TagsController" -> "Api::TagsController" : check_request_tag
+利用者 -> "PaymentView" : タグ設定フォームを表示
+利用者 -> "PaymentView" : 収支情報を選択
+利用者 -> "PaymentView" : 設定ボタンを押下
 
-alt タグが存在しない
+activate "PaymentView"
+  loop 選択された収支情報の数だけ繰り返す
+    "PaymentView" -> "Api::PaymentsController" : show
+
+    activate "Api::PaymentsController"
+      "Api::PaymentsController" -> "Api::PaymentsController" : check_request_payment
+    deactivate "Api::PaymentsController"
+
+    "PaymentView" -> "Api::PaymentsController" : update
+
+    activate "Api::PaymentsController"
+      "Api::PaymentsController" -> "Api::PaymentsController" : check_request_payment
+
+      loop 指定されたタグの数だけ繰り返す
+        "Api::PaymentsController" -> "Tag" : find_or_create_by
+      end
+
+      "Api::PaymentsController" -> "Payment" : update
+    deactivate "Api::PaymentsController"
+  end
+
   autonumber stop
-  "TagView" <-- "Api::TagsController"
-  利用者 <-- "TagView"
-end
-
-autonumber resume
-"Api::TagsController" -> "Api::TagsController" : check_absent_params
-
-alt 必須パラメーターがない
-  autonumber stop
-  "TagView" <-- "Api::TagsController"
-  利用者 <-- "TagView"
-end
-
-autonumber resume
-"Api::TagsController" -> "Payment" : where
-
-alt 不正なパラメーターがある
-  autonumber stop
-  "TagView" <-- "Api::TagsController"
-  利用者 <-- "TagView"
-end
-
-autonumber resume
-"Api::TagsController" -> "Tag" : update
+  利用者 <-- "PaymentView"
+deactivate "PaymentView"
