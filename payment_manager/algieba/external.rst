@@ -349,6 +349,40 @@
 
 - 検索ボタンを押下すると，検索条件を満たす :ref:`alg-ext-res-payment` が :ref:`alg-ext-ui-man-pay-table` に表示される
 
+タグ設定フォーム
+''''''''''''''''
+
+.. image:: images/management_payment_assign_tag.png
+   :alt: タグ設定フォーム
+   :scale: 50
+
+- 以下の入力フォームが表示されている
+
+  - 内容
+
+    - 以下の条件を指定可能
+
+      - 「を含む」: 入力された文字列を含む内容を検索する
+      - 「と一致する」: 入力された文字列と一致する内容を検索する
+
+  - カテゴリ
+
+    - :ref:`alg-ext-ui-man-com-form-category` 参照
+    - 複数選択した場合はいずれかに該当する :ref:`alg-ext-res-payment` を検索する
+
+  - タグ
+
+    - 必須項目
+    - :ref:`alg-ext-ui-man-com-form-tag` 参照
+
+- 内容，またはカテゴリ入力フォームの入力値に応じて :ref:`alg-ext-ui-man-pay-table` が自動的に更新される
+- 設定ボタンを押下すると :ref:`alg-ext-ui-man-pay-table` で選択した :ref:`alg-ext-res-payment` にタグが登録される
+
+  - 設定に成功した場合は画面が更新される
+  - 設定に失敗した場合はエラーを表示する
+
+    - :ref:`alg-ext-ui-man-com-error` 参照
+
 .. _alg-ext-ui-man-pay-table:
 
 一覧画面
@@ -371,6 +405,7 @@
   - 前ページ
   - 表示中のページから前後4ページ
 
+- チェックボックスはタグ設定タブを開いている場合のみ有効となる
 - 各行の右側にあるボタンを押すと、削除を確認するダイアログが表示される
 
   .. image:: images/management_payment_table_delete.png
@@ -540,35 +575,6 @@
 
   - 登録に成功した場合，画面が更新されて :ref:`alg-ext-ui-man-tag-table` に登録した :ref:`alg-ext-res-tag` が追加される
   - 登録に失敗した場合はエラーを表示する
-
-    - :ref:`alg-ext-ui-man-com-error` 参照
-
-設定フォーム
-''''''''''''
-
-.. image:: images/management_tag_assign.png
-   :alt: 設定フォーム
-   :scale: 50
-
-- 以下の入力フォームが表示されている
-
-  - 内容
-
-    - 必須項目
-    - 以下の条件を指定可能
-
-      - 「を含む」: 入力された文字列を含む内容に対してタグを設定する
-      - 「と一致する」: 入力された文字列と一致する内容に対してタグを設定する
-
-  - タグ
-
-    - 必須項目
-    - :ref:`alg-ext-ui-man-com-form-tag` 参照
-
-- 設定ボタンを押下するとフォームに入力した内容で条件を満たす :ref:`alg-ext-res-payment` にタグが登録される
-
-  - 設定に成功した場合は画面が更新される
-  - 設定に失敗した場合はエラーを表示する
 
     - :ref:`alg-ext-ui-man-com-error` 参照
 
