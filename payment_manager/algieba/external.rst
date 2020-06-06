@@ -229,9 +229,14 @@
 不正入力エラー
 ''''''''''''''
 
-- 不正な入力があった場合は，下記のダイアログが表示される
+- 入力値が仕様を満たしていない場合は以下のダイアログが表示される
 
-  .. image:: images/management_common_error.png
+  .. image:: images/management_common_invalid_error.png
+     :scale: 50
+
+- カテゴリやタグ入力フォームに同じ値が含まれている場合は以下のダイアログが表示される
+
+  .. image:: images/management_common_same_value_error.png
      :scale: 50
 
 .. _alg-ext-ui-man-payment:
