@@ -239,6 +239,11 @@
   .. image:: images/management_common_same_value_error.png
      :scale: 50
 
+- 既に同じリソースが登録されている場合は以下のダイアログが表示される
+
+  .. image:: images/management_common_duplicated_error.png
+     :scale: 50
+
 .. _alg-ext-ui-man-payment:
 
 収支管理画面
