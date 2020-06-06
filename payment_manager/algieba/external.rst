@@ -672,12 +672,29 @@ Web API
 エラーコード
 """"""""""""
 
-.. csv-table::
-   :header: "エラーコード", "ステータスコード", "意味"
+ステータスコードによってレスポンスが異なる
 
-   absent_param_[属性],400,入力必須の項目がない
-   invalid_param_[属性],400,不正値のパラメータがある
-   not_found,404,パスパラメーターで指定したリソースが存在しない
+400(BadRequest)
+'''''''''''''''
+
+- レスポンスボディとして以下のキーを含むJSONオブジェクトの配列を返す
+
+  .. csv-table::
+     :header: キー名,設定される値,備考
+
+     error_code,エラーコード,
+     parameter,エラーが発生したパラメーター名,
+     resource,パラメーターの関連リソース名,リソースの属性でないパラメーターの場合はnull
+
+- エラーコードは以下のいずれかを返す
+
+  .. csv-table::
+     :header: エラーコード,意味
+
+     absent_parameter,入力必須の項目がない
+     invalid_parameter,不正値のパラメーターがある
+     include_same_value,配列要素のパラメーターに同じ値が含まれている
+     duplicated_resource,同じリソースが既に登録されている
 
 **レスポンス例**
 
@@ -689,7 +706,20 @@ Web API
    {
      "errors": [
        {
-         "error_code": "absent_param_date"
+         "error_code": "absent_param",
+         "parameter": "date",
+         "resource": "payment"
        }
      ]
    }
+
+404(NotFound)
+'''''''''''''
+
+- レスポンスボディは返さない
+
+**レスポンス例**
+
+.. sourcecode:: http
+
+   HTTP/1.1 404 NotFound
