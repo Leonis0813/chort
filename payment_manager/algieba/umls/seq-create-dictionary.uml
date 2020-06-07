@@ -21,7 +21,7 @@ end
 
 "Api::DictionariesController" -> "Dictionary" : save
 
-alt パラメーターが不正 or 同じ辞書が登録済み
+alt パラメーターが不正 or 同じ辞書が登録済み or 同じ名前が指定されている
   autonumber stop
   "DictionaryView" <-- "Api::DictionariesController"
   利用者 <-- "DictionaryView"
