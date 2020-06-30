@@ -389,6 +389,21 @@
   - カテゴリ
   - タグ
 
+- テーブル上部のボタンを押下するとタグを設定するダイアログが表示される
+
+  .. image:: images/management_payment_table_assign_tag.png
+     :alt: タグ設定daiarogu
+     :scale: 50
+
+  - セレクトボックスには登録されているタグの一覧が設定されている
+  - 一覧からタグ名を選択してOKボタンを押下すると，チェックを付けた収支情報にタグが設定される
+  - Cancelボタンを押下するとダイアログが閉じる
+  - 1つもチェックを付けていない状態でボタンを押下すると以下のダイアログが表示される
+
+    .. image:: images/management_payment_table_assign_tag_error.png
+       :alt: エラーダイアログ
+       :scale: 30
+
 .. _alg-ext-ui-man-category:
 
 カテゴリ管理画面
@@ -540,35 +555,6 @@
 
   - 登録に成功した場合，画面が更新されて :ref:`alg-ext-ui-man-tag-table` に登録した :ref:`alg-ext-res-tag` が追加される
   - 登録に失敗した場合はエラーを表示する
-
-    - :ref:`alg-ext-ui-man-com-error` 参照
-
-設定フォーム
-''''''''''''
-
-.. image:: images/management_tag_assign.png
-   :alt: 設定フォーム
-   :scale: 50
-
-- 以下の入力フォームが表示されている
-
-  - 内容
-
-    - 必須項目
-    - 以下の条件を指定可能
-
-      - 「を含む」: 入力された文字列を含む内容に対してタグを設定する
-      - 「と一致する」: 入力された文字列と一致する内容に対してタグを設定する
-
-  - タグ
-
-    - 必須項目
-    - :ref:`alg-ext-ui-man-com-form-tag` 参照
-
-- 設定ボタンを押下するとフォームに入力した内容で条件を満たす :ref:`alg-ext-res-payment` にタグが登録される
-
-  - 設定に成功した場合は画面が更新される
-  - 設定に失敗した場合はエラーを表示する
 
     - :ref:`alg-ext-ui-man-com-error` 参照
 

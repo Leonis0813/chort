@@ -1,0 +1,45 @@
+autonumber
+
+actor 利用者
+利用者 -> "PaymentView" : タグ設定ダイアログを表示
+
+alt '選択した収支情報がない'
+  autonumber stop
+  利用者 <-- "PaymentView" : エラーダイアログを表示
+else
+  利用者 <-- "PaymentView" : 設定ダイアログを表示
+
+  autonumber resume
+  利用者 -> "PaymentView" : OKボタンを押下
+
+  activate "PaymentView"
+    loop 選択された収支情報の数だけ繰り返す
+      "PaymentView" -> "Api::PaymentsController" : show
+
+      activate "Api::PaymentsController"
+        "Api::PaymentsController" -> "Api::PaymentsController" : check_request_payment
+
+        autonumber stop
+        "PaymentView" <-- "Api::PaymentsController"
+      deactivate "Api::PaymentsController"
+
+      autonumber resume
+      "PaymentView" -> "Api::PaymentsController" : update
+
+      activate "Api::PaymentsController"
+        "Api::PaymentsController" -> "Api::PaymentsController" : check_request_payment
+
+        loop 指定されたタグの数だけ繰り返す
+          "Api::PaymentsController" -> "Tag" : find_or_create_by
+        end
+
+        "Api::PaymentsController" -> "Payment" : update
+
+        autonumber stop
+        "PaymentView" <-- "Api::PaymentsController"
+      deactivate "Api::PaymentsController"
+    end
+
+    利用者 <-- "PaymentView"
+  deactivate "PaymentView"
+end

@@ -61,6 +61,7 @@ class Analysis {
 }
 
 class Prediction {
+  - prediction_id : String
   - model : String
   - test_data : String
   - results: Array<PredictionResult>

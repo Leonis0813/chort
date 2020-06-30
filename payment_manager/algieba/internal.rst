@@ -143,11 +143,11 @@ MVCモデルを利用する
 - :ref:`alg-int-seq-create-payment`
 - :ref:`alg-int-seq-index-payments`
 - :ref:`alg-int-seq-destroy-payment`
+- :ref:`alg-int-seq-assign-tag-to-payments`
 - :ref:`alg-int-seq-index-categories`
 - :ref:`alg-int-seq-create-dictionary`
 - :ref:`alg-int-seq-index-dictionaries`
 - :ref:`alg-int-seq-create-tag`
-- :ref:`alg-int-seq-assign-tag`
 - :ref:`alg-int-seq-index-tags`
 - :ref:`alg-int-seq-statistics`
 
@@ -233,6 +233,31 @@ MVCモデルを利用する
 4. 指定された収支情報を削除する
 5. 管理画面をリロードする
 
+.. _alg-int-seq-assign-tag-to-payments:
+
+タグを設定する
+^^^^^^^^^^^^^^
+
+*シーケンス図*
+
+.. uml:: umls/seq-assign-tag-to-payments.uml
+
+1. 利用者が収支管理画面でタグ設定ボタンを押下する
+2. 利用者がタグ名を選択して設定ボタンを押下する
+
+選択された収支情報の数だけ3〜8を繰り返す
+
+3. 収支情報を取得するAPIを実行する
+4. リクエストされた収支情報が存在するかチェックする
+5. 取得した収支情報のタグと追加するタグを設定して収支情報を更新するAPIを実行する
+6. リクエストされた収支情報が存在するかチェックする
+
+指定されたタグの数だけ7を繰り返す
+
+7. タグ情報を検索して無ければ作成する
+
+8. 収支情報を更新する
+
 .. _alg-int-seq-index-categories:
 
 カテゴリを検索する
@@ -305,28 +330,6 @@ MVCモデルを利用する
 
 4. 指定されたパラメーターからタグ情報を作成する
 5. タグ情報をデータベースに登録する
-
-.. _alg-int-seq-assign-tag:
-
-タグを設定する
-^^^^^^^^^^^^^^
-
-*シーケンス図*
-
-.. uml:: umls/seq-assign-tag.uml
-
-1. 利用者が設定する収支とタグ情報を入力して設定ボタンを押下する
-2. 管理画面がタグを設定するAPIを実行する
-3. 指定されたタグが存在するかチェックする
-
-指定されたタグが存在しない場合はエラーを表示して終了する
-
-4. 必須パラメーターが指定されているかチェックする
-
-必須パラメーターがない場合はエラーを表示して終了する
-
-5. 指定された条件を満たす収支情報を検索する
-6. 取得した収支情報にタグを設定する
 
 .. _alg-int-seq-index-tags:
 
