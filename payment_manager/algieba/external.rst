@@ -696,7 +696,7 @@ Web API
   .. csv-table::
      :header: エラーコード,意味
 
-     absent_parameter,入力必須の項目がない
+     absent_parameter,入力必須のパラメーターが指定されていない
      invalid_parameter,不正値のパラメーターがある
      include_same_value,配列要素のパラメーターに同じ値が含まれている
      duplicated_resource,同じリソースが既に登録されている
@@ -711,7 +711,7 @@ Web API
    {
      "errors": [
        {
-         "error_code": "absent_param",
+         "error_code": "absent_parameter",
          "parameter": "date",
          "resource": "payment"
        }
