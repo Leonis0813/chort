@@ -44,13 +44,6 @@
 
        - 400
 
-         - 共通エラーに加えて以下のエラーコードを返す
-
-           .. csv-table::
-              :header: エラーコード,ステータスコード,意味
-
-              duplicated_dictionary,400,指定された辞書が既に登録されている
-
    **リクエスト例**
 
    .. sourcecode:: http
