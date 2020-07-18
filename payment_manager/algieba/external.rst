@@ -229,20 +229,23 @@
 不正入力エラー
 ''''''''''''''
 
-- 必須項目が入力されていない場合
+- 必須項目が入力されていない場合は以下のダイアログが表示される
 
   .. image:: images/management_common_absent_error.png
      :scale: 50
+
 
 - 入力値が仕様を満たしていない場合は以下のダイアログが表示される
 
   .. image:: images/management_common_invalid_error.png
      :scale: 50
 
+
 - カテゴリやタグ入力フォームに同じ値が含まれている場合は以下のダイアログが表示される
 
   .. image:: images/management_common_same_value_error.png
      :scale: 50
+
 
 - 既に同じリソースが登録されている場合は以下のダイアログが表示される
 
