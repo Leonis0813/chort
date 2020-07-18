@@ -496,6 +496,6 @@ tags テーブル
 
    id,INTEGER,内部ID,○
    tag_id,STRING,タグを一意に示すID,
-   name,STRING,タグ名,○
+   name,STRING,タグ名,
    created_at,DATETIME,タグ情報の登録日時,○
    updated_at,DATETIME,タグ情報の更新日時,○
