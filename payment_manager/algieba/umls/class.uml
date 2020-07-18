@@ -6,25 +6,28 @@ class TagView <<Boundary>>
 class StatisticsView <<Boundary>>
 
 class ApplicationController {
-  + check_absent_param(request_param : Hash<String, Object>, required_param_keys : Array) : void
+  + check_schema(schema : Hash<String, Object>, request_parameter : Hash<String, Object>, resource : String) : void
 }
 
 class CategoriesController {
   + index(request : Object) : Object
   - index_param() : Hash<String, Object>
   - scope_param() : Hash<String, Object>
+  - index_schema() : Hash<String, Object>
 }
 
 class DictionariesController {
   + index(request : Object) : Object
   - index_param() : Hash<String, Object>
   - scope_param() : Hash<String, Object>
+  - index_schema() : Hash<String, Object>
 }
 
 class PaymentsController {
   + index(request : Object) : Object
   - index_param() : Hash<String, Object>
   - scope_param() : Hash<String, Object>
+  - index_schema() : Hash<String, Object>
 }
 
 class StatisticsController {
@@ -34,11 +37,13 @@ class TagsController {
   + index(request : Object) : Object
   - index_param() : Hash<String, Object>
   - scope_param() : Hash<String, Object>
+  - index_schema() : Hash<String, Object>
 }
 
 class Api::CategoriesController {
   + index(request : Object) : Object
   - index_param() : Hash<String, Object>
+  - index_schema() : Hash<String, Object>
 }
 
 class Api::DictionariesController {
@@ -46,6 +51,8 @@ class Api::DictionariesController {
   + index(request : Object) : Object
   - create_param() : Hash<String, Object>
   - index_param() : Hash<String, Object>
+  - create_schema() : Hash<String, Object>
+  - index_schema() : Hash<String, Object>
 }
 
 class Api::PaymentsController {
@@ -60,17 +67,25 @@ class Api::PaymentsController {
   - index_params() : Hash<String, Object>
   - update_params() : Hash<String, Object>
   - scope_params() : Hash<String, Object>
+  - create_schema() : Hash<String, Object>
+  - index_schema() : Hash<String, Object>
+  - update_schema() : Hash<String, Object>
 }
 
 class Api::TagsController {
   + create(request : Object) : Object
   - create_params() : Hash<String, Object>
+  - create_schema() : Hash<String, Object>
 }
 
 class Api::SettlementsController {
   + category(request : Object) : Object
   + period(request : Object) : Object
   - check_query_params(query : Settlement, param : String) : void
+  - category_param() : Hash<String, Object>
+  - period_param() : Hash<String, Object>
+  - category_schema() : Hash<String, Object>
+  - period_schema() : Hash<String, Object>
 }
 
 class Category {
@@ -112,14 +127,14 @@ class PaymentQuery {
   - price_upper : Integer
   - price_lower : Integer
   - sort : String
-  + date_valid?() : void
-  + period_valid?() : void
+  + period() : void
 }
 
 class Query {
   - page : Integer
   - per_page : Integer
   - order : String
+  - parse_int() : void
 }
 
 class Settlement {
