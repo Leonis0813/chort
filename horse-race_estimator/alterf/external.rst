@@ -14,6 +14,8 @@
 本システムでは以下のリソースを扱う
 
 - :ref:`alt-ext-res-analysis`
+- :ref:`alt-ext-res-ana-result`
+- :ref:`alt-ext-res-ana-res-importance`
 - :ref:`alt-ext-res-prediction`
 - :ref:`alt-ext-res-evaluation`
 - :ref:`alt-ext-res-eva-data`
@@ -48,6 +50,34 @@
      - 実行中
      - 完了
      - エラー"
+
+.. _alt-ext-res-ana-result:
+
+分析結果
+^^^^^^^^
+
+レースの分析結果を表す
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 20,10,30,40
+
+   分析ジョブID,string, :ref:`alt-ext-res-analysis` の`分析ジョブID, :ref:`alt-ext-res-analysis` 参照
+   重要度,array[ :ref:`alt-ext-res-ana-res-importance` ],各素性の重要度の配列
+
+.. _alt-ext-res-ana-res-importance:
+
+重要度
+^^^^^^
+
+素性の重要度を表す
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 20,10,30,40
+
+   素性名,string,素性の名前, :ref:`den-int-sch-features` 参照
+   重要度,float,重要度の値,0より大きい実数
 
 .. _alt-ext-res-prediction:
 
