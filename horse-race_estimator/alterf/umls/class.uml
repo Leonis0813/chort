@@ -62,7 +62,7 @@ class Analysis {
   - performed_at : Datetime
 }
 
-class AnalysisResult {}
+class AnalysisResult
 
 class Importance {
   - feature_name : String
