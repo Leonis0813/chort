@@ -405,8 +405,8 @@ importancesテーブル
    analysis_result_id,INTEGER,analysis_resultsテーブルの内部ID,○
    feature_name,STRING,素性名,○
    value,FLOAT,重要度の値,○
-   created_at,DATETIME,分析結果情報の作成日時,○
-   updated_at,DATETIME,分析結果情報の更新日時,○
+   created_at,DATETIME,重要度情報の作成日時,○
+   updated_at,DATETIME,重要度情報の更新日時,○
 
 .. _alt-int-sch-predictions:
 
