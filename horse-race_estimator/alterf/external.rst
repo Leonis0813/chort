@@ -182,6 +182,9 @@
 利用者はブラウザからレースの分析，予測，評価を行う
 
 - レースの分析は :ref:`alt-ext-ui-analysis` で行う
+
+  - 分析結果の詳細は :ref:`alt-ext-ui-ana-result` で行う
+
 - レースの予測は :ref:`alt-ext-ui-prediction` で行う
 - モデルの評価は :ref:`alt-ext-ui-evaluation` で行う
 
@@ -241,8 +244,23 @@
   - 実行中の場合は「状態」列にアイコンが表示される
   - エントリー数を指定したジョブには「エントリー数」列に値が表示される
   - ジョブ情報の右側のボタンを押下すると，そのジョブと同じパラメーターで分析を実行する
+  - 完了したジョブは状態列に :ref:`alt-ext-ui-ana-result` を表示するためのボタンが表示される
+
+    - :ref:`alt-ext-ui-ana-result` は別タブに表示される
+
+.. _alt-ext-ui-ana-result:
+
+分析結果画面
+^^^^^^^^^^^^
 
 .. _alt-ext-ui-prediction:
+
+.. image:: images/analysis_result.png
+   :alt: 分析結果画面
+
+- 重要度を表した棒グラフが表示される
+  - 上から下へ重要度がソートされる
+  - 棒にマウスオーバーすると値が表示される
 
 予測画面
 ^^^^^^^^
