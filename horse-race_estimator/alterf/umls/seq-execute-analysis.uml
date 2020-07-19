@@ -12,6 +12,12 @@ activate AnalysisView
 
     create Analysis
     AnalysesController -> Analysis : new
+
+    activate Analysis
+      create AnalysisResult
+      Analysis -> AnalysisResult : new
+    deactivate Analysis
+
     AnalysesController ->> AnalysisJob : perform_later
     activate AnalysisJob
 
@@ -27,6 +33,16 @@ AnalysisJob -> Analysis : find
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> YAML : load_file
 AnalysisJob -> Analysis : update
+AnalysisJob -> Analysis : result
+AnalysisJob -> AnalysisResult : importances
+
+activate AnalysisResult
+  loop 素性の数だけ繰り返し
+    create Importance
+    AnalysisResult -> Importance : new
+  end
+deactivate AnalysisResult
+
 AnalysisJob -> YAML : dump
 AnalysisJob -> AnalysisMailer : completed
 
