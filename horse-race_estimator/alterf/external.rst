@@ -62,7 +62,7 @@
    :header: 属性名,型,意味,備考
    :widths: 20,10,30,40
 
-   分析ジョブID,string, :ref:`alt-ext-res-analysis` の`分析ジョブID, :ref:`alt-ext-res-analysis` 参照
+   分析ジョブID,string, :ref:`alt-ext-res-analysis` の分析ジョブID, :ref:`alt-ext-res-analysis` 参照
    重要度,array[ :ref:`alt-ext-res-ana-res-importance` ],各素性の重要度の配列
 
 .. _alt-ext-res-ana-res-importance:
@@ -253,14 +253,14 @@
 分析結果画面
 ^^^^^^^^^^^^
 
-.. _alt-ext-ui-prediction:
-
 .. image:: images/analysis_result.png
    :alt: 分析結果画面
 
 - 重要度を表した棒グラフが表示される
   - 上から下へ重要度がソートされる
   - 棒にマウスオーバーすると値が表示される
+
+.. _alt-ext-ui-prediction:
 
 予測画面
 ^^^^^^^^
