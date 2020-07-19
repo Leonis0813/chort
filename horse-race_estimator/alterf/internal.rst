@@ -320,6 +320,8 @@ MVCモデルを利用する
 ------------
 
 - :ref:`alt-int-sch-analyses`
+- :ref:`alt-int-sch-analysis_results`
+- :ref:`alt-int-sch-importances`
 - :ref:`alt-int-sch-predictions`
 - :ref:`alt-int-sch-prediction_results`
 - :ref:`alt-int-sch-evaluations`
@@ -346,6 +348,40 @@ analysesテーブル
    performed_at,DATETIME,分析ジョブの実行開始日時,
    created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,○
+
+.. _alt-int-sch-analysis_results:
+
+analysis_resultsテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+分析結果情報を登録するanalysis_resultsテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_id,INTEGER,analysesテーブルの内部ID,○
+   created_at,DATETIME,分析結果情報の作成日時,○
+   updated_at,DATETIME,分析結果情報の更新日時,○
+
+.. _alt-int-sch-importance:
+
+importancesテーブル
+^^^^^^^^^^^^^^^^^^^
+
+重要度を登録するimportancesテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_result_id,INTEGER,analysis_resultsテーブルの内部ID,○
+   feature_name,STRING.素性名,○
+   value,FLOAT,重要度の値,○
+   created_at,DATETIME,分析結果情報の作成日時,○
+   updated_at,DATETIME,分析結果情報の更新日時,○
 
 .. _alt-int-sch-predictions:
 
