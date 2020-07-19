@@ -24,6 +24,14 @@ MVCモデルを利用する
 
     - 分析ジョブの情報を管理するクラス
 
+  - AnalysisResult
+
+    - 分析結果情報を管理するクラス
+
+  - Importance
+
+    - 重要度を管理するクラス
+
   - Prediction
 
     - 予測ジョブの情報を管理するクラス
@@ -45,6 +53,10 @@ MVCモデルを利用する
   - AnalysisView
 
     - 利用者が分析処理を実行，確認するための画面
+
+  - AnalysisResultView
+
+    - 利用者が分析結果を確認するための画面
 
   - PredictionView
 
