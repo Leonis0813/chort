@@ -5,6 +5,7 @@
 
 - :ref:`alt-ext-resource`
 - :ref:`alt-ext-ui`
+- :ref:`alt-ext-api`
 
 .. _alt-ext-resource:
 
@@ -50,6 +51,7 @@
      - 実行中
      - 完了
      - エラー"
+   結果, :ref:`alt-ext-res-ana-result`, :ref:`alt-ext-res-ana-result` 参照,
 
 .. _alt-ext-res-ana-result:
 
@@ -62,7 +64,6 @@
    :header: 属性名,型,意味,備考
    :widths: 20,10,30,40
 
-   分析ジョブID,string, :ref:`alt-ext-res-analysis` の分析ジョブID, :ref:`alt-ext-res-analysis` 参照
    重要度,array[ :ref:`alt-ext-res-ana-res-importance` ],各素性の重要度の配列
 
 .. _alt-ext-res-ana-res-importance:
@@ -375,3 +376,47 @@
     - 予測結果の内，正解と同じ馬番は緑，それ以外は灰色で表示される
 
   - 予測が完了していない評価データの行は黄色で表示される
+
+.. _alt-ext-api:
+
+Web API
+-------
+
+以下のAPIを定義する
+
+.. toctree::
+   :maxdepth: 1
+
+   external/api/analysis
+
+共通仕様
+^^^^^^^^
+
+.. _alt-ext-api-common-error:
+
+リクエスト
+""""""""""
+
+- WebAPI のパスには全て先頭に ``/alterf/api`` を付与すること
+
+  - 本API仕様書に記載されているパスは全て上記のパス以下を記載する
+
+  - 例：分析情報を取得する場合
+
+    .. sourcecode:: http
+
+       GET /alterf/api/analyses/15f61ba31273e7c342dd0934f894f0a0 HTTP/1.1
+
+エラーコード
+""""""""""""
+
+404(NotFound)
+'''''''''''''
+
+- レスポンスボディは返さない
+
+**レスポンス例**
+
+.. sourcecode:: http
+
+   HTTP/1.1 404 NotFound
