@@ -1,4 +1,5 @@
 class AnalysisView <<Boundary>>
+class AnalysisResultView <<Boundary>>
 class PredictionView <<Boundary>>
 class EvaluationView <<Boundary>>
 class EvaluationResultView <<Boundary>>
@@ -10,6 +11,7 @@ class ApplicationController {
 class AnalysesController {
   + manage(request : Object) : Object
   + execute(request : Object) : Object
+  + show(request : Object) : Object
   - execute_params() : Hash<String, Object>
 }
 
@@ -31,6 +33,12 @@ class EvaluationsController {
   - num_data() : Integer
   - race_ids() : Array<String>
   - execute_param() : Hash<String, Object>
+}
+
+class Api::AnalysesController {
+  + show(request : Object) : Object
+  - check_request_analysis() : void
+  - request_analysis() : Analysis
 }
 
 class AnalysisJob {
@@ -60,11 +68,17 @@ class Analysis {
   - performed_at : Datetime
 }
 
+class "Analysis::Result"
+
+class "Analysis::Result::Importance" {
+  - feature_name : String
+  - value : Double
+}
+
 class Prediction {
   - prediction_id : String
   - model : String
   - test_data : String
-  - results: Array<PredictionResult>
   - state : String
   - performed_at : Datetime
   + set_analysis!() : void
@@ -81,7 +95,6 @@ class Evaluation {
   - model : String
   - data_source : String
   - num_data : Integer
-  - data : Array<"Evaluation::Datum">
   - state : String
   - precision : Double
   - recall : Double
@@ -102,7 +115,6 @@ class "Evaluation::Datum" {
   - race_id : String
   - race_name : String
   - race_url : String
-  - prediction_results : Array<PredictionResult>
   - ground_truth : Integer
   + import_prediction_results(result_file : String) : void
 }
@@ -140,10 +152,14 @@ class ModelUtil <<module>> {
 
 AnalysisView -- AnalysesController
 ApplicationController <|-- AnalysesController
+ApplicationController <|-- Api::AnalysesController
 AnalysesController --> AnalysisJob
 AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
+Api::AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
+Analysis "1" -- "1" Analysis::Result
+Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
 Analysis "1" -- "0 .. *" Prediction
 Analysis "1" -- "0 .. *" Evaluation
 
