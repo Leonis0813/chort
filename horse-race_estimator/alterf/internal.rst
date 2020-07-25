@@ -351,7 +351,7 @@ MVCモデルを利用する
 
 - :ref:`alt-int-sch-analyses`
 - :ref:`alt-int-sch-analysis_results`
-- :ref:`alt-int-sch-importances`
+- :ref:`alt-int-sch-analysis_result_importances`
 - :ref:`alt-int-sch-predictions`
 - :ref:`alt-int-sch-prediction_results`
 - :ref:`alt-int-sch-evaluations`
@@ -395,10 +395,10 @@ analysis_resultsテーブル
    created_at,DATETIME,分析結果情報の作成日時,○
    updated_at,DATETIME,分析結果情報の更新日時,○
 
-.. _alt-int-sch-importances:
+.. _alt-int-sch-analysis_result_importances:
 
-importancesテーブル
-^^^^^^^^^^^^^^^^^^^
+analysis_result_importancesテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 重要度を登録するimportancesテーブルを定義する
 
