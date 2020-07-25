@@ -400,7 +400,7 @@ analysis_resultsテーブル
 analysis_result_importancesテーブル
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-重要度を登録するimportancesテーブルを定義する
+重要度を登録するanalysis_result_importancesテーブルを定義する
 
 .. csv-table::
    :header: カラム,型,内容,NOT NULL
