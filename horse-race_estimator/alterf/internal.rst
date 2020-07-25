@@ -24,11 +24,11 @@ MVCモデルを利用する
 
     - 分析ジョブの情報を管理するクラス
 
-  - AnalysisResult
+  - Analysis::Result
 
     - 分析結果情報を管理するクラス
 
-  - Importance
+  - Analysis::Result::Importance
 
     - 重要度を管理するクラス
 
@@ -83,6 +83,11 @@ MVCモデルを利用する
   - EvaluationsController
 
     - 評価処理を管理するコントローラー
+
+  - Api::AnalysesController
+
+    - 分析情報を管理するコントローラー
+    - WebAPI用コントローラー
 
 - Library
 

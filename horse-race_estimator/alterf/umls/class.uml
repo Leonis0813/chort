@@ -35,6 +35,12 @@ class EvaluationsController {
   - execute_param() : Hash<String, Object>
 }
 
+class Api::AnalysesController {
+  + show(request : Object) : Object
+  - check_request_analysis() : void
+  - request_analysis() : Analysis
+}
+
 class AnalysisJob {
   + perform(analysis_id : Integer)
 }
@@ -62,9 +68,9 @@ class Analysis {
   - performed_at : Datetime
 }
 
-class AnalysisResult
+class "Analysis::Result"
 
-class Importance {
+class "Analysis::Result::Importance" {
   - feature_name : String
   - value : Double
 }
@@ -146,12 +152,14 @@ class ModelUtil <<module>> {
 
 AnalysisView -- AnalysesController
 ApplicationController <|-- AnalysesController
+ApplicationController <|-- Api::AnalysesController
 AnalysesController --> AnalysisJob
 AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
+Api::AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
-Analysis "1" -- "1" AnalysisResult
-AnalysisResult "1" -- "1 .. *" Importance
+Analysis "1" -- "1" Analysis::Result
+Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
 Analysis "1" -- "0 .. *" Prediction
 Analysis "1" -- "0 .. *" Evaluation
 
