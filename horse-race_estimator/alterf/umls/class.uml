@@ -5,6 +5,7 @@ class EvaluationView <<Boundary>>
 class EvaluationResultView <<Boundary>>
 
 class ApplicationController {
+  + check_schema(schema : HashMap, request_parameter : HashMap, resource : String) : void
   + remove_old_files() : void
 }
 
@@ -12,13 +13,17 @@ class AnalysesController {
   + manage(request : Object) : Object
   + execute(request : Object) : Object
   + show(request : Object) : Object
-  - execute_params() : Hash<String, Object>
+  - check_request_analysis() : void
+  - request_analysis() : Analysis
+  - execute_params() : HashMap
+  - execute_schema() : HashMap
 }
 
 class PredictionsController {
   + manage(request : Object) : Object
   + execute(request : Object) : Object
-  - execute_params() : Hash<String, Object>
+  - execute_params() : HashMap
+  - execute_schema() : HashMap
   - check_invalid_file_params() : void
   - save_files(prediction_id : Integer) : void
 }
@@ -28,11 +33,14 @@ class EvaluationsController {
   + execute(request : Object) : Object
   + show(request : Object) : Object
   + download_data(request: Object) : Object
+  - check_request_evaluation() : void
+  - evaluation() : Evaluation
   - check_invalid_param() : void
   - user_specified_data?() : Boolean
   - num_data() : Integer
-  - race_ids() : Array<String>
-  - execute_param() : Hash<String, Object>
+  - race_ids() : ArrayList
+  - execute_param() : HashMap
+  - execute_schema() : HashMap
 }
 
 class Api::AnalysesController {
@@ -101,11 +109,11 @@ class Evaluation {
   - f_measure : Double
   - performed_at : Datetime
   + set_analysis!() : void
-  + fetch_data!() : Array<String>
+  + fetch_data!() : ArrayList
   + calculate!() : void
   - remote?() : Boolean
   - set_default_num_data() : void
-  - sample_race_ids() : Array<String>
+  - sample_race_ids() : ArrayList
   - true_positive() : Double
   - false_positive() : Double
   - false_negative() : Double
@@ -120,24 +128,24 @@ class "Evaluation::Datum" {
 }
 
 class NetkeibaClient {
-  + http_get_race_top() : Array<String>
-  + http_get_race(path : String) : Hash<String, Object>
-  + http_get_horse(path : String) : Hash<String, Object>
-  + http_get_jockey(path : String) : Hash<String, Object>
+  + http_get_race_top() : ArrayList
+  + http_get_race(path : String) : HashMap
+  + http_get_horse(path : String) : HashMap
+  + http_get_jockey(path : String) : HashMap
   - send_request(path : String) : Object
 }
 
 class FeatureExtractor <<module>> {
-  + extract_race(place : Object, race_data : Object, race_date : Object) : Hash<String, Object>
-  + extract_entries(race_data : Object) : Hash<String, Object>
-  + extract_horse(table : Object) : Hash<String, Object>
-  + extract_horse_results(table : Object) : Hash<String, Object>
-  + extract_jockey_results(table : Object) : Hash<String, Object>
+  + extract_race(place : Object, race_data : Object, race_date : Object) : HashMap
+  + extract_entries(race_data : Object) : HashMap
+  + extract_horse(table : Object) : HashMap
+  + extract_horse_results(table : Object) : HashMap
+  + extract_jockey_results(table : Object) : HashMap
 }
 
 class FeatureUtil {
-  + {static} create_feature_from_netkeiba(race_path : String) : Hash<String, Object>
-  + {static} create_feature_from_denebola(race_id : String) : Hash<String, Object>
+  + {static} create_feature_from_netkeiba(race_path : String) : HashMap
+  + {static} create_feature_from_denebola(race_id : String) : HashMap
 }
 
 class ModelUtil <<module>> {

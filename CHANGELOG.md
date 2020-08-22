@@ -1,3 +1,6 @@
+# 2020/08/22
+- [Alterf] update version to 4.14.1
+
 # 2020/07/24
 - [Alterf] update version to 4.14.0
 
