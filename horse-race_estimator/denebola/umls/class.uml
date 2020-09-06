@@ -1,5 +1,7 @@
 class Collector {
-  + {static} work!()
+  + {static} work!() : void
+  + {static} from() : Date
+  + {static} to() : Date
   + initialize(logger : Logger)
   + fetch_race_ids(date : Date) : Array<String>
   + fetch_race(race_id : String) : String
@@ -8,7 +10,10 @@ class Collector {
 }
 
 class Extractor {
-  + {static} work!()
+  + {static} work!() : void
+  + {static} from() : Date
+  + {static} to() : Date
+  + {static} operation() : String
   + initialize(logger : Logger)
   + fetch_race_ids(date : Date)
   + fetch_race(race_id : String) : String
@@ -21,11 +26,15 @@ class Extractor {
 }
 
 class Aggregator {
-  + {static} work!()
+  + {static} work!() : void
+  + {static} from() : Date
+  + {static} to() : Date
+  + {static} operation() : String
   + initialize(logger : Logger)
-  + create_feature(entry : Entry) : void
-  - base_log_attribute() : Hash
-  - create_feature_attribute(entry : Entry) : Hash
+  + create_features(from : Date, to : Date) : void
+  + update_features(from : Date, to : Date) : void
+  + base_log_attribute() : Hash
+  - feature_attribute(entry : Entry, race : Race, horse : Horse, jockey : Jockey) : Hash
   - extra_attribute(entry : Entry) : Hash
 }
 
@@ -190,16 +199,14 @@ class Feature {
   - weight_per : Double
   - win_times : Integer
   - won : Boolean
-  + {static} create_or_update!(attribute : Hash) : Feature
   - set_default_value() : void
 }
 
 class ArgumentUtil <<module>> {
   + {static} logger
-  + {static} from(default : Date) : Date
-  + {static} to(default : Date) : Date
-  + {static} operation(default : String) : String
-  + {static} check_operation(operation : String) : void
+  + {static} from : String
+  + {static} to : String
+  + {static} operation : String
   + {static} included(klass : Class) : void
 }
 

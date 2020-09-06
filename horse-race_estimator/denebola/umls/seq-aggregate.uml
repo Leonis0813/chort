@@ -14,16 +14,15 @@ activate Aggregator
       Aggregator -> Entry : where
 
       loop 取得したエントリーだけ繰り返す
-        Aggregator -> Aggregator : create_feature
+        Aggregator -> Aggregator : feature_attribute
 
         activate Aggregator
-          Aggregator -> Aggregator : feature_attribute
           Aggregator -> Aggregator : extra_attribute
-
-          alt 素性の生成に成功
-            Aggregator -> Feature : create!
-          end
         deactivate Aggregator
+
+        alt 素性の生成に成功
+          Aggregator -> Feature : create!
+        end
       end
     deactivate Aggregator
   else
@@ -33,16 +32,15 @@ activate Aggregator
       Aggregator -> Feature : where
 
       loop 取得した素性だけ繰り返す
-        Aggregator -> Aggregator : update_feature
+        Aggregator -> Aggregator : feature_attribute
 
         activate Aggregator
-          Aggregator -> Aggregator : feature_attribute
           Aggregator -> Aggregator : extra_attribute
-
-          alt 素性の生成に成功
-            Aggregator -> Feature : update!
-          end
         deactivate Aggregator
+
+        alt 素性の生成に成功
+          Aggregator -> Feature : update!
+        end
       end
     deactivate Aggregator
   end
