@@ -1,3 +1,6 @@
+# 2020/09/06
+- [Denebola] update version to 2.9.1
+
 # 2020/09/05
 - [Denebola] update version to 2.9.0
 
