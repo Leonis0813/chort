@@ -1,3 +1,18 @@
+# 2020/09/07
+- [Denebola] update version to 2.9.1
+
+# 2020/09/05
+- [Denebola] update version to 2.9.0
+
+# 2020/08/22
+- [Alterf] update version to 4.14.1
+
+# 2020/07/24
+- [Alterf] update version to 4.14.0
+
+# 2020/07/16
+- [Algieba] update version to 4.7.0
+
 # 2020/05/09
 - [Algieba] update version to 4.6.0
 

@@ -24,6 +24,14 @@ MVCモデルを利用する
 
     - 分析ジョブの情報を管理するクラス
 
+  - Analysis::Result
+
+    - 分析結果情報を管理するクラス
+
+  - Analysis::Result::Importance
+
+    - 重要度を管理するクラス
+
   - Prediction
 
     - 予測ジョブの情報を管理するクラス
@@ -45,6 +53,10 @@ MVCモデルを利用する
   - AnalysisView
 
     - 利用者が分析処理を実行，確認するための画面
+
+  - AnalysisResultView
+
+    - 利用者が分析結果を確認するための画面
 
   - PredictionView
 
@@ -71,6 +83,11 @@ MVCモデルを利用する
   - EvaluationsController
 
     - 評価処理を管理するコントローラー
+
+  - Api::AnalysesController
+
+    - 分析情報を管理するコントローラー
+    - WebAPI用コントローラー
 
 - Library
 
@@ -116,14 +133,22 @@ MVCモデルを利用する
 3. 1ヶ月以上前に作成された一時ファイルを削除する
 4. 必須パラメーターが指定されているかチェックする
 5. 分析ジョブ情報を作成する
-6. 非同期で分析ジョブを実行する
-7. IDから分析ジョブ情報を取得する
-8. 分析スクリプトを実行する
-9. ファイルから分析結果を読み込む
-10. 分析ジョブ情報の素性の数を更新する
-11. 分析ジョブIDをファイルに出力する
-12. 分析結果をメールで通知する
-13. 分析ジョブ情報の状態を官僚にする
+6. 分析結果情報を作成する
+7. 非同期で分析ジョブを実行する
+8. IDから分析ジョブ情報を取得する
+9. 分析スクリプトを実行する
+10. ファイルから分析結果を読み込む
+11. 分析ジョブ情報の素性の数を更新する
+12. 分析結果情報を取得する
+13. 重要度情報を取得する
+
+素性の数だけ14を繰り返す
+
+14. 重要度情報を作成する
+
+15. 分析ジョブIDをファイルに出力する
+16. 分析結果をメールで通知する
+17. 分析ジョブ情報の状態を完了にする
 
 .. _alt-int-seq-show-analyses:
 
@@ -143,6 +168,11 @@ MVCモデルを利用する
 
 5. GET /analyses を実行する
 6. ジョブ一覧を更新する
+
+7. 利用者が結果表示ボタンを押下する
+8. 分析ジョブ情報を取得する
+9. 1ヶ月以上前に作成された一時ファイルを削除する
+10. 分析ジョブIDから分析結果情報を取得する
 
 .. _alt-int-seq-execute-prediction:
 
@@ -320,6 +350,8 @@ MVCモデルを利用する
 ------------
 
 - :ref:`alt-int-sch-analyses`
+- :ref:`alt-int-sch-analysis_results`
+- :ref:`alt-int-sch-analysis_result_importances`
 - :ref:`alt-int-sch-predictions`
 - :ref:`alt-int-sch-prediction_results`
 - :ref:`alt-int-sch-evaluations`
@@ -346,6 +378,40 @@ analysesテーブル
    performed_at,DATETIME,分析ジョブの実行開始日時,
    created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,○
+
+.. _alt-int-sch-analysis_results:
+
+analysis_resultsテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+分析結果情報を登録するanalysis_resultsテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_id,INTEGER,analysesテーブルの内部ID,○
+   created_at,DATETIME,分析結果情報の作成日時,○
+   updated_at,DATETIME,分析結果情報の更新日時,○
+
+.. _alt-int-sch-analysis_result_importances:
+
+analysis_result_importancesテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+重要度を登録するanalysis_result_importancesテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_result_id,INTEGER,analysis_resultsテーブルの内部ID,○
+   feature_name,STRING,素性名,○
+   value,FLOAT,重要度の値,○
+   created_at,DATETIME,重要度情報の作成日時,○
+   updated_at,DATETIME,重要度情報の更新日時,○
 
 .. _alt-int-sch-predictions:
 

@@ -6,17 +6,43 @@ actor 利用者
 activate Aggregator
   Aggregator -> ArgumentUtil : check_operation
   Aggregator -> Aggregator : new
-  Aggregator -> Entry : where
 
-  loop 取得したエントリーだけ繰り返す
-    Aggregator -> Aggregator : create_feature
+  alt operation == create
+    Aggregator -> Aggregator : create_features
 
     activate Aggregator
-      Aggregator -> Aggregator : create_feature_attribute
-      Aggregator -> Aggregator : extra_attribute
+      loop 指定された期間内を日付ごとに繰り返し
+        Aggregator -> Entry : where
 
-      alt 素性の生成に成功
-        Aggregator -> Feature : create_or_update!
+        loop 取得したエントリーだけ繰り返す
+          Aggregator -> Aggregator : feature_attribute
+
+          activate Aggregator
+            Aggregator -> Aggregator : extra_attribute
+          deactivate Aggregator
+
+          alt 素性の生成に成功
+            Aggregator -> Feature : create!
+          end
+        end
+      end
+    deactivate Aggregator
+  else
+    Aggregator -> Aggregator : update_features
+
+    activate Aggregator
+      Aggregator -> Feature : where
+
+      loop 取得した素性だけ繰り返す
+        Aggregator -> Aggregator : feature_attribute
+
+        activate Aggregator
+          Aggregator -> Aggregator : extra_attribute
+        deactivate Aggregator
+
+        alt 素性の生成に成功
+          Aggregator -> Feature : update!
+        end
       end
     deactivate Aggregator
   end

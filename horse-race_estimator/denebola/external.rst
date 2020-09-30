@@ -479,20 +479,6 @@ aggregate.rb
 
 - オプション
 
-  - from
-
-    - 更新開始日
-    - 指定した更新日以降の競馬情報を対象とする
-    - yyyy-mm-ddの形式で指定する
-    - デフォルト スクリプト実行日の1ヶ月前となる
-
-  - to
-
-    - 更新終了日
-    - 指定した更新日以前の競馬情報を対象とする
-    - yyyy-mm-ddの形式で指定する
-    - デフォルト スクリプト実行日となる
-
   - operation
 
     - 操作
@@ -508,12 +494,38 @@ aggregate.rb
         - データベースに存在する場合に値を更新する
         - 存在しない場合は登録しない
 
-      - upsert
-
-        - データベースに存在しなければ登録する
-        - 存在する場合は値を更新する
-
     - デフォルト create
+    - 指定した値によってfrom, toオプションによる範囲の指定方法が異なる
+
+  - from
+
+    - operationがcreateの場合
+
+      - レース開始日時が指定した日以降のレース情報で素性を生成する
+      - yyyy-mm-ddの形式で指定する
+      - デフォルト スクリプト実行日の1ヶ月前となる
+
+    - operationがupdateの場合
+
+      - 更新開始位置
+      - 1以上の自然数で指定する
+      - 指定必須
+
+  - to
+
+    - operationがcreateの場合
+
+      - レース開始日時が指定した日以前のレース情報で素性を生成する
+      - yyyy-mm-ddの形式で指定する
+      - デフォルト スクリプト実行日となる
+
+    - operationがupdateの場合
+
+      - 更新終了位置
+      - 1以上の自然数で指定する
+      - 指定必須
+
+  - operationがupdateの場合，1度に更新できる素性の数は最大200000となる
 
 **出力**
 
@@ -523,4 +535,4 @@ aggregate.rb
 
   .. code-block:: none
 
-     bundle exec ruby aggregate.rb --from=2019-01-01 --to=2019-11-21 --operation=upsert
+     bundle exec ruby aggregate.rb --from=100000 --to=200000 --operation=update

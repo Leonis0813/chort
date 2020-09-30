@@ -229,9 +229,24 @@
 不正入力エラー
 ''''''''''''''
 
-- 不正な入力があった場合は，下記のダイアログが表示される
+- 必須項目が入力されていない場合は以下のダイアログが表示される
 
-  .. image:: images/management_common_error.png
+  .. image:: images/management_common_absent_error.png
+     :scale: 50
+
+- 入力値が仕様を満たしていない場合は以下のダイアログが表示される
+
+  .. image:: images/management_common_invalid_error.png
+     :scale: 50
+
+- カテゴリやタグ入力フォームに同じ値が含まれている場合は以下のダイアログが表示される
+
+  .. image:: images/management_common_same_value_error.png
+     :scale: 50
+
+- 既に同じリソースが登録されている場合は以下のダイアログが表示される
+
+  .. image:: images/management_common_duplicated_error.png
      :scale: 50
 
 .. _alg-ext-ui-man-payment:
@@ -667,12 +682,29 @@ Web API
 エラーコード
 """"""""""""
 
-.. csv-table::
-   :header: "エラーコード", "ステータスコード", "意味"
+ステータスコードによってレスポンスが異なる
 
-   absent_param_[属性],400,入力必須の項目がない
-   invalid_param_[属性],400,不正値のパラメータがある
-   not_found,404,パスパラメーターで指定したリソースが存在しない
+400(BadRequest)
+'''''''''''''''
+
+- レスポンスボディとして以下のキーを含むJSONオブジェクトの配列を返す
+
+  .. csv-table::
+     :header: キー名,設定される値,備考
+
+     error_code,エラーコード,
+     parameter,エラーが発生したパラメーター名,
+     resource,パラメーターの関連リソース名,リソースの属性でないパラメーターの場合はnull
+
+- エラーコードは以下のいずれかを返す
+
+  .. csv-table::
+     :header: エラーコード,意味
+
+     absent_parameter,入力必須のパラメーターが指定されていない
+     invalid_parameter,不正値のパラメーターがある
+     include_same_value,配列要素のパラメーターに同じ値が含まれている
+     duplicated_resource,同じリソースが既に登録されている
 
 **レスポンス例**
 
@@ -684,7 +716,20 @@ Web API
    {
      "errors": [
        {
-         "error_code": "absent_param_date"
+         "error_code": "absent_parameter",
+         "parameter": "date",
+         "resource": "payment"
        }
      ]
    }
+
+404(NotFound)
+'''''''''''''
+
+- レスポンスボディは返さない
+
+**レスポンス例**
+
+.. sourcecode:: http
+
+   HTTP/1.1 404 NotFound

@@ -22,3 +22,18 @@ activate AnalysisView
     deactivate AnalysesController
   end
 deactivate AnalysisView
+
+autonumber resume
+利用者 -> AnalysisView : 結果表示ボタン押下
+
+activate AnalysisView
+  AnalysisView -> AnalysesController : show
+deactivate AnalysisView
+
+activate AnalysesController
+  AnalysesController -> AnalysesController : remove_old_files
+  AnalysesController -> Analysis : find_by
+
+  autonumber stop
+  AnalysisResultView <-- AnalysesController : 画面を表示
+deactivate AnalysesController
