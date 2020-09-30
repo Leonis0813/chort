@@ -27,6 +27,28 @@ activate IndexActivity
     IndexView -> index.CategoryView : setCategories
   deactivate IndexView
 
+  IndexActivity -> IndexActivity : getTags
+
+  create HTTPClient
+  IndexActivity -> HTTPClient : new
+
+  activate HTTPClient
+    IndexActivity -> HTTPClient : getTags
+    IndexActivity -> HTTPClient : sendRequest
+
+    autonumber stop
+    IndexActivity <-- HTTPClient : response
+  deactivate HTTPClient
+
+  destroy HTTPClient
+
+  autonumber resume
+  IndexActivity -> IndexView : setTags
+
+  activate IndexView
+    IndexView -> index.CategoryView : setTags
+  deactivate IndexView
+
   利用者 -> IndexView : onClick
 
   activate IndexView
