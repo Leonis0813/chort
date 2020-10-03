@@ -1,4 +1,4 @@
-機能仕様
+ 機能仕様
 ========
 
 機能仕様では以下を定義する
@@ -15,6 +15,7 @@
 本システムでは以下のリソースを扱う
 
 - :ref:`alt-ext-res-analysis`
+- :ref:`alt-ext-res-ana-parameter`
 - :ref:`alt-ext-res-ana-result`
 - :ref:`alt-ext-res-ana-res-importance`
 - :ref:`alt-ext-res-prediction`
@@ -31,7 +32,7 @@
 
 .. csv-table::
    :header: 属性名,型,意味,備考
-   :widths: 20,10,30,40
+   :widths: 10,20,30,40
 
    analysis_id,string,分析ジョブを一意に示すID,"- 32文字の英数字
    - 以下の文字からなる
@@ -68,9 +69,9 @@
    - デフォルト 100"
    max_depth,integer,木の深さの最大値,"- 1以上
    - デフォルト null"
-   min_samples_split,integer,中間ノードに存在するデータの最小値"- 1以上
+   min_samples_split,integer,中間ノードに存在するデータの最小値,"- 1以上
    - デフォルト 2"
-   min_samples_split,integer,葉ノードに存在するデータの最小値,"- 1以上
+   min_samples_leaf,integer,葉ノードに存在するデータの最小値,"- 1以上
    - デフォルト 1"
    max_features,string,1つの木に利用する素性の数の最大値,"- 以下のいずれか
 
@@ -91,7 +92,7 @@
 
 .. csv-table::
    :header: 属性名,型,意味,備考
-   :widths: 20,10,30,40
+   :widths: 20,20,30,30
 
    importances,array[ :ref:`alt-ext-res-ana-res-importance` ],各素性の重要度の配列
 
@@ -247,9 +248,14 @@
       - 分析完了日時
       - 以下のパラメーター
 
-        - 学習データ数
-        - 決定木の数
-        - 特徴量の数
+        - num_data
+        - num_feature
+        - num_tree
+        - max_depth
+        - min_samples_split
+        - min_samples_leaf
+        - max_features
+        - max_leaf_node
 
     - メールには以下の圧縮ファイルが添付されている
 
@@ -270,6 +276,10 @@
   - 最新のジョブが先頭になるようにソートされている
   - 5秒間隔で一覧の状態が自動更新される
   - 実行待ち状態のジョブは実行開始日時が空白となる
+  - パラメーター列のボタンを押下すると，パラメーター一覧が表示される
+
+    - 再度ボタンを押下すると一覧を閉じられる
+
   - 実行中のジョブは黄色，完了したジョブの行は緑色，エラーになったジョブは赤色で表示される
   - 実行中の場合は「状態」列にアイコンが表示される
   - エントリー数を指定したジョブには「エントリー数」列に値が表示される
