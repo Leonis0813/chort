@@ -33,25 +33,54 @@
    :header: 属性名,型,意味,備考
    :widths: 20,10,30,40
 
-   分析ジョブID,string,分析ジョブを一意に示すID,"- 32文字の英数字
+   analysis_id,string,分析ジョブを一意に示すID,"- 32文字の英数字
    - 以下の文字からなる
 
      - 0〜9
      - a〜f"
-   実行開始日時,string,分析を開始した日時,- 年/月/日 時:分:秒 の形式
-   学習データ数,integer,分析に利用したデータ数,- 1以上
-   決定木の数,integer,生成するランダムフォレストの木の数,- 1以上
-   特徴量の数,integer,分析に利用する特徴量の数,"- 1以上
+   performed_at,string,分析を開始した日時,- 年/月/日 時:分:秒 の形式
+   num_data,integer,分析に利用したデータ数,- 1以上
+   num_feature,integer,分析に利用する特徴量の数,"- 1以上
    - システム内部で自動的に決定される"
-   エントリー数,integer,分析で使用するレースのエントリー数,"- 1以上
+   num_entry,integer,分析で使用するレースのエントリー数,"- 1以上
    - 固定しない場合は null"
-   状態,string,ジョブの状態,"- 以下のいずれか
+   state,string,ジョブの状態,"- 以下のいずれか
 
      - 実行待ち
      - 実行中
      - 完了
      - エラー"
-   結果, :ref:`alt-ext-res-ana-result`, :ref:`alt-ext-res-ana-result` 参照,
+   parameter, :ref:`alt-ext-res-ana-parameter`, :ref:`alt-ext-res-ana-parameter` 参照,
+   result, :ref:`alt-ext-res-ana-result`, :ref:`alt-ext-res-ana-result` 参照,
+
+.. _alt-ext-res-ana-parameter:
+
+分析パラメーター
+^^^^^^^^^^^^^^^^
+
+分析時のパラメーターを表す
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 20,10,30,40
+
+   num_tree,integer,生成するランダムフォレストの木の数,"- 1以上
+   - デフォルト 100"
+   max_depth,integer,木の深さの最大値,"- 1以上
+   - デフォルト null"
+   min_samples_split,integer,中間ノードに存在するデータの最小値"- 1以上
+   - デフォルト 2"
+   min_samples_split,integer,葉ノードに存在するデータの最小値,"- 1以上
+   - デフォルト 1"
+   max_features,string,1つの木に利用する素性の数の最大値,"- 以下のいずれか
+
+     - all: 全ての素性を利用する
+     - sqrt: num_featureの平方根の数だけ利用する
+     - log2: num_featureの2の自然対数だけ利用する
+
+   - デフォルト: sqrt"
+   max_leaf_node,integer,葉ノードの数の最大値,"- 1以上
+   - デフォルト null"
 
 .. _alt-ext-res-ana-result:
 
