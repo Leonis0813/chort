@@ -69,11 +69,19 @@ class AnalysisMailer {
 class Analysis {
   - analysis_id : String
   - num_data : Integer
-  - num_tree : Integer
   - num_feature : Integer
   - num_entry : Integer
   - state : String
   - performed_at : Datetime
+}
+
+class "Analysis::Parameter" {
+  - num_tree : Integer
+  - max_depth : Integer
+  - min_samples_split : Integer
+  - min_samples_leaf : Integer
+  - max_features : String
+  - max_leaf_nodes : Integer
 }
 
 class "Analysis::Result"
@@ -166,6 +174,7 @@ AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
 Api::AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
+Analysis "1" -- "1" Analysis::Parameter
 Analysis "1" -- "1" Analysis::Result
 Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
 Analysis "1" -- "0 .. *" Prediction

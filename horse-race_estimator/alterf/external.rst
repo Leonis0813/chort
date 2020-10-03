@@ -1,4 +1,4 @@
- 機能仕様
+機能仕様
 ========
 
 機能仕様では以下を定義する
@@ -146,7 +146,7 @@
 
 .. csv-table::
    :header: 属性名,型,意味,備考
-   :widths: 20,10,30,40
+   :widths: 10,10,30,40
 
    evaluation_id,string,評価ジョブを一意に示すID,- 16文字の英数字
    performed_at,string,予測を開始した日時,- 年/月/日 時:分:秒 の形式
@@ -156,7 +156,7 @@
      - remote: 外部サイトからアクセス人気上位
      - file: 指定されたファイル
      - text: 指定されたテキスト
-     - randomm: システムがランダムに選択"
+     - random: システムがランダムに選択"
    num_data,integer,評価データの数,"- データソースによって以下のように設定される
 
       - remote: 20が自動設定される
@@ -183,7 +183,7 @@
 
 .. csv-table::
    :header: 属性名,型,意味,備考
-   :widths: 20,10,30,40
+   :widths: 20,20,20,40
 
    race_id,string,評価したレースのID, :ref:`den-ext-res-race` 参照
    race_name,string,評価したレースの名前,
