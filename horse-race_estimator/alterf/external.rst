@@ -80,7 +80,7 @@
      - log2: num_featureの2の自然対数だけ利用する
 
    - デフォルト: sqrt"
-   max_leaf_node,integer,葉ノードの数の最大値,"- 1以上
+   max_leaf_nodes,integer,葉ノードの数の最大値,"- 1以上
    - デフォルト null"
 
 .. _alt-ext-res-ana-result:
@@ -255,7 +255,7 @@
         - min_samples_split
         - min_samples_leaf
         - max_features
-        - max_leaf_node
+        - max_leaf_nodes
 
     - メールには以下の圧縮ファイルが添付されている
 

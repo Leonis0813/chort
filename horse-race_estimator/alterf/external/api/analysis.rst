@@ -43,10 +43,17 @@
         "analysis_id": "15f61ba31273e7c342dd0934f894f0a0",
         "performed_at": "2020-07-24T11:41:04.000Z",
         "num_data": 100,
-        "num_tree": 10,
         "num_feature": 27,
         "num_entry": null,
         "state": "completed",
+        "parameter": {
+          "num_tree": 10,
+          "max_depth": null,
+          "min_samples_split": 2,
+          "min_samples_leaf": 1,
+          "max_features": "sqrt",
+          "max_leaf_nodes": null
+        },
         "result": {
           "importances": [
             {
