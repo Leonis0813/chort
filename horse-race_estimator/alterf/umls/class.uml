@@ -49,6 +49,12 @@ class Api::AnalysesController {
   - request_analysis() : Analysis
 }
 
+class Api::Analyses::ParametersController {
+  + show(request : Object) : Object
+  - check_request_analysis() : void
+  - request_analysis() : Analysis
+}
+
 class AnalysisJob {
   + perform(analysis_id : Integer)
 }
@@ -69,11 +75,19 @@ class AnalysisMailer {
 class Analysis {
   - analysis_id : String
   - num_data : Integer
-  - num_tree : Integer
   - num_feature : Integer
   - num_entry : Integer
   - state : String
   - performed_at : Datetime
+}
+
+class "Analysis::Parameter" {
+  - max_depth : Integer
+  - max_features : String
+  - max_leaf_nodes : Integer
+  - min_samples_leaf : Integer
+  - min_samples_split : Integer
+  - num_tree : Integer
 }
 
 class "Analysis::Result"
@@ -159,13 +173,18 @@ class ModelUtil <<module>> {
 ブラウザ -- EvaluationResultView
 
 AnalysisView -- AnalysesController
+AnalysisView -- Api::AnalysesController
+AnalysisView -- Api::Analyses::ParametersController
 ApplicationController <|-- AnalysesController
 ApplicationController <|-- Api::AnalysesController
+ApplicationController <|-- Api::Analyses::ParameterController
 AnalysesController --> AnalysisJob
 AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
 Api::AnalysesController "1" -- "1" Analysis
+Api::Analyses::ParametersController "1" -- "1" Analysis::Parameter
 AnalysisJob "1" -- "1" Analysis
+Analysis "1" -- "1" Analysis::Parameter
 Analysis "1" -- "1" Analysis::Result
 Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
 Analysis "1" -- "0 .. *" Prediction

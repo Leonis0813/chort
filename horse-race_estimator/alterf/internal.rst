@@ -24,6 +24,10 @@ MVCモデルを利用する
 
     - 分析ジョブの情報を管理するクラス
 
+  - Analysis::Parameter
+
+    - 分析実行時のパラメーターを管理するクラス
+
   - Analysis::Result
 
     - 分析結果情報を管理するクラス
@@ -87,6 +91,11 @@ MVCモデルを利用する
   - Api::AnalysesController
 
     - 分析情報を管理するコントローラー
+    - WebAPI用コントローラー
+
+  - Api::Analyses::ParametersController
+
+    - 分析パラメーター情報を管理するコントローラー
     - WebAPI用コントローラー
 
 - Library
@@ -350,6 +359,7 @@ MVCモデルを利用する
 ------------
 
 - :ref:`alt-int-sch-analyses`
+- :ref:`alt-int-sch-analysis_parameters`
 - :ref:`alt-int-sch-analysis_results`
 - :ref:`alt-int-sch-analysis_result_importances`
 - :ref:`alt-int-sch-predictions`
@@ -371,13 +381,34 @@ analysesテーブル
    id,INTEGER,内部ID,○
    analysis_id,STRING,分析ジョブのID,○
    num_data,INTEGER,学習データ数,○
-   num_tree,INTEGER,決定木の数,○
    num_feature,INTEGER,特徴量の数,
    num_entry,INTEGER,エントリーの数,
    state,STRING,分析処理の状態,○
    performed_at,DATETIME,分析ジョブの実行開始日時,
    created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,○
+
+.. _alt-int-sch-analysis_parameters:
+
+analysis_parametersテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+分析時のパラメーターを登録するanalysis_parametersテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_id,INTEGER,analysesテーブルの内部ID,○
+   max_depth,INTEGER,木の深さの最大値,
+   max_features,STRING,1つの木に利用する素性の数の最大値,○
+   max_leaf_nodes,INTEGER,葉ノードの数の最大値,
+   min_samples_leaf,INTEGER,葉ノードに存在するデータの最小値,○
+   min_samples_split,INTEGER,中間ノードに存在するデータの最小,○
+   num_tree,INTEGER,決定木の数,○
+   created_at,DATETIME,分析パラメーター情報の作成日時,○
+   updated_at,DATETIME,分析パラメーター情報の更新日時,○
 
 .. _alt-int-sch-analysis_results:
 
