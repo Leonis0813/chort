@@ -49,6 +49,12 @@ class Api::AnalysesController {
   - request_analysis() : Analysis
 }
 
+class Api::Analyses::ParametersController {
+  + show(request : Object) : Object
+  - check_request_analysis() : void
+  - request_analysis() : Analysis
+}
+
 class AnalysisJob {
   + perform(analysis_id : Integer)
 }
@@ -76,12 +82,12 @@ class Analysis {
 }
 
 class "Analysis::Parameter" {
-  - num_tree : Integer
   - max_depth : Integer
-  - min_samples_split : Integer
-  - min_samples_leaf : Integer
   - max_features : String
   - max_leaf_nodes : Integer
+  - min_samples_leaf : Integer
+  - min_samples_split : Integer
+  - num_tree : Integer
 }
 
 class "Analysis::Result"
@@ -167,8 +173,11 @@ class ModelUtil <<module>> {
 ブラウザ -- EvaluationResultView
 
 AnalysisView -- AnalysesController
+AnalysisView -- Api::AnalysesController
+AnalysisView -- Api::Analyses::ParametersController
 ApplicationController <|-- AnalysesController
 ApplicationController <|-- Api::AnalysesController
+ApplicationController <|-- Api::Analyses::ParameterController
 AnalysesController --> AnalysisJob
 AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis

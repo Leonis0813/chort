@@ -93,6 +93,11 @@ MVCモデルを利用する
     - 分析情報を管理するコントローラー
     - WebAPI用コントローラー
 
+  - Api::Analyses::ParametersController
+
+    - 分析パラメーター情報を管理するコントローラー
+    - WebAPI用コントローラー
+
 - Library
 
   - FeatureExtractor
@@ -396,12 +401,12 @@ analysis_parametersテーブル
 
    id,INTEGER,内部ID,○
    analysis_id,INTEGER,analysesテーブルの内部ID,○
-   num_tree,INTEGER,決定木の数,○
    max_depth,INTEGER,木の深さの最大値,
-   min_samples_split,INTEGER,中間ノードに存在するデータの最小,○
-   min_samples_leaf,INTEGER,葉ノードに存在するデータの最小値,○
    max_features,STRING,1つの木に利用する素性の数の最大値,○
    max_leaf_nodes,INTEGER,葉ノードの数の最大値,
+   min_samples_leaf,INTEGER,葉ノードに存在するデータの最小値,○
+   min_samples_split,INTEGER,中間ノードに存在するデータの最小,○
+   num_tree,INTEGER,決定木の数,○
    created_at,DATETIME,分析パラメーター情報の作成日時,○
    updated_at,DATETIME,分析パラメーター情報の更新日時,○
 
