@@ -182,6 +182,7 @@ AnalysesController --> AnalysisJob
 AnalysisJob --> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
 Api::AnalysesController "1" -- "1" Analysis
+Api::Analyses::ParametersController "1" -- "1" Analysis::Parameter
 AnalysisJob "1" -- "1" Analysis
 Analysis "1" -- "1" Analysis::Parameter
 Analysis "1" -- "1" Analysis::Result
