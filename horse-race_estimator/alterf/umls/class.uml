@@ -201,7 +201,7 @@ Analysis "1" -- "1" Analysis::Result
 Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
 Analysis::Result "1" -- "0 .. *" Analysis::Result::DecisionTree
 Analysis::Result::DecisionTree "1" -- "1 .. *" Analysis::Result::DecisionTreeNode
-Analysis::Result::DecisionTreeNode "1" -- "0,2" Analysis::Result::DecisionTreeNode
+Analysis::Result::DecisionTreeNode "1" --> "0,2" Analysis::Result::DecisionTreeNode : left,right
 Analysis "1" -- "0 .. *" Prediction
 Analysis "1" -- "0 .. *" Evaluation
 
