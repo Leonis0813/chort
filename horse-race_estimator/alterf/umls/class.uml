@@ -98,6 +98,17 @@ class "Analysis::Result::Importance" {
   - value : Double
 }
 
+class "Analysis::Result::DecisionTree" {
+  - tree_id : Integer
+}
+
+class "Analysis::Result::DecisionTreeNode" {
+  - node_id : Integer
+  - node_type : String
+  - feature_name : String
+  - threshold : Double
+}
+
 class Prediction {
   - prediction_id : String
   - model : String
@@ -188,6 +199,9 @@ AnalysisJob "1" -- "1" Analysis
 Analysis "1" -- "1" Analysis::Parameter
 Analysis "1" -- "1" Analysis::Result
 Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
+Analysis::Result "1" -- "0 .. *" Analysis::Result::DecisionTree
+Analysis::Result::DecisionTree "1" -- "1 .. *" Analysis::Result::DecisionTreeNode
+Analysis::Result::DecisionTreeNode "1" -- "0,2" Analysis::Result::DecisionTreeNode
 Analysis "1" -- "0 .. *" Prediction
 Analysis "1" -- "0 .. *" Evaluation
 

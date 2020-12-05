@@ -36,6 +36,14 @@ MVCモデルを利用する
 
     - 重要度を管理するクラス
 
+  - Analysis::Result::DecisionTree
+
+    - 決定木を管理するクラス
+
+  - Analysis::Result::DecisionTreeNode
+
+    - 決定木のノードを管理するクラス
+
   - Prediction
 
     - 予測ジョブの情報を管理するクラス

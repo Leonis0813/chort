@@ -54,7 +54,8 @@
      - completed
      - error"
    parameter, :ref:`alt-ext-res-ana-parameter`, :ref:`alt-ext-res-ana-parameter` 参照,
-   result, :ref:`alt-ext-res-ana-result`, :ref:`alt-ext-res-ana-result` 参照,
+   result, :ref:`alt-ext-res-ana-result`,"- :ref:`alt-ext-res-ana-result` 参照,
+   - 分析ジョブが完了していない場合はnull"
 
 .. _alt-ext-res-ana-parameter:
 
