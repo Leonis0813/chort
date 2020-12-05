@@ -18,6 +18,8 @@
 - :ref:`alt-ext-res-ana-parameter`
 - :ref:`alt-ext-res-ana-result`
 - :ref:`alt-ext-res-ana-res-importance`
+- :ref:`alt-ext-res-ana-res-decision_tree`
+- :ref:`alt-ext-res-ana-res-dec-node`
 - :ref:`alt-ext-res-prediction`
 - :ref:`alt-ext-res-evaluation`
 - :ref:`alt-ext-res-eva-data`
@@ -95,6 +97,7 @@
    :widths: 20,20,30,30
 
    importances,array[ :ref:`alt-ext-res-ana-res-importance` ],各素性の重要度の配列
+   decision_trees,array[ :ref:`alt-ext-res-ana-res-decision_tree` ],決定木の配列
 
 .. _alt-ext-res-ana-res-importance:
 
@@ -109,6 +112,42 @@
 
    feature_name,string,素性の名前, :ref:`den-int-sch-features` 参照
    value,float,重要度の値,0より大きい実数
+
+.. _alt-ext-res-ana-res-decision_tree:
+
+決定木
+^^^^^^
+
+ランダムフォレストの各決定木を表す
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 20,10,30,40
+
+   tree_id,integer,決定木のID,- 0以上
+   nodes,array[ :ref:`alt-ext-res-ana-res-dec-node` ],決定木のノードの配列
+
+.. _alt-ext-res-ana-res-dec-node:
+
+決定木ノード
+^^^^^^^^^^^^
+
+決定木のノードを表す
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 20,10,30,40
+
+   node_id,integer,ノードのID,- 0以上
+   node_type,string,ノードの種別,"- 以下のいずれか
+
+     - root: 根ノード
+     - split: 中間ノード
+     - leaf: 葉ノード"
+   feature_name,string,分岐条件で利用する素性, :ref:`den-int-sch-features` 参照
+   threshold,float,どちらのノードに分岐するかを決める閾値,
+   left_node_id,integer,左子ノードのID, :ref:`alt-ext-res-ana-dec-node` のノードID
+   right_node_id,integer,右子ノードのID, :ref:`alt-ext-res-ana-dec-node` のノードID
 
 .. _alt-ext-res-prediction:
 
@@ -288,13 +327,38 @@
 分析結果画面
 ^^^^^^^^^^^^
 
-.. image:: images/analysis_result.png
-   :alt: 分析結果画面
+- タブで表示する情報を切り替えられる
+
+  - 以下の情報を表示する
+
+    - 重要度
+    - 決定木
+
+  - デフォルトでは重要度を表示する
+
+重要度確認画面
+""""""""""""""
+
+.. image:: images/analysis_result_importance.png
+   :alt: 重要度確認画面
 
 - 重要度を表した棒グラフが表示される
 
   - 上から下へ重要度がソートされる
   - 棒にマウスオーバーすると値が表示される
+
+決定木確認画面
+""""""""""""""
+
+.. image:: images/analysis_result_decision_tree.png
+   :alt: 決定木確認画面
+
+- 画面上部に決定木IDを選択するセレクトボックスが表示される
+
+  - デフォルトでは決定木IDが0の決定木が表示される
+
+- 各ノードには素性や閾値が表示される
+- 葉ノード以外のノードをクリックすると子ノードを表示したり閉じたりすることができる
 
 .. _alt-ext-ui-prediction:
 
