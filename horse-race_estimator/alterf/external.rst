@@ -146,8 +146,10 @@
      - leaf: 葉ノード"
    feature_name,string,分岐条件で利用する素性, :ref:`den-int-sch-features` 参照
    threshold,float,どちらのノードに分岐するかを決める閾値,
-   left_node_id,integer,左子ノードのID, :ref:`alt-ext-res-ana-dec-node` のノードID
-   right_node_id,integer,右子ノードのID, :ref:`alt-ext-res-ana-dec-node` のノードID
+   left_node_id,integer,左子ノードのID,"- :ref:`alt-ext-res-ana-dec-node` のノードID
+   - 葉ノードの場合はnull"
+   right_node_id,integer,右子ノードのID,"- :ref:`alt-ext-res-ana-dec-node` のノードID
+   - 葉ノードの場合はnull"
 
 .. _alt-ext-res-prediction:
 

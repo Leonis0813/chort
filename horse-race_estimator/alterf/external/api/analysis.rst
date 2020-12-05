@@ -61,6 +61,37 @@
               "feature_name": "win_times",
               "value": 0.233369
             }
+          ],
+          "decision_trees": [
+            {
+              "tree_id": 0,
+              "nodes": [
+                {
+                  "node_id": 0,
+                  "node_type": "root",
+                  "feature_name": "weight_per",
+                  "threshold": 0.79,
+                  "left_node_id": 1,
+                  "right_node_id": 2
+                },
+                {
+                  "node_id": 1,
+                  "node_type": "leaf",
+                  "feature_name": "horse_average_prize_money",
+                  "threshold": 0.59,
+                  "left_node_id": null,
+                  "right_node_id": null
+                },
+                {
+                  "node_id": 2,
+                  "node_type": "leaf",
+                  "feature_name": "jockey_win_rate",
+                  "threshold": 0.64,
+                  "left_node_id": null,
+                  "right_node_id": null
+                }
+              ]
+            }
           ]
         }
       }
