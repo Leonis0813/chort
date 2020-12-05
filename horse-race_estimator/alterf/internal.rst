@@ -370,6 +370,8 @@ MVCモデルを利用する
 - :ref:`alt-int-sch-analysis_parameters`
 - :ref:`alt-int-sch-analysis_results`
 - :ref:`alt-int-sch-analysis_result_importances`
+- :ref:`alt-int-sch-analysis_result_decision_trees`
+- :ref:`alt-int-sch-analysis_result_decision_tree_nodes`
 - :ref:`alt-int-sch-predictions`
 - :ref:`alt-int-sch-prediction_results`
 - :ref:`alt-int-sch-evaluations`
@@ -451,6 +453,45 @@ analysis_result_importancesテーブル
    value,FLOAT,重要度の値,○
    created_at,DATETIME,重要度情報の作成日時,○
    updated_at,DATETIME,重要度情報の更新日時,○
+
+.. _alt-int-sch-analysis_result_decision_trees:
+
+analysis_result_decision_treesテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+決定木を登録するanalysis_result_decision_treesテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_result_id,INTEGER,analysis_resultsテーブルの内部ID,○
+   tree_id,INTEGER,決定木のID,○
+   created_at,DATETIME,決定木情報の作成日時,○
+   updated_at,DATETIME,決定木情報の更新日時,○
+
+.. _alt-int-sch-analysis_result_decision_tree_nodes:
+
+analysis_result_decision_tree_nodesテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+決定木のノードを登録するanalysis_result_decision_tree_nodesテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_result_decision_tree_id,INTEGER,analysis_result_decision_treesテーブルの内部ID,○
+   node_id,INTEGER,決定木のノードID,○
+   node_type,STRING,ノードの種別,○
+   feature_name,STRING,素性名,○
+   threshold,FLOAT,閾値,○
+   left_node_id,INTEGER,左子ノードのID,
+   right_node_id,INTEGER,右子ノードのID,
+   created_at,DATETIME,決定木のノード情報の作成日時,○
+   updated_at,DATETIME,決定木のノード情報の更新日時,○
 
 .. _alt-int-sch-predictions:
 
