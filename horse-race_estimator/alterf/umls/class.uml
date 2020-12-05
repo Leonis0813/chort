@@ -13,6 +13,7 @@ class AnalysesController {
   + manage(request : Object) : Object
   + execute(request : Object) : Object
   + show(request : Object) : Object
+  + download(request : Object) : Object
   - check_request_analysis() : void
   - request_analysis() : Analysis
   - execute_params() : HashMap
