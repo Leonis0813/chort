@@ -154,7 +154,7 @@
    feature_name,string,分岐条件で利用する素性,"- :ref:`den-int-sch-features` 参照
    - 葉ノードの場合はnull"
    threshold,float,どちらのノードに分岐するかを決める閾値,- 葉ノードの場合はnull
-   parent_node_id,integer,左子ノードのID,"- :ref:`alt-ext-res-ana-dec-node` のノードID
+   parent_node_id,integer,親ノードのID,"- :ref:`alt-ext-res-ana-res-dec-node` のノードID
    - 根ノードの場合はnull"
 
 .. _alt-ext-res-prediction:
