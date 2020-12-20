@@ -145,12 +145,17 @@
      - root: 根ノード
      - split: 中間ノード
      - leaf: 葉ノード"
-   feature_name,string,分岐条件で利用する素性, :ref:`den-int-sch-features` 参照
-   threshold,float,どちらのノードに分岐するかを決める閾値,
-   left_node_id,integer,左子ノードのID,"- :ref:`alt-ext-res-ana-dec-node` のノードID
+   group,string,親ノードの閾値より小さいか大きいかを表す,"- 以下のいずれか
+
+     - less: 小さい
+     - greater: 大きい
+
+   - 根ノードの場合はnull"
+   feature_name,string,分岐条件で利用する素性,"- :ref:`den-int-sch-features` 参照
    - 葉ノードの場合はnull"
-   right_node_id,integer,右子ノードのID,"- :ref:`alt-ext-res-ana-dec-node` のノードID
-   - 葉ノードの場合はnull"
+   threshold,float,どちらのノードに分岐するかを決める閾値,- 葉ノードの場合はnull
+   parent_node_id,integer,左子ノードのID,"- :ref:`alt-ext-res-ana-dec-node` のノードID
+   - 根ノードの場合はnull"
 
 .. _alt-ext-res-prediction:
 
@@ -329,6 +334,9 @@
 
 分析結果画面
 ^^^^^^^^^^^^
+
+.. image:: images/analysis_result.png
+   :alt: 分析結果画面
 
 - タブで表示する情報を切り替えられる
 

@@ -40,7 +40,7 @@ MVCモデルを利用する
 
     - 決定木を管理するクラス
 
-  - Analysis::Result::DecisionTreeNode
+  - Analysis::Result::DecisionTree::Node
 
     - 決定木のノードを管理するクラス
 
@@ -486,10 +486,10 @@ analysis_result_decision_tree_nodesテーブル
    analysis_result_decision_tree_id,INTEGER,analysis_result_decision_treesテーブルの内部ID,○
    node_id,INTEGER,決定木のノードID,○
    node_type,STRING,ノードの種別,○
-   feature_name,STRING,素性名,○
-   threshold,FLOAT,閾値,○
-   left_node_id,INTEGER,左子ノードのID,
-   right_node_id,INTEGER,右子ノードのID,
+   group,STRING,親ノードの閾値に対するグループ,
+   feature_name,STRING,素性名,
+   threshold,FLOAT,閾値,
+   parent_id,INTEGER,親ノードの内部ID,
    created_at,DATETIME,決定木のノード情報の作成日時,○
    updated_at,DATETIME,決定木のノード情報の更新日時,○
 
