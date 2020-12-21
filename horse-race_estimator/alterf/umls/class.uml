@@ -91,11 +91,26 @@ class "Analysis::Parameter" {
   - num_tree : Integer
 }
 
-class "Analysis::Result"
+class "Analysis::Result" {
+  + import!() : void
+}
 
 class "Analysis::Result::Importance" {
   - feature_name : String
   - value : Double
+}
+
+class "Analysis::Result::DecisionTree" {
+  - tree_id : Integer
+  + import!() : void
+}
+
+class "Analysis::Result::DecisionTree::Node" {
+  - node_id : Integer
+  - node_type : String
+  - group : String
+  - feature_name : String
+  - threshold : Double
 }
 
 class Prediction {
@@ -188,6 +203,10 @@ AnalysisJob "1" -- "1" Analysis
 Analysis "1" -- "1" Analysis::Parameter
 Analysis "1" -- "1" Analysis::Result
 Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
+Analysis::Result "1" -- "0 .. *" Analysis::Result::DecisionTree
+Analysis::Result::DecisionTree "1" -- "1 .. *" Analysis::Result::DecisionTree::Node
+Analysis::Result::DecisionTree::Node "1" --> "0,1" Analysis::Result::DecisionTree::Node : parent
+Analysis::Result::DecisionTree::Node "1" --> "0,2" Analysis::Result::DecisionTree::Node : children
 Analysis "1" -- "0 .. *" Prediction
 Analysis "1" -- "0 .. *" Evaluation
 
