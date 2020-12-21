@@ -31,19 +31,39 @@ deactivate AnalysisView
 autonumber resume
 AnalysisJob -> Analysis : find
 AnalysisJob -> AnalysisJob : execute_script
-AnalysisJob -> YAML : load_file
-AnalysisJob -> Analysis : update
-AnalysisJob -> Analysis : result
-AnalysisJob -> "Analysis::Result" : importances
+AnalysisJob -> AnalysisJob : check_output
+AnalysisJob -> "Analysis::Result" : import!
 
 activate "Analysis::Result"
+  "Analysis::Result" -> YAML : load_file
+
   loop 素性の数だけ繰り返し
     create "Analysis::Result::Importance"
-    "Analysis::Result" -> "Analysis::Result::Importance" : new
+    "Analysis::Result" -> "Analysis::Result::Importance" : create!
+  end
+
+  loop 決定木の数だけ繰り返し
+    create "Analysis::Result::DecisionTree"
+    "Analysis::Result" -> "Analysis::Result::DecisionTree" : create!
+    "Analysis::Result" -> "Analysis::Result::DecisionTree" : import!
+
+    activate "Analysis::Result::DecisionTree"
+      "Analysis::Result::DecisionTree" -> YAML : load_file
+
+      loop ノードの数だけ繰り返し
+        create "Analysis::Result::DecisionTree::Node"
+        "Analysis::Result::DecisionTree" -> "Analysis::Result::DecisionTree::Node" : create!
+      end
+    deactivate "Analysis::Result::DecisionTree"
   end
 deactivate "Analysis::Result"
 
-AnalysisJob -> YAML : dump
+AnalysisJob -> Analysis : update!
+AnalysisJob -> AnalysisJob : dump_yaml
+AnalysisJob -> AnalysisJob : create_zip
+AnalysisJob -> AnalysisJob : create_zip
+AnalysisJob -> AnalysisJob : create_zip
+
 AnalysisJob -> AnalysisMailer : completed
 
 activate AnalysisMailer
