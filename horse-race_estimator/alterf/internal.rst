@@ -24,6 +24,10 @@ MVCモデルを利用する
 
     - 分析ジョブの情報を管理するクラス
 
+  - Analysis::Parameter
+
+    - 分析実行時のパラメーターを管理するクラス
+
   - Analysis::Result
 
     - 分析結果情報を管理するクラス
@@ -31,6 +35,14 @@ MVCモデルを利用する
   - Analysis::Result::Importance
 
     - 重要度を管理するクラス
+
+  - Analysis::Result::DecisionTree
+
+    - 決定木を管理するクラス
+
+  - Analysis::Result::DecisionTree::Node
+
+    - 決定木のノードを管理するクラス
 
   - Prediction
 
@@ -89,6 +101,11 @@ MVCモデルを利用する
     - 分析情報を管理するコントローラー
     - WebAPI用コントローラー
 
+  - Api::Analyses::ParametersController
+
+    - 分析パラメーター情報を管理するコントローラー
+    - WebAPI用コントローラー
+
 - Library
 
   - FeatureExtractor
@@ -137,18 +154,31 @@ MVCモデルを利用する
 7. 非同期で分析ジョブを実行する
 8. IDから分析ジョブ情報を取得する
 9. 分析スクリプトを実行する
-10. ファイルから分析結果を読み込む
-11. 分析ジョブ情報の素性の数を更新する
-12. 分析結果情報を取得する
-13. 重要度情報を取得する
+10. スクリプトの出力ファイルをチェックする
+11. 分析結果情報を出力ファイルからインポートする
+12. 重要度情報をファイルから読み込む
 
-素性の数だけ14を繰り返す
+素性の数だけ13を繰り返す
 
-14. 重要度情報を作成する
+13. 重要度情報をDBに登録する
 
-15. 分析ジョブIDをファイルに出力する
-16. 分析結果をメールで通知する
-17. 分析ジョブ情報の状態を完了にする
+決定木の数だけ14〜17を繰り返す
+
+14. 決定木情報をDBに登録する
+15. 決定木の構成をファイルからインポートする
+16. ノード情報をファイルから読み込む
+
+ノードの数だけ17を繰り返す
+
+17. ノード情報をDBに登録する
+
+18. 分析ジョブ情報の素性の数を更新する
+19. 分析ジョブIDをファイルに出力する
+20. モデルやメタデータなど予測に必要なファイルをまとめてzip化する
+21. 素性の情報をまとめてzip化する
+22. ダウンロード用ファイルを作成する
+23. 分析結果をメールで通知する
+24. 分析ジョブ情報の状態を完了にする
 
 .. _alt-int-seq-show-analyses:
 
@@ -350,8 +380,11 @@ MVCモデルを利用する
 ------------
 
 - :ref:`alt-int-sch-analyses`
+- :ref:`alt-int-sch-analysis_parameters`
 - :ref:`alt-int-sch-analysis_results`
 - :ref:`alt-int-sch-analysis_result_importances`
+- :ref:`alt-int-sch-analysis_result_decision_trees`
+- :ref:`alt-int-sch-analysis_result_decision_tree_nodes`
 - :ref:`alt-int-sch-predictions`
 - :ref:`alt-int-sch-prediction_results`
 - :ref:`alt-int-sch-evaluations`
@@ -371,13 +404,34 @@ analysesテーブル
    id,INTEGER,内部ID,○
    analysis_id,STRING,分析ジョブのID,○
    num_data,INTEGER,学習データ数,○
-   num_tree,INTEGER,決定木の数,○
    num_feature,INTEGER,特徴量の数,
    num_entry,INTEGER,エントリーの数,
    state,STRING,分析処理の状態,○
    performed_at,DATETIME,分析ジョブの実行開始日時,
    created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,○
+
+.. _alt-int-sch-analysis_parameters:
+
+analysis_parametersテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+分析時のパラメーターを登録するanalysis_parametersテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_id,INTEGER,analysesテーブルの内部ID,○
+   max_depth,INTEGER,木の深さの最大値,
+   max_features,STRING,1つの木に利用する素性の数の最大値,○
+   max_leaf_nodes,INTEGER,葉ノードの数の最大値,
+   min_samples_leaf,INTEGER,葉ノードに存在するデータの最小値,○
+   min_samples_split,INTEGER,中間ノードに存在するデータの最小,○
+   num_tree,INTEGER,決定木の数,○
+   created_at,DATETIME,分析パラメーター情報の作成日時,○
+   updated_at,DATETIME,分析パラメーター情報の更新日時,○
 
 .. _alt-int-sch-analysis_results:
 
@@ -412,6 +466,45 @@ analysis_result_importancesテーブル
    value,FLOAT,重要度の値,○
    created_at,DATETIME,重要度情報の作成日時,○
    updated_at,DATETIME,重要度情報の更新日時,○
+
+.. _alt-int-sch-analysis_result_decision_trees:
+
+analysis_result_decision_treesテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+決定木を登録するanalysis_result_decision_treesテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_result_id,INTEGER,analysis_resultsテーブルの内部ID,○
+   tree_id,INTEGER,決定木のID,○
+   created_at,DATETIME,決定木情報の作成日時,○
+   updated_at,DATETIME,決定木情報の更新日時,○
+
+.. _alt-int-sch-analysis_result_decision_tree_nodes:
+
+analysis_result_decision_tree_nodesテーブル
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+決定木のノードを登録するanalysis_result_decision_tree_nodesテーブルを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_result_decision_tree_id,INTEGER,analysis_result_decision_treesテーブルの内部ID,○
+   node_id,INTEGER,決定木のノードID,○
+   node_type,STRING,ノードの種別,○
+   group,STRING,親ノードの閾値に対するグループ,
+   feature_name,STRING,素性名,
+   threshold,FLOAT,閾値,
+   parent_id,INTEGER,親ノードの内部ID,
+   created_at,DATETIME,決定木のノード情報の作成日時,○
+   updated_at,DATETIME,決定木のノード情報の更新日時,○
 
 .. _alt-int-sch-predictions:
 

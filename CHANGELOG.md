@@ -1,3 +1,12 @@
+# 2020/12/20
+- [Alterf] update version to 4.17.0
+
+# 2020/12/05
+- [Alterf] update version to 4.16.0
+
+# 2020/11/28
+- [Alterf] update version to 4.15.0
+
 # 2020/09/07
 - [Denebola] update version to 2.9.1
 

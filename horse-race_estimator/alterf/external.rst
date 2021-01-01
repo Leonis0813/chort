@@ -15,8 +15,11 @@
 本システムでは以下のリソースを扱う
 
 - :ref:`alt-ext-res-analysis`
+- :ref:`alt-ext-res-ana-parameter`
 - :ref:`alt-ext-res-ana-result`
 - :ref:`alt-ext-res-ana-res-importance`
+- :ref:`alt-ext-res-ana-res-decision_tree`
+- :ref:`alt-ext-res-ana-res-dec-node`
 - :ref:`alt-ext-res-prediction`
 - :ref:`alt-ext-res-evaluation`
 - :ref:`alt-ext-res-eva-data`
@@ -31,27 +34,57 @@
 
 .. csv-table::
    :header: 属性名,型,意味,備考
-   :widths: 20,10,30,40
+   :widths: 10,20,30,40
 
-   分析ジョブID,string,分析ジョブを一意に示すID,"- 32文字の英数字
+   analysis_id,string,分析ジョブを一意に示すID,"- 32文字の英数字
    - 以下の文字からなる
 
      - 0〜9
      - a〜f"
-   実行開始日時,string,分析を開始した日時,- 年/月/日 時:分:秒 の形式
-   学習データ数,integer,分析に利用したデータ数,- 1以上
-   決定木の数,integer,生成するランダムフォレストの木の数,- 1以上
-   特徴量の数,integer,分析に利用する特徴量の数,"- 1以上
+   performed_at,string,分析を開始した日時,- 年/月/日 時:分:秒 の形式
+   num_data,integer,分析に利用したデータ数,- 1以上
+   num_feature,integer,分析に利用する特徴量の数,"- 1以上
    - システム内部で自動的に決定される"
-   エントリー数,integer,分析で使用するレースのエントリー数,"- 1以上
+   num_entry,integer,分析で使用するレースのエントリー数,"- 1以上
    - 固定しない場合は null"
-   状態,string,ジョブの状態,"- 以下のいずれか
+   state,string,ジョブの状態,"- 以下のいずれか
 
-     - 実行待ち
-     - 実行中
-     - 完了
-     - エラー"
-   結果, :ref:`alt-ext-res-ana-result`, :ref:`alt-ext-res-ana-result` 参照,
+     - waiting
+     - processing
+     - completed
+     - error"
+   parameter, :ref:`alt-ext-res-ana-parameter`, :ref:`alt-ext-res-ana-parameter` 参照,
+   result, :ref:`alt-ext-res-ana-result`,"- :ref:`alt-ext-res-ana-result` 参照,
+   - 分析ジョブが完了していない場合はnull"
+
+.. _alt-ext-res-ana-parameter:
+
+分析パラメーター
+^^^^^^^^^^^^^^^^
+
+分析時のパラメーターを表す
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 20,10,30,40
+
+   max_depth,integer,木の深さの最大値,"- 1以上
+   - デフォルト null"
+   max_features,string,1つの木に利用する素性の数の最大値,"- 以下のいずれか
+
+     - all: 全ての素性を利用する
+     - sqrt: num_featureの平方根の数だけ利用する
+     - log2: num_featureの2の自然対数だけ利用する
+
+   - デフォルト: sqrt"
+   max_leaf_nodes,integer,葉ノードの数の最大値,"- 1以上
+   - デフォルト null"
+   min_samples_leaf,integer,葉ノードに存在するデータの最小値,"- 1以上
+   - デフォルト 1"
+   min_samples_split,integer,中間ノードに存在するデータの最小値,"- 1以上
+   - デフォルト 2"
+   num_tree,integer,生成するランダムフォレストの木の数,"- 1以上
+   - デフォルト 100"
 
 .. _alt-ext-res-ana-result:
 
@@ -62,9 +95,10 @@
 
 .. csv-table::
    :header: 属性名,型,意味,備考
-   :widths: 20,10,30,40
+   :widths: 20,20,30,30
 
-   重要度,array[ :ref:`alt-ext-res-ana-res-importance` ],各素性の重要度の配列
+   importances,array[ :ref:`alt-ext-res-ana-res-importance` ],各素性の重要度の配列
+   decision_trees,array[ :ref:`alt-ext-res-ana-res-decision_tree` ],決定木の配列
 
 .. _alt-ext-res-ana-res-importance:
 
@@ -77,8 +111,51 @@
    :header: 属性名,型,意味,備考
    :widths: 20,10,30,40
 
-   素性名,string,素性の名前, :ref:`den-int-sch-features` 参照
-   重要度,float,重要度の値,0より大きい実数
+   feature_name,string,素性の名前, :ref:`den-int-sch-features` 参照
+   value,float,重要度の値,0より大きい実数
+
+.. _alt-ext-res-ana-res-decision_tree:
+
+決定木
+^^^^^^
+
+ランダムフォレストの各決定木を表す
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 20,10,30,40
+
+   tree_id,integer,決定木のID,- 0以上
+   nodes,array[ :ref:`alt-ext-res-ana-res-dec-node` ],決定木のノードの配列
+
+.. _alt-ext-res-ana-res-dec-node:
+
+決定木ノード
+^^^^^^^^^^^^
+
+決定木のノードを表す
+
+.. csv-table::
+   :header: 属性名,型,意味,備考
+   :widths: 20,10,30,40
+
+   node_id,integer,ノードのID,- 0以上
+   node_type,string,ノードの種別,"- 以下のいずれか
+
+     - root: 根ノード
+     - split: 中間ノード
+     - leaf: 葉ノード"
+   group,string,親ノードの閾値より小さいか大きいかを表す,"- 以下のいずれか
+
+     - less: 小さい
+     - greater: 大きい
+
+   - 根ノードの場合はnull"
+   feature_name,string,分岐条件で利用する素性,"- :ref:`den-int-sch-features` 参照
+   - 葉ノードの場合はnull"
+   threshold,float,どちらのノードに分岐するかを決める閾値,- 葉ノードの場合はnull
+   parent_node_id,integer,親ノードのID,"- :ref:`alt-ext-res-ana-res-dec-node` のノードID
+   - 根ノードの場合はnull"
 
 .. _alt-ext-res-prediction:
 
@@ -91,21 +168,21 @@
    :header: 属性名,型,意味,備考
    :widths: 20,10,30,40
 
-   予測ジョブID,string,予測ジョブを一意に示すID,"- 32文字の英数字
+   prediction_id,string,予測ジョブを一意に示すID,"- 32文字の英数字
    - 以下の文字からなる
 
      - 0〜9
      - a〜f"
-   実行開始日時,string,予測を開始した日時,- 年/月/日 時:分:秒 の形式
-   モデル,string,入力されたモデルのファイル名,
-   テストデータ,string,予測するレースデータのファイル名，またはURL,
-   状態,string,ジョブの状態,"- 以下のいずれか
+   performed_at,string,予測を開始した日時,- 年/月/日 時:分:秒 の形式
+   model,string,入力されたモデルのファイル名,
+   test_data,string,予測するレースデータのファイル名，またはURL,
+   state,string,ジョブの状態,"- 以下のいずれか
 
-     - 実行待ち
-     - 実行中
-     - 完了
-     - エラー"
-   結果,array[ :ref:`alt-ext-res-pre-result` ],予測結果の配列,
+     - waiting
+     - processing
+     - completed
+     - error"
+   result,array[ :ref:`alt-ext-res-pre-result` ],予測結果の配列,
 
 .. _alt-ext-res-evaluation:
 
@@ -116,33 +193,33 @@
 
 .. csv-table::
    :header: 属性名,型,意味,備考
-   :widths: 20,10,30,40
+   :widths: 10,10,30,40
 
-   評価ジョブID,string,評価ジョブを一意に示すID,- 16文字の英数字
-   実行開始日時,string,予測を開始した日時,- 年/月/日 時:分:秒 の形式
-   モデル,string,入力されたモデルのファイル名,
-   データソース,string,評価データの情報源,"- 以下のいずれか
+   evaluation_id,string,評価ジョブを一意に示すID,- 16文字の英数字
+   performed_at,string,予測を開始した日時,- 年/月/日 時:分:秒 の形式
+   model,string,入力されたモデルのファイル名,
+   data_source,string,評価データの情報源,"- 以下のいずれか
 
-     - Top20: 外部サイトからアクセス人気上位
-     - ファイル: 指定されたファイル
-     - 直接入力: 指定されたテキスト
-     - ランダム: システムがランダムに選択"
-   データ数,integer,評価データの数,"- データソースによって以下のように設定される
+     - remote: 外部サイトからアクセス人気上位
+     - file: 指定されたファイル
+     - text: 指定されたテキスト
+     - random: システムがランダムに選択"
+   num_data,integer,評価データの数,"- データソースによって以下のように設定される
 
-      - Top20: 20が自動設定される
-      - ファイル: ファイルに記載されているIDの数が自動設定される
-      - 直接入力: 入力されたIDの数が自動設定される
-      - ランダム: ユーザーが指定した数値が設定される"
-   状態,string,ジョブの状態,"- 以下のいずれか
+      - remote: 20が自動設定される
+      - file: ファイルに記載されているIDの数が自動設定される
+      - text: 入力されたIDの数が自動設定される
+      - random: ユーザーが指定した数値が設定される"
+   state,string,ジョブの状態,"- 以下のいずれか
 
-     - 実行待ち
-     - 実行中
-     - 完了
-     - エラー"
-   適合率,float,評価したモデルの適合率,- 0以上1以下の小数
-   再現率,float,評価したモデルの再現率,- 0以上1以下の小数
-   F値,float,評価したモデルのF値,- 0以上1以下の小数
-   結果,array[ :ref:`alt-ext-res-eva-data` ], :ref:`alt-ext-res-eva-data` 参照,
+     - waiting
+     - processing
+     - completed
+     - error"
+   precision,float,評価したモデルの適合率,- 0以上1以下の小数
+   recall,float,評価したモデルの再現率,- 0以上1以下の小数
+   f_measure,float,評価したモデルのF値,- 0以上1以下の小数
+   data,array[ :ref:`alt-ext-res-eva-data` ], :ref:`alt-ext-res-eva-data` 参照,
 
 .. _alt-ext-res-eva-data:
 
@@ -153,13 +230,13 @@
 
 .. csv-table::
    :header: 属性名,型,意味,備考
-   :widths: 20,10,30,40
+   :widths: 20,20,20,40
 
-   レースID,string,評価したレースのID, :ref:`den-ext-res-race` 参照
-   レース名,string,評価したレースの名前,
-   URL,string,評価したレースのURL,- httpsスキームのURL
-   予測結果,array[ :ref:`alt-ext-res-pre-result` ],予測結果の配列,
-   正解,integer,実際に1着となった馬番,- 1以上
+   race_id,string,評価したレースのID, :ref:`den-ext-res-race` 参照
+   race_name,string,評価したレースの名前,
+   race_url,string,評価したレースのURL,- httpsスキームのURL
+   prediction_results,array[ :ref:`alt-ext-res-pre-result` ],予測結果の配列,
+   ground_truth,integer,実際に1着となった馬番,- 1以上
 
 .. _alt-ext-res-pre-result:
 
@@ -172,8 +249,8 @@
    :header: 属性名,型,意味,備考
    :widths: 20,10,30,40
 
-   馬番,integer,エントリーの馬番,- 1以上
-   予測結果,boolean,1着かどうかを表すラベル,- true または false
+   number,integer,エントリーの馬番,- 1以上
+   won,boolean,1着かどうかを表すラベル,- true または false
 
 .. _alt-ext-ui:
 
@@ -199,9 +276,10 @@
 .. image:: images/analysis.png
    :alt: 分析画面
 
-- 画面左部にパラメーター入力フォームが表示される
+- 画面左部に分析情報入力フォームが表示される
 
   - 必須入力項目には赤い*が付いている
+  - パラメーター設定のリンクをクリックするとパラメーターを入力するフォームが表示される
   - 実行ボタンを押下すると分析が開始される
 
     - 入力フォームに不正な値（文字列，負数など）を入力すると以下のダイアログを表示して入力が間違っていることを通知する
@@ -212,28 +290,7 @@
 
   - 分析が終了すると登録されているメールアドレスに完了を通知するメールが送信される
 
-    - メール本文には以下の情報が記載されている
-
-      - 分析開始日時
-      - 分析完了日時
-      - 以下のパラメーター
-
-        - 学習データ数
-        - 決定木の数
-        - 特徴量の数
-
-    - メールには以下の圧縮ファイルが添付されている
-
-      - レースの予測に必要なファイル
-
-        - レース予測モデル（バイナリファイル）
-        - 分析ジョブ情報（yml形式のテキストファイル）
-
-      - 作成したモデルの分析に必要なファイル
-
-        - 決定木情報（yml形式のテキストファイル）
-        - 前処理前のデータ（csv形式のテキストファイル）
-        - 前処理後のデータ（csv形式のテキストファイル）
+    - メール本文には分析画面へのリンクが記載されている
 
 - 画面右部に実行したジョブ情報の一覧が表示される
 
@@ -241,13 +298,37 @@
   - 最新のジョブが先頭になるようにソートされている
   - 5秒間隔で一覧の状態が自動更新される
   - 実行待ち状態のジョブは実行開始日時が空白となる
+  - パラメーター列の確認ボタンを押下すると，パラメーター一覧を表示するダイアログが表示される
+
+    .. image:: images/analysis_dialog_parameter.png
+       :alt: パラメーター確認ダイアログ
+       :scale: 25
+
   - 実行中のジョブは黄色，完了したジョブの行は緑色，エラーになったジョブは赤色で表示される
   - 実行中の場合は「状態」列にアイコンが表示される
   - エントリー数を指定したジョブには「エントリー数」列に値が表示される
   - ジョブ情報の右側のボタンを押下すると，そのジョブと同じパラメーターで分析を実行する
-  - 完了したジョブは状態列に :ref:`alt-ext-ui-ana-result` を表示するためのボタンが表示される
+  - 完了したジョブは以下のボタンが表示される
 
-    - :ref:`alt-ext-ui-ana-result` は別タブに表示される
+    - 分析結果をダウンロードするボタン
+
+      - 実行開始日から3日以内の結果をダウンロード可能
+      - 分析結果は以下のファイルを含むzip形式の圧縮ファイルとなっている
+
+        - レースの予測に必要なファイル
+
+          - レース予測モデル（バイナリファイル）
+          - 分析ジョブ情報（yml形式のテキストファイル）
+
+        - 作成したモデルの分析に必要なファイル
+
+          - 決定木情報（yml形式のテキストファイル）
+          - 前処理前のデータ（csv形式のテキストファイル）
+          - 前処理後のデータ（csv形式のテキストファイル）
+
+    - :ref:`alt-ext-ui-ana-result` を表示するボタン
+
+      - 押下すると別タブが開く
 
 .. _alt-ext-ui-ana-result:
 
@@ -257,10 +338,38 @@
 .. image:: images/analysis_result.png
    :alt: 分析結果画面
 
+- タブで表示する情報を切り替えられる
+
+  - 以下の情報を表示する
+
+    - 重要度
+    - 決定木
+
+  - デフォルトでは重要度を表示する
+
+重要度確認画面
+""""""""""""""
+
+.. image:: images/analysis_result_importance.png
+   :alt: 重要度確認画面
+
 - 重要度を表した棒グラフが表示される
 
   - 上から下へ重要度がソートされる
   - 棒にマウスオーバーすると値が表示される
+
+決定木確認画面
+""""""""""""""
+
+.. image:: images/analysis_result_decision_tree.png
+   :alt: 決定木確認画面
+
+- 画面上部に決定木IDを選択するセレクトボックスが表示される
+
+  - デフォルトでは決定木IDが0の決定木が表示される
+
+- 各ノードには素性や閾値が表示される
+- 葉ノード以外のノードをクリックすると子ノードを表示したり閉じたりすることができる
 
 .. _alt-ext-ui-prediction:
 
