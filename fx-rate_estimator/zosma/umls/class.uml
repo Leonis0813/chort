@@ -1,3 +1,7 @@
+class ApplicationRecord {
+  + {static} load_data(file_name : String) : void
+}
+
 class Rate {
   - time : Datetime
   - pair : String
@@ -23,3 +27,7 @@ class MovingAverage {
   - period : Integer
   - value : Float
 }
+
+ApplicationRecord <|-- Rate
+ApplicationRecord <|-- CandleStick
+ApplicationRecord <|-- MovingAverage
