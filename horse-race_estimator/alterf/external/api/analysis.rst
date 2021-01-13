@@ -69,26 +69,47 @@
                 {
                   "node_id": 0,
                   "node_type": "root",
+                  "group": null,
                   "feature_name": "weight_per",
                   "threshold": 0.79,
-                  "left_node_id": 1,
-                  "right_node_id": 2
+                  "num_data": [],
+                  "parent_node_id": null
                 },
                 {
                   "node_id": 1,
                   "node_type": "leaf",
-                  "feature_name": "horse_average_prize_money",
-                  "threshold": 0.59,
-                  "left_node_id": null,
-                  "right_node_id": null
+                  "group": "less",
+                  "feature_name": null,
+                  "threshold": null,
+                  "num_data": [
+                    {
+                      "class_name": "won",
+                      "value": 2
+                    },
+                    {
+                      "class_name": "lose",
+                      "value": 80
+                    }
+                  ],
+                  "parent_node_id": 0
                 },
                 {
                   "node_id": 2,
                   "node_type": "leaf",
-                  "feature_name": "jockey_win_rate",
-                  "threshold": 0.64,
-                  "left_node_id": null,
-                  "right_node_id": null
+                  "group": "greater",
+                  "feature_name": null,
+                  "threshold": null,
+                  "num_data": [
+                    {
+                      "class_name": "won",
+                      "value": 7
+                    },
+                    {
+                      "class_name": "lose",
+                      "value": 1
+                    }
+                  ],
+                  "parent_node_id": 0
                 }
               ]
             }
