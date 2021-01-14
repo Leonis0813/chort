@@ -154,24 +154,12 @@
    feature_name,string,分岐条件で利用する素性,"- :ref:`den-int-sch-features` 参照
    - 葉ノードの場合はnull"
    threshold,float,どちらのノードに分岐するかを決める閾値,- 葉ノードの場合はnull
-   num_data,array[ :ref:`alt-ext-res-ana-res-dec-nod-data` ],ノードに振り分けられたデータ数,"- 1以上
-   - 葉ノード以外の場合は空配列"
+   num_win,integer,1着のデータ数,"- 0以上
+   - 葉ノード以外の場合はnull"
+   num_lose,integer,1着以外のデータ数,"- 0以上
+   - 葉ノード以外の場合はnull"
    parent_node_id,integer,親ノードのID,"- :ref:`alt-ext-res-ana-res-dec-node` のノードID
    - 根ノードの場合はnull"
-
-.. _alt-ext-res-ana-res-dec-nod-data:
-
-決定木ノードデータ数
-^^^^^^^^^^^^^^^^^^^^
-
-ノードに振り分けられたデータの数を表す
-
-.. csv-table::
-   :header: 属性名,型,意味,備考
-   :widths: 20,10,30,40
-
-   class_name,string,クラス名,
-   value,integer,データ数,- 1以上
 
 .. _alt-ext-res-prediction:
 

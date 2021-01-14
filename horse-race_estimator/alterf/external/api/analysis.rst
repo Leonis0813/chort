@@ -72,7 +72,8 @@
                   "group": null,
                   "feature_name": "weight_per",
                   "threshold": 0.79,
-                  "num_data": [],
+                  "num_win": null,
+                  "num_lose": null,
                   "parent_node_id": null
                 },
                 {
@@ -81,16 +82,8 @@
                   "group": "less",
                   "feature_name": null,
                   "threshold": null,
-                  "num_data": [
-                    {
-                      "class_name": "won",
-                      "value": 2
-                    },
-                    {
-                      "class_name": "lose",
-                      "value": 80
-                    }
-                  ],
+                  "num_win": 1,
+                  "num_lose": 80,
                   "parent_node_id": 0
                 },
                 {
@@ -99,16 +92,8 @@
                   "group": "greater",
                   "feature_name": null,
                   "threshold": null,
-                  "num_data": [
-                    {
-                      "class_name": "won",
-                      "value": 7
-                    },
-                    {
-                      "class_name": "lose",
-                      "value": 1
-                    }
-                  ],
+                  "num_win": 10,
+                  "num_lose": 2,
                   "parent_node_id": 0
                 }
               ]

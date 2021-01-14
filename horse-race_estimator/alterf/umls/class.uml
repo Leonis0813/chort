@@ -111,11 +111,8 @@ class "Analysis::Result::DecisionTree::Node" {
   - group : String
   - feature_name : String
   - threshold : Double
-}
-
-class "Analysis::Result::DecisionTree::Node::NumData" {
-  - class_name : String
-  - value : Integer
+  - num_win : Integer
+  - num_lose : Integer
 }
 
 class Prediction {
@@ -212,7 +209,6 @@ Analysis::Result "1" -- "0 .. *" Analysis::Result::DecisionTree
 Analysis::Result::DecisionTree "1" -- "1 .. *" Analysis::Result::DecisionTree::Node
 Analysis::Result::DecisionTree::Node "1" --> "0,1" Analysis::Result::DecisionTree::Node : parent
 Analysis::Result::DecisionTree::Node "1" --> "0,2" Analysis::Result::DecisionTree::Node : children
-Analysis::Result::DecisionTree::Node "1" --> "0 .. *" Analysis::Result::DecisionTree::Node::NumData
 Analysis "1" -- "0 .. *" Prediction
 Analysis "1" -- "0 .. *" Evaluation
 
