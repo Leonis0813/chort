@@ -58,11 +58,19 @@ class Prediction {
   - updated_at : Datetime
 }
 
+class "Zosma::CandleStick" {
+}
+
+class "Zosma::MovingAverage" {
+}
+
 ブラウザ -right- AnalysisView
 ブラウザ -down- PredictionView
 
 AnalysisView -right- AnalysesController
 AnalysesController -> AnalysisJob
+AnalysesController -> "Zosma::CandleStick"
+AnalysesController -> "Zosma::MovingAverage"
 AnalysisJob -> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
@@ -72,3 +80,5 @@ PredictionsController -> PredictionJob
 PredictionsController "1" -- "1" Prediction
 Api::PredictionsController "1" -- "1" Prediction
 PredictionJob "1" -- "1" Prediction
+PredictionJob -> "Zosma::CandleStick"
+PredictionJob -> "Zosma::MovingAverage"
