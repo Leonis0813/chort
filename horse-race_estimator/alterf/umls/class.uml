@@ -111,6 +111,8 @@ class "Analysis::Result::DecisionTree::Node" {
   - group : String
   - feature_name : String
   - threshold : Double
+  - num_win : Integer
+  - num_lose : Integer
 }
 
 class Prediction {

@@ -502,6 +502,8 @@ analysis_result_decision_tree_nodesテーブル
    group,STRING,親ノードの閾値に対するグループ,
    feature_name,STRING,素性名,
    threshold,FLOAT,閾値,
+   num_win,INTEGER,1着のデータ数,
+   num_lose,INTEGER,1着以外のデータ数,
    parent_id,INTEGER,親ノードの内部ID,
    created_at,DATETIME,決定木のノード情報の作成日時,○
    updated_at,DATETIME,決定木のノード情報の更新日時,○

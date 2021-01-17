@@ -154,6 +154,10 @@
    feature_name,string,分岐条件で利用する素性,"- :ref:`den-int-sch-features` 参照
    - 葉ノードの場合はnull"
    threshold,float,どちらのノードに分岐するかを決める閾値,- 葉ノードの場合はnull
+   num_win,integer,1着のデータ数,"- 0以上
+   - 葉ノード以外の場合はnull"
+   num_lose,integer,1着以外のデータ数,"- 0以上
+   - 葉ノード以外の場合はnull"
    parent_node_id,integer,親ノードのID,"- :ref:`alt-ext-res-ana-res-dec-node` のノードID
    - 根ノードの場合はnull"
 
@@ -369,7 +373,9 @@
   - デフォルトでは決定木IDが0の決定木が表示される
 
 - 各ノードには素性や閾値が表示される
-- 葉ノード以外のノードをクリックすると子ノードを表示したり閉じたりすることができる
+- 葉ノードには振り分けられたデータの割合が表示される
+
+  - 赤い領域が大きいほど1着の素性が多い
 
 .. _alt-ext-ui-prediction:
 
