@@ -2,18 +2,41 @@ autonumber
 
 actor 利用者
 利用者 -> PredictionView : 実行ボタン押下
-PredictionView -> PredictionsController : execute
 
-create Prediction
-PredictionsController -> Prediction : new
-PredictionsController --> PredictionJob : perform_later
+activate PredictionView
+  PredictionView -> PredictionsController : execute
 
-autonumber stop
-PredictionView <- PredictionsController
-利用者 <- PredictionView
+  activate PredictionsCoontroller
+    PredictionsController -> PredictionsController : check_absent_params
+
+    create Prediction
+    PredictionsController -> Prediction : new
+
+    PredictionsController -> ModelUtil : output_model
+    PredictionsController --> PredictionJob : perform_later
+    activate PredictionJob
+
+    autonumber stop
+    PredictionView <- PredictionsController
+  deactivate PredictionsController
+
+  利用者 <- PredictionView
+deactivate PredictionView
 
 autonumber resume
-Prediction <- PredictionJob : update
+PredictionJob -> Prediction : find
+PredictionJob -> ModelUtil : unzip_model
+PredictionJob -> YAML : load_file
+PredictionJob -> YAML : dump
+PredictionJob -> Prediction : update!
 
-autonumber stop
-Prediction --> PredictionJob
+alt 最新のデータを利用 and 自動予測
+  PredictionJob -> Prediction : polling_zosma
+  PredictionJob -> "Zosma::CandleStick" : exists?
+  PredictionJob -> "Zosma::MovingAverage" : exists?
+end
+
+PredictionJob -> PredictionJob : execute_script
+PredictionJob -> YAML : load_file
+PredictionJob -> Prediction : update!
+deactivate PredictionJob
