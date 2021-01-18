@@ -2,10 +2,24 @@ autonumber
 
 actor 利用者
 利用者 -> AnalysisView : 分析画面表示
-AnalysisView -> AnalysesController : manage
-AnalysesController -> Analysis : all
 
-autonumber stop
-AnalysesController <-- Analysis
-AnalysisView <-- AnalysesController
-利用者 <-- AnalysisView
+activate AnalysisView
+  AnalysisView -> AnalysesController : manage
+
+  activate AnalysesController
+    create Analysis
+    AnalysesController -> Analysis : new
+
+    activate Analysis
+      Analysis -> "Zosma::CandleStick" : where
+      Analysis -> "Zosma::MovingAverage" : where
+    deactivate Analysis
+
+    AnalysesController -> Analysis : all
+
+    autonumber stop
+    AnalysisView <-- AnalysesController
+  deactivate AnalysesController
+
+  利用者 <-- AnalysisView
+deactivate AnalysisView

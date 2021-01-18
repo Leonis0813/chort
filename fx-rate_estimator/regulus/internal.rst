@@ -89,8 +89,11 @@ MVCモデルを利用する
 .. uml:: umls/seq-confirm-analyses.uml
 
 1. 利用者が分析画面を開く
-2. AnalysisViewがAnalysesControllerのmanageメソッドを実行する
-3. AnalysesControllerがAnalysisクラスのallメソッドを実行してジョブ情報を取得する
+2. AnalysisViewがAnalysesControllerのmanageメソッドを実行して分析ジョブ情報を取得する
+3. 分析ジョブ情報を生成する
+4. 登録されているローソク足の期間を取得する
+5. 登録されている移動平均線の期間を取得する
+6. DBに登録されている分析ジョブ情報を取得する
 
 .. _reg-int-seq-predict:
 
