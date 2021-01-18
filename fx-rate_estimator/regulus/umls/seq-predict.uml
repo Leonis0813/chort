@@ -6,7 +6,7 @@ actor 利用者
 activate PredictionView
   PredictionView -> PredictionsController : execute
 
-  activate PredictionsCoontroller
+  activate PredictionsController
     PredictionsController -> PredictionsController : check_absent_params
 
     create Prediction
@@ -31,7 +31,7 @@ PredictionJob -> YAML : dump
 PredictionJob -> Prediction : update!
 
 alt 最新のデータを利用 and 自動予測
-  PredictionJob -> Prediction : polling_zosma
+  PredictionJob -> PredictionJob : polling_zosma
   PredictionJob -> "Zosma::CandleStick" : exists?
   PredictionJob -> "Zosma::MovingAverage" : exists?
 end
