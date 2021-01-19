@@ -1,3 +1,6 @@
+# 2021/01/20
+- [Regulus] update version to 4.9.6
+
 # 2021/01/17
 - [Alterf] update version to 4.18.0
 
