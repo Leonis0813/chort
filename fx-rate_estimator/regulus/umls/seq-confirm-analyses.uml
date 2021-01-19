@@ -7,14 +7,11 @@ activate AnalysisView
   AnalysisView -> AnalysesController : manage
 
   activate AnalysesController
+    AnalysesController -> "Zosma::CandleStick" : where
+    AnalysesController -> "Zosma::MovingAverage" : where
+
     create Analysis
     AnalysesController -> Analysis : new
-
-    activate Analysis
-      Analysis -> "Zosma::CandleStick" : where
-      Analysis -> "Zosma::MovingAverage" : where
-    deactivate Analysis
-
     AnalysesController -> Analysis : all
 
     autonumber stop
