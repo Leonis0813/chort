@@ -97,6 +97,12 @@ FXにおけるレート値を表す
 - :ref:`zos-ext-api-import-candle-sticks`
 - :ref:`zos-ext-api-import-moving-averages`
 
+また，以下のツールを提供する
+
+- :ref:`zos-ext-api-tool-backup`
+- :ref:`zos-ext-api-tool-compress`
+- :ref:`zos-ext-api-tool-remove`
+
 .. _zos-ext-api-import-rates:
 
 レートを収集する
@@ -192,3 +198,93 @@ import/moving_averages.rb
   .. code-block:: none
 
      bundle exec ruby import/moving_averages.rb --from=2018-01-01 --to=2018-01-31
+
+.. _zos-ext-api-tool-backup:
+
+バックアップを取得する
+^^^^^^^^^^^^^^^^^^^^^^
+
+- データベースからレート情報をCSVファイルに出力する
+- 指定された期間に対して1日単位でファイルを生成する
+
+**スクリプト**
+
+tools/backup.rb
+
+**入力**
+
+- バックアップ開始日
+
+  - 指定がなければ2日前の日付となる
+
+- バックアップ終了日
+
+  - 指定がなければスクリプトを実行した日付となる
+
+**出力**
+
+- CSVファイル
+
+  - YYYY-MM-DD.csvというフォーマットの名前でファイルを生成する
+  - ファイルに出力するデータは各リソースに依存する
+
+**実行例**
+
+  .. code-block:: none
+
+     bundle exec ruby tools/backup.rb --from=2018-01-01 --to=2018-01-31
+
+.. _zos-ext-api-tool-compress:
+
+バックアップファイルを圧縮する
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- バックアップされているCSVファイルをtar.gz形式で圧縮する
+- スクリプトを実行した月の前の月のバックアップファイルを圧縮する
+
+**スクリプト**
+
+tools/compress.rb
+
+**入力**
+
+なし
+
+**出力**
+
+- 圧縮ファイル
+
+  - YYYY-MM.tar.gzというフォーマットの名前でファイルを生成する
+  - 圧縮ファイルにはYYYY-MMというフォーマットのディレクトリがあり，その中にCSVが保存されている
+
+**実行例**
+
+  .. code-block:: none
+
+     bundle exec ruby tools/compress.rb
+
+.. _zos-ext-api-tool-remove:
+
+外部ツールの出力ファイルを削除する
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- 外部ツールが出力しているCSVファイルを削除する
+- スクリプトを実行した日の2日前に生成されたCSVファイルを削除する
+
+**スクリプト**
+
+tools/remove.rb
+
+**入力**
+
+なし
+
+**出力**
+
+なし
+
+**実行例**
+
+  .. code-block:: none
+
+     bundle exec ruby tools/remove.rb
