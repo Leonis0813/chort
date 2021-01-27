@@ -1,5 +1,6 @@
 class ApplicationRecord {
   + {static} load_data(file_name : String) : void
+  + {static} dump(file_name : String, date : Date) : void
 }
 
 class Rate {
@@ -7,6 +8,7 @@ class Rate {
   - pair : String
   - bid : double
   - ask : double
+  + to_csv() : Array
 }
 
 class CandleStick {
@@ -18,6 +20,7 @@ class CandleStick {
   - close : Float
   - high : Float
   - low : Float
+  + to_csv() : Array
 }
 
 class MovingAverage {
@@ -26,6 +29,16 @@ class MovingAverage {
   - time_frame : String
   - period : Integer
   - value : Float
+  + to_csv() : Array
+}
+
+class ImportUtil {
+  + {static} target_files(csv_dir : String, date_string : String) : Array
+}
+
+class ZipUtil {
+  + {static} read(tar_gz_file : String, output_dir : String) : void
+  + {static} write(tar_gz_file : String, base_dir : String, src_files : Array) : void
 }
 
 ApplicationRecord <|-- Rate

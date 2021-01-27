@@ -1,25 +1,22 @@
 autonumber
 
+"import/moving_averages" -> Dir : mktmpdir
+
 loop for each month
   alt ファイルが存在する
-    "import/moving_averages" -> "Archive::Tar::Minitar" : unpack
+    "import/moving_averages" -> Ziputil : read
+  else
+    "import/moving_averages" -> FileUtils : cp
   end
 end
 
 loop for each date
-  "import/moving_averages" -> "import/moving_averages" : Dir[]
+  "import/moving_averages" -> ImportUtil : target_files
 
   loop ファイル数分繰り返す
-    "import/moving_averages" -> "import/moving_averages" : ファイル書き込み
-    "import/moving_averages" -> ActiveRecord : execute
-  end
-
-  "import/moving_averages" -> MovingAverage : where
-
-  autonumber stop
-  "import/moving_averages" <-- MovingAverage : 移動平均
-
-  alt 移動平均が存在している かつ バックアップファイルでない
-    "import/moving_averages" -> "import/moving_averages" : ファイル書き込み
+    "import/moving_averages" -> CSV : open
+    "import/moving_averages" -> MovingAverage : load_data
   end
 end
+
+"import/moving_averages" -> FileUtils : rm_r
