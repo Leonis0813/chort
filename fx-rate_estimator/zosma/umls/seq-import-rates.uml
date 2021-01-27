@@ -1,25 +1,22 @@
 autonumber
 
+"import/rates" -> Dir : mktmpdir
+
 loop for each month
   alt ファイルが存在する
-    "import/rates" -> "Archive::Tar::Minitar" : unpack
+    "import/rates" -> ZipUtil : read
+  else
+    "import/rates" -> FileUtils : cp
   end
 end
 
 loop for each date
-  "import/rates" -> "import/rates" : Dir[]
+  "import/rates" -> ImportUtil : target_files
 
   loop ファイル数分繰り返す
-    "import/rates" -> "import/rates" : ファイル書き込み
-    "import/rates" -> ActiveRecord : execute
-  end
-
-  "import/rates" -> Rate : where
-
-  autonumber stop
-  "import/rates" <-- Rate : レート
-
-  alt レートが存在している かつ バックアップファイルでない
-    "import/rates" -> "import/rates" : ファイル書き込み
+    "import/rates" -> CSV : open
+    "import/rates" -> Rate : load_data
   end
 end
+
+"import/rates" -> FileUtils : rm_r
