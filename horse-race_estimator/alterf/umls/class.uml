@@ -138,6 +138,7 @@ class Evaluation {
   - state : String
   - precision : Double
   - recall : Double
+  - specificity : Double
   - f_measure : Double
   - performed_at : Datetime
   + set_analysis!() : void
