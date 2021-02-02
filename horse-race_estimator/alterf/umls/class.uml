@@ -188,13 +188,17 @@ class ModelUtil <<module>> {
 }
 
 ブラウザ -- AnalysisView
+ブラウザ -- AnalysisResultView
+AnalysisView --> AnalysisResultView
 ブラウザ -- PredictionView
 ブラウザ -- EvaluationView
 ブラウザ -- EvaluationResultView
+EvaluationView --> EvaluationResultView
 
 AnalysisView -- AnalysesController
 AnalysisView -- Api::AnalysesController
 AnalysisView -- Api::Analyses::ParametersController
+AnalysisResultView -- Api::AnalysesController
 ApplicationController <|-- AnalysesController
 ApplicationController <|-- Api::AnalysesController
 ApplicationController <|-- Api::Analyses::ParameterController
