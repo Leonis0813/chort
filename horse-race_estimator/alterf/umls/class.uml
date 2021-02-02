@@ -148,6 +148,7 @@ class Evaluation {
   - set_default_num_data() : void
   - sample_race_ids() : ArrayList
   - true_positive() : Double
+  - true_negative() : Double
   - false_positive() : Double
   - false_negative() : Double
 }
