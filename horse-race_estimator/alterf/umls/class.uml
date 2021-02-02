@@ -138,6 +138,7 @@ class Evaluation {
   - state : String
   - precision : Double
   - recall : Double
+  - specificity : Double
   - f_measure : Double
   - performed_at : Datetime
   + set_analysis!() : void
@@ -147,6 +148,7 @@ class Evaluation {
   - set_default_num_data() : void
   - sample_race_ids() : ArrayList
   - true_positive() : Double
+  - true_negative() : Double
   - false_positive() : Double
   - false_negative() : Double
 }
@@ -186,13 +188,17 @@ class ModelUtil <<module>> {
 }
 
 ブラウザ -- AnalysisView
+ブラウザ -- AnalysisResultView
+AnalysisView --> AnalysisResultView
 ブラウザ -- PredictionView
 ブラウザ -- EvaluationView
 ブラウザ -- EvaluationResultView
+EvaluationView --> EvaluationResultView
 
 AnalysisView -- AnalysesController
 AnalysisView -- Api::AnalysesController
 AnalysisView -- Api::Analyses::ParametersController
+AnalysisResultView -- Api::AnalysesController
 ApplicationController <|-- AnalysesController
 ApplicationController <|-- Api::AnalysesController
 ApplicationController <|-- Api::Analyses::ParameterController

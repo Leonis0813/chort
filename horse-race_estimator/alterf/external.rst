@@ -222,6 +222,7 @@
      - error"
    precision,float,評価したモデルの適合率,- 0以上1以下の小数
    recall,float,評価したモデルの再現率,- 0以上1以下の小数
+   specificity,float,評価したモデルの特異度,- 0以上1以下の小数
    f_measure,float,評価したモデルのF値,- 0以上1以下の小数
    data,array[ :ref:`alt-ext-res-eva-data` ], :ref:`alt-ext-res-eva-data` 参照,
 
