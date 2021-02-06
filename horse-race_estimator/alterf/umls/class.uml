@@ -58,6 +58,9 @@ class Api::Analyses::ParametersController {
 
 class AnalysisJob {
   + perform(analysis_id : Integer)
+  - check_output() : void
+  - dump_yaml(file_name : String, content : HashMap) : void
+  - create_zip(target_files : ArrayList, zip_file_name : String) : void
 }
 
 class PredictionJob {
@@ -113,6 +116,7 @@ class "Analysis::Result::DecisionTree::Node" {
   - threshold : Double
   - num_win : Integer
   - num_lose : Integer
+  - parent_id : Integer
 }
 
 class Prediction {
