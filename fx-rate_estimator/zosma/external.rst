@@ -100,6 +100,7 @@ FXにおけるレート値を表す
 また，以下のツールを提供する
 
 - :ref:`zos-ext-api-tool-backup`
+- :ref:`zos-ext-api-tool-restore`
 - :ref:`zos-ext-api-tool-compress`
 - :ref:`zos-ext-api-tool-remove`
 
@@ -233,6 +234,38 @@ tools/backup.rb
   .. code-block:: none
 
      bundle exec ruby tools/backup.rb --from=2018-01-01 --to=2018-01-31
+
+.. _zos-ext-api-tool-restore:
+
+バックアップから復元する
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+- バックアップされているレート情報をデータベースに登録する
+- 指定された期間に対して1日単位でファイルを生成する
+
+**スクリプト**
+
+tools/restore.rb
+
+**入力**
+
+- 復元開始日
+
+  - 指定がなければ2日前の日付となる
+
+- 復元終了日
+
+  - 指定がなければスクリプトを実行した日付となる
+
+**出力**
+
+なし
+
+**実行例**
+
+  .. code-block:: none
+
+     bundle exec ruby tools/restore.rb --from=2018-01-01 --to=2018-01-31
 
 .. _zos-ext-api-tool-compress:
 
