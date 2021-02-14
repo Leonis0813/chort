@@ -2,21 +2,15 @@ autonumber
 
 "import/candle_sticks" -> Dir : mktmpdir
 
-loop for each month
-  alt ファイルが存在する
-    "import/candle_sticks" -> ZipUtil : read
-  else
-    "import/candle_sticks" -> FileUtils : cp
-  end
-end
-
 loop for each date
-  "import/candle_sticks" -> ImportUtil : target_files
+  "import/candle_sticks" -> FileUtils : cp
 
   loop ファイル数分繰り返す
     "import/candle_sticks" -> CSV : open
     "import/candle_sticks" -> CandleStick : load_data
   end
+
+  "import/candle_sticks" -> FileUtils : rm
 end
 
 "import/candle_sticks" -> FileUtils : rm_r
