@@ -1,4 +1,5 @@
 class ApplicationRecord {
+  - {static} zosma_logger : ZosmaLogger
   + {static} load_data(file_name : String) : void
   + {static} dump(file_name : String, date : Date) : void
 }
@@ -32,13 +33,12 @@ class MovingAverage {
   + to_csv() : Array
 }
 
-class ImportUtil {
-  + {static} target_files(csv_dir : String, date_string : String) : Array
-}
-
 class ZipUtil {
   + {static} read(tar_gz_file : String, output_dir : String) : void
   + {static} write(tar_gz_file : String, base_dir : String, src_files : Array) : void
+}
+
+class ZosmaLogger {
 }
 
 ApplicationRecord <|-- Rate
