@@ -1,22 +1,11 @@
 autonumber
 
-"import/moving_averages" -> Dir : mktmpdir
-
-loop for each month
-  alt ファイルが存在する
-    "import/moving_averages" -> Ziputil : read
-  else
-    "import/moving_averages" -> FileUtils : cp
-  end
-end
-
 loop for each date
-  "import/moving_averages" -> ImportUtil : target_files
+  "import/moving_averages" -> Dir : mktmpdir
+  "import/moving_averages" -> FileUtils : cp
 
   loop ファイル数分繰り返す
-    "import/moving_averages" -> CSV : open
+    "import/moving_averages" -> FileUtils : cp
     "import/moving_averages" -> MovingAverage : load_data
   end
 end
-
-"import/moving_averages" -> FileUtils : rm_r
