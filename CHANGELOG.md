@@ -1,3 +1,6 @@
+# 2021/02/24
+- [Zosma] update version to 3.2.1
+
 # 2021/02/17
 - [Zosma] update version to 3.2.0
 
