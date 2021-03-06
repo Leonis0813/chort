@@ -36,10 +36,13 @@ class AnalysisMailer {
 
 class Analysis {
   - id : int
+  - analysis_id : String
   - from : Datetime
   - to : Datetime
   - pair : String
   - batch_size : int
+  - min : Double
+  - max : Double
   - created_at : Datetime
   - updated_at : Datetime
   - state : String
@@ -47,6 +50,7 @@ class Analysis {
 
 class Prediction {
   - id : int
+  - prediction_id : String
   - model : String
   - from : Datetime
   - to : Datetime
@@ -74,6 +78,7 @@ AnalysesController -> "Zosma::MovingAverage"
 AnalysisJob -> AnalysisMailer
 AnalysesController "1" -- "1" Analysis
 AnalysisJob "1" -- "1" Analysis
+Analysis "1" -- "0 .. *" Prediction
 
 PredictionView -- PredictionsController
 PredictionsController -> PredictionJob
