@@ -159,10 +159,13 @@ analysesテーブル
    :widths: 20,20,20,10
 
    id,INTEGER,内部ID,○
+   analysis_id,STRING,分析ジョブのID,○
    from,DATETIME,分析対象期間の開始日時,○
    to,DATETIME,分析対象期間の終了日時,○
    pair,STRING,分析するレートのペア,○
    batch_size,INTEGER,バッチサイズ,○
+   min,FLOAT,分析に使用したデータの最小値,
+   max,FLOAT,分析に使用したデータの最大値,
    state,STRING,分析の状態,○
    created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,○
@@ -179,6 +182,7 @@ predictionsテーブル
    :widths: 20,10,20,10
 
    id,INTEGER,内部ID,○
+   prediction_id,STRING,予測ジョブのID,○
    model,STRING,モデルファイル名,○
    from,DATETIME,予測対象の開始日時,
    to,DATETIME,予測対象の終了日時,
