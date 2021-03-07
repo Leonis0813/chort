@@ -196,5 +196,6 @@ predictionsテーブル
    means,STRING,予測の実行方法,○
    result,STRING,予測結果,
    state,STRING,予測処理の状態,○
+   analysis_id,INTEGER,分析ジョブの内部ID,
    created_at,DATETIME,予測ジョブ情報の作成日時,○
    updated_at,DATETIME,予測ジョブ情報の更新日時,○
