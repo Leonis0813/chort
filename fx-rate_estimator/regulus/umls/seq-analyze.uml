@@ -2,24 +2,37 @@ autonumber
 
 actor 利用者
 利用者 -> AnalysisView : 実行ボタン押下
-AnalysisView -> AnalysesController : execute
 
-create Analysis
-AnalysesController -> Analysis : new
-AnalysesController --> AnalysisJob : perform_later
+activate AnalysisView
+  AnalysisView -> AnalysesController : execute
 
-autonumber stop
-AnalysisView <- AnalysesController
-利用者 <- AnalysisView
+  activate AnalysesController
+    create Analysis
+    AnalysesController -> Analysis : new
+    AnalysesController --> AnalysisJob : perform_later
+    activate AnalysisJob
+
+    autonumber stop
+    AnalysisView <- AnalysesController
+  deactivate AnalysesController
+
+  利用者 <- AnalysisView
+deactivate AnalysisView
 
 autonumber resume
-Analysis <- AnalysisJob : update
+AnalysisJob -> Analysis : find
+AnalysisJob -> YAML : dump
+AnalysisJob -> AnalysisJob : execute_script
+AnalysisJob -> YAML : load_file
+AnalysisJob -> Analysis : update
+AnalysisJob -> YAML : dump
+AnalysisJob -> AnalysisMailer : completed
 
-autonumber stop
-Analysis --> AnalysisJob
+activate AnalysisMailer
+  autonumber stop
+  利用者 <- AnalysisMailer : メール通知
+deactivate AnalysisMailer
 
 autonumber resume
-AnalysisJob -> AnalysisMailer : finished
-
-autonumber stop
-AnalysisMailer --> 利用者 : メール通知
+AnalysisJob -> Analysis : update
+deactivate AnalysisJob

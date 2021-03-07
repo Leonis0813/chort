@@ -73,11 +73,17 @@ MVCモデルを利用する
 .. uml:: umls/seq-analyze.uml
 
 1. 利用者がパラメーターを入力して実行ボタンを押下する
-2. AnalysisViewがAnalysesControllerのexecuteメソッドを実行する
-3. AnalysesControllerがAnalysisを生成してジョブ情報を保存する
-4. AnalysesControllerが非同期でAnalysisJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
-5. 分析が完了したらAnalysisJobがAnalysisのstate属性をcompletedに更新する
-6. AnalysisMailerのfinishedを実行して利用者にメールを送信する
+2. 分析画面がサーバーへ分析ジョブを登録する
+3. 分析ジョブ情報を作成する
+4. 非同期で分析ジョブを実行する
+5. IDから分析ジョブ情報を取得する
+6. パラメーターをファイルに出力する
+7. 分析スクリプトを実行する
+8. 分析データの最小値，最大値をファイルから読み込む
+9. 分析ジョブ情報に最小値，最大値を登録する
+10. 分析ジョブIDをファイルに出力する
+11. 分析が完了したことをメールで通知する
+12. 分析ジョブの状態を「完了」に更新する
 
 .. _reg-int-seq-confirm-analyses:
 
@@ -105,16 +111,16 @@ MVCモデルを利用する
 .. uml:: umls/seq-predict.uml
 
 1. 利用者がモデルを入力して実行ボタンを押下する
-2. PredictionViewがPredictionsControllerのexecuteメソッドを実行して予測ジョブを登録する
+2. 予測画面がサーバーへ予測ジョブを登録する
 3. 必須パラメーターが指定されているか確認する
 4. 予測ジョブ情報を生成する
 5. 入力されたモデルを保存する
 6. 予測ジョブを非同期で実行する
-7. idから予測ジョブ情報を取得する
-8. 保存されたモデルファイルを解凍する
-9. メタデータからペアを取得する
+7. IDから予測ジョブ情報を取得する
+8. 予測ジョブ情報と分析ジョブ情報を紐付ける
+9. 保存されたモデルファイルを解凍する
 10. 予測パラメーターをファイルに出力する
-11. ペアを予測ジョブ情報に追加する
+11. ペアを予測ジョブ情報に登録する
 
 最新データを使って自動予測を行う場合は12〜14を行う
 
@@ -159,10 +165,13 @@ analysesテーブル
    :widths: 20,20,20,10
 
    id,INTEGER,内部ID,○
+   analysis_id,STRING,分析ジョブのID,○
    from,DATETIME,分析対象期間の開始日時,○
    to,DATETIME,分析対象期間の終了日時,○
    pair,STRING,分析するレートのペア,○
    batch_size,INTEGER,バッチサイズ,○
+   min,FLOAT,分析に使用したデータの最小値,
+   max,FLOAT,分析に使用したデータの最大値,
    state,STRING,分析の状態,○
    created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,○
@@ -179,6 +188,7 @@ predictionsテーブル
    :widths: 20,10,20,10
 
    id,INTEGER,内部ID,○
+   prediction_id,STRING,予測ジョブのID,○
    model,STRING,モデルファイル名,○
    from,DATETIME,予測対象の開始日時,
    to,DATETIME,予測対象の終了日時,
@@ -186,5 +196,6 @@ predictionsテーブル
    means,STRING,予測の実行方法,○
    result,STRING,予測結果,
    state,STRING,予測処理の状態,○
+   analysis_id,INTEGER,分析ジョブの内部ID,
    created_at,DATETIME,予測ジョブ情報の作成日時,○
    updated_at,DATETIME,予測ジョブ情報の更新日時,○

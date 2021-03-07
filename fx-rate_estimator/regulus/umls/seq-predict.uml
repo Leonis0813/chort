@@ -25,8 +25,8 @@ deactivate PredictionView
 
 autonumber resume
 PredictionJob -> Prediction : find
+PredictionJob -> Prediction : set_analysis!
 PredictionJob -> ModelUtil : unzip_model
-PredictionJob -> YAML : load_file
 PredictionJob -> YAML : dump
 PredictionJob -> Prediction : update!
 
