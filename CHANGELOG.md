@@ -1,3 +1,6 @@
+# 2021/03/07
+- [Regulus] update version to 4.9.8
+
 # 2021/02/24
 - [Zosma] update version to 3.2.1
 
