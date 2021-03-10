@@ -83,6 +83,7 @@ class Analysis {
   - num_entry : Integer
   - state : String
   - performed_at : Datetime
+  - completed_at : Datetime
 }
 
 class "Analysis::Parameter" {
@@ -145,6 +146,7 @@ class Evaluation {
   - specificity : Double
   - f_measure : Double
   - performed_at : Datetime
+  - completed_at : Datetime
   + set_analysis!() : void
   + fetch_data!() : ArrayList
   + calculate!() : void
