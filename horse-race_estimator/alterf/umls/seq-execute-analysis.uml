@@ -30,6 +30,7 @@ deactivate AnalysisView
 
 autonumber resume
 AnalysisJob -> Analysis : find
+AnalysisJob -> Analysis : start!
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> AnalysisJob : check_output
 AnalysisJob -> "Analysis::Result" : import!
@@ -63,5 +64,5 @@ activate AnalysisMailer
 deactivate AnalysisMailer
 
 autonumber resume
-AnalysisJob -> Analysis : update
+AnalysisJob -> Analysis : complete!
 deactivate AnalysisJob

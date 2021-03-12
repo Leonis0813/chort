@@ -84,6 +84,8 @@ class Analysis {
   - state : String
   - performed_at : Datetime
   - completed_at : Datetime
+  + start!() : void
+  + complete!() : void
 }
 
 class "Analysis::Parameter" {
@@ -150,6 +152,8 @@ class Evaluation {
   + set_analysis!() : void
   + fetch_data!() : ArrayList
   + calculate!() : void
+  + start!() : void
+  + complete!() : void
   - remote?() : Boolean
   - set_default_num_data() : void
   - sample_race_ids() : ArrayList
