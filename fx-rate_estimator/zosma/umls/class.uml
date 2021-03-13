@@ -9,6 +9,7 @@ class Rate {
   - pair : String
   - bid : double
   - ask : double
+  + create_infile(src_file : String, dst_file : String) : void
   + to_csv() : Array
 }
 
@@ -21,6 +22,7 @@ class CandleStick {
   - close : Float
   - high : Float
   - low : Float
+  + create_infile(src_file : String, dst_file : String) : void
   + to_csv() : Array
 }
 
@@ -30,6 +32,7 @@ class MovingAverage {
   - time_frame : String
   - period : Integer
   - value : Float
+  + create_infile(src_file : String, dst_file : String) : void
   + to_csv() : Array
 }
 
