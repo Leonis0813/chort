@@ -4,18 +4,18 @@ actor 利用者
 利用者 -> AnalysisView : 分析画面表示
 
 activate AnalysisView
-  AnalysisView -> AnalysesController : manage
+  AnalysisView -> AnalysesController : index
 
   activate AnalysesController
     AnalysesController -> AnalysesController : remove_old_files
-    AnalysesController -> Analysis : all
+    AnalysesController -> Analysis : where
   deactivate AnalysesController
 
   loop 5秒間隔
-    AnalysisView -> AnalysesController : manage
+    AnalysisView -> AnalysesController : index
 
     activate AnalysesController
-      AnalysesController -> Analysis : all
+      AnalysesController -> Analysis : where
 
       autonumber stop
       AnalysisView <-- AnalysesController : 画面を更新

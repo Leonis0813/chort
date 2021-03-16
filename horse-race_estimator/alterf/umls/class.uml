@@ -10,7 +10,7 @@ class ApplicationController {
 }
 
 class AnalysesController {
-  + manage(request : Object) : Object
+  + index(request : Object) : Object
   + execute(request : Object) : Object
   + show(request : Object) : Object
   + download(request : Object) : Object
