@@ -10,13 +10,15 @@ class ApplicationController {
 }
 
 class AnalysesController {
-  + manage(request : Object) : Object
+  + index(request : Object) : Object
   + execute(request : Object) : Object
   + show(request : Object) : Object
   + download(request : Object) : Object
   - check_request_analysis() : void
   - request_analysis() : Analysis
+  - index_params() : HashMap
   - execute_params() : HashMap
+  - index_schema() : HashMap
   - execute_schema() : HashMap
 }
 
@@ -74,6 +76,12 @@ class EvaluationJob {
 class AnalysisMailer {
   + completed(analysis : Analysis)
   + error(analysis : Analysis)
+}
+
+class "Analysis::IndexForm" {
+  - num_data : String
+  - parameter : HashMap
+  + to_query() : HashMap
 }
 
 class Analysis {
@@ -213,11 +221,12 @@ ApplicationController <|-- AnalysesController
 ApplicationController <|-- Api::AnalysesController
 ApplicationController <|-- Api::Analyses::ParametersController
 AnalysesController --> AnalysisJob
+AnalysesController --> Analysis::IndexForm
+AnalysesController --> Analysis
+Api::AnalysesController --> Analysis
+Api::Analyses::ParametersController --> Analysis::Parameter
+AnalysisJob --> Analysis
 AnalysisJob --> AnalysisMailer
-AnalysesController "1" -- "1" Analysis
-Api::AnalysesController "1" -- "1" Analysis
-Api::Analyses::ParametersController "1" -- "1" Analysis::Parameter
-AnalysisJob "1" -- "1" Analysis
 Analysis "1" -- "1" Analysis::Parameter
 Analysis "1" -- "1" Analysis::Result
 Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
@@ -229,8 +238,8 @@ Analysis "1" -- "0 .. *" Evaluation
 PredictionView -- PredictionsController
 ApplicationController <|-- PredictionsController
 PredictionsController --> PredictionJob
-PredictionsController "1" -- "1" Prediction
-PredictionJob "1" -- "1" Prediction
+PredictionsController --> Prediction
+PredictionJob --> Prediction
 PredictionJob --> FeatureUtil
 PredictionJob ..> ModelUtil : <<include>>
 Prediction "1" -- "*" PredictionResult
@@ -239,10 +248,10 @@ Prediction ..> ModelUtil : <<include>>
 EvaluationView -- EvaluationsController
 ApplicationController <|-- EvaluationsController
 EvaluationsController --> EvaluationJob
-EvaluationsController "1" -- "1" Evaluation
+EvaluationsController --> Evaluation
 EvaluationJob --> FeatureUtil
 EvaluationJob ..> ModelUtil : <<include>>
-EvaluationJob "1" -- "1" Evaluation
+EvaluationJob --> Evaluation
 Evaluation "1" -- "1 .. *" "Evaluation::Datum"
 Evaluation ..> ModelUtil : <<include>>
 "Evaluation::Datum" "1" -- "*" PredictionResult

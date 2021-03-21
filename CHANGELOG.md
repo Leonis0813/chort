@@ -1,3 +1,6 @@
+# 2021/03/21
+- [Alterf] update version to 4.20.0
+
 # 2021/03/15
 - [Zosma] update version to 3.3.0
 
