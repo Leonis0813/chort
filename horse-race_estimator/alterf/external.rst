@@ -288,6 +288,56 @@
 
 - 画面右部に :ref:`alt-ext-ui-ana-list` が表示される
 
+.. _alt-ext-ui-ana-register:
+
+分析ジョブ登録フォーム
+""""""""""""""""""""""
+
+.. image:: images/analysis_form_register.png
+   :alt: 分析ジョブ登録フォーム
+
+- 必須入力項目には赤い*が付いている
+- パラメーター設定のリンクをクリックするとパラメーターを入力するフォームが表示される
+- 実行ボタンを押下すると分析が開始される
+
+  - 入力フォームに不正な値（文字列，負数など）を入力すると以下のダイアログを表示して入力が間違っていることを通知する
+
+    .. image:: images/analysis_failure.png
+       :alt: エラーダイアログ
+       :scale: 25
+
+- 分析が終了すると登録されているメールアドレスに完了を通知するメールが送信される
+
+  - メール本文には分析画面へのリンクが記載されている
+
+.. _alt-ext-ui-ana-index:
+
+分析ジョブ検索フォーム
+""""""""""""""""""""""
+
+.. image:: images/analysis_form_index.png
+   :alt: 分析ジョブ検索フォーム
+
+- 以下の値を指定可能
+
+  - 学習データ数
+  - パラメーター
+
+    - max_depth
+    - max_features
+    - max_leaf_nodes
+    - min_samples_leaf
+    - min_samples_split
+    - num_tree
+
+- 検索ボタンを押下すると，入力した値と全て等しい分析ジョブ情報を :ref:`alt-ext-ui-ana-list` に表示する
+
+  - 入力フォームに不正な値（文字列，負数など）を入力すると以下のダイアログを表示して入力が間違っていることを通知する
+
+    .. image:: images/analysis_failure.png
+       :alt: エラーダイアログ
+       :scale: 25
+
 .. _alt-ext-ui-ana-list:
 
 分析ジョブ一覧画面
@@ -348,56 +398,6 @@
           - 決定木情報（yml形式のテキストファイル）
           - 前処理前のデータ（csv形式のテキストファイル）
           - 前処理後のデータ（csv形式のテキストファイル）
-
-.. _alt-ext-ui-ana-register:
-
-分析ジョブ登録フォーム
-""""""""""""""""""""""
-
-.. image:: images/analysis_form_register.png
-   :alt: 分析ジョブ登録フォーム
-
-- 必須入力項目には赤い*が付いている
-- パラメーター設定のリンクをクリックするとパラメーターを入力するフォームが表示される
-- 実行ボタンを押下すると分析が開始される
-
-  - 入力フォームに不正な値（文字列，負数など）を入力すると以下のダイアログを表示して入力が間違っていることを通知する
-
-    .. image:: images/analysis_failure.png
-       :alt: エラーダイアログ
-       :scale: 25
-
-- 分析が終了すると登録されているメールアドレスに完了を通知するメールが送信される
-
-  - メール本文には分析画面へのリンクが記載されている
-
-.. _alt-ext-ui-ana-index:
-
-分析ジョブ検索フォーム
-""""""""""""""""""""""
-
-.. image:: images/analysis_form_index.png
-   :alt: 分析ジョブ検索フォーム
-
-- 以下の値を指定可能
-
-  - 学習データ数
-  - パラメーター
-
-    - max_depth
-    - max_features
-    - max_leaf_nodes
-    - min_samples_leaf
-    - min_samples_split
-    - num_tree
-
-- 検索ボタンを押下すると，入力した値と全て等しい分析ジョブ情報を :ref:`alt-ext-ui-ana-list` に表示する
-
-  - 入力フォームに不正な値（文字列，負数など）を入力すると以下のダイアログを表示して入力が間違っていることを通知する
-
-    .. image:: images/analysis_failure.png
-       :alt: エラーダイアログ
-       :scale: 25
 
 .. _alt-ext-ui-ana-result:
 
