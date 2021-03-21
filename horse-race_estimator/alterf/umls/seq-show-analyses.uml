@@ -7,7 +7,12 @@ activate AnalysisView
   AnalysisView -> AnalysesController : index
 
   activate AnalysesController
-    AnalysesController -> AnalysesController : remove_old_files
+    AnalysesController -> ApplicationController : remove_old_files
+    AnalysesController -> ApplicationController : check_schema
+
+    create "Analysis::IndexForm"
+    AnalysesController -> "Analysis::IndexForm" : new
+    AnalysesController -> "Analysis::IndexForm" : to_query
     AnalysesController -> Analysis : where
   deactivate AnalysesController
 
