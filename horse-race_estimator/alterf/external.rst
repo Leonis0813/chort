@@ -295,6 +295,7 @@
 
 .. image:: images/analysis_form_register.png
    :alt: 分析ジョブ登録フォーム
+   :scale: 75
 
 - 必須入力項目には赤い*が付いている
 - パラメーター設定のリンクをクリックするとパラメーターを入力するフォームが表示される
@@ -317,6 +318,7 @@
 
 .. image:: images/analysis_form_index.png
    :alt: 分析ジョブ検索フォーム
+   :scale: 75
 
 - 以下の値を指定可能
 
