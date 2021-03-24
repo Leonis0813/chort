@@ -21,6 +21,18 @@ deactivate AnalysisView
 
 autonumber resume
 AnalysisJob -> Analysis : find
+AnalysisJob -> Analysis : start!
+
+activate Analysis
+  Analysis -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    AnalysisView <-- ActionCable : メッセージ送信
+  deactivate ActionCable
+deactivate Analysis
+
+autonumber resume
 AnalysisJob -> YAML : dump
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> YAML : load_file
@@ -34,5 +46,15 @@ activate AnalysisMailer
 deactivate AnalysisMailer
 
 autonumber resume
-AnalysisJob -> Analysis : update
+AnalysisJob -> Analysis : completed!
+
+activate Analysis
+  Analysis -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    AnalysisView <-- ActionCable : メッセージ送信
+  deactivate ActionCable
+deactivate Analysis
+
 deactivate AnalysisJob

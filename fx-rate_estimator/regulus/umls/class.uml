@@ -51,6 +51,7 @@ class Analysis {
   - batch_size : int
   - min : Double
   - max : Double
+  - performed_at : Datetime
   - created_at : Datetime
   - updated_at : Datetime
   - state : String
@@ -66,6 +67,7 @@ class Prediction {
   - means : String
   - result : String
   - state : String
+  - performed_at : Datetime
   - created_at : Datetime
   - updated_at : Datetime
 }
