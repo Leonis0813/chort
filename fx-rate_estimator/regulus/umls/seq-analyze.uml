@@ -28,8 +28,11 @@ activate Analysis
 
   activate ActionCable
     autonumber stop
-    AnalysisView <-- ActionCable : メッセージ送信
+    AnalysisView <<- ActionCable : メッセージ送信
+    Analysis <-- ActionCable
   deactivate ActionCable
+
+  AnalysisJob <-- Action
 deactivate Analysis
 
 autonumber resume
@@ -42,7 +45,7 @@ AnalysisJob -> AnalysisMailer : completed
 
 activate AnalysisMailer
   autonumber stop
-  利用者 <- AnalysisMailer : メール通知
+  利用者 <<- AnalysisMailer : メール通知
 deactivate AnalysisMailer
 
 autonumber resume
@@ -53,8 +56,11 @@ activate Analysis
 
   activate ActionCable
     autonumber stop
-    AnalysisView <-- ActionCable : メッセージ送信
+    AnalysisView <<- ActionCable : メッセージ送信
+    Analysis <-- ActionCable
   deactivate ActionCable
+
+  AnalysisJob <-- Analysis
 deactivate Analysis
 
 deactivate AnalysisJob
