@@ -1,6 +1,14 @@
 class AnalysisView <<Boundary>>
 class PredictionView <<Boundary>>
 
+class AnalysisChannel {
+  + subscribed() : void
+}
+
+class PredictionChannel {
+  + subscribed() : void
+}
+
 class AnalysesController {
   + manage(page : Integer) : Object
   + execute(from : String, to : String, pair: String, batch_size : Integer) : Object
@@ -71,19 +79,21 @@ class "Zosma::MovingAverage" {
 ブラウザ -- AnalysisView
 ブラウザ -- PredictionView
 
-AnalysisView -right- AnalysesController
+AnalysisView -- AnalysesController
 AnalysesController -> AnalysisJob
+AnalysesController -> Analysis
 AnalysesController -> "Zosma::CandleStick"
 AnalysesController -> "Zosma::MovingAverage"
+AnalysisJob -> AnalysisCable
 AnalysisJob -> AnalysisMailer
-AnalysesController "1" -- "1" Analysis
-AnalysisJob "1" -- "1" Analysis
+AnalysisJob -> Analysis
 Analysis "1" -- "0 .. *" Prediction
 
 PredictionView -- PredictionsController
 PredictionsController -> PredictionJob
-PredictionsController "1" -- "1" Prediction
-Api::PredictionsController "1" -- "1" Prediction
-PredictionJob "1" -- "1" Prediction
+PredictionsController -> Prediction
+Api::PredictionsController -> Prediction
+PredictionJob -> Predictioncable
+PredictionJob -> Prediction
 PredictionJob -> "Zosma::CandleStick"
 PredictionJob -> "Zosma::MovingAverage"
