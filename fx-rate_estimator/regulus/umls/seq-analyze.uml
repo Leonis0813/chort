@@ -9,14 +9,14 @@ activate AnalysisView
   activate AnalysesController
     create Analysis
     AnalysesController -> Analysis : new
-    AnalysesController --> AnalysisJob : perform_later
+    AnalysesController ->> AnalysisJob : perform_later
     activate AnalysisJob
 
     autonumber stop
-    AnalysisView <- AnalysesController
+    AnalysisView <-- AnalysesController
   deactivate AnalysesController
 
-  利用者 <- AnalysisView
+  利用者 <-- AnalysisView
 deactivate AnalysisView
 
 autonumber resume
@@ -32,7 +32,7 @@ activate Analysis
     Analysis <-- ActionCable
   deactivate ActionCable
 
-  AnalysisJob <-- Action
+  AnalysisJob <-- Analysis
 deactivate Analysis
 
 autonumber resume

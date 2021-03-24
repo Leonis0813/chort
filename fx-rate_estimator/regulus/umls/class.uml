@@ -86,7 +86,7 @@ AnalysesController -> AnalysisJob
 AnalysesController -> Analysis
 AnalysesController -> "Zosma::CandleStick"
 AnalysesController -> "Zosma::MovingAverage"
-AnalysisJob -> AnalysisCable
+AnalysisJob -> AnalysisChannel
 AnalysisJob -> AnalysisMailer
 AnalysisJob -> Analysis
 Analysis "1" -- "0 .. *" Prediction
@@ -95,7 +95,7 @@ PredictionView -- PredictionsController
 PredictionsController -> PredictionJob
 PredictionsController -> Prediction
 Api::PredictionsController -> Prediction
-PredictionJob -> Predictioncable
+PredictionJob -> PredictionChannel
 PredictionJob -> Prediction
 PredictionJob -> "Zosma::CandleStick"
 PredictionJob -> "Zosma::MovingAverage"
