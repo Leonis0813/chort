@@ -173,6 +173,7 @@ analysesテーブル
    min,FLOAT,分析に使用したデータの最小値,
    max,FLOAT,分析に使用したデータの最大値,
    state,STRING,分析の状態,○
+   performed_at,DATETIME,分析ジョブの実行開始日時,
    created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,○
 
@@ -196,6 +197,7 @@ predictionsテーブル
    means,STRING,予測の実行方法,○
    result,STRING,予測結果,
    state,STRING,予測処理の状態,○
+   performed_at,DATETIME,予測ジョブの実行開始日時,
    analysis_id,INTEGER,分析ジョブの内部ID,
    created_at,DATETIME,予測ジョブ情報の作成日時,○
    updated_at,DATETIME,予測ジョブ情報の更新日時,○
