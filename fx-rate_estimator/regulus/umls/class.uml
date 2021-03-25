@@ -87,6 +87,16 @@ class "Zosma::CandleStick" {
 class "Zosma::MovingAverage" {
 }
 
+class ModelUtil <<module>> {
+  + valid_model?(model : Object) : boolean
+  + output_model(dir : String, model : Object) : void
+  + unzip_model(zip_path : String, output_dir : String) : void
+  + zip_model(entry_dir : String, zipfile_path : String) : void
+  - write_entries(entry_dir : String, entries : ArrayList, path : String, zipfile : "Zip::File") : void
+  - recursively_deflate_directory(entry_dir : String, file_path : String, zipfile : "Zip::File", zipfile_path : String) : void
+  - put_into_archive(file_path : String, zipfile : "Zip::File", zipfile_path : String) : void
+}
+
 ブラウザ -- AnalysisView
 ブラウザ -- PredictionView
 
@@ -96,8 +106,10 @@ AnalysesController -> AnalysisJob
 AnalysesController -> Analysis
 AnalysesController -> "Zosma::CandleStick"
 AnalysesController -> "Zosma::MovingAverage"
+AnalysesController ..> ModelUtil : <<include>>
 AnalysisJob -> AnalysisMailer
 AnalysisJob -> Analysis
+AnalysisMailer ..> ModelUtil : <<include>>
 Analysis -> AnalysisChannel
 Analysis "1" -- "0 .. *" Prediction
 
@@ -105,8 +117,10 @@ PredictionView -- PredictionsController
 ApplicationController <|-- PredictionsController
 PredictionsController -> PredictionJob
 PredictionsController -> Prediction
+PredictionsController ..> ModelUtil : <<include>>
 Api::PredictionsController -> Prediction
 PredictionJob -> Prediction
 PredictionJob -> "Zosma::CandleStick"
 PredictionJob -> "Zosma::MovingAverage"
+PredictionJob ..> ModelUtil : <<include>>
 Prediction -> PredictionChannel
