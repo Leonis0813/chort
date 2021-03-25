@@ -9,7 +9,7 @@ class PredictionChannel {
   + subscribed() : void
 }
 
-class ApplicationCoontroller {
+class ApplicationController {
   + check_absent_params(required_param_keys : ArrayList, request_param : Hash) : void
 }
 
