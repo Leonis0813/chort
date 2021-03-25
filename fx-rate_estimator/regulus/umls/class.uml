@@ -92,9 +92,9 @@ class ModelUtil <<module>> {
   + output_model(dir : String, model : Object) : void
   + unzip_model(zip_path : String, output_dir : String) : void
   + zip_model(entry_dir : String, zipfile_path : String) : void
-  - write_entries(entry_dir : String, entries : ArrayList, path : String, zipfile : "Zip::File") : void
-  - recursively_deflate_directory(entry_dir : String, file_path : String, zipfile : "Zip::File", zipfile_path : String) : void
-  - put_into_archive(file_path : String, zipfile : "Zip::File", zipfile_path : String) : void
+  - write_entries(entry_dir : String, entries : ArrayList, path : String, zipfile : Zip::File) : void
+  - recursively_deflate_directory(entry_dir : String, file_path : String, zipfile : Zip::File, zipfile_path : String) : void
+  - put_into_archive(file_path : String, zipfile : Zip::File, zipfile_path : String) : void
 }
 
 ブラウザ -- AnalysisView
