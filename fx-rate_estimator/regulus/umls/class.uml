@@ -59,6 +59,8 @@ class Analysis {
   - created_at : Datetime
   - updated_at : Datetime
   - state : String
+  + start!() : void
+  + completed!() : void
 }
 
 class Prediction {
@@ -74,6 +76,9 @@ class Prediction {
   - performed_at : Datetime
   - created_at : Datetime
   - updated_at : Datetime
+  + set_analysis!() : void
+  + start!() : void
+  + completed!() : void
 }
 
 class "Zosma::CandleStick" {
