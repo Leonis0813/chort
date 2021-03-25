@@ -7,7 +7,7 @@ activate PredictionView
   PredictionView -> PredictionsController : execute
 
   activate PredictionsController
-    PredictionsController -> PredictionsController : check_absent_params
+    PredictionsController -> ApplicationController : check_absent_params
 
     create Prediction
     PredictionsController -> Prediction : new
