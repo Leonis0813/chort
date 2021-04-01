@@ -10,13 +10,15 @@ class ApplicationController {
 }
 
 class AnalysesController {
-  + manage(request : Object) : Object
+  + index(request : Object) : Object
   + execute(request : Object) : Object
   + show(request : Object) : Object
   + download(request : Object) : Object
   - check_request_analysis() : void
   - request_analysis() : Analysis
+  - index_params() : HashMap
   - execute_params() : HashMap
+  - index_schema() : HashMap
   - execute_schema() : HashMap
 }
 
@@ -58,6 +60,9 @@ class Api::Analyses::ParametersController {
 
 class AnalysisJob {
   + perform(analysis_id : Integer)
+  - check_output() : void
+  - dump_yaml(file_name : String, content : HashMap) : void
+  - create_zip(target_files : ArrayList, zip_file_name : String) : void
 }
 
 class PredictionJob {
@@ -73,6 +78,12 @@ class AnalysisMailer {
   + error(analysis : Analysis)
 }
 
+class "Analysis::IndexForm" {
+  - num_data : String
+  - parameter : HashMap
+  + to_query() : HashMap
+}
+
 class Analysis {
   - analysis_id : String
   - num_data : Integer
@@ -80,6 +91,9 @@ class Analysis {
   - num_entry : Integer
   - state : String
   - performed_at : Datetime
+  - completed_at : Datetime
+  + start!() : void
+  + complete!() : void
 }
 
 class "Analysis::Parameter" {
@@ -111,6 +125,9 @@ class "Analysis::Result::DecisionTree::Node" {
   - group : String
   - feature_name : String
   - threshold : Double
+  - num_win : Integer
+  - num_lose : Integer
+  - parent_id : Integer
 }
 
 class Prediction {
@@ -136,15 +153,20 @@ class Evaluation {
   - state : String
   - precision : Double
   - recall : Double
+  - specificity : Double
   - f_measure : Double
   - performed_at : Datetime
+  - completed_at : Datetime
   + set_analysis!() : void
   + fetch_data!() : ArrayList
   + calculate!() : void
+  + start!() : void
+  + complete!() : void
   - remote?() : Boolean
   - set_default_num_data() : void
   - sample_race_ids() : ArrayList
   - true_positive() : Double
+  - true_negative() : Double
   - false_positive() : Double
   - false_negative() : Double
 }
@@ -184,37 +206,40 @@ class ModelUtil <<module>> {
 }
 
 ブラウザ -- AnalysisView
+ブラウザ -- AnalysisResultView
+AnalysisView --> AnalysisResultView
 ブラウザ -- PredictionView
 ブラウザ -- EvaluationView
 ブラウザ -- EvaluationResultView
+EvaluationView --> EvaluationResultView
 
 AnalysisView -- AnalysesController
 AnalysisView -- Api::AnalysesController
 AnalysisView -- Api::Analyses::ParametersController
+AnalysisResultView -- Api::AnalysesController
 ApplicationController <|-- AnalysesController
 ApplicationController <|-- Api::AnalysesController
-ApplicationController <|-- Api::Analyses::ParameterController
+ApplicationController <|-- Api::Analyses::ParametersController
 AnalysesController --> AnalysisJob
+AnalysesController --> Analysis::IndexForm
+AnalysesController --> Analysis
+Api::AnalysesController --> Analysis
+Api::Analyses::ParametersController --> Analysis::Parameter
+AnalysisJob --> Analysis
 AnalysisJob --> AnalysisMailer
-AnalysesController "1" -- "1" Analysis
-Api::AnalysesController "1" -- "1" Analysis
-Api::Analyses::ParametersController "1" -- "1" Analysis::Parameter
-AnalysisJob "1" -- "1" Analysis
 Analysis "1" -- "1" Analysis::Parameter
 Analysis "1" -- "1" Analysis::Result
 Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
 Analysis::Result "1" -- "0 .. *" Analysis::Result::DecisionTree
 Analysis::Result::DecisionTree "1" -- "1 .. *" Analysis::Result::DecisionTree::Node
-Analysis::Result::DecisionTree::Node "1" --> "0,1" Analysis::Result::DecisionTree::Node : parent
-Analysis::Result::DecisionTree::Node "1" --> "0,2" Analysis::Result::DecisionTree::Node : children
 Analysis "1" -- "0 .. *" Prediction
 Analysis "1" -- "0 .. *" Evaluation
 
 PredictionView -- PredictionsController
 ApplicationController <|-- PredictionsController
 PredictionsController --> PredictionJob
-PredictionsController "1" -- "1" Prediction
-PredictionJob "1" -- "1" Prediction
+PredictionsController --> Prediction
+PredictionJob --> Prediction
 PredictionJob --> FeatureUtil
 PredictionJob ..> ModelUtil : <<include>>
 Prediction "1" -- "*" PredictionResult
@@ -223,10 +248,10 @@ Prediction ..> ModelUtil : <<include>>
 EvaluationView -- EvaluationsController
 ApplicationController <|-- EvaluationsController
 EvaluationsController --> EvaluationJob
-EvaluationsController "1" -- "1" Evaluation
+EvaluationsController --> Evaluation
 EvaluationJob --> FeatureUtil
 EvaluationJob ..> ModelUtil : <<include>>
-EvaluationJob "1" -- "1" Evaluation
+EvaluationJob --> Evaluation
 Evaluation "1" -- "1 .. *" "Evaluation::Datum"
 Evaluation ..> ModelUtil : <<include>>
 "Evaluation::Datum" "1" -- "*" PredictionResult

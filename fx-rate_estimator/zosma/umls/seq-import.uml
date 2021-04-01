@@ -1,0 +1,14 @@
+autonumber
+
+loop 指定した期間繰り返す
+  loop 指定したデータ種別だけ繰り返す
+    "import" -> Dir : mktmpdir
+    "import" -> Dir : []
+    "import" -> FileUtils : cp
+
+    loop コピーしたファイル分繰り返す
+      "import" -> ApplicationRecord : create_infile
+      "import" -> ApplicationRecord : load_data
+    end
+  end
+end

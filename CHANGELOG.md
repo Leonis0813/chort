@@ -1,3 +1,39 @@
+# 2021/03/21
+- [Alterf] update version to 4.20.0
+
+# 2021/03/15
+- [Zosma] update version to 3.3.0
+
+# 2021/03/12
+- [Alterf] update version to 4.19.4
+
+# 2021/03/07
+- [Regulus] update version to 4.9.8
+
+# 2021/02/24
+- [Zosma] update version to 3.2.1
+
+# 2021/02/17
+- [Zosma] update version to 3.2.0
+
+# 2021/02/06
+- [Alterf] update version to 4.19.1
+
+# 2021/02/03
+- [Alterf] update version to 4.19.0
+
+# 2021/01/27
+- [Zosma] update version to 3.1.0
+
+# 2021/01/20
+- [Regulus] update version to 4.9.6
+
+# 2021/01/17
+- [Alterf] update version to 4.18.0
+
+# 2021/01/07
+- [Zosma] update version to 3.0.12
+
 # 2020/12/20
 - [Alterf] update version to 4.17.0
 

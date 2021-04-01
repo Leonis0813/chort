@@ -30,30 +30,22 @@ deactivate AnalysisView
 
 autonumber resume
 AnalysisJob -> Analysis : find
+AnalysisJob -> Analysis : start!
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> AnalysisJob : check_output
 AnalysisJob -> "Analysis::Result" : import!
 
 activate "Analysis::Result"
   "Analysis::Result" -> YAML : load_file
-
-  loop 素性の数だけ繰り返し
-    create "Analysis::Result::Importance"
-    "Analysis::Result" -> "Analysis::Result::Importance" : create!
-  end
+  "Analysis::Result" -> "Analysis::Result::Importance" : insert_all!
+  "Analysis::Result" -> "Analysis::Result::DecisionTree" : insert_all!
 
   loop 決定木の数だけ繰り返し
-    create "Analysis::Result::DecisionTree"
-    "Analysis::Result" -> "Analysis::Result::DecisionTree" : create!
     "Analysis::Result" -> "Analysis::Result::DecisionTree" : import!
 
     activate "Analysis::Result::DecisionTree"
       "Analysis::Result::DecisionTree" -> YAML : load_file
-
-      loop ノードの数だけ繰り返し
-        create "Analysis::Result::DecisionTree::Node"
-        "Analysis::Result::DecisionTree" -> "Analysis::Result::DecisionTree::Node" : create!
-      end
+      "Analysis::Result::DecisionTree" -> "Analysis::Result::DecisionTree::Node" : insert_all!
     deactivate "Analysis::Result::DecisionTree"
   end
 deactivate "Analysis::Result"
@@ -72,5 +64,5 @@ activate AnalysisMailer
 deactivate AnalysisMailer
 
 autonumber resume
-AnalysisJob -> Analysis : update
+AnalysisJob -> Analysis : complete!
 deactivate AnalysisJob

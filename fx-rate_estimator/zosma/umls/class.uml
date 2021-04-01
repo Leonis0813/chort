@@ -1,8 +1,16 @@
+class ApplicationRecord {
+  - {static} zosma_logger : ZosmaLogger
+  + {static} load_data(file_name : String) : void
+  + {static} dump(file_name : String, date : Date) : void
+}
+
 class Rate {
   - time : Datetime
   - pair : String
   - bid : double
   - ask : double
+  + create_infile(src_file : String, dst_file : String) : void
+  + to_csv() : Array
 }
 
 class CandleStick {
@@ -14,6 +22,8 @@ class CandleStick {
   - close : Float
   - high : Float
   - low : Float
+  + create_infile(src_file : String, dst_file : String) : void
+  + to_csv() : Array
 }
 
 class MovingAverage {
@@ -22,4 +32,18 @@ class MovingAverage {
   - time_frame : String
   - period : Integer
   - value : Float
+  + create_infile(src_file : String, dst_file : String) : void
+  + to_csv() : Array
 }
+
+class ZipUtil {
+  + {static} read(tar_gz_file : String, output_dir : String) : void
+  + {static} write(tar_gz_file : String, base_dir : String, src_files : Array) : void
+}
+
+class ZosmaLogger {
+}
+
+ApplicationRecord <|-- Rate
+ApplicationRecord <|-- CandleStick
+ApplicationRecord <|-- MovingAverage

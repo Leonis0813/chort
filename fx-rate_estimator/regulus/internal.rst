@@ -73,11 +73,17 @@ MVCモデルを利用する
 .. uml:: umls/seq-analyze.uml
 
 1. 利用者がパラメーターを入力して実行ボタンを押下する
-2. AnalysisViewがAnalysesControllerのexecuteメソッドを実行する
-3. AnalysesControllerがAnalysisを生成してジョブ情報を保存する
-4. AnalysesControllerが非同期でAnalysisJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
-5. 分析が完了したらAnalysisJobがAnalysisのstate属性をcompletedに更新する
-6. AnalysisMailerのfinishedを実行して利用者にメールを送信する
+2. 分析画面がサーバーへ分析ジョブを登録する
+3. 分析ジョブ情報を作成する
+4. 非同期で分析ジョブを実行する
+5. IDから分析ジョブ情報を取得する
+6. パラメーターをファイルに出力する
+7. 分析スクリプトを実行する
+8. 分析データの最小値，最大値をファイルから読み込む
+9. 分析ジョブ情報に最小値，最大値を登録する
+10. 分析ジョブIDをファイルに出力する
+11. 分析が完了したことをメールで通知する
+12. 分析ジョブの状態を「完了」に更新する
 
 .. _reg-int-seq-confirm-analyses:
 
@@ -89,8 +95,11 @@ MVCモデルを利用する
 .. uml:: umls/seq-confirm-analyses.uml
 
 1. 利用者が分析画面を開く
-2. AnalysisViewがAnalysesControllerのmanageメソッドを実行する
-3. AnalysesControllerがAnalysisクラスのallメソッドを実行してジョブ情報を取得する
+2. AnalysisViewがAnalysesControllerのmanageメソッドを実行して分析ジョブ情報を取得する
+3. 登録されているローソク足の期間を取得する
+4. 登録されている移動平均線の期間を取得する
+5. 分析ジョブ情報を生成する
+6. DBに登録されている分析ジョブ情報を取得する
 
 .. _reg-int-seq-predict:
 
@@ -101,11 +110,27 @@ MVCモデルを利用する
 
 .. uml:: umls/seq-predict.uml
 
-1. 利用者がパラメーターを入力して実行ボタンを押下する
-2. PredictionViewがPredictionsControllerのexecuteメソッドを実行する
-3. PredictionsControllerがPredictionを生成してジョブ情報を保存する
-4. PredictionsControllerが非同期でPredictionJobのperform_laterを実行した後，利用者に分析が実行されたことを通知する
-5. 分析が完了したらPredictionJobがPredictionのstate属性をcompletedに更新する
+1. 利用者がモデルを入力して実行ボタンを押下する
+2. 予測画面がサーバーへ予測ジョブを登録する
+3. 必須パラメーターが指定されているか確認する
+4. 予測ジョブ情報を生成する
+5. 入力されたモデルを保存する
+6. 予測ジョブを非同期で実行する
+7. IDから予測ジョブ情報を取得する
+8. 予測ジョブ情報と分析ジョブ情報を紐付ける
+9. 保存されたモデルファイルを解凍する
+10. 予測パラメーターをファイルに出力する
+11. ペアを予測ジョブ情報に登録する
+
+最新データを使って自動予測を行う場合は12〜14を行う
+
+12. 最新のデータをポーリングするために13〜14を行う
+13. 最新のローソク足情報が登録されたか確認する
+14. 最新の移動平均線情報が登録されたか確認する
+
+15. 予測スクリプトを実行する
+16. 予測結果をファイルから読み込む
+17. 予測結果をDBに登録してジョブの状態を更新する
 
 .. _reg-int-seq-confirm-predictions:
 
@@ -140,10 +165,13 @@ analysesテーブル
    :widths: 20,20,20,10
 
    id,INTEGER,内部ID,○
+   analysis_id,STRING,分析ジョブのID,○
    from,DATETIME,分析対象期間の開始日時,○
    to,DATETIME,分析対象期間の終了日時,○
    pair,STRING,分析するレートのペア,○
    batch_size,INTEGER,バッチサイズ,○
+   min,FLOAT,分析に使用したデータの最小値,
+   max,FLOAT,分析に使用したデータの最大値,
    state,STRING,分析の状態,○
    created_at,DATETIME,分析ジョブ情報の作成日時,○
    updated_at,DATETIME,分析ジョブ情報の更新日時,○
@@ -160,6 +188,7 @@ predictionsテーブル
    :widths: 20,10,20,10
 
    id,INTEGER,内部ID,○
+   prediction_id,STRING,予測ジョブのID,○
    model,STRING,モデルファイル名,○
    from,DATETIME,予測対象の開始日時,
    to,DATETIME,予測対象の終了日時,
@@ -167,5 +196,6 @@ predictionsテーブル
    means,STRING,予測の実行方法,○
    result,STRING,予測結果,
    state,STRING,予測処理の状態,○
+   analysis_id,INTEGER,分析ジョブの内部ID,
    created_at,DATETIME,予測ジョブ情報の作成日時,○
    updated_at,DATETIME,予測ジョブ情報の更新日時,○
