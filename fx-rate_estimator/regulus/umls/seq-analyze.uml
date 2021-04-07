@@ -7,32 +7,62 @@ activate AnalysisView
   AnalysisView -> AnalysesController : execute
 
   activate AnalysesController
+    AnalysesController -> ApplicationController : check_absent_params
+
     create Analysis
     AnalysesController -> Analysis : new
-    AnalysesController --> AnalysisJob : perform_later
+    AnalysesController ->> AnalysisJob : perform_later
     activate AnalysisJob
 
     autonumber stop
-    AnalysisView <- AnalysesController
+    AnalysisView <-- AnalysesController
   deactivate AnalysesController
 
-  利用者 <- AnalysisView
+  利用者 <-- AnalysisView
 deactivate AnalysisView
 
 autonumber resume
 AnalysisJob -> Analysis : find
+AnalysisJob -> Analysis : start!
+
+activate Analysis
+  Analysis -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    AnalysisView <<- ActionCable : メッセージ送信
+    Analysis <-- ActionCable
+  deactivate ActionCable
+
+  AnalysisJob <-- Analysis
+deactivate Analysis
+
+autonumber resume
 AnalysisJob -> YAML : dump
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> YAML : load_file
-AnalysisJob -> Analysis : update
+AnalysisJob -> Analysis : update!
 AnalysisJob -> YAML : dump
 AnalysisJob -> AnalysisMailer : completed
 
 activate AnalysisMailer
   autonumber stop
-  利用者 <- AnalysisMailer : メール通知
+  利用者 <<- AnalysisMailer : メール通知
 deactivate AnalysisMailer
 
 autonumber resume
-AnalysisJob -> Analysis : update
+AnalysisJob -> Analysis : completed!
+
+activate Analysis
+  Analysis -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    AnalysisView <<- ActionCable : メッセージ送信
+    Analysis <-- ActionCable
+  deactivate ActionCable
+
+  AnalysisJob <-- Analysis
+deactivate Analysis
+
 deactivate AnalysisJob

@@ -7,28 +7,59 @@ activate PredictionView
   PredictionView -> PredictionsController : execute
 
   activate PredictionsController
-    PredictionsController -> PredictionsController : check_absent_params
+    PredictionsController -> ApplicationController : check_absent_params
 
     create Prediction
     PredictionsController -> Prediction : new
 
     PredictionsController -> ModelUtil : output_model
-    PredictionsController --> PredictionJob : perform_later
+    PredictionsController ->> PredictionJob : perform_later
     activate PredictionJob
 
     autonumber stop
-    PredictionView <- PredictionsController
+    PredictionView <-- PredictionsController
   deactivate PredictionsController
 
-  利用者 <- PredictionView
+  利用者 <-- PredictionView
 deactivate PredictionView
 
 autonumber resume
 PredictionJob -> Prediction : find
-PredictionJob -> Prediction : set_analysis!
+PredictionJob -> Prediction : start!
+
+activate Prediction
+  Prediction -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    PredictionView <<- ActionCable : メッセージ送信
+    Prediction <-- ActionCable
+  deactivate ActionCable
+
+  PredictionJob <-- Prediction
+deactivate Prediction
+
+autonumber resume
 PredictionJob -> ModelUtil : unzip_model
+PredictionJob -> Prediction : set_analysis!
+
+activate Prediction
+  Prediction -> YAML : load_file
+  Prediction -> Analysis : find_by
+  Prediction -> Prediction : update!
+  Prediction -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    PredictionView <<- ActionCable : メッセージ送信
+    Prediction <-- ActionCable
+  deactivate ActionCable
+
+  PredictionJob <-- Prediction
+deactivate Prediction
+
+autonumber resume
 PredictionJob -> YAML : dump
-PredictionJob -> Prediction : update!
 
 alt 最新のデータを利用 and 自動予測
   PredictionJob -> PredictionJob : polling_zosma
@@ -37,6 +68,35 @@ alt 最新のデータを利用 and 自動予測
 end
 
 PredictionJob -> PredictionJob : execute_script
-PredictionJob -> YAML : load_file
-PredictionJob -> Prediction : update!
+PredictionJob -> Prediction : import_result!
+
+activate Prediction
+  Prediction -> YAML : load_file
+  Prediction -> Prediction : update!
+  Prediction -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    PredictionView <<- ActionCable : メッセージ送信
+    Prediction <-- ActionCable
+  deactivate ActionCable
+
+  PredictionJob <-- Prediction
+deactivate Prediction
+
+autonumber resume
+PredictionJob -> Prediction : completed!
+
+activate Prediction
+  Prediction -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    PredictionView <<- ActionCable : メッセージ送信
+    Prediction <-- ActionCable
+  deactivate ActionCable
+
+  PredictionJob <-- Prediction
+deactivate Prediction
+
 deactivate PredictionJob
