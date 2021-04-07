@@ -41,7 +41,7 @@ autonumber resume
 AnalysisJob -> YAML : dump
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> YAML : load_file
-AnalysisJob -> Analysis : update
+AnalysisJob -> Analysis : update!
 AnalysisJob -> YAML : dump
 AnalysisJob -> AnalysisMailer : completed
 
