@@ -17,7 +17,6 @@ activate AnalysisView
   deactivate AnalysesController
 deactivate AnalysisView
 
-autonumber resume
 利用者 -> AnalysisView : 結果表示ボタン押下
 
 activate AnalysisView

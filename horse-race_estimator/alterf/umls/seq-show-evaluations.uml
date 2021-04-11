@@ -12,7 +12,6 @@ activate EvaluationView
   deactivate EvaluationsController
 deactivate EvaluationView
 
-autonumber resume
 利用者 -> EvaluationView : 詳細ボタン押下
 
 activate EvaluationView
