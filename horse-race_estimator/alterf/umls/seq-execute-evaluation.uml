@@ -34,7 +34,17 @@ autonumber resume
 EvaluationJob -> Evaluation : find
 EvaluationJob -> Evaluation : start!
 
+activate Evaluation
+  Evaluation -> ActionCable : bloadcast
 
+  activate ActionCable
+    autonumber stop
+    EvaluationView <<- ActionCable : メッセージ送信
+    Evaluation <-- ActionCable
+  deactivate ActionCable
+
+  EvaluationJob <-- Evaluation
+deactivate Evaluation
 
 EvaluationJob -> ModelUtil : unzip_model
 EvaluationJob -> Evaluation : set_analysis!
