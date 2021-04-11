@@ -4,6 +4,22 @@ class PredictionView <<Boundary>>
 class EvaluationView <<Boundary>>
 class EvaluationResultView <<Boundary>>
 
+class AnalysisChannel {
+  + subscribed() : void
+}
+
+class PredictionChannel {
+  + subscribed() : void
+}
+
+class EvaluationChannel {
+  + subscribed() : void
+}
+
+class "Evaluation::DatumChannel" {
+  + subscribed() : void
+}
+
 class ApplicationController {
   + check_schema(schema : HashMap, request_parameter : HashMap, resource : String) : void
   + remove_old_files() : void
@@ -94,6 +110,7 @@ class Analysis {
   - completed_at : Datetime
   + start!() : void
   + complete!() : void
+  - broadcast() : void
 }
 
 class "Analysis::Parameter" {
@@ -138,6 +155,7 @@ class Prediction {
   - performed_at : Datetime
   + set_analysis!() : void
   + import_results(result_file : String) : void
+  - broadcast() : void
 }
 
 class PredictionResult {
@@ -162,6 +180,7 @@ class Evaluation {
   + calculate!() : void
   + start!() : void
   + complete!() : void
+  - broadcast() : void
   - remote?() : Boolean
   - set_default_num_data() : void
   - sample_race_ids() : ArrayList
@@ -177,6 +196,7 @@ class "Evaluation::Datum" {
   - race_url : String
   - ground_truth : Integer
   + import_prediction_results(result_file : String) : void
+  - broadcast() : void
 }
 
 class NetkeibaClient {
@@ -227,6 +247,7 @@ Api::AnalysesController --> Analysis
 Api::Analyses::ParametersController --> Analysis::Parameter
 AnalysisJob --> Analysis
 AnalysisJob --> AnalysisMailer
+Analysis --> AnalysisChannel
 Analysis "1" -- "1" Analysis::Parameter
 Analysis "1" -- "1" Analysis::Result
 Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
@@ -242,6 +263,7 @@ PredictionsController --> Prediction
 PredictionJob --> Prediction
 PredictionJob --> FeatureUtil
 PredictionJob ..> ModelUtil : <<include>>
+Prediction --> PredictionChannel
 Prediction "1" -- "*" PredictionResult
 Prediction ..> ModelUtil : <<include>>
 
@@ -252,8 +274,10 @@ EvaluationsController --> Evaluation
 EvaluationJob --> FeatureUtil
 EvaluationJob ..> ModelUtil : <<include>>
 EvaluationJob --> Evaluation
+Evaluation --> EvaluationChannel
 Evaluation "1" -- "1 .. *" "Evaluation::Datum"
 Evaluation ..> ModelUtil : <<include>>
+"Evaluation::Datum" --> "Evaluation::DatumChannel"
 "Evaluation::Datum" "1" -- "*" PredictionResult
 
 EvaluationResultView -- EvaluationsController
