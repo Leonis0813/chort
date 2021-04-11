@@ -31,6 +31,19 @@ deactivate AnalysisView
 autonumber resume
 AnalysisJob -> Analysis : find
 AnalysisJob -> Analysis : start!
+
+activate Analysis
+  Analysis -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    AnalysisView <<- ActionCable : メッセージ送信
+    Analysis <-- ActionCable
+  deactivate ActionCable
+
+  AnalysisJob <-- Analysis
+deactivate Analysis
+
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> AnalysisJob : check_output
 AnalysisJob -> "Analysis::Result" : import!
@@ -51,6 +64,19 @@ activate "Analysis::Result"
 deactivate "Analysis::Result"
 
 AnalysisJob -> Analysis : update!
+
+activate Analysis
+  Analysis -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    AnalysisView <<- ActionCable : メッセージ送信
+    Analysis <-- ActionCable
+  deactivate ActionCable
+
+  AnalysisJob <-- Analysis
+deactivate Analysis
+
 AnalysisJob -> AnalysisJob : dump_yaml
 AnalysisJob -> AnalysisJob : create_zip
 AnalysisJob -> AnalysisJob : create_zip
@@ -65,4 +91,17 @@ deactivate AnalysisMailer
 
 autonumber resume
 AnalysisJob -> Analysis : complete!
+
+activate Analysis
+  Analysis -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    AnalysisView <<- ActionCable : メッセージ送信
+    Analysis <-- ActionCable
+  deactivate ActionCable
+
+  AnalysisJob <-- Analysis
+deactivate Analysis
+
 deactivate AnalysisJob

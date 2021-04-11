@@ -27,6 +27,20 @@ deactivate PredictionView
 
 autonumber resume
 PredictionJob -> Prediction : find
+PredictionJob -> Prediction : start!
+
+activate Prediction
+  Prediction -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    PredictionView <<- ActionCable : メッセージ送信
+    Prediction <-- ActionCable
+  deactivate ActionCable
+
+  PredictionJob <-- Prediction
+deactivate Prediction
+
 PredictionJob -> ModelUtil : unzip_model
 PredictionJob -> Prediction : set_analysis!
 
@@ -84,4 +98,16 @@ activate Prediction
 deactivate Prediction
 
 PredictionJob -> Prediction : update!
+
+activate Prediction
+  Prediction -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    PredictionView <<- ActionCable : メッセージ送信
+    Prediction <-- ActionCable
+  deactivate ActionCable
+
+  PredictionJob <-- Prediction
+deactivate Prediction
 deactivate PredictionJob
