@@ -8,7 +8,7 @@ activate AnalysisView
 
   activate AnalysesController
     AnalysesController -> AnalysesController : remove_old_files
-    AnalysesController -> AnalysesController : check_absent_param
+    AnalysesController -> AnalysesController : check_schema
 
     create Analysis
     AnalysesController -> Analysis : new
