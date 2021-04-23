@@ -1,6 +1,18 @@
 class AnalysisView <<Boundary>>
 class PredictionView <<Boundary>>
 
+class AnalysisChannel {
+  + subscribed() : void
+}
+
+class PredictionChannel {
+  + subscribed() : void
+}
+
+class ApplicationController {
+  + check_absent_params(required_param_keys : ArrayList, request_param : Hash) : void
+}
+
 class AnalysesController {
   + manage(page : Integer) : Object
   + execute(from : String, to : String, pair: String, batch_size : Integer) : Object
@@ -43,9 +55,15 @@ class Analysis {
   - batch_size : int
   - min : Double
   - max : Double
+  - performed_at : Datetime
   - created_at : Datetime
   - updated_at : Datetime
   - state : String
+  + start!() : void
+  + completed!() : void
+  + failed!() : void
+  - broadcast() : void
+  - valid_period?() : boolean
 }
 
 class Prediction {
@@ -54,12 +72,19 @@ class Prediction {
   - model : String
   - from : Datetime
   - to : Datetime
-  - pair : String
   - means : String
   - result : String
   - state : String
+  - performed_at : Datetime
   - created_at : Datetime
   - updated_at : Datetime
+  + set_analysis!() : void
+  + import_result!(result_file : String) : void
+  + start!() : void
+  + completed!() : void
+  + failed!() : void
+  - broadcast() : void
+  - valid_period?() : boolean
 }
 
 class "Zosma::CandleStick" {
@@ -68,22 +93,40 @@ class "Zosma::CandleStick" {
 class "Zosma::MovingAverage" {
 }
 
+class ModelUtil <<module>> {
+  + valid_model?(model : Object) : boolean
+  + output_model(dir : String, model : Object) : void
+  + unzip_model(zip_path : String, output_dir : String) : void
+  + zip_model(entry_dir : String, zipfile_path : String) : void
+  - write_entries(entry_dir : String, entries : ArrayList, path : String, zipfile : Zip::File) : void
+  - recursively_deflate_directory(entry_dir : String, file_path : String, zipfile : Zip::File, zipfile_path : String) : void
+  - put_into_archive(file_path : String, zipfile : Zip::File, zipfile_path : String) : void
+}
+
 ブラウザ -- AnalysisView
 ブラウザ -- PredictionView
 
-AnalysisView -right- AnalysesController
+AnalysisView -- AnalysesController
+ApplicationController <|-- AnalysesController
 AnalysesController -> AnalysisJob
+AnalysesController -> Analysis
 AnalysesController -> "Zosma::CandleStick"
 AnalysesController -> "Zosma::MovingAverage"
+AnalysesController ..> ModelUtil : <<include>>
 AnalysisJob -> AnalysisMailer
-AnalysesController "1" -- "1" Analysis
-AnalysisJob "1" -- "1" Analysis
+AnalysisJob -> Analysis
+AnalysisMailer ..> ModelUtil : <<include>>
+Analysis -> AnalysisChannel
 Analysis "1" -- "0 .. *" Prediction
 
 PredictionView -- PredictionsController
+ApplicationController <|-- PredictionsController
 PredictionsController -> PredictionJob
-PredictionsController "1" -- "1" Prediction
-Api::PredictionsController "1" -- "1" Prediction
-PredictionJob "1" -- "1" Prediction
+PredictionsController -> Prediction
+PredictionsController ..> ModelUtil : <<include>>
+Api::PredictionsController -> Prediction
+PredictionJob -> Prediction
 PredictionJob -> "Zosma::CandleStick"
 PredictionJob -> "Zosma::MovingAverage"
+PredictionJob ..> ModelUtil : <<include>>
+Prediction -> PredictionChannel

@@ -8,7 +8,7 @@ activate PredictionView
 
   activate PredictionsController
     PredictionsController -> PredictionsController : remove_old_files
-    PredictionsController -> PredictionsController : check_absent_params
+    PredictionsController -> PredictionsController : check_schema
     PredictionsController -> PredictionsController : check_invalid_file_params
 
     create Prediction
@@ -27,6 +27,20 @@ deactivate PredictionView
 
 autonumber resume
 PredictionJob -> Prediction : find
+PredictionJob -> Prediction : start!
+
+activate Prediction
+  Prediction -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    PredictionView <<- ActionCable : メッセージ送信
+    Prediction <-- ActionCable
+  deactivate ActionCable
+
+  PredictionJob <-- Prediction
+deactivate Prediction
+
 PredictionJob -> ModelUtil : unzip_model
 PredictionJob -> Prediction : set_analysis!
 
@@ -83,5 +97,17 @@ activate Prediction
   end
 deactivate Prediction
 
-PredictionJob -> Prediction : update!
+PredictionJob -> Prediction : completed!
+
+activate Prediction
+  Prediction -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    PredictionView <<- ActionCable : メッセージ送信
+    Prediction <-- ActionCable
+  deactivate ActionCable
+
+  PredictionJob <-- Prediction
+deactivate Prediction
 deactivate PredictionJob

@@ -10,15 +10,4 @@ activate PredictionView
     PredictionsController -> PredictionsController : remove_old_files
     PredictionsController -> Prediction : all
   deactivate PredictionsController
-
-  loop 5秒間隔
-    PredictionView -> PredictionsController : manage
-
-    activate PredictionsController
-      PredictionsController -> Prediction : all
-
-      autonumber stop
-      PredictionView <-- PredictionsController : 画面を更新
-    deactivate PredictionsController
-  end
 deactivate PredictionView

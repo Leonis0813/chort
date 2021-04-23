@@ -8,7 +8,7 @@ activate AnalysisView
 
   activate AnalysesController
     AnalysesController -> AnalysesController : remove_old_files
-    AnalysesController -> AnalysesController : check_absent_param
+    AnalysesController -> AnalysesController : check_schema
 
     create Analysis
     AnalysesController -> Analysis : new
@@ -16,8 +16,12 @@ activate AnalysisView
     activate Analysis
       create "Analysis::Result"
       Analysis -> "Analysis::Result" : new
+
+      create "Analysis::Parameter"
+      Analysis -> "Analysis::Parameter" : new
     deactivate Analysis
 
+    AnalysesController -> Analysis : save
     AnalysesController ->> AnalysisJob : perform_later
     activate AnalysisJob
 
@@ -31,6 +35,20 @@ deactivate AnalysisView
 autonumber resume
 AnalysisJob -> Analysis : find
 AnalysisJob -> Analysis : start!
+
+activate Analysis
+  Analysis -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    AnalysisView <<- ActionCable : メッセージ送信
+    Analysis <-- ActionCable
+  deactivate ActionCable
+
+  AnalysisJob <-- Analysis
+deactivate Analysis
+
+AnalysisJob -> AnalysisJob : dump_yaml
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> AnalysisJob : check_output
 AnalysisJob -> "Analysis::Result" : import!
@@ -51,6 +69,19 @@ activate "Analysis::Result"
 deactivate "Analysis::Result"
 
 AnalysisJob -> Analysis : update!
+
+activate Analysis
+  Analysis -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    AnalysisView <<- ActionCable : メッセージ送信
+    Analysis <-- ActionCable
+  deactivate ActionCable
+
+  AnalysisJob <-- Analysis
+deactivate Analysis
+
 AnalysisJob -> AnalysisJob : dump_yaml
 AnalysisJob -> AnalysisJob : create_zip
 AnalysisJob -> AnalysisJob : create_zip
@@ -65,4 +96,17 @@ deactivate AnalysisMailer
 
 autonumber resume
 AnalysisJob -> Analysis : complete!
+
+activate Analysis
+  Analysis -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    AnalysisView <<- ActionCable : メッセージ送信
+    Analysis <-- ActionCable
+  deactivate ActionCable
+
+  AnalysisJob <-- Analysis
+deactivate Analysis
+
 deactivate AnalysisJob
