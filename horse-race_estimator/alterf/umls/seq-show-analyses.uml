@@ -15,20 +15,8 @@ activate AnalysisView
     AnalysesController -> "Analysis::IndexForm" : to_query
     AnalysesController -> Analysis : where
   deactivate AnalysesController
-
-  loop 5秒間隔
-    AnalysisView -> AnalysesController : index
-
-    activate AnalysesController
-      AnalysesController -> Analysis : where
-
-      autonumber stop
-      AnalysisView <-- AnalysesController : 画面を更新
-    deactivate AnalysesController
-  end
 deactivate AnalysisView
 
-autonumber resume
 利用者 -> AnalysisView : 結果表示ボタン押下
 
 activate AnalysisView

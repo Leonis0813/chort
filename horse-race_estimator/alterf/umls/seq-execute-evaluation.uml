@@ -8,7 +8,7 @@ activate EvaluationView
 
   activate EvaluationsController
     EvaluationsController -> EvaluationsController : remove_old_files
-    EvaluationsController -> EvaluationsController : check_absent_param
+    EvaluationsController -> EvaluationsController : check_schema
     EvaluationsController -> EvaluationsController : check_invalid_param
 
     create Evaluation
@@ -33,6 +33,19 @@ deactivate EvaluationView
 autonumber resume
 EvaluationJob -> Evaluation : find
 EvaluationJob -> Evaluation : start!
+
+activate Evaluation
+  Evaluation -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    EvaluationView <<- ActionCable : メッセージ送信
+    Evaluation <-- ActionCable
+  deactivate ActionCable
+
+  EvaluationJob <-- Evaluation
+deactivate Evaluation
+
 EvaluationJob -> ModelUtil : unzip_model
 EvaluationJob -> Evaluation : set_analysis!
 
@@ -80,8 +93,33 @@ loop 評価データごとに繰り返し
       "Evaluation::Datum" -> "Prediction::Result" : create!
     end
   deactivate "Evaluation::Datum"
+
+  EvaluationJob -> Evaluation : calculate!
+
+  activate Evaluation
+    Evaluation -> ActionCable : bloadcast
+
+    activate ActionCable
+      autonumber stop
+      EvaluationView <<- ActionCable : メッセージ送信
+      Evaluation <-- ActionCable
+    deactivate ActionCable
+
+    EvaluationJob <-- Evaluation
+  deactivate Evaluation
 end
 
-EvaluationJob -> Evaluation : calculate!
 EvaluationJob -> Evaluation : complete!
+
+activate Evaluation
+  Evaluation -> ActionCable : bloadcast
+
+  activate ActionCable
+    autonumber stop
+    EvaluationView <<- ActionCable : メッセージ送信
+    Evaluation <-- ActionCable
+  deactivate ActionCable
+
+  EvaluationJob <-- Evaluation
+deactivate Evaluation
 deactivate EvaluationJob
