@@ -8,7 +8,7 @@ activate EvaluationView
 
   activate EvaluationsController
     EvaluationsController -> EvaluationsController : remove_old_files
-    EvaluationsController -> EvaluationsController : check_absent_param
+    EvaluationsController -> EvaluationsController : check_schema
     EvaluationsController -> EvaluationsController : check_invalid_param
 
     create Evaluation

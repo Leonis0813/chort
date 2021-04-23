@@ -8,7 +8,7 @@ activate PredictionView
 
   activate PredictionsController
     PredictionsController -> PredictionsController : remove_old_files
-    PredictionsController -> PredictionsController : check_absent_params
+    PredictionsController -> PredictionsController : check_schema
     PredictionsController -> PredictionsController : check_invalid_file_params
 
     create Prediction
@@ -97,7 +97,7 @@ activate Prediction
   end
 deactivate Prediction
 
-PredictionJob -> Prediction : update!
+PredictionJob -> Prediction : completed!
 
 activate Prediction
   Prediction -> ActionCable : bloadcast

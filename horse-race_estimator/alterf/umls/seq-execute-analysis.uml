@@ -16,8 +16,12 @@ activate AnalysisView
     activate Analysis
       create "Analysis::Result"
       Analysis -> "Analysis::Result" : new
+
+      create "Analysis::Parameter"
+      Analysis -> "Analysis::Parameter" : new
     deactivate Analysis
 
+    AnalysesController -> Analysis : save
     AnalysesController ->> AnalysisJob : perform_later
     activate AnalysisJob
 
@@ -44,6 +48,7 @@ activate Analysis
   AnalysisJob <-- Analysis
 deactivate Analysis
 
+AnalysisJob -> AnalysisJob : dump_yaml
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> AnalysisJob : check_output
 AnalysisJob -> "Analysis::Result" : import!

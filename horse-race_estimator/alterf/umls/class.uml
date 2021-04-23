@@ -110,7 +110,6 @@ class Analysis {
   - completed_at : Datetime
   + start!() : void
   + complete!() : void
-  - broadcast() : void
 }
 
 class "Analysis::Parameter" {
@@ -155,7 +154,10 @@ class Prediction {
   - performed_at : Datetime
   + set_analysis!() : void
   + import_results(result_file : String) : void
-  - broadcast() : void
+  + start!() : void
+  + completed!() : void
+  + failed!() : void
+  - broadcast(attribute : HashMap) : void
 }
 
 class PredictionResult {
@@ -178,16 +180,17 @@ class Evaluation {
   + set_analysis!() : void
   + fetch_data!() : ArrayList
   + calculate!() : void
+  + output_race_ids() : void
   + start!() : void
   + complete!() : void
-  - broadcast() : void
+  + failed!() : void
   - remote?() : Boolean
-  - set_default_num_data() : void
   - sample_race_ids() : ArrayList
   - true_positive() : Double
   - true_negative() : Double
   - false_positive() : Double
   - false_negative() : Double
+  - broadcast(attribute : HashMap) : void
 }
 
 class "Evaluation::Datum" {
@@ -196,7 +199,7 @@ class "Evaluation::Datum" {
   - race_url : String
   - ground_truth : Integer
   + import_prediction_results(result_file : String) : void
-  - broadcast() : void
+  - broadcast(attribute : HashMap) : void
 }
 
 class NetkeibaClient {
