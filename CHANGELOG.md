@@ -1,3 +1,6 @@
+# 2021/04/20
+- [Alterf] update version to 4.20.4
+
 # 2021/04/11
 - [Alterf] update version to 4.20.3
 
