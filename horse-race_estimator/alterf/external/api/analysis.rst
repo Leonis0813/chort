@@ -43,6 +43,7 @@
       {
         "analysis_id": "15f61ba31273e7c342dd0934f894f0a0",
         "performed_at": "2020-07-24T11:41:04.000Z",
+        "data_source": "random",
         "num_data": 100,
         "num_feature": 27,
         "num_entry": null,
