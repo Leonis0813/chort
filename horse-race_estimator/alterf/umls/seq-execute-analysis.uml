@@ -61,6 +61,7 @@ activate Analysis
   AnalysisJob <-- Analysis
 deactivate Analysis
 
+autonumber resume
 AnalysisJob -> AnalysisJob : dump_yaml
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> AnalysisJob : check_output
@@ -108,6 +109,7 @@ activate Analysis
   AnalysisJob <-- Analysis
 deactivate Analysis
 
+autonumber resume
 AnalysisJob -> AnalysisJob : dump_yaml
 AnalysisJob -> AnalysisJob : create_zip
 AnalysisJob -> AnalysisJob : create_zip
