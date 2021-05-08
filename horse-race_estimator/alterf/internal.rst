@@ -412,6 +412,7 @@ analysesテーブル
 
    id,INTEGER,内部ID,○
    analysis_id,STRING,分析ジョブのID,○
+   data_source,STRING,学習データの情報源,○
    num_data,INTEGER,学習データ数,○
    num_feature,INTEGER,特徴量の数,
    num_entry,INTEGER,エントリーの数,
@@ -442,6 +443,23 @@ analysis_parametersテーブル
    num_tree,INTEGER,決定木の数,○
    created_at,DATETIME,分析パラメーター情報の作成日時,○
    updated_at,DATETIME,分析パラメーター情報の更新日時,○
+
+.. _alt-int-sch-analysis_data:
+
+analysis_dataテーブル
+^^^^^^^^^^^^^^^^^^^^^
+
+分析時に使用する学習データを定義する
+
+.. csv-table::
+   :header: カラム,型,内容,NOT NULL
+   :widths: 15,10,30,15
+
+   id,INTEGER,内部ID,○
+   analysis_id,INTEGER,analysesテーブルの内部ID,○
+   race_id,STRING,分析に使用したレースのID,○
+   created_at,DATETIME,分析データ情報の作成日時,○
+   updated_at,DATETIME,分析データ情報の更新日時,○
 
 .. _alt-int-sch-analysis_results:
 
