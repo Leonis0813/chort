@@ -23,12 +23,15 @@ activate AnalysisView
     deactivate Analysis
 
     opt 指定方法でファイルを指定した場合
-      AnalysesController -> Analysis : build_data
+      AnalysesController -> File : read
+      AnalysesController -> "Denebola::Race" : where
 
-      activate Analysis
-        Analysis -> "Denebola::Race" : where
-        Analysis -> "Analysis::Datum" : new
-      deactivate Analysis
+      loop 読み込んだレースIDごとに繰り返し
+        activate Analysis
+          create "Analysis::Datum"
+          Analysis -> "Analysis::Datum" : new
+        deactivate Analysis
+      end
     end
 
     AnalysesController -> Analysis : save
@@ -66,9 +69,9 @@ opt 指定方法でランダムを選択した場合
   AnalysisJob -> Analysis : import_data!
 
   activate Analysis
-    Analysis -> YAML : load_file
+    Analysis -> File : read
 
-    loop 学習データごとに繰り返し
+    loop 読み込んだレースIDごとに繰り返し
       Analysis -> "Analysis::Datum" : create!
     end
   deactivate Analysis
