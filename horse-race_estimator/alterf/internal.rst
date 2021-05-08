@@ -390,6 +390,7 @@ MVCモデルを利用する
 
 - :ref:`alt-int-sch-analyses`
 - :ref:`alt-int-sch-analysis_parameters`
+- :ref:`alt-int-sch-analysis_data`
 - :ref:`alt-int-sch-analysis_results`
 - :ref:`alt-int-sch-analysis_result_importances`
 - :ref:`alt-int-sch-analysis_result_decision_trees`
