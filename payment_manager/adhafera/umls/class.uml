@@ -11,16 +11,18 @@ class IndexActivity {
   - {static} LOADER_ID : int = 0
   + searchPayments(query : HashMap) : void
   + getCategories() : void
+  + getTags() : void
 }
 
 class CreateView {
   + {static} INPUT_VIEW_DATE : int = 0
   - {static} INPUT_VIEW_CONTENT : int = 1
   - {static} INPUT_VIEW_CATEGORY : int = 2
-  + {static} INPUT_VIEW_PRICE : int = 3
-  - {static} INPUT_VIEW_SIZE : int = 4
+  - {static} INPUT_VIEW_CATEGORY : int = 3
+  + {static} INPUT_VIEW_PRICE : int = 4
+  - {static} INPUT_VIEW_SIZE : int = 5
   - {static} INPUT_PAYMENT_TYPE : int = 4
-  - {static} INPUT_SIZE : int = 5
+  - {static} INPUT_SIZE : int = 6
   - radioGroup : RadioGroup
   - OK : Button
   - cancel : Button
@@ -69,6 +71,15 @@ class create.CategoryView {
   + setCategories(names : String[]) : void
 }
 
+class create.TagView {
+  - tags : String[]
+  - fieldView : TextView
+  + TagView(context : Context, attributeSet : AttributeSet)
+  + setInputText(text : String) : void
+  + getInputText() : String
+  + setTags(names : String[]) : void
+}
+
 class create.PriceView {
   - fieldView : EditText
   + PriceView(context : Context, attributeSet : AttributeSet)
@@ -88,6 +99,7 @@ class IndexView {
   + showMessage(message : String) : void
   + showWrongInput(field : String) : void
   + setCategories(names : String[]) : void
+  + setTags(names : String[]) : void
   + addPayments(payments : ArrayList) : void
   - fixListViewHeight(listView : ListView) : void
 }
@@ -121,6 +133,15 @@ class index.CategoryView {
   + getCategory() : String
 }
 
+class index.TagView {
+  - tags : String[]
+  - selected : boolean[]
+  - tag : TextView
+  + TagView(context : Context, attributeSet : AttributeSet)
+  + setTags(names : String[]) : void
+  + getTag() : String
+}
+
 class index.PriceView {
   - priceUpper : EditText
   - priceLower : EditText
@@ -141,11 +162,13 @@ class Payment {
   - date : Date
   - content : String
   - categories : String[]
+  - tags : String[]
   - price : Integer
-  + Payment(date : Date, content : Content, categories : String[], price : Integer, paymentType : String)
+  + Payment(date : Date, content : Content, categories : String[], tags : String[], price : Integer, paymentType : String)
   + getDate() : Date
   + getContent() : String
   + getCategories() : String[]
+  + getTags() : String[]
   + getPrice() : Integer
 }
 
@@ -186,13 +209,16 @@ MainActivity <-- InputView
 InputView <|-- DateView
 InputView <|-- create.ContentView
 InputView <|-- create.CategoryView
+InputView <|-- create.TagView
 InputView <|-- create.PriceView
 MainActivity <-- create.CategoryView
 IndexView "1" -- "1" PeriodView
 IndexView "1" -- "1" index.ContentView
 IndexView "1" -- "1" index.CategoryView
+IndexView "1" -- "1" index.TagView
 IndexView "1" -- "1" index.PriceView
 IndexActivity <-- index.CategoryView
+IndexActivity <-- index.TagView
 IndexView "1" -- "1" PaymentListAdapter
 IndexView "1" -- "*" Payment
 PaymentListAdapter "1" -- "*" Payment
