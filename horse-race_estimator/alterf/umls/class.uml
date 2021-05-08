@@ -29,6 +29,7 @@ class AnalysesController {
   + index(request : Object) : Object
   + execute(request : Object) : Object
   + show(request : Object) : Object
+  + rebuild(request : Object) : Object
   + download(request : Object) : Object
   - check_request_analysis() : void
   - request_analysis() : Analysis
