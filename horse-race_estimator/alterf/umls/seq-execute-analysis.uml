@@ -9,6 +9,7 @@ activate AnalysisView
   activate AnalysesController
     AnalysesController -> AnalysesController : remove_old_files
     AnalysesController -> AnalysesController : check_schema
+    AnalysesController -> AnalysesController : check_invalid_file
 
     create Analysis
     AnalysesController -> Analysis : new
@@ -20,6 +21,18 @@ activate AnalysisView
       create "Analysis::Parameter"
       Analysis -> "Analysis::Parameter" : new
     deactivate Analysis
+
+    opt 指定方法でファイルを指定した場合
+      AnalysesController -> File : read
+      AnalysesController -> "Denebola::Race" : where
+
+      loop 読み込んだレースIDごとに繰り返し
+        activate Analysis
+          create "Analysis::Datum"
+          Analysis -> "Analysis::Datum" : new
+        deactivate Analysis
+      end
+    end
 
     AnalysesController -> Analysis : save
     AnalysesController ->> AnalysisJob : perform_later
@@ -48,9 +61,23 @@ activate Analysis
   AnalysisJob <-- Analysis
 deactivate Analysis
 
+autonumber resume
 AnalysisJob -> AnalysisJob : dump_yaml
 AnalysisJob -> AnalysisJob : execute_script
 AnalysisJob -> AnalysisJob : check_output
+
+opt 指定方法でランダムを選択した場合
+  AnalysisJob -> Analysis : import_data!
+
+  activate Analysis
+    Analysis -> File : read
+
+    loop 読み込んだレースIDごとに繰り返し
+      Analysis -> "Analysis::Datum" : create!
+    end
+  deactivate Analysis
+end
+
 AnalysisJob -> "Analysis::Result" : import!
 
 activate "Analysis::Result"
@@ -82,6 +109,7 @@ activate Analysis
   AnalysisJob <-- Analysis
 deactivate Analysis
 
+autonumber resume
 AnalysisJob -> AnalysisJob : dump_yaml
 AnalysisJob -> AnalysisJob : create_zip
 AnalysisJob -> AnalysisJob : create_zip

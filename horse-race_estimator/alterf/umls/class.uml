@@ -29,6 +29,7 @@ class AnalysesController {
   + index(request : Object) : Object
   + execute(request : Object) : Object
   + show(request : Object) : Object
+  + rebuild(request : Object) : Object
   + download(request : Object) : Object
   - check_request_analysis() : void
   - request_analysis() : Analysis
@@ -102,6 +103,7 @@ class "Analysis::IndexForm" {
 
 class Analysis {
   - analysis_id : String
+  - data_source : String
   - num_data : Integer
   - num_feature : Integer
   - num_entry : Integer
@@ -119,6 +121,10 @@ class "Analysis::Parameter" {
   - min_samples_leaf : Integer
   - min_samples_split : Integer
   - num_tree : Integer
+}
+
+class "Analysis::Datum" {
+  - race_id : String
 }
 
 class "Analysis::Result" {
@@ -252,6 +258,7 @@ AnalysisJob --> Analysis
 AnalysisJob --> AnalysisMailer
 Analysis --> AnalysisChannel
 Analysis "1" -- "1" Analysis::Parameter
+Analysis "1" -- "1 .. *" Analysis::Datum
 Analysis "1" -- "1" Analysis::Result
 Analysis::Result "1" -- "0 .. *" Analysis::Result::Importance
 Analysis::Result "1" -- "0 .. *" Analysis::Result::DecisionTree
@@ -278,10 +285,10 @@ EvaluationJob --> FeatureUtil
 EvaluationJob ..> ModelUtil : <<include>>
 EvaluationJob --> Evaluation
 Evaluation --> EvaluationChannel
-Evaluation "1" -- "1 .. *" "Evaluation::Datum"
+Evaluation "1" -- "1 .. *" Evaluation::Datum
 Evaluation ..> ModelUtil : <<include>>
-"Evaluation::Datum" --> "Evaluation::DatumChannel"
-"Evaluation::Datum" "1" -- "*" PredictionResult
+Evaluation::Datum --> Evaluation::DatumChannel
+Evaluation::Datum "1" -- "*" PredictionResult
 
 EvaluationResultView -- EvaluationsController
 
